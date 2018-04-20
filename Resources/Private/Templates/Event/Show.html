@@ -1,0 +1,55 @@
+<cart:titleTag>
+    <f:format.htmlentitiesDecode>{event.title}</f:format.htmlentitiesDecode>
+</cart:titleTag>
+
+<f:if condition="{event.metaDescription}">
+    <f:then>
+        <cart:metaTag name="description" content="{event.metaDescription -> f:format.stripTags() -> f:format.crop(maxCharacters: '150')}" />
+    </f:then>
+    <f:else>
+        <cart:metaTag name="description" content="{event.description -> f:format.stripTags() -> f:format.crop(maxCharacters: '150')}" />
+    </f:else>
+</f:if>
+
+<script type="application/ld+json">
+<cartevents:schema event="{event}" />
+</script>
+
+<div class="event-wrapper">
+    <div class="event-title"><h1>{event.title}</h1></div>
+    <div class="event-description">
+        <f:format.html>{event.description}</f:format.html>
+    </div>
+</div>
+
+<f:if condition="{event.slots}">
+    <div class="event-slot-list">
+        <f:for each="{event.slots}" as="slot">
+            <div class="event-slot" data-uid="slot-{slot.uid}">
+                {slot.title}
+
+                <f:if condition="{slot.handleSeats}">
+                    <div>
+                        <f:render partial="Event/Seats" arguments="{slot: slot}" />
+                    </div>
+                </f:if>
+
+                <f:for each="{slot.dates}" as="date">
+                    <div class="date" data-uid="date-{date.uid}">
+                        <f:format.date date="{date.begin}" format="d.m.Y H:i" /> - <f:format.date date="{date.end}" format="d.m.Y H:i" />
+                    </div>
+                </f:for>
+
+                <div>
+                    <f:render partial="Event/Price" arguments="{slot: slot}" />
+                </div>
+
+                <f:if condition="bookable">
+                    <div>
+                        <f:render partial="Event/CartForm" arguments="{slot: slot}" />
+                    </div>
+                </f:if>
+            </div>
+        </f:for>
+    </div>
+</f:if>

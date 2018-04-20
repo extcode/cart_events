@@ -1,0 +1,29 @@
+<div class="cart_form">
+    <div class="form-message"></div>
+
+    <f:form id="add-event-form"
+            controller="Cart"
+            action="add"
+            method="post"
+            pageType="{f:if(condition:'{settings.addToCartByAjax}', then:'2278001', else:'')}"
+            additionalAttributes="{data-remote: '{settings.addToCartByAjax}'}">
+        <f:if condition="{settings.addToCartByAjax}'}">
+            <input type="hidden" value="{pid}" name="tx_cartevents_events[pid]">
+        </f:if>
+        <input class="form-control" type="hidden" value="{slot.event.uid}" name="tx_cartevents_events[event]">
+        <input class="form-control" type="hidden" value="{slot.uid}" name="tx_cartevents_events[slot]">
+        <input class="form-control" type="text" value="1" name="tx_cartevents_events[quantity]">
+        <input type="submit" class="btn btn-default" value="<f:translate key='tx_cartevents.plugin.form.submit' />">
+    </f:form>
+
+    <div class="form-success" style="display: none;">
+        <div class="alert alert-success" >
+            <f:translate key="tx_cartevents.plugin.form.submit.success"/>
+        </div>
+    </div>
+    <div class="form-error" style="display: none;">
+        <div class="alert alert-warning">
+            <f:translate key="tx_cartevents.plugin.form.submit.error"/>
+        </div>
+    </div>
+</div>

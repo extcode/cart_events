@@ -1,0 +1,311 @@
+<?php
+
+defined('TYPO3_MODE') or die();
+
+$_LLL_general = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
+$_LLL = 'LLL:' . 'EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+
+return [
+    'ctrl' => [
+        'title' => $_LLL . ':tx_cartevents_domain_model_slot',
+        'label' => 'sku',
+        'label_alt' => 'title',
+        'label_alt_force' => 1,
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => true,
+
+        'sortby' => 'sorting',
+
+        'versioningWS' => 2,
+        'versioning_followPages' => true,
+
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l10n_parent',
+        'transOrigDiffSourceField' => 'l10n_diffsource',
+
+        'hideTable' => true,
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden',
+            'starttime' => 'starttime',
+            'endtime' => 'endtime',
+        ],
+        'requestUpdate' => 'bookable,handle_seats',
+        'searchFields' => 'sku,title,',
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/Slot.svg'
+    ],
+    'interface' => [
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, dates, price, special_prices, handle_seats, seats_number, seats_taken',
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => '
+                sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
+                sku, title,
+                --div--;' . $_LLL . ':tx_cartevents_domain_model_slot.div.informations,
+                    location;;;richtext:rte_transform[mode=ts_links], lecturer;;;richtext:rte_transform[mode=ts_links],
+                --div--;' . $_LLL . ':tx_cartevents_domain_model_slot.div.dates,
+                    dates,
+                --div--;' . $_LLL . ':tx_cartevents_domain_model_slot.div.order,
+                    bookable, price, special_prices, --linebreak--, handle_seats, seats_number, seats_taken,
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                    --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;hiddenonly,
+                    --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access,
+            '
+        ],
+    ],
+    'palettes' => [
+        '1' => [
+            'showitem' => ''
+        ],
+        'hiddenonly' => [
+            'showitem' => 'hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden_formlabel',
+        ],
+        'access' => [
+            'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
+        ],
+    ],
+    'columns' => [
+
+        'sys_language_uid' => [
+            'exclude' => 1,
+            'label' => $_LLL_general . ':LGL.language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'sys_language',
+                'foreign_table_where' => 'ORDER BY sys_language.title',
+                'items' => [
+                    [$_LLL_general . ':LGL.allLanguages', -1],
+                    [$_LLL_general . ':LGL.default_value', 0]
+                ],
+            ],
+        ],
+        'l10n_parent' => [
+            'displayCond' => 'FIELD:sys_language_uid:>:0',
+            'exclude' => 1,
+            'label' => $_LLL_general . ':LGL.l18n_parent',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', 0],
+                ],
+                'foreign_table' => 'tx_cartevents_domain_model_slot',
+                'foreign_table_where' => 'AND tx_cartevents_domain_model_slot.pid=###CURRENT_PID### AND tx_cartevents_domain_model_slot.sys_language_uid IN (-1,0)',
+            ],
+        ],
+        'l10n_diffsource' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        't3ver_label' => [
+            'label' => $_LLL_general . ':LGL.versionLabel',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'max' => 255,
+            ]
+        ],
+        'hidden' => [
+            'exclude' => 1,
+            'label' => $_LLL_general . ':LGL.hidden',
+            'config' => [
+                'type' => 'check',
+                'items' => [
+                    '1' => [
+                        '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
+                    ]
+                ]
+            ],
+        ],
+        'starttime' => [
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => $_LLL_general . ':LGL.starttime',
+            'config' => [
+                'type' => 'input',
+                'size' => 13,
+                'max' => 20,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                ],
+            ],
+        ],
+        'endtime' => [
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => 'LLL' . ':EXT:lang/locallang_general.xlf:LGL.endtime',
+            'config' => [
+                'type' => 'input',
+                'size' => 13,
+                'max' => 20,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                ],
+            ],
+        ],
+
+        'sku' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.sku',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,trim'
+            ],
+        ],
+
+        'title' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.title',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,trim'
+            ],
+        ],
+
+        'event' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+
+        'location' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.location',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim'
+            ],
+            'defaultExtras' => 'richtext[]'
+        ],
+
+        'lecturer' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.lecturer',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim'
+            ],
+            'defaultExtras' => 'richtext[]'
+        ],
+
+        'dates' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.dates',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_cartevents_domain_model_date',
+                'foreign_field' => 'slot',
+                'foreign_table_where' => ' AND tx_cartevents_domain_model_date.pid=###CURRENT_PID### ',
+                'foreign_default_sortby' => 'begin',
+                'maxitems' => 9999,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+            ],
+        ],
+
+        'bookable' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.bookable',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+
+        'price' => [
+            'exclude' => 1,
+            'displayCond' => 'FIELD:bookable:REQ:TRUE',
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.price',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,double2',
+                'default' => '0.00',
+            ]
+        ],
+
+        'special_prices' => [
+            'exclude' => 1,
+            'displayCond' => 'FIELD:bookable:REQ:TRUE',
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.special_prices',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_cartevents_domain_model_specialprice',
+                'foreign_field' => 'event_slot',
+                'foreign_table_where' => ' AND tx_cartevents_domain_model_specialprice.pid=###CURRENT_PID### ',
+                'foreign_default_sortby' => 'price',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+            ],
+        ],
+
+        'handle_seats' => [
+            'exclude' => 1,
+            'displayCond' => 'FIELD:bookable:REQ:TRUE',
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.handle_seats',
+            'config' => [
+                'type' => 'check',
+                'default' => true,
+            ],
+        ],
+
+        'seats_number' => [
+            'exclude' => 1,
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:bookable:REQ:TRUE',
+                    'FIELD:handle_seats:REQ:TRUE',
+                ]
+            ],
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.seats_number',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'int'
+            ]
+        ],
+
+        'seats_taken' => [
+            'exclude' => 1,
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:bookable:REQ:TRUE',
+                    'FIELD:handle_seats:REQ:TRUE',
+                ]
+            ],
+            'label' => $_LLL . ':tx_cartevents_domain_model_slot.seats_taken',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'int'
+            ]
+        ],
+    ],
+];

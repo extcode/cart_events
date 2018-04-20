@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-03-12T09:30:00Z" product-name="cart_events">
+        <header/>
+        <body>
+            <trans-unit id="hidden_formlabel">
+                <source>disable</source>
+            </trans-unit>
+            
+            <trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.slots">
+                <source>Slots</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.tags_categories">
+                <source>Tags and Categories</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.div.informations">
+                <source>Informations</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.div.dates">
+                <source>Dates</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.div.order">
+                <source>Order</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_event">
+                <source>Event</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.sku">
+                <source>Event number</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.teaser">
+                <source>Teaser</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.meta_description">
+                <source>Meta description</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.audience">
+                <source>Audience</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.slots">
+                <source>Slots</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.category">
+                <source>Main Category</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.categories">
+                <source>Associated Categories</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.tags">
+                <source>Tags</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_slot">
+                <source>Slot</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.sku">
+                <source>Slot number</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.location">
+                <source>Location</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.lecturer">
+                <source>Lecturer</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.dates">
+                <source>Dates</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.bookable">
+                <source>bookable?</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.price">
+                <source>Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.special_prices">
+                <source>Special Prices</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.handle_seats">
+                <source>Handle number of seats</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.seats_number">
+                <source>Number of Seats</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.seats_taken">
+                <source>Number of Seats (taken)</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_specialprice">
+                <source>Special Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_specialprice.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_specialprice.frontend_user_group">
+                <source>Website Usergroup</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_specialprice.price">
+                <source>Price</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_date">
+                <source>Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_date.begin">
+                <source>Begin</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_date.end">
+                <source>End</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_date.note">
+                <source>Note</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_category.cart_event_list_pid">
+                <source>CartEvents: Page where Events of this category are listed.</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_category.cart_event_show_pid">
+                <source>CartEvents: Page where Events of this category are shown.</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

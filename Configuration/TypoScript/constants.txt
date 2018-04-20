@@ -1,0 +1,16 @@
+plugin.tx_cartevents {
+    view {
+        templateRootPath = EXT:cart_events/Resources/Private/Templates/
+        partialRootPath = EXT:cart_events/Resources/Private/Partials/
+        layoutRootPath = EXT:cart_events/Resources/Private/Layouts/
+    }
+
+    persistence {
+        storagePid =
+    }
+
+    productStorage {
+        id = 2
+        class = Extcode\CartEvents\Domain\Repository\SlotRepository
+    }
+}

@@ -1,0 +1,168 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Optionen</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <switchableControllerActions>
+                        <TCEforms>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.switch</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list_and_show</numIndex>
+                                        <numIndex index="1">Event->show;Event->list;Cart->add</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.show</numIndex>
+                                        <numIndex index="1">Event->show;Cart->add</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser</numIndex>
+                                        <numIndex index="1">Event->teaser</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>Event->show;Event->list;Cart->add</default>
+                            </config>
+                        </TCEforms>
+                    </switchableControllerActions>
+
+                    <!-- order -->
+                    <settings.orderBy>
+                        <TCEforms>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.tstamp</numIndex>
+                                        <numIndex index="1">tstamp</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.sorting</numIndex>
+                                        <numIndex index="1">sorting</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.crdate</numIndex>
+                                        <numIndex index="1">crdate</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.title</numIndex>
+                                        <numIndex index="1">title</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.orderBy>
+
+                    <!-- order direction  -->
+                    <settings.orderDirection>
+                        <TCEforms>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderDirection</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderDirection.asc</numIndex>
+                                        <numIndex index="1">asc</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderDirection.desc</numIndex>
+                                        <numIndex index="1">desc</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.orderDirection>
+
+                    <settings.showPageUids>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.select.single_pid</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>0</minitems>
+                                <show_thumbs>1</show_thumbs>
+                                <wizards>
+                                    <suggest>
+                                        <type>suggest</type>
+                                    </suggest>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </settings.showPageUids>
+
+                    <settings.eventUids>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser.select.events</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->teaser</displayCond>
+                            <config>
+                                <type>select</type>
+                                <foreign_table>tx_cartevents_domain_model_event</foreign_table>
+                                <size>3</size>
+                                <minitems>1</minitems>
+                                <maxitems>99</maxitems>
+                            </config>
+                        </TCEforms>
+                    </settings.eventUids>
+
+                    <settings.categoriesList>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.categories</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <config>
+                                <type>select</type>
+                                <autoSizeMax>20</autoSizeMax>
+                                <foreign_table>sys_category</foreign_table>
+                                <foreign_table_where>AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.title ASC
+                                </foreign_table_where>
+                                <maxitems>99</maxitems>
+                                <renderMode>tree</renderMode>
+                                <size>10</size>
+                                <treeConfig>
+                                    <appearance>
+                                        <expandAll>1</expandAll>
+                                        <showHeader>1</showHeader>
+                                    </appearance>
+                                    <parentField>parent</parentField>
+                                </treeConfig>
+                            </config>
+                        </TCEforms>
+                    </settings.categoriesList>
+
+                    <settings.listSubcategories>
+                        <TCEforms>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.subcategories</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.listSubcategories>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

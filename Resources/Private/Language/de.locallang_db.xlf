@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-03-12T09:30:00Z" product-name="cart_events">
+        <header/>
+        <body>
+            <trans-unit id="hidden_formlabel">
+                <source>disable</source>
+                <target>deaktivieren</target>
+            </trans-unit>
+            
+            <trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
+                <source>Description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.slots">
+                <source>Slots</source>
+                <target>Slots</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.tags_categories">
+                <source>Tags and Categories</source>
+                <target>Tags und Kategorien</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.div.informations">
+                <source>Informations</source>
+                <target>Informationen</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.div.dates">
+                <source>Dates</source>
+                <target>Termine</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.div.order">
+                <source>Order</source>
+                <target>Buchung</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_event">
+                <source>Event</source>
+                <target>Veranstaltung</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.sku">
+                <source>Event number</source>
+                <target>Veranstaltungsnummer</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.teaser">
+                <source>Teaser</source>
+                <target>Kurzbeschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.description">
+                <source>Description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.meta_description">
+                <source>Meta description</source>
+                <target>Metabeschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.audience">
+                <source>Audience</source>
+                <target>Publikum</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.slots">
+                <source>Slots</source>
+                <target>Slots</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.category">
+                <source>Main Category</source>
+                <target>Hauptkategorie</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.categories">
+                <source>Associated Categories</source>
+                <target>Assoziierte Kategorien</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.tags">
+                <source>Tags</source>
+                <target>Tags</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_slot">
+                <source>Slot</source>
+                <target>Slot</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.sku">
+                <source>Slot number</source>
+                <target>Slotnummer</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.location">
+                <source>Location</source>
+                <target>Veranstaltungsort</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.lecturer">
+                <source>Lecturer</source>
+                <target>Dozent</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.dates">
+                <source>Dates</source>
+                <target>Termine</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.bookable">
+                <source>bookable?</source>
+                <target>buchbar?</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.price">
+                <source>Price</source>
+                <target>Preis</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.special_prices">
+                <source>Special Prices</source>
+                <target>Spezialpreise</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.handle_seats">
+                <source>Handle number of seats</source>
+                <target>Anzahl der Plätze verwalten</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.seats_number">
+                <source>Number of Seats</source>
+                <target>Anzahl der Plätze</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.seats_taken">
+                <source>Number of Seats (taken)</source>
+                <target>Anzahl der Plätze (gebucht)</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_date">
+                <source>Date</source>
+                <target>Termin</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_date.begin">
+                <source>Begin</source>
+                <target>Beginn</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_date.end">
+                <source>End</source>
+                <target>Ende</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_date.note">
+                <source>Note</source>
+                <target>Notiz</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_category.cart_event_list_pid">
+                <source>CartEvents: Page where Events of this category are listed.</source>
+                <target>CartEvents: Seite auf der Veranstaltungen dieser Kategorie aufgelistet werden.</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_category.cart_event_show_pid">
+                <source>CartEvents: Page where Events of this category are shown.</source>
+                <target>CartEvents: Seite auf der Veranstaltungen dieser Kategorie angezeigt werden.</target>
+            </trans-unit>
+            
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,11 @@
+<f:layout name="Default"/>
+
+<f:section name="main">
+    <f:if condition="{cartSettings.cart.pid}">
+        <f:render partial="Event/CartForm" arguments="{slot: slot, pid: cartSettings.cart.pid}"/>
+    </f:if>
+
+    <div id="product-price">
+        <f:render partial="Event/Price" arguments="{slot: slot, settings: settings, currencyTranslationData:currencyTranslationData}"></f:render>
+    </div>
+</f:section>

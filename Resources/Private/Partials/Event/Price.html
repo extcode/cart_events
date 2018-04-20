@@ -1,0 +1,11 @@
+<f:if condition="{slot.bestSpecialPrice} < {slot.price}">
+    <f:then>
+        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.bestSpecialPrice}</cart:format.currency>
+        <strike>
+            <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.price}</cart:format.currency>
+        </strike>
+    </f:then>
+    <f:else>
+        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.price}</cart:format.currency>
+    </f:else>
+</f:if>

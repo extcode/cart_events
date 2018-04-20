@@ -1,0 +1,64 @@
+plugin.tx_cartevents {
+    view {
+        templateRootPaths {
+            0 = {$plugin.tx_cartevents.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = {$plugin.tx_cartevents.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = {$plugin.tx_cartevents.view.layoutRootPath}
+        }
+    }
+
+    persistence {
+        storagePid = {$plugin.tx_cartevents.persistence.storagePid}
+        recursive = {$plugin.tx_cartevents.persistence.recursive}
+    }
+
+    settings.format.currency < plugin.tx_cart.settings.format.currency
+
+    features {
+        skipDefaultArguments = 1
+    }
+
+    persistence {
+        classes {
+            Extcode\CartEvents\Domain\Model\Category {
+                mapping {
+                    tableName = sys_category
+                }
+            }
+        }
+    }
+
+    productStorage {
+        id = {$plugin.tx_cartevents.productStorage.id}
+        class = {$plugin.tx_cartevents.productStorage.class}
+    }
+}
+
+plugin.tx_cart {
+    productStorages {
+        {$plugin.tx_cartevents.productStorage.id} {
+            class = {$plugin.tx_cartevents.productStorage.class}
+        }
+    }
+}
+
+lib.cartEvents = COA
+lib.cartEvents.showForm = USER
+lib.cartEvents.showForm {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    vendorName = Extcode
+    extensionName = CartEvents
+    pluginName = EventPartial
+
+    controller = Event
+    action = showForm
+
+    settings =< plugin.tx_cartevents.settings
+    persistence =< plugin.tx_cartevents.persistence
+    view =< plugin.tx_cartevents.view
+    update =< plugin.tx_cartevents.update
+}

@@ -1,0 +1,13 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+	elements {
+		events {
+			iconIdentifier = ext-cartevents-wizard-icon
+			title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.title
+			description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.description
+			tt_content_defValues {
+				CType = list
+				list_type = cartevents_events
+			}
+		}
+	}
+}
