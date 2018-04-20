@@ -70,16 +70,14 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->cartSettings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'Cart'
+            'CartEvents'
         );
 
         if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
             static $cacheTagsSet = false;
 
-            /** @var $typoScriptFrontendController \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController */
-            $typoScriptFrontendController = $GLOBALS['TSFE'];
             if (!$cacheTagsSet) {
-                $typoScriptFrontendController->addCacheTags(['tx_cartevents']);
+                $GLOBALS['TSFE']->addCacheTags(['tx_cartevents']);
                 $cacheTagsSet = true;
             }
         }
@@ -93,7 +91,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (!$this->settings) {
             $this->settings = [];
         }
-        $demand = $this->createDemandObjectFromSettings($this->settings);
+        $demand = $this->createDemandObjectFromSettings('list', $this->settings);
         $demand->setActionAndClass(__METHOD__, __CLASS__);
 
         $events = $this->eventRepository->findDemanded($demand);
@@ -108,7 +106,12 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function teaserAction()
     {
-        $events = $this->eventRepository->findByUids($this->settings['eventUids']);
+        $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'CartEvents'
+        )['view']['list']['limit'];
+
+        $events = $this->eventRepository->findByUids($limit, $this->settings['eventUids']);
 
         $this->view->assign('events', $events);
 
@@ -136,55 +139,14 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * action showForm
-     *
-     * @param \Extcode\CartEvents\Domain\Model\Event $event
-     */
-    public function showFormAction(\Extcode\CartEvents\Domain\Model\Event $event = null)
-    {
-        if (!$event && $this->request->getPluginName()=='EventPartial') {
-            $requestBuilder =$this->objectManager->get(
-                \TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder::class
-            );
-            $configurationManager = $this->objectManager->get(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
-            );
-            $configurationManager->setConfiguration([
-                'vendorName' => 'Extcode',
-                'extensionName' => 'CartEvents',
-                'pluginName' => 'Events',
-            ]);
-            $requestBuilder->injectConfigurationManager($configurationManager);
-
-            /**
-             * @var \TYPO3\CMS\Extbase\Mvc\Web\Request $cartEventRequest
-             */
-            $cartEventRequest = $requestBuilder->build();
-
-            if ($cartEventRequest->hasArgument('event')) {
-                $productUid = $cartEventRequest->getArgument('event');
-            }
-
-            $eventRepository = $this->objectManager->get(
-                \Extcode\CartEvents\Domain\Repository\EventRepository::class
-            );
-
-            $event = $eventRepository->findByUid($productUid);
-        }
-        $this->view->assign('event', $event);
-        $this->view->assign('cartSettings', $this->cartSettings);
-
-        $this->assignCurrencyTranslationData();
-    }
-
-    /**
      * Create the demand object which define which records will get shown
      *
+     * @param string $type
      * @param array $settings
      *
      * @return EventDemand
      */
-    protected function createDemandObjectFromSettings(array $settings) : EventDemand
+    protected function createDemandObjectFromSettings(string $type, array $settings) : EventDemand
     {
         /** @var EventDemand $demand */
         $demand = $this->objectManager->get(
@@ -193,6 +155,36 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         if ($settings['orderBy']) {
             $demand->setOrder($settings['orderBy'] . ' ' . $settings['orderDirection']);
+        }
+
+        $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'CartEvents'
+        )['view'][$type]['limit'];
+
+        $demand->setLimit($limit);
+
+        $order = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'CartEvents'
+        )['view'][$type]['order'];
+
+        if ($order) {
+            $demand->setOrder($order);
+        }
+
+        $orderBy =  $this->settings['orderBy'] ?: $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'CartEvents'
+        )['view'][$type]['orderBy'];
+
+        $orderDirection = $this->settings['orderDirection'] ?: $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'CartEvents'
+        )['view'][$type]['orderDirection'];
+
+        if ($orderBy && $orderDirection) {
+            $demand->setOrder($orderBy . ' ' . $orderDirection);
         }
 
         $this->addCategoriesToDemandObjectFromSettings($demand);
@@ -260,11 +252,13 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function addCacheTags($events)
     {
-        foreach ($events as $event) {
-            $cacheTags[] = 'tx_cartevents_event_' . $event->getUid();
-        }
-        if (count($cacheTags) > 0) {
-            $GLOBALS['TSFE']->addCacheTags($cacheTags);
+        if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
+            foreach ($events as $event) {
+                $cacheTags[] = 'tx_cartevents_event_' . $event->getUid();
+            }
+            if (count($cacheTags) > 0) {
+                $GLOBALS['TSFE']->addCacheTags($cacheTags);
+            }
         }
     }
 }

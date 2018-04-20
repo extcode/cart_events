@@ -27,6 +27,24 @@
                             </config>
                         </TCEforms>
                     </settings.showPageUids>
+                    <settings.limit>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.slots.controller.slot.action.list.limit</label>
+                            <config>
+                                <type>input</type>
+                                <size>3</size>
+                                <max>3</max>
+                                <eval>int</eval>
+                                <checkbox>1</checkbox>
+                                <range>
+                                    <lower>0</lower>
+                                    <upper>100</upper>
+                                </range>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.limit>
                 </el>
             </ROOT>
         </sDEF>

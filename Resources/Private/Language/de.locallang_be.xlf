@@ -92,6 +92,10 @@
 				<source>Descending</source>
 				<target>Absteigend</target>
 			</trans-unit>
+			<trans-unit id="tx_cartevents.plugin.events.action.event.list.limit">
+				<source>Number of records to display</source>
+				<target>Anzahl der anzuzeigenden Datensätze</target>
+			</trans-unit>
 			<trans-unit id="tx_cartevents.plugin.events.action.event.list.categories">
 				<source>Categories</source>
 				<target>Kategorie</target>
@@ -112,6 +116,10 @@
 			<trans-unit id="tx_cartevents.plugin.slots.controller.slot.action.list.select.single_pid">
 				<source>Event Detail Page</source>
 				<target>Veranstaltungsdetailseite</target>
+			</trans-unit>
+			<trans-unit id="tx_cartevents.plugin.slots.controller.slot.action.list.limit">
+				<source>Number of records to display</source>
+				<target>Anzahl der anzuzeigenden Datensätze</target>
 			</trans-unit>
 
 			<trans-unit id="pages.doktype.185">

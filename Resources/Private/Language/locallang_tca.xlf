@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-04-24T14:30:00Z" product-name="cart_events">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_cartevents_domain_model_event.div.categorization">
+				<source>Categorization</source>
+			</trans-unit>
+			<trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_cartevents_domain_model_event.div.slots">
+				<source>Slots</source>
+			</trans-unit>
+			<trans-unit id="tx_cartevents_domain_model_slot.div.informations">
+				<source>Informations</source>
+			</trans-unit>
+			<trans-unit id="tx_cartevents_domain_model_slot.div.dates">
+				<source>Dates</source>
+			</trans-unit>
+			<trans-unit id="tx_cartevents_domain_model_slot.div.order">
+				<source>Order</source>
+			</trans-unit>
+
+			<trans-unit id="palettes.visibility">
+				<source>Visibility</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

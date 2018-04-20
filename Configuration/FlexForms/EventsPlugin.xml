@@ -35,6 +35,7 @@
                     <!-- order -->
                     <settings.orderBy>
                         <TCEforms>
+                            <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy</label>
                             <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
                             <config>
@@ -68,6 +69,7 @@
                     <!-- order direction  -->
                     <settings.orderDirection>
                         <TCEforms>
+                            <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderDirection</label>
                             <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
                             <config>
@@ -89,6 +91,31 @@
                             </config>
                         </TCEforms>
                     </settings.orderDirection>
+
+                    <settings.limit>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.limit</label>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:Event->teaser</numIndex>
+                                </OR>
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>3</size>
+                                <max>3</max>
+                                <eval>int</eval>
+                                <checkbox>1</checkbox>
+                                <range>
+                                    <lower>0</lower>
+                                    <upper>100</upper>
+                                </range>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.limit>
 
                     <settings.showPageUids>
                         <TCEforms>

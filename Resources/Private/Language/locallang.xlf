@@ -3,9 +3,18 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2018-04-09T14:55:00Z" product-name="cart_events">
         <header/>
         <body>
+
             <trans-unit id="tx_cartevents.plugin.form.submit">
                 <source>Add to cart</source>
             </trans-unit>
+
+            <trans-unit id="tx_cartevents.error.event_is_not_bookable">
+                <source>Event is not bookable!</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents.error.not_enough_seets_available">
+                <source>Not enough Seats available!</source>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

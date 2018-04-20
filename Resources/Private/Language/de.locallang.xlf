@@ -3,10 +3,21 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-04-11T09:05:00Z" product-name="cart_events">
         <header/>
         <body>
+
             <trans-unit id="tx_cartevents.plugin.form.submit">
                 <source>Add to cart</source>
                 <target>in den Warenkorb</target>
             </trans-unit>
+
+            <trans-unit id="tx_cartevents.error.event_is_not_bookable">
+                <source>Event is not bookable!</source>
+                <target>Die Veranstaltung ist nicht buchbar!</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents.error.not_enough_seets_available">
+                <source>Not enough Seats available!</source>
+                <target>Nicht genügend freie Plätze verfügbar!</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

@@ -9,7 +9,12 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class SlotRepository extends Repository
 {
-    public function findNext()
+    /**
+     * @param int $limit
+     *
+     * @return \Doctrine\DBAL\Driver\Statement|int
+     */
+    public function findNext(int $limit)
     {
         $table = 'tx_cartevents_domain_model_slot';
         $joinTableDate = 'tx_cartevents_domain_model_date';
@@ -46,10 +51,15 @@ class SlotRepository extends Repository
 
         $this->joinCategory($queryBuilder);
 
-        $data = $queryBuilder
+        $queryBuilder
             ->orderBy('begin')
-            ->groupBy('event')
-            ->execute();
+            ->groupBy('event');
+
+        if ($limit) {
+            $queryBuilder->setMaxResults($limit);
+        }
+
+        $data = $queryBuilder->execute();
 
         return $data;
     }

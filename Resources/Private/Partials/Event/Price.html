@@ -1,3 +1,7 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:if condition="{slot.bestSpecialPrice} < {slot.price}">
     <f:then>
         <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.bestSpecialPrice}</cart:format.currency>
@@ -9,3 +13,4 @@
         <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.price}</cart:format.currency>
     </f:else>
 </f:if>
+</html>

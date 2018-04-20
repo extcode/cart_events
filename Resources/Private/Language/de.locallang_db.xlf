@@ -3,35 +3,6 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2018-03-12T09:30:00Z" product-name="cart_events">
         <header/>
         <body>
-            <trans-unit id="hidden_formlabel">
-                <source>disable</source>
-                <target>deaktivieren</target>
-            </trans-unit>
-            
-            <trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
-                <source>Description</source>
-                <target>Beschreibung</target>
-            </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_event.div.slots">
-                <source>Slots</source>
-                <target>Slots</target>
-            </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_event.div.tags_categories">
-                <source>Tags and Categories</source>
-                <target>Tags und Kategorien</target>
-            </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.div.informations">
-                <source>Informations</source>
-                <target>Informationen</target>
-            </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.div.dates">
-                <source>Dates</source>
-                <target>Termine</target>
-            </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.div.order">
-                <source>Order</source>
-                <target>Buchung</target>
-            </trans-unit>
 
             <trans-unit id="tx_cartevents_domain_model_event">
                 <source>Event</source>

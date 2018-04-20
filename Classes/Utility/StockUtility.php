@@ -2,6 +2,9 @@
 
 namespace Extcode\CartEvents\Utility;
 
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Stock Utility
  *
@@ -50,15 +53,30 @@ class StockUtility
                 $this->config['productStorage']['class']
             );
 
-            $product = $repository->findByUid($cartProduct->getProductId());
+            $cartProductId = $cartProduct->getProductId();
+            $product = $repository->findByUid($cartProductId);
 
             if ($product && $product->isHandleSeats()) {
                 $product->setSeatsTaken($product->getSeatsTaken() + $cartProduct->getQuantity());
+
+                $repository->update($product);
+
+                $this->persistenceManager->persistAll();
+
+                $this->flushCache($product->getEvent()->getUid());
             }
-
-            $repository->update($product);
-
-            $this->persistenceManager->persistAll();
         }
+    }
+
+    /**
+     * @param int $cartProductId
+     */
+    protected function flushCache(int $cartProductId)
+    {
+        $cacheTag = 'tx_cartevents_event_' . $cartProductId;
+
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+
+        $cacheManager->flushCachesInGroupByTag('pages', $cacheTag);
     }
 }

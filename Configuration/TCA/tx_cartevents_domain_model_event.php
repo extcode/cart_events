@@ -44,17 +44,17 @@ return [
             'showitem' => '
                 sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
                 sku, title,
-                --div--;' . $_LLL . ':tx_cartevents_domain_model_event.div.descriptions,
+                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.descriptions,
                     teaser;;;richtext:rte_transform[mode=ts_links],
                     description;;;richtext:rte_transform[mode=ts_links], audience;;;richtext:rte_transform[mode=ts_links],
                     meta_description,
-                --div--;' . $_LLL . ':tx_cartevents_domain_model_event.div.slots,
+                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.slots,
                     tax_class_id,
                     slots,
-                --div--;' . $_LLL . ':tx_cartevents_domain_model_event.div.tags_categories,
+                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.categorization,
                     tags, category, categories,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
-                    --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;hiddenonly,
+                    --palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access,
             '
         ],
@@ -64,7 +64,7 @@ return [
             'showitem' => ''
         ],
         'hiddenonly' => [
-            'showitem' => 'hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden_formlabel',
+            'showitem' => 'hidden;' . $_LLL . ':tx_cartevents_domain_model_event',
         ],
         'access' => [
             'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
@@ -258,7 +258,7 @@ return [
 
         'tags' => [
             'exclude' => 1,
-            'label' => $_LLL_cart . ':tx_cart_domain_model_tag',
+            'label' => $_LLL_cart . ':tx_cart_domain_model_tags',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',

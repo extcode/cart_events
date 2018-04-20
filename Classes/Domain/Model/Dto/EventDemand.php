@@ -39,6 +39,13 @@ class EventDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $order = '';
 
     /**
+     * Limit
+     *
+     * @var int
+     */
+    protected $limit = 0;
+
+    /**
      * Action
      *
      * @var string
@@ -126,6 +133,22 @@ class EventDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setOrder(string $order)
     {
         $this->order = $order;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int $limit
+     */
+    public function setLimit(int $limit)
+    {
+        $this->limit = $limit;
     }
 
     /**

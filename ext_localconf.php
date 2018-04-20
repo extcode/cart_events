@@ -8,23 +8,11 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Events',
     [
-        'Event' => 'show, list, teaser, showForm',
+        'Event' => 'show, list, teaser',
         'Cart' => 'add',
     ],
     [
-        'Event' => 'list, showForm',
         'Cart' => 'add',
-    ]
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
-    'EventPartial',
-    [
-        'Event' => 'showForm',
-    ],
-    [
-        'Event' => 'showForm',
     ]
 );
 
@@ -35,7 +23,7 @@ defined('TYPO3_MODE') or die();
         'Slot' => 'list',
     ],
     [
-        'Slot' => 'list',
+        'Slot' => '',
     ]
 );
 
@@ -68,6 +56,13 @@ if (TYPO3_MODE === 'BE') {
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
     <INCLUDE_TYPOSCRIPT: source="FILE:EXT:cart_events/Configuration/TSconfig/ContentElementWizard.txt">
 ');
+
+// Cart Hooks
+
+if (TYPO3_MODE === 'FE') {
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['checkAvailability'][1520842411] =
+        \Extcode\CartEvents\Hooks\CheckAvailabilityHook::class;
+}
 
 // realurl Hook
 

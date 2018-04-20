@@ -75,10 +75,20 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         if ($this->request->hasArgument('slot')) {
             $slotUid = $this->request->getArgument('slot');
+            /** @var \Extcode\CartEvents\Domain\Model\Slot $slot */
             $slot = $this->slotRepository->findByUid($slotUid);
         }
-        if ($this->request->hasArgument('event')) {
-            $eventUid = $this->request->getArgument('event');
+
+        if (!$slot->isBookable()) {
+            $this->addFlashMessage(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'tx_cartevents.error.event_is_not_bookable',
+                    'cart_events'
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                true
+            );
         }
 
         $this->cart = $this->cartUtility->getCartFromSession($this->cartFrameworkConfig);
@@ -95,10 +105,24 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($slot && $quantity) {
             $newProduct = $this->getProductFromSlot($slot, $quantity);
 
-            $this->cart->addProduct($newProduct);
-        }
+            if ($this->areEnoughSeatsAvailable($slot, $newProduct)) {
+                $this->cart->addProduct($newProduct);
 
-        $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
+                $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
+            } else {
+                unset($newProduct);
+
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cartevents.error.not_enough_seets_available',
+                        'cart_events'
+                    ),
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                    true
+                );
+            }
+        }
 
         if (isset($_GET['type'])) {
             // ToDo: have different response status
@@ -149,5 +173,27 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         );
 
         return $product;
+    }
+
+    /**
+     * @param \Extcode\CartEvents\Domain\Model\Slot $slot
+     * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
+     *
+     * @return bool
+     */
+    protected function areEnoughSeatsAvailable(
+        \Extcode\CartEvents\Domain\Model\Slot $slot,
+        \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
+    ) : bool {
+        if (!$slot->isHandleSeats()) {
+            return true;
+        }
+
+        $qty = $cartProduct->getQuantity();
+        if ($this->cart->getProduct($cartProduct->getId())) {
+            $qty += $this->cart->getProduct($cartProduct->getId())->getQuantity();
+        }
+
+        return $qty <= $slot->getSeatsAvailable();
     }
 }

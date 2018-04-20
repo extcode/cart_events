@@ -47,17 +47,22 @@ class EventRepository extends Repository
             $query->setOrderings($orderings);
         }
 
+        if ($limit = $demand->getLimit()) {
+            $query->setLimit($limit);
+        }
+
         return $query->execute();
     }
 
     /**
      * Find all events based on selected uids
      *
+     * @param int $limit
      * @param string $uids
      *
      * @return array
      */
-    public function findByUids(string $uids)
+    public function findByUids(int $limit, string $uids)
     {
         $uids = explode(',', $uids);
 
@@ -67,6 +72,9 @@ class EventRepository extends Repository
         $query->matching(
             $query->in('uid', $uids)
         );
+        if ($limit) {
+            $query->setLimit($limit);
+        }
 
         return $this->orderByField($query->execute(), $uids);
     }

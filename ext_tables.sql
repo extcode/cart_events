@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_cartevents_domain_model_evemt'
+# Table structure for table 'tx_cartevents_domain_model_event'
 #
-CREATE TABLE tx_cartevents_domain_model_evemt (
+CREATE TABLE tx_cartevents_domain_model_event (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 

@@ -1,3 +1,7 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <div class="event">
     <f:for each="{events}" as="event">
         <f:if condition="{event.category.cartEventShowPid}">
@@ -37,3 +41,4 @@
         </div>
     </f:for>
 </div>
+</html>
