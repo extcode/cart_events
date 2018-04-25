@@ -1,6 +1,6 @@
-ajaxCart = PAGE
-ajaxCart {
-    typeNum = 2278021
+ajaxCartEvents = PAGE
+ajaxCartEvents {
+    typeNum = {$plugin.tx_cartevents.ajaxCartEventsTypeNum}
 
     config {
         disableAllHeaderCode = 1
@@ -16,15 +16,9 @@ ajaxCart {
 
 plugin.tx_cartevents {
     view {
-        templateRootPaths {
-            0 = {$plugin.tx_cartevents.view.templateRootPath}
-        }
-        partialRootPaths {
-            0 = {$plugin.tx_cartevents.view.partialRootPath}
-        }
-        layoutRootPaths {
-            0 = {$plugin.tx_cartevents.view.layoutRootPath}
-        }
+        templateRootPaths.0 = {$plugin.tx_cartevents.view.templateRootPath}
+        partialRootPaths.0 = {$plugin.tx_cartevents.view.partialRootPath}
+        layoutRootPaths.0 = {$plugin.tx_cartevents.view.layoutRootPath}
     }
 
     persistence {
@@ -32,9 +26,9 @@ plugin.tx_cartevents {
         recursive = {$plugin.tx_cartevents.persistence.recursive}
     }
 
-    settings.format.currency < plugin.tx_cart.settings.format.currency
     settings {
-        addToCartByAjax = 2278021
+        format.currency < plugin.tx_cart.settings.format.currency
+        addToCartByAjax = {$plugin.tx_cartevents.ajaxCartEventsTypeNum}
     }
 
     features {
