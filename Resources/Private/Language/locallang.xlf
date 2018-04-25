@@ -7,12 +7,17 @@
             <trans-unit id="tx_cartevents.plugin.form.submit">
                 <source>Add to cart</source>
             </trans-unit>
-
-            <trans-unit id="tx_cartevents.error.event_is_not_bookable">
-                <source>Event is not bookable!</source>
+            <trans-unit id="tx_cartevents.plugin.form.submit.success">
+                <source>The event has been added to your shopping cart.</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents.error.not_enough_seets_available">
-                <source>Not enough Seats available!</source>
+            <trans-unit id="tx_cartevents.plugin.form.submit.error">
+                <source>The event could not be added to the shopping cart!</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents.plugin.form.submit.error.event_is_not_bookable">
+                <source>Event is not bookable.</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents.plugin.form.submit.error.not_enough_seets_available">
+                <source>Not enough Seats available.</source>
             </trans-unit>
 
         </body>

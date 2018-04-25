@@ -105,38 +105,110 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($slot && $quantity) {
             $newProduct = $this->getProductFromSlot($slot, $quantity);
 
-            if ($this->areEnoughSeatsAvailable($slot, $newProduct)) {
+            if ($slot->isBookable()) {
+                if ($this->areEnoughSeatsAvailable($slot, $newProduct)) {
+                    $this->cart->addProduct($newProduct);
+
+                    $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
+
+                    $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cartevents.plugin.form.submit.success',
+                        'cart_events'
+                    );
+
+                    if (isset($_GET['type'])) {
+                        $response = [
+                            'status' => '200',
+                            'count' => $this->cart->getCount(),
+                            'net' => $this->cart->getNet(),
+                            'gross' => $this->cart->getGross(),
+                            'messageBody' => $message,
+                            'messageTitle' => '',
+                            'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+                        ];
+
+                        return json_encode($response);
+                    } else {
+                        $this->addFlashMessage(
+                            $message,
+                            '',
+                            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                            true
+                        );
+                    }
+                } else {
+                    unset($newProduct);
+
+                    $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cartevents.plugin.form.submit.error',
+                        'cart_events'
+                    );
+                    $message .= ' ';
+                    $message .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cartevents.plugin.form.submit.error.not_enough_seets_available',
+                        'cart_events'
+                    );
+
+                    if (isset($_GET['type'])) {
+                        $response = [
+                            'status' => '400',
+                            'count' => $this->cart->getCount(),
+                            'net' => $this->cart->getNet(),
+                            'gross' => $this->cart->getGross(),
+                            'messageBody' => $message,
+                            'messageTitle' => '',
+                            'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                        ];
+
+                        return json_encode($response);
+                    } else {
+                        $this->addFlashMessage(
+                            $message,
+                            '',
+                            \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                            true
+                        );
+                    }
+                }
+            } else {
                 $this->cart->addProduct($newProduct);
 
                 $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
-            } else {
-                unset($newProduct);
 
-                $this->addFlashMessage(
-                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                        'tx_cartevents.error.not_enough_seets_available',
-                        'cart_events'
-                    ),
-                    '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
-                    true
+                $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'tx_cartevents.plugin.form.submit.error',
+                    'cart_events'
                 );
+                $message .= ' ';
+                $message .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'tx_cartevents.plugin.form.submit.error.event_is_not_bookable',
+                    'cart_events'
+                );
+
+                if (isset($_GET['type'])) {
+                    $response = [
+                        'status' => '400',
+                        'count' => $this->cart->getCount(),
+                        'net' => $this->cart->getNet(),
+                        'gross' => $this->cart->getGross(),
+                        'messageBody' => $message,
+                        'messageTitle' => '',
+                        'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                    ];
+
+                    return json_encode($response);
+                } else {
+                    $this->addFlashMessage(
+                        $message,
+                        '',
+                        \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                        true
+                    );
+                }
             }
         }
 
-        if (isset($_GET['type'])) {
-            // ToDo: have different response status
-            $response = [
-                'status' => '200',
-                'count' => $this->cart->getCount(),
-                'net' => $this->cart->getNet(),
-                'gross' => $this->cart->getGross(),
-            ];
-
-            return json_encode($response);
-        } else {
-            $this->redirect('show', 'Event', null, ['event'=> $slot->getEvent()]);
-        }
+        $this->redirect('show', 'Event', null, ['event'=> $slot->getEvent()]);
     }
 
     /**

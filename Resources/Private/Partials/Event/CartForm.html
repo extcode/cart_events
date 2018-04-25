@@ -2,14 +2,13 @@
       data-namespace-typo3-fluid="true">
 
 <div class="cart_form">
-    <div class="form-message"></div>
-
-    <f:form id="add-event-form"
+    <f:form id="slot-{slot.uid}"
+            class="add-to-cart-form"
             controller="Cart"
             action="add"
             method="post"
-            pageType="{f:if(condition:'{settings.addToCartByAjax}', then:'2278001', else:'')}"
-            additionalAttributes="{data-remote: '{settings.addToCartByAjax}'}">
+            pageType="{f:if(condition:'{settings.addToCartByAjax}', then:'{settings.addToCartByAjax}', else:'')}"
+            additionalAttributes="{data-ajax: '{f:if(condition: \'{settings.addToCartByAjax}\', then: \'1\', else: \'0\')}', data-type: 'slot', data-id: '{slot.uid}'}">
         <f:if condition="{settings.addToCartByAjax}'}">
             <input type="hidden" value="{pid}" name="tx_cartevents_events[pid]">
         </f:if>
@@ -17,17 +16,15 @@
         <input class="form-control" type="hidden" value="{slot.uid}" name="tx_cartevents_events[slot]">
         <input class="form-control" type="text" value="1" name="tx_cartevents_events[quantity]">
         <input type="submit" class="btn btn-default" value="<f:translate key='tx_cartevents.plugin.form.submit' />">
-    </f:form>
 
-    <div class="form-success" style="display: none;">
-        <div class="alert alert-success" >
-            <f:translate key="tx_cartevents.plugin.form.submit.success"/>
+        <div class="form-message">
+            <div class="form-success" style="display: none;" data-ajax-success-block="">
+                <div class="alert alert-success" data-ajax-success-message=""></div>
+            </div>
+            <div class="form-error" style="display: none;" data-ajax-error-block>
+                <div class="alert alert-warning" data-ajax-error-message></div>
+            </div>
         </div>
-    </div>
-    <div class="form-error" style="display: none;">
-        <div class="alert alert-warning">
-            <f:translate key="tx_cartevents.plugin.form.submit.error"/>
-        </div>
-    </div>
+    </f:form>
 </div>
 </html>
