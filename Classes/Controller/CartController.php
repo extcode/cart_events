@@ -49,7 +49,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * @param SlotRepository $slotRepository
      */
-    public function injectDateRepository(
+    public function injectSlotRepository(
         SlotRepository $slotRepository
     ) {
         $this->slotRepository = $slotRepository;

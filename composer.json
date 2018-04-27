@@ -20,13 +20,18 @@
             "role": "Developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "ssh://git@code.extco.de:22722/cart/cart.git"							        }
+    ],
     "support": {
         "issues": "https://github.com/extcode/cart_events/issues"
     },
     "require": {
         "php": ">=7.0.0",
         "typo3/cms": "^8.7",
-        "extcode/cart": "^4.8"
+        "extcode/cart": "dev-5.x.pre"
     },
     "require-dev": {
         "nimut/testing-framework": "^1.0",
@@ -44,7 +49,7 @@
         }
     },
     "replace": {
-        "cart-events": "self.version"
+        "cart_events": "self.version"
     },
     "config": {
         "vendor-dir": ".Build/vendor",

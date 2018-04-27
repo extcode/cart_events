@@ -11,11 +11,14 @@ namespace Extcode\CartEvents\Hooks;
 class CheckAvailabilityHook implements \Extcode\Cart\Hooks\CheckAvailabilityHookInterface
 {
     /**
-     * Object Manager
-     *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected $objectManager;
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+     */
+    protected $configurationManager;
 
     /**
      * Slot Repository
@@ -47,8 +50,6 @@ class CheckAvailabilityHook implements \Extcode\Cart\Hooks\CheckAvailabilityHook
         if ($frameworkConfig['productStorage']['class'] != $cartProduct->getProductType()) {
             return true;
         }
-
-        $this->objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 
         $this->slotRepository = $this->objectManager->get(
             \Extcode\CartEvents\Domain\Repository\SlotRepository::class

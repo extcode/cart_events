@@ -16,6 +16,13 @@ variables:
 
 before_script:
   - apk add git --update
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - 'which ssh-agent || ( apk add openssh-client )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
 stages:
   - cgl
@@ -27,6 +34,12 @@ test:cgl:
   image: composer:1.3
   stage: cgl
   before_script:
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - composer remove typo3/cms-core --no-update
   - composer install
   script:
@@ -41,6 +54,12 @@ test:cgl:
     - branches
   before_script:
     - apk --no-cache add bash curl git mercurial openssh openssl parallel subversion tini
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - docker-php-ext-install mysqli
     - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"

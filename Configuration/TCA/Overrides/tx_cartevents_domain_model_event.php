@@ -8,7 +8,7 @@ $configuration = \Extcode\CartEvents\Utility\EmConfiguration::getSettings();
 $_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
-    'cart',
+    'cart_events',
     'tx_cartevents_domain_model_event',
     'category',
     [
@@ -24,7 +24,7 @@ $_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 $GLOBALS['TCA']['tx_cartevents_domain_model_event']['category']['config']['maxitems'] = 1;
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
-    'cart',
+    'cart_events',
     'tx_cartevents_domain_model_event',
     'categories',
     [

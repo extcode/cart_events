@@ -4,7 +4,8 @@
 		<header/>
 		<body>
 			<trans-unit id="extmng.categoryRestriction" xml:space="preserve">
-				<source>Category restriction: Restrict the available categories in event records.
+				<source>
+					Category restriction: Restrict the available categories in event records.
 					PageTsConfig:
 					TCEFORM.tx_cartevents_domain_model_event.category.PAGE_TSCONFIG_ID=120.
 					TCEFORM.tx_cartevents_domain_model_event.categories.PAGE_TSCONFIG_ID=120.
