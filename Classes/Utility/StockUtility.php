@@ -48,18 +48,18 @@ class StockUtility
     {
         $cartProduct = $params['cartProduct'];
 
-        if ($cartProduct->getProductType() == $this->config['productStorage']['class']) {
-            $repository = $this->objectManager->get(
-                $this->config['productStorage']['class']
+        if ($cartProduct->getProductType() == 'CartEvents') {
+            $productRepository = $this->objectManager->get(
+                \Extcode\CartEvents\Domain\Repository\SlotRepository::class
             );
 
             $cartProductId = $cartProduct->getProductId();
-            $product = $repository->findByUid($cartProductId);
+            $product = $productRepository->findByUid($cartProductId);
 
             if ($product && $product->isHandleSeats()) {
                 $product->setSeatsTaken($product->getSeatsTaken() + $cartProduct->getQuantity());
 
-                $repository->update($product);
+                $productRepository->update($product);
 
                 $this->persistenceManager->persistAll();
 

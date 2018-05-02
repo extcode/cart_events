@@ -9,10 +9,9 @@ defined('TYPO3_MODE') or die();
     'Events',
     [
         'Event' => 'show, list, teaser',
-        'Cart' => 'add',
     ],
     [
-        'Cart' => 'add',
+        'Event' => '',
     ]
 );
 
@@ -60,8 +59,8 @@ if (TYPO3_MODE === 'BE') {
 // Cart Hooks
 
 if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['checkAvailability'][1520842411] =
-        \Extcode\CartEvents\Hooks\CheckAvailabilityHook::class;
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents'] =
+        \Extcode\CartEvents\Hooks\CartProductHook::class;
 }
 
 // realurl Hook

@@ -9,11 +9,4 @@ plugin.tx_cartevents {
         storagePid =
         recursive =
     }
-
-    ajaxCartEventsTypeNum = 2278021
-
-    productStorage {
-        id = 2
-        class = Extcode\CartEvents\Domain\Repository\SlotRepository
-    }
 }

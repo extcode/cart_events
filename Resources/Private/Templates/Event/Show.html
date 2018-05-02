@@ -50,7 +50,7 @@
 
                 <f:if condition="bookable">
                     <div>
-                        <f:render partial="Event/CartForm" arguments="{slot: slot}" />
+                        <f:render partial="Event/CartForm" arguments="{slot: slot, pid: cartSettings.cart.pid}" />
                     </div>
                 </f:if>
             </div>

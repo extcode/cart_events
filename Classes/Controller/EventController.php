@@ -70,7 +70,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->cartSettings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'CartEvents'
+            'Cart'
         );
 
         if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
@@ -97,6 +97,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $events = $this->eventRepository->findDemanded($demand);
 
         $this->view->assign('events', $events);
+        $this->view->assign('cartSettings', $this->cartSettings);
 
         $this->addCacheTags($events);
     }
@@ -114,6 +115,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $events = $this->eventRepository->findByUids($limit, $this->settings['eventUids']);
 
         $this->view->assign('events', $events);
+        $this->view->assign('cartSettings', $this->cartSettings);
 
         $this->addCacheTags($events);
     }
