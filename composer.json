@@ -20,22 +20,16 @@
             "role": "Developer"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "ssh://git@code.extco.de:22722/cart/cart.git"							        }
-    ],
     "support": {
         "issues": "https://github.com/extcode/cart_events/issues"
     },
     "require": {
         "php": ">=7.0.0",
-        "typo3/cms": "^8.7",
-        "extcode/cart": "dev-5.x.pre"
+        "typo3/cms-core": "^8.7",
+        "extcode/cart": "dev-5.x.alpha"
     },
     "require-dev": {
-        "nimut/testing-framework": "^1.0",
-        "phpunit/phpunit": "~4.8.0",
+        "nimut/testing-framework": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^2.0"
     },
     "autoload": {

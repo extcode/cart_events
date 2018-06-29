@@ -50,6 +50,7 @@ class SlotRepository extends Repository
             );
 
         $this->joinCategory($queryBuilder);
+        $queryBuilder->andWhere('begin >= ' . time());
 
         $queryBuilder
             ->orderBy('begin')

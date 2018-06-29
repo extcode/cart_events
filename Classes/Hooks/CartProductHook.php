@@ -25,20 +25,33 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     protected $slotRepository;
 
     /**
-     * @param array $params
-     * @return bool
+     * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
+     * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse
      */
-    public function checkAvailability(array $params) : bool
-    {
-        $cartProduct = $params['cartProduct'];
-        $quantity = (int)$params['quantity'];
-
+    public function checkAvailability(
+        \TYPO3\CMS\Extbase\Mvc\Web\Request $request,
+        \Extcode\Cart\Domain\Model\Cart\Product $cartProduct,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        string $mode = 'update'
+    ): \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse {
         $this->objectManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
         );
 
+        $availabilityResponse = GeneralUtility::makeInstance(
+            \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse::class
+        );
+
+        if ($request->hasArgument('quantities')) {
+            $quantities = $request->getArgument('quantities');
+            $quantity = (int)$quantities[$cartProduct->getId()];
+        }
+
         if ($cartProduct->getProductType() != 'CartEvents') {
-            return true;
+            return $availabilityResponse;
         }
 
         $this->slotRepository = $this->objectManager->get(
@@ -51,25 +64,37 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
 
         $slot = $this->slotRepository->findByIdentifier($cartProduct->getProductId());
 
-        if (!$slot->isHandleSeats()) {
-            return true;
+        if ($slot->isHandleSeats() && ($quantity > $slot->getSeatsAvailable())) {
+            $availabilityResponse->setAvailable(false);
+            $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                \TYPO3\CMS\Core\Messaging\FlashMessage::class,
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'tx_cart.error.stock_handling.update',
+                    'cart'
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
+
+            $availabilityResponse->addMessage($flashMessage);
         }
 
-        if ($quantity <= $slot->getSeatsAvailable()) {
-            return true;
-        }
-
-        return false;
+        return $availabilityResponse;
     }
 
     /**
-     * @param array $requestArguments
-     * @param array $taxClasses
+     * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      *
      * @return array
      */
-    public function getProductFromRequest(array $requestArguments, array $taxClasses)
-    {
+    public function getProductFromRequest(
+        \TYPO3\CMS\Extbase\Mvc\Web\Request $request,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $requestArguments = $request->getArguments();
+        $taxClasses = $cart->getTaxClasses();
+
         $errors = [];
         $cartProducts = [];
 
@@ -138,21 +163,23 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         /**
          * TODO:
          *
-                if ($this->areEnoughSeatsAvailable($slot, $newProduct)) {
-                    $this->cart->addProduct($newProduct);
-
-                    $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
-
-                    $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                        'tx_cartevents.plugin.form.submit.success',
-                        'cart_events'
-                    );
-                }
+         * if ($this->areEnoughSeatsAvailable($slot, $newProduct)) {
+         * $this->cart->addProduct($newProduct);
+         *
+         * $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
+         *
+         * $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+         * 'tx_cartevents.plugin.form.submit.success',
+         * 'cart_events'
+         * );
+         * }
          */
         $topic = null;
         $date = null;
 
         $newProduct = $this->getProductFromSlot($slot, $quantity, $taxClasses);
+
+        $this->checkAvailability($request, $newProduct, $cart);
 
         return [$errors, [$newProduct]];
     }
@@ -199,7 +226,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     protected function areEnoughSeatsAvailable(
         \Extcode\CartEvents\Domain\Model\Slot $slot,
         \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-    ) : bool {
+    ): bool {
         if (!$slot->isHandleSeats()) {
             return true;
         }

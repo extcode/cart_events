@@ -2,7 +2,9 @@
 
 namespace Extcode\CartEvents\Tests\Domain\Model;
 
-class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
+class EventTest extends UnitTestCase
 {
     /**
      * Event
