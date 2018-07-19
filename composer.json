@@ -10,7 +10,6 @@
         "TYPO3 CMS",
         "Shopping Cart",
         "cart",
-        "events",
         "events"
     ],
     "authors": [
@@ -24,12 +23,11 @@
         "issues": "https://github.com/extcode/cart_events/issues"
     },
     "require": {
-        "php": ">=7.0.0",
-        "typo3/cms-core": "^8.7",
+        "typo3/cms-core": "^8.7 || ^9.3",
         "extcode/cart": "dev-5.x.alpha"
     },
     "require-dev": {
-        "nimut/testing-framework": "^2.0 || ^3.0",
+        "nimut/testing-framework": "^2.0 || ^3.0 || ^4.0",
         "friendsofphp/php-cs-fixer": "^2.0"
     },
     "autoload": {
@@ -57,8 +55,10 @@
     },
     "extra": {
         "typo3/cms": {
+            "extension-key": "cart_events",
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "web-dir": ".Build/Web"
+            "app-dir": ".Build",
+            "web-dir": ".Build/public"
         }
     }
 }

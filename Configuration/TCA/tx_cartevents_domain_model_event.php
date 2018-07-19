@@ -198,6 +198,16 @@ return [
             ],
             'defaultExtras' => 'richtext[]'
         ],
+        'meta_description' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cartevents_domain_model_event.meta_description',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 5,
+                'eval' => 'trim'
+            ],
+        ],
         'audience' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cartevents_domain_model_event.audience',
