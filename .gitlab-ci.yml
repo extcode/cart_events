@@ -16,13 +16,6 @@ variables:
 
 before_script:
   - apk add git --update
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
-  - 'which ssh-agent || ( apk add openssh-client )'
-  - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
 stages:
   - cgl
@@ -73,7 +66,7 @@ test:php71:typo3_8:
     TYPO3_VERSION: ^8.7
 
 # Build in PHP 7.2 and TYPO3 8.7
-test:php70:typo3_8:
+test:php72:typo3_8:
   <<: *test_php
   variables:
     DOCKER_TAG: 7.2-alpine

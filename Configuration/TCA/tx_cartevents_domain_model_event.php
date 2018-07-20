@@ -222,14 +222,14 @@ return [
 
         'tax_class_id' => [
             'exclude' => 1,
-            'label' => $_LLL_cart . ':tx_cart_domain_model_product_product.tax_class_id',
+            'label' => $_LLL_cart . ':tx_cart.tax_class_id',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL_cart . ':tx_cart_domain_model_product_product.tax_class_id.1', 1],
-                    [$_LLL_cart . ':tx_cart_domain_model_product_product.tax_class_id.2', 2],
-                    [$_LLL_cart . ':tx_cart_domain_model_product_product.tax_class_id.3', 3],
+                    [$_LLL_cart . ':tx_cart.tax_class_id.1', 1],
+                    [$_LLL_cart . ':tx_cart.tax_class_id.2', 2],
+                    [$_LLL_cart . ':tx_cart.tax_class_id.3', 3],
                 ],
                 'size' => 1,
                 'minitems' => 1,

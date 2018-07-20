@@ -124,8 +124,8 @@
 			</trans-unit>
 
 			<trans-unit id="pages.doktype.185">
-				<source>CartEvents: Event</source>
-				<target>CartEvents: Veranstaltung</target>
+				<source>Cart: Event</source>
+				<target>Cart: Veranstaltung</target>
 			</trans-unit>
 
 		</body>

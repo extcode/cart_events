@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <cart:titleTag>
@@ -48,7 +49,7 @@
                     <f:render partial="Event/Price" arguments="{slot: slot}" />
                 </div>
 
-                <f:if condition="bookable">
+                <f:if condition="{slot.bookable}">
                     <div>
                         <f:render partial="Event/CartForm" arguments="{slot: slot, pid: cartSettings.cart.pid}" />
                     </div>

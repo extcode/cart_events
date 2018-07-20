@@ -1,7 +1,7 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Cart Events',
+    'title' => 'Cart - Events',
     'description' => 'Shopping Cart(s) for TYPO3 - Event Extension',
     'category' => 'plugin',
     'shy' => false,
