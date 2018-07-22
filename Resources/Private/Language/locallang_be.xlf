@@ -28,6 +28,16 @@
 				<source>CartEvents: Events</source>
 			</trans-unit>
 
+			<trans-unit id="flexforms_template.templateLayout">
+				<source>Template Layout</source>
+			</trans-unit>
+			<trans-unit id="flexforms_template.templateLayout.table">
+				<source>Table</source>
+			</trans-unit>
+			<trans-unit id="flexforms_template.templateLayout.grid">
+				<source>Grid</source>
+			</trans-unit>
+
 			<trans-unit id="tx_cartevents.plugin.events.title">
 				<source>CartEvents: Events</source>
 			</trans-unit>

@@ -91,3 +91,7 @@ $dispatcher->connect(
 // register "cartevents:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
     = 'Extcode\\CartEvents\\ViewHelpers';
+
+// register listTemplateLayouts
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts'][] = ['LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts'][] = ['LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout.grid', 'grid'];
