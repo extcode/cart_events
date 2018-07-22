@@ -58,9 +58,7 @@ class StockUtility
 
             if ($product && $product->isHandleSeats()) {
                 $product->setSeatsTaken($product->getSeatsTaken() + $cartProduct->getQuantity());
-
                 $productRepository->update($product);
-
                 $this->persistenceManager->persistAll();
 
                 $this->flushCache($product->getEvent()->getUid());

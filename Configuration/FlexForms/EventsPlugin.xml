@@ -16,18 +16,18 @@
                                 <items>
                                     <numIndex index="0">
                                         <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list_and_show</numIndex>
-                                        <numIndex index="1">Event->show;Event->list;Cart->add</numIndex>
+                                        <numIndex index="1">Event->show;Event->list</numIndex>
                                     </numIndex>
                                     <numIndex index="1">
                                         <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.show</numIndex>
-                                        <numIndex index="1">Event->show;Cart->add</numIndex>
+                                        <numIndex index="1">Event->show</numIndex>
                                     </numIndex>
                                     <numIndex index="2">
                                         <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser</numIndex>
                                         <numIndex index="1">Event->teaser</numIndex>
                                     </numIndex>
                                 </items>
-                                <default>Event->show;Event->list;Cart->add</default>
+                                <default>Event->show;Event->list</default>
                             </config>
                         </TCEforms>
                     </switchableControllerActions>
@@ -37,7 +37,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <items>
@@ -71,7 +71,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderDirection</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <items>
@@ -98,7 +98,7 @@
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.limit</label>
                             <displayCond>
                                 <OR>
-                                    <numIndex index="0">FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</numIndex>
+                                    <numIndex index="0">FIELD:switchableControllerActions:=:Event->show;Event->list</numIndex>
                                     <numIndex index="1">FIELD:switchableControllerActions:=:Event->teaser</numIndex>
                                 </OR>
                             </displayCond>
@@ -121,7 +121,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.select.single_pid</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -158,7 +158,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.categories</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <autoSizeMax>20</autoSizeMax>
@@ -182,7 +182,7 @@
                     <settings.listSubcategories>
                         <TCEforms>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.subcategories</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list;Cart->add</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>check</type>
                             </config>
