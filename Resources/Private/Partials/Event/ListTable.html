@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:for each="{events}" as="event">
+    <div class="event-detail">
+        <div class="row">
+            <div class="medium-7 columns">
+                <cartevents:link.event event="{event}" settings="{settings}">
+                    <div class="event-title"><h3>{event.title}</h3></div>
+                </cartevents:link.event>
+                <div class="row item--content">
+                    <f:if condition="{event.teaser}">
+                        <div class="item--teaser-column">
+                            <div class="description"><f:format.html>{event.teaser}</f:format.html></div>
+                        </div>
+                    </f:if>
+                </div>
+
+            </div>
+            <div class="medium-5 columns">
+                <cartevents:link.event event="{event}" settings="{settings}">
+                    <div class="event-title"><f:translate key="tx_cartevents.more_link" /><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+                </cartevents:link.event>
+            </div>
+        </div>
+    </div>
+</f:for>
+</html>

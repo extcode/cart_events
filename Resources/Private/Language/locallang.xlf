@@ -4,6 +4,9 @@
         <header/>
         <body>
 
+            <trans-unit id="tx_cartevents.more_link">
+                <source>more</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents.plugin.form.submit">
                 <source>Add to cart</source>
             </trans-unit>
