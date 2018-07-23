@@ -1,19 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <div class="event">
     <f:for each="{events}" as="event">
-        <f:if condition="{event.category.cartEventShowPid}">
-            <f:then>
-                <cart:variable.set name="showPageUid" value="{event.category.cartEventShowPid}"/>
-            </f:then>
-            <f:else>
-                <cart:variable.set name="showPageUid" value="{settings.showPageUids}"/>
-            </f:else>
-        </f:if>
-
         <div class="event-detail">
             <div class="row">
                 <div class="medium-7 columns">
@@ -30,11 +20,9 @@
 
                 </div>
                 <div class="medium-5 columns">
-                    <f:link.action pageUid="{cart:variable.get(name: 'showPageUid')}"
-                                   action="show"
-                                   arguments="{event: event}">
+                    <cartevents:link.event event="{event}" settings="{settings}">
                         <button class="button" type="button" name="button"><f:translate key="LLL:EXT:cart_events/Resources/Private/Language/Cart/locallang.xlf:dates.to_booking" /><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                    </f:link.action>
+                    </cartevents:link.event>
                 </div>
             </div>
         </div>
