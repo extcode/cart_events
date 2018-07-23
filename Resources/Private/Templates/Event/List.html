@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <div class="event">
@@ -16,11 +17,9 @@
         <div class="event-detail">
             <div class="row">
                 <div class="medium-7 columns">
-                    <f:link.action pageUid="{cart:variable.get(name: 'showPageUid')}"
-                                   action="show"
-                                   arguments="{event: event}">
+                    <cartevents:link.event event="{event}" settings="{settings}">
                         <div class="event-title"><h3>{event.title}</h3></div>
-                    </f:link.action>
+                    </cartevents:link.event>
                     <div class="row item--content">
                         <f:if condition="{event.teaser}">
                             <div class="item--teaser-column">

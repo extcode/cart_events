@@ -11,4 +11,40 @@ call_user_func(function () {
     ];
 
     $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][185] = 'icon-apps-pagetree-cartevents-page';
+
+    $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
+        $_LLL . ':pages.doktype.186',
+        186,
+        'icon-apps-pagetree-cartevents-page'
+    ];
+
+    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][186] = 'icon-apps-pagetree-cartevents-page';
+
+    $newPagesColumns = [
+        'cart_events_event' => [
+            'displayCond' => 'FIELD:doktype:=:186',
+            'exclude' => true,
+            'label' => $_LLL . ':pages.singleview_cart_events_event',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_cartevents_domain_model_event',
+                'foreign_table' => 'tx_cartevents_domain_model_event',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
+        ],
+    ];
+
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+        'pages',
+        $newPagesColumns
+    );
+
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+        'pages',
+        'standard',
+        ',--linebreak--,cart_events_event',
+        'after:doktype'
+    );
 });

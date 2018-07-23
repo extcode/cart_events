@@ -128,7 +128,10 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\Extcode\CartEvents\Domain\Model\Event $event = null)
     {
-        if (empty($event)) {
+        if (!$event) {
+            $event = $this->getEvent();
+        }
+        if (!$event) {
             $this->forward('list');
         }
 
@@ -138,6 +141,29 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->assignCurrencyTranslationData();
 
         $this->addCacheTags([$event]);
+    }
+
+    /**
+     * @return \Extcode\CartEvents\Domain\Model\Event
+     */
+    protected function getEvent()
+    {
+        $eventUid = 0;
+
+        if ((int)$GLOBALS['TSFE']->page['doktype'] == 186) {
+            $eventUid = (int)$GLOBALS['TSFE']->page['cart_events_event'];
+        }
+
+        if ($eventUid > 0) {
+            $eventRepository = $this->objectManager->get(
+                \Extcode\CartEvents\Domain\Repository\EventRepository::class
+            );
+
+            $event =  $eventRepository->findByUid($eventUid);
+        }
+
+        $this->assignCurrencyTranslationData();
+        return $event;
     }
 
     /**

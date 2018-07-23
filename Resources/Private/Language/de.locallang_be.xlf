@@ -121,6 +121,11 @@
 				<target>Teaserprodukt auswählen</target>
 			</trans-unit>
 
+            <trans-unit id="tx_cartevents.plugin.single_event.title">
+                <source>CartEvents: Single Event</source>
+                <target>CartEvents: Einzelveranstaltung</target>
+            </trans-unit>
+
 			<trans-unit id="tx_cartevents.plugin.slots.title">
 				<source>CartEvents: Next Events</source>
 				<target>CartEvents: Nächste Veranstaltungen</target>
@@ -135,6 +140,11 @@
 			</trans-unit>
 
 			<trans-unit id="pages.doktype.185">
+				<source>Cart: Event</source>
+				<target>Cart: Veranstaltung</target>
+			</trans-unit>
+
+			<trans-unit id="pages.doktype.186">
 				<source>Cart: Event</source>
 				<target>Cart: Veranstaltung</target>
 			</trans-unit>
