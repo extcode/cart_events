@@ -1,3 +1,11 @@
+[page|doktype = 186]
+TCEFORM.tt_content.list_type {
+  removeItems = cartevents_events, cartevents_slots
+}
+[else]
+TCEFORM.tt_content.list_type {
+  removeItems = cartevents_singleevent
+}
 mod.wizards.newContentElement.wizardItems.plugins {
 	elements {
 		events {
@@ -11,3 +19,4 @@ mod.wizards.newContentElement.wizardItems.plugins {
 		}
 	}
 }
+[global]

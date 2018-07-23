@@ -140,8 +140,8 @@
 			</trans-unit>
 
 			<trans-unit id="pages.doktype.185">
-				<source>Cart: Event</source>
-				<target>Cart: Veranstaltung</target>
+				<source>Cart: Events</source>
+				<target>Cart: Veranstaltungen</target>
 			</trans-unit>
 
 			<trans-unit id="pages.doktype.186">

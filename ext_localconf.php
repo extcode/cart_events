@@ -81,6 +81,11 @@ if (TYPO3_MODE === 'FE') {
         'EXT:cart_events/Classes/Hooks/RealUrlHook.php:Extcode\CartEvents\Hooks\RealUrlHook->postProcessConfiguration';
 }
 
+// processDatamapClass Hook
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['cartevents_allowed'] =
+    \Extcode\CartEvents\Hooks\DatamapDataHandlerHook::class;
+
 // clearCachePostProc Hook
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc']['cartevents_clearcache'] =
