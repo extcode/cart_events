@@ -5,11 +5,12 @@ defined('TYPO3_MODE') or die();
 $_LLL_general = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
 $_LLL_ttc = 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf';
 $_LLL_cart = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
-$_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_tca = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cartevents_domain_model_event',
+        'title' => $_LLL_db . ':tx_cartevents_domain_model_event',
         'label' => 'sku',
         'label_alt' => 'title',
         'label_alt_force' => 1,
@@ -45,19 +46,19 @@ return [
             'showitem' => '
                 sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
                 sku, title,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.descriptions,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.descriptions,
                     teaser;;;richtext:rte_transform[mode=ts_links],
                     description;;;richtext:rte_transform[mode=ts_links], audience;;;richtext:rte_transform[mode=ts_links],
                     meta_description,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.images_and_files,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.images_and_files,
                     images, files,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.slots,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.slots,
                     tax_class_id,
                     slots,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_event.div.categorization,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.categorization,
                     tags, category, categories,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
-                    --palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,
+                    --palette--;' . $_LLL_tca . ':palettes.visibility;hiddenonly,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access,
             '
         ],
@@ -67,7 +68,7 @@ return [
             'showitem' => ''
         ],
         'hiddenonly' => [
-            'showitem' => 'hidden;' . $_LLL . ':tx_cartevents_domain_model_event',
+            'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_event',
         ],
         'access' => [
             'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
@@ -163,7 +164,7 @@ return [
 
         'sku' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.sku',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.sku',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -172,7 +173,7 @@ return [
         ],
         'title' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.title',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -181,7 +182,7 @@ return [
         ],
         'teaser' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.teaser',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.teaser',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -192,7 +193,7 @@ return [
         ],
         'description' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.description',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -203,7 +204,7 @@ return [
         ],
         'meta_description' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.meta_description',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.meta_description',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -213,7 +214,7 @@ return [
         ],
         'audience' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.audience',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.audience',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -226,7 +227,7 @@ return [
         'images' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.images',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'images',
                 [
@@ -286,7 +287,7 @@ return [
         'files' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.files',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.files',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'files',
                 [
@@ -362,7 +363,7 @@ return [
 
         'slots' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_event.slots',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.slots',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_cartevents_domain_model_slot',

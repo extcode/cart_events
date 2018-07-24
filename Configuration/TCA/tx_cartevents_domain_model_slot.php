@@ -4,11 +4,12 @@ defined('TYPO3_MODE') or die();
 
 $_LLL_general = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
 $_LLL_ttc = 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf';
-$_LLL = 'LLL:' . 'EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_tca = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cartevents_domain_model_slot',
+        'title' => $_LLL_db . ':tx_cartevents_domain_model_slot',
         'label' => 'sku',
         'label_alt' => 'title',
         'label_alt_force' => 1,
@@ -45,16 +46,16 @@ return [
             'showitem' => '
                 sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
                 sku, title,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_slot.div.informations,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_slot.div.informations,
                     location;;;richtext:rte_transform[mode=ts_links], lecturer;;;richtext:rte_transform[mode=ts_links],
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_slot.div.images_and_files,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_slot.div.images_and_files,
                     images, files,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_slot.div.dates,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_slot.div.dates,
                     dates,
-                --div--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:tx_cartevents_domain_model_slot.div.order,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_slot.div.order,
                     bookable, price, special_prices, --linebreak--, handle_seats, seats_number, seats_taken,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
-                    --palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,
+                    --palette--;' . $_LLL_tca . ':palettes.visibility;hiddenonly,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access,
             '
         ],
@@ -64,7 +65,7 @@ return [
             'showitem' => ''
         ],
         'hiddenonly' => [
-            'showitem' => 'hidden;' . $_LLL . ':tx_cartevents_domain_model_slot',
+            'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_slot',
         ],
         'access' => [
             'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
@@ -160,7 +161,7 @@ return [
 
         'sku' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.sku',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.sku',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -170,7 +171,7 @@ return [
 
         'title' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.title',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -181,7 +182,7 @@ return [
         'images' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.images',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'images',
                 [
@@ -241,7 +242,7 @@ return [
         'files' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.files',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.files',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'files',
                 [
@@ -306,7 +307,7 @@ return [
 
         'location' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.location',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.location',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -318,7 +319,7 @@ return [
 
         'lecturer' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.lecturer',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.lecturer',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -330,7 +331,7 @@ return [
 
         'dates' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.dates',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.dates',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_cartevents_domain_model_date',
@@ -350,7 +351,7 @@ return [
 
         'bookable' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.bookable',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.bookable',
             'config' => [
                 'type' => 'check',
             ],
@@ -359,7 +360,7 @@ return [
         'price' => [
             'exclude' => 1,
             'displayCond' => 'FIELD:bookable:REQ:TRUE',
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.price',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.price',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -371,7 +372,7 @@ return [
         'special_prices' => [
             'exclude' => 1,
             'displayCond' => 'FIELD:bookable:REQ:TRUE',
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.special_prices',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.special_prices',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_cartevents_domain_model_specialprice',
@@ -392,7 +393,7 @@ return [
         'handle_seats' => [
             'exclude' => 1,
             'displayCond' => 'FIELD:bookable:REQ:TRUE',
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.handle_seats',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.handle_seats',
             'config' => [
                 'type' => 'check',
                 'default' => true,
@@ -407,7 +408,7 @@ return [
                     'FIELD:handle_seats:REQ:TRUE',
                 ]
             ],
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.seats_number',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.seats_number',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -423,7 +424,7 @@ return [
                     'FIELD:handle_seats:REQ:TRUE',
                 ]
             ],
-            'label' => $_LLL . ':tx_cartevents_domain_model_slot.seats_taken',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_slot.seats_taken',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

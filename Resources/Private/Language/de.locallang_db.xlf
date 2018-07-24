@@ -32,6 +32,14 @@
                 <source>Audience</source>
                 <target>Publikum</target>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.files">
+                <source>Files</source>
+                <target>Dateien</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.price">
+                <source>Price</source>
+                <target>Preis</target>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.slots">
                 <source>Slots</source>
                 <target>Slots</target>
@@ -68,6 +76,14 @@
             <trans-unit id="tx_cartevents_domain_model_slot.lecturer">
                 <source>Lecturer</source>
                 <target>Dozent</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.files">
+                <source>Files</source>
+                <target>Dateien</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.price">
+                <source>Price</source>
+                <target>Preis</target>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_slot.dates">
                 <source>Dates</source>

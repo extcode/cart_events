@@ -25,6 +25,12 @@
             <trans-unit id="tx_cartevents_domain_model_event.audience">
                 <source>Audience</source>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.images">
+                <source>Images</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.files">
+                <source>Files</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.slots">
                 <source>Slots</source>
             </trans-unit>
@@ -52,6 +58,12 @@
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_slot.lecturer">
                 <source>Lecturer</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.images">
+                <source>Images</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_slot.files">
+                <source>Files</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_slot.dates">
                 <source>Dates</source>
