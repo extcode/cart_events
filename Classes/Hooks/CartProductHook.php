@@ -48,6 +48,10 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         if ($request->hasArgument('quantities')) {
             $quantities = $request->getArgument('quantities');
             $quantity = (int)$quantities[$cartProduct->getId()];
+        } else {
+            if ($request->hasArgument('quantity')) {
+                $quantity = (int)$request->getArgument('quantity');
+            }
         }
 
         if ($cartProduct->getProductType() != 'CartEvents') {
