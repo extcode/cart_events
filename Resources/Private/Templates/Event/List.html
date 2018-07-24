@@ -2,11 +2,6 @@
       data-namespace-typo3-fluid="true">
 
 <div class="event">
-    <f:if condition="{settings.templateLayout} == 'table'">
-        <f:render partial="Event/ListTable" arguments="{_all}" />
-    </f:if>
-    <f:if condition="{settings.templateLayout} == 'grid'">
-        <f:render partial="Event/ListGrid" arguments="{_all}" />
-    </f:if>
+    <f:render partial="Event/List{f:format.case(value: settings.templateLayout, mode: 'capital')}" arguments="{_all}" />
 </div>
 </html>
