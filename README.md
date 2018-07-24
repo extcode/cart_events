@@ -1,7 +1,7 @@
 # Cart Events
 
-[![Build Status](https://travis-ci.org/extcode/cart.svg?branch=master)](https://travis-ci.org/extcode/cart)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b5b6e0c8ac143c381026061abf3c9e8)](https://www.codacy.com/app/extcode/cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/extcode/cart_events.svg?branch=master)](https://travis-ci.org/extcode/cart_events)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f7809fa0f2ab40118e263cb714212d13)](https://www.codacy.com/app/extcode/cart_events?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart_events&amp;utm_campaign=Badge_Grade)
 
 ## Description
 
