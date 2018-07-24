@@ -45,6 +45,20 @@ class Slot extends AbstractEntity
     protected $lecturer = '';
 
     /**
+     * Images
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    protected $images;
+
+    /**
+     * Files
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    protected $files;
+
+    /**
      * Bookable
      *
      * @var bool
@@ -157,6 +171,56 @@ class Slot extends AbstractEntity
     public function setLecturer(string $lecturer)
     {
         $this->lecturer = $lecturer;
+    }
+
+    /**
+     * Returns the Images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Returns the first Image
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     */
+    public function getFirstImage()
+    {
+        return array_shift($this->getImages()->toArray());
+    }
+
+    /**
+     * Sets the Images
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * Returns the Files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Sets the Files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
     }
 
     /**

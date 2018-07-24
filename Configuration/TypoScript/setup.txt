@@ -22,6 +22,22 @@ plugin.tx_cartevents {
         format.currency < plugin.tx_cart.settings.format.currency
 
         addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
+
+        showAction {
+            media {
+                image {
+                    size {
+                        small.maxWidth = 100
+                        small.maxHeight =
+                        medium.maxWidth = 300
+                        medium.maxHeight =
+                        large.maxWidth = 600
+                        large.maxHeight =
+                    }
+                }
+            }
+        }
+        listAction < .showAction
     }
 
     features {

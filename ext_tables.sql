@@ -14,6 +14,9 @@ CREATE TABLE tx_cartevents_domain_model_event (
     meta_description text NOT NULL,
     audience text NOT NULL,
 
+    images varchar(255) DEFAULT '' NOT NULL,
+    files varchar(255) DEFAULT '' NOT NULL,
+
     category int(11) unsigned DEFAULT '0' NOT NULL,
     categories int(11) unsigned DEFAULT '0' NOT NULL,
     tags int(11) DEFAULT '0' NOT NULL,
@@ -64,6 +67,9 @@ CREATE TABLE tx_cartevents_domain_model_slot (
     title varchar(255) DEFAULT '' NOT NULL,
     location text NOT NULL,
     lecturer text NOT NULL,
+
+    images varchar(255) DEFAULT '' NOT NULL,
+    files varchar(255) DEFAULT '' NOT NULL,
 
     bookable tinyint(4) unsigned DEFAULT '0' NOT NULL,
 

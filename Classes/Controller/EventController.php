@@ -162,7 +162,6 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $event =  $eventRepository->findByUid($eventUid);
         }
 
-        $this->assignCurrencyTranslationData();
         return $event;
     }
 

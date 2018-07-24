@@ -6,6 +6,15 @@
     <div class="event-detail">
         <div class="row">
             <div class="medium-7 columns">
+                <f:if condition="{event.images}">
+                    <cartevents:link.event event="{event}" settings="{settings}">
+                        <f:image src="{event.firstImage.originalResource.originalFile.uid}"
+                                 title="{event.firstImage.originalResource.title}"
+                                 alt="{event.firstImage.originalResource.title}"
+                                 width="{settings.listAction.media.image.size.small.maxWidth}"
+                                 height="{settings.listAction.media.image.size.small.maxHeight}" />
+                    </cartevents:link.event>
+                </f:if>
                 <cartevents:link.event event="{event}" settings="{settings}">
                     <div class="event-title"><h3>{event.title}</h3></div>
                 </cartevents:link.event>
