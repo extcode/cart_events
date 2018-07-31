@@ -29,6 +29,11 @@
                 <target>Nicht ausreichend freie Plätze verfügbar.</target>
             </trans-unit>
 
+            <trans-unit id="tx_cartevents_domain_model_slot.seats">
+                <source>Seats</source>
+                <target>Plätze</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

@@ -23,6 +23,10 @@
                 <source>Not enough Seats available.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cartevents_domain_model_slot.seats">
+                <source>Seats</source>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

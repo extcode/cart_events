@@ -7,18 +7,18 @@ call_user_func(function () {
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
         $_LLL . ':pages.doktype.185',
         185,
-        'icon-apps-pagetree-cartevents-page'
+        'apps-pagetree-page-cartevents-events'
     ];
 
-    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][185] = 'icon-apps-pagetree-cartevents-page';
+    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][185] = 'apps-pagetree-page-cartevents-events';
 
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
         $_LLL . ':pages.doktype.186',
         186,
-        'icon-apps-pagetree-cartevents-page'
+        'apps-pagetree-page-cartevents-events'
     ];
 
-    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][186] = 'icon-apps-pagetree-cartevents-page';
+    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][186] = 'apps-pagetree-page-cartevents-events';
 
     $newPagesColumns = [
         'cart_events_event' => [

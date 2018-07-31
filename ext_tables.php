@@ -46,7 +46,7 @@ foreach ($pluginNames as $pluginName) {
     }
 }
 
-$TCA['pages']['ctrl']['typeicon_classes']['contains-cartevents'] = 'icon-apps-pagetree-cartevents-folder';
+$TCA['pages']['ctrl']['typeicon_classes']['contains-cartevents'] = 'apps-pagetree-folder-cartevents-events';
 
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf:tcarecords-pages-contains.cart_events',

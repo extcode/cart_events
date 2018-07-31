@@ -41,8 +41,8 @@ defined('TYPO3_MODE') or die();
 
 if (TYPO3_MODE === 'BE') {
     $icons = [
-        'icon-apps-pagetree-cartevents-folder' => 'pagetree_cartevents_folder.svg',
-        'icon-apps-pagetree-cartevents-page' => 'pagetree_cartevents_page.svg',
+        'apps-pagetree-folder-cartevents-events' => 'apps_pagetree_folder_cartevents_events.svg',
+        'apps-pagetree-page-cartevents-events' => 'apps_pagetree_page_cartevents_events.svg',
         'ext-cartevents-wizard-icon' => 'cartevents_plugin_wizard.svg',
     ];
 
