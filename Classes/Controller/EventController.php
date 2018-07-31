@@ -279,6 +279,8 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function addCacheTags($events)
     {
+        $cacheTags = [];
+
         if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
             foreach ($events as $event) {
                 $cacheTags[] = 'tx_cartevents_event_' . $event->getUid();

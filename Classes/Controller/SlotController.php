@@ -51,11 +51,19 @@ class SlotController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 'CartEvents'
             )['view']['list']['limit'];
 
-        $slots = $this->slotRepository->findNext($limit)->fetchAll();
+        $pidList = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        )['persistence']['storagePid'];
 
-        $this->addCacheTags($slots);
+        $nextSlots = $this->slotRepository->findNext($limit, $pidList)->fetchAll();
+
+        $slots = [];
+        foreach ($nextSlots as $nextSlot) {
+            $slots[] = $this->slotRepository->findByUid($nextSlot['uid']);
+        }
 
         $this->view->assign('slots', $slots);
+        $this->view->assign('events', $nextSlots);
     }
 
     /**
@@ -63,9 +71,11 @@ class SlotController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function addCacheTags($slots)
     {
+        $cacheTags = [];
+
         if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
             foreach ($slots as $slot) {
-                $cacheTags[] = 'tx_cartevents_event_' . $slot['event'];
+                $cacheTags[] = 'tx_cartevents_event_' . $slot['event_uid'];
             }
 
             if (count($cacheTags) > 0) {

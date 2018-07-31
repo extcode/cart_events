@@ -11,10 +11,11 @@ class SlotRepository extends Repository
 {
     /**
      * @param int $limit
+     * @param string $pidList
      *
      * @return \Doctrine\DBAL\Driver\Statement|int
      */
-    public function findNext(int $limit)
+    public function findNext(int $limit, string $pidList)
     {
         $table = 'tx_cartevents_domain_model_slot';
         $joinTableDate = 'tx_cartevents_domain_model_date';
@@ -24,11 +25,12 @@ class SlotRepository extends Repository
             ->getQueryBuilderForTable($table);
 
         $queryBuilder
-            ->select('tx_cartevents_domain_model_slot.*')
-            ->addSelect('date.*')
-            ->addSelect('event.*')
-            ->addSelect('category.cart_event_list_pid')
-            ->addSelect('category.cart_event_show_pid')
+            ->select('tx_cartevents_domain_model_slot.uid')
+            ->addSelect('date.begin')
+            ->addSelect('event.uid AS event_uid')
+            ->addSelect('event.pid AS event_pid')
+            //->addSelect('category.cart_event_list_pid')
+            //->addSelect('category.cart_event_show_pid')
             ->from($table)
             ->leftJoin(
                 $table,
@@ -49,12 +51,20 @@ class SlotRepository extends Repository
                 )
             );
 
-        $this->joinCategory($queryBuilder);
-        $queryBuilder->andWhere('begin >= ' . time());
+        //$this->joinCategory($queryBuilder);
+        $queryBuilder->andWhere(
+            'date.begin >= ' . time()
+        );
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->in(
+                'event.pid',
+                $this->getPids($pidList)
+            )
+        );
 
         $queryBuilder
-            ->orderBy('begin')
-            ->groupBy('event');
+            ->orderBy('date.begin')
+            ->groupBy('slot');
 
         if ($limit) {
             $queryBuilder->setMaxResults($limit);
@@ -94,5 +104,14 @@ class SlotRepository extends Repository
                     $queryBuilder->quoteIdentifier('categoryMM.uid_local')
                 )
             );
+    }
+
+    /**
+     * @param string $pidList
+     * @return array
+     */
+    protected function getPids(string $pidList):array
+    {
+        return GeneralUtility::intExplode(',', $pidList, true);
     }
 }

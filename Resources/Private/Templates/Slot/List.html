@@ -4,34 +4,21 @@
 
 <div class="slots">
     <f:for each="{slots}" as="slot">
-        <f:if condition="{slot.cart_event_show_pid}">
-            <f:then>
-                <cartevents:variable.set name="showPageUid" value="{slot.cart_event_show_pid}"/>
-            </f:then>
-            <f:else>
-                <cartevents:variable.set name="showPageUid" value="{settings.showPageUids}"/>
-            </f:else>
-        </f:if>
-
         <div class="slot-detail">
             <div class="row">
                 <div class="medium-2 columns">
-                    <div class="date-day-month-year"><f:format.date format="d.m.Y">{slot.begin}</f:format.date></div>
+                    <div class="date-day-month-year"><f:format.date format="d.m.Y">{slot.firstDate.begin}</f:format.date></div>
                 </div>
 
                 <div class="medium-9 columns">
-                    <f:link.action pageUid="{cartevents:variable.get(name: 'showPageUid')}"
-                                   action="show"
-                                   arguments="{event: slot.event}">
-                        <div class="event-title"><h3>{slot.title}</h3></div>
-                    </f:link.action>
+                    <cartevents:link.event pluginName="Events" controller="Event" event="{slot.event}" settings="{settings}">
+                        <div class="event-title"><h3>{slot.event.title} - {slot.title}</h3></div>
+                    </cartevents:link.event>
                 </div>
                 <div class="medium-1 columns">
-                    <f:link.action pageUid="{cartevents:variable.get(name: 'showPageUid')}"
-                                   action="show"
-                                   arguments="{event: slot.event}">
-                        <button class="button" type="button" name="button"><f:translate key="LLL:EXT:cart_events/Resources/Private/Language/Cart/locallang.xlf:dates.to_booking" /><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                    </f:link.action>
+                    <cartevents:link.event pluginName="Events" controller="Event" event="{slot.event}" settings="{settings}">
+                        <div class="event-detail-page"><f:translate key="tx_cartevents.more_link" /><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+                    </cartevents:link.event>
                 </div>
             </div>
         </div>
