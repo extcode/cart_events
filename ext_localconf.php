@@ -2,6 +2,8 @@
 
 defined('TYPO3_MODE') or die();
 
+$_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf';
+
 // configure plugins
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -109,5 +111,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
     = 'Extcode\\CartEvents\\ViewHelpers';
 
 // register listTemplateLayouts
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts'][] = ['LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout.table', 'table'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts'][] = ['LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['slots'][] = [$_LLL_be . ':flexforms_template.templateLayout.slots.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['slots'][] = [$_LLL_be . ':flexforms_template.templateLayout.slots.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['single_event'][] = [$_LLL_be . ':flexforms_template.templateLayout.single_event.default', 'default'];

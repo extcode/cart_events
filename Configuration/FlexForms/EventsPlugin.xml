@@ -36,10 +36,16 @@
                     <settings.templateLayout>
                         <TCEforms>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:switchableControllerActions:=:Event->show;Event->list</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:Event->teaser</numIndex>
+                                </OR>
+                            </displayCond>
                             <config>
                                 <type>select</type>
                                 <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+                                <itemsProcFuncConf>Events</itemsProcFuncConf>
                                 <renderType>selectSingle</renderType>
                             </config>
                         </TCEforms>

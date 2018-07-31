@@ -22,6 +22,15 @@
 
 <div class="event-wrapper">
     <div class="event-title"><h1>{event.title}</h1></div>
+
+    <f:if condition="{event.images}">
+        <f:image src="{event.firstImage.originalResource.originalFile.uid}"
+                 title="{event.firstImage.originalResource.title}"
+                 alt="{event.firstImage.originalResource.title}"
+                 width="{settings.showAction.media.image.size.medium.maxWidth}"
+                 height="{settings.showAction.media.image.size.medium.maxHeight}" />
+    </f:if>
+
     <div class="event-description">
         <f:format.html>{event.description}</f:format.html>
     </div>

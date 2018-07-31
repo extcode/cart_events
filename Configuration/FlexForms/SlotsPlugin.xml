@@ -45,6 +45,19 @@
                             </config>
                         </TCEforms>
                     </settings.limit>
+
+                    <!-- Template Layout -->
+                    <settings.templateLayout>
+                        <TCEforms>
+                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+                                <itemsProcFuncConf>Slots</itemsProcFuncConf>
+                                <renderType>selectSingle</renderType>
+                            </config>
+                        </TCEforms>
+                    </settings.templateLayout>
                 </el>
             </ROOT>
         </sDEF>

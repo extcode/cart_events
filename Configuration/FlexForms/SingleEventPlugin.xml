@@ -15,6 +15,7 @@
                             <config>
                                 <type>select</type>
                                 <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+                                <itemsProcFuncConf>SingleEvent</itemsProcFuncConf>
                                 <renderType>selectSingle</renderType>
                             </config>
                         </TCEforms>
