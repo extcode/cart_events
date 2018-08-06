@@ -53,5 +53,5 @@ $TCA['pages']['ctrl']['typeicon_classes']['contains-cartevents'] = 'apps-pagetre
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf:tcarecords-pages-contains.cart_events',
     'cartevents',
-    'EXT:cart_events/Resources/Public/Icons/pagetree_cartevents_folder.svg',
+    'apps-pagetree-folder-cartevents-events',
 ];
