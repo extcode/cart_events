@@ -36,7 +36,7 @@ return [
         ],
         'requestUpdate' => 'bookable,handle_seats',
         'searchFields' => 'sku,title,',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/Slot.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_slot.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, dates, price, special_prices, handle_seats, seats_number, seats_taken',

@@ -36,7 +36,7 @@ return [
         ],
         'requestUpdate' => '',
         'searchFields' => 'sku,title,teaser,description,audience',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/Event.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, teaser, description, meta_description, tax_class_id, slots, category, categories, tags',

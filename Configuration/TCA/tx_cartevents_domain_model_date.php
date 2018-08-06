@@ -24,7 +24,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/Date.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_date.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, begin, end, note',

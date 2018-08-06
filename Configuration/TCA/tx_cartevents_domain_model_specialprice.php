@@ -31,7 +31,7 @@ return [
             'fe_group' => 'frontend_user_group',
         ],
         'searchFields' => 'price',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/SpecialPrice.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_specialprice.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, starttime, endtime, title, frontend_user_group, price',
