@@ -34,6 +34,12 @@
             <trans-unit id="tx_cartevents_domain_model_event.slots">
                 <source>Slots</source>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.related_events">
+                <source>Related Events</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.related_events_from">
+                <source>Related Events (from)</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.category">
                 <source>Main Category</source>
             </trans-unit>

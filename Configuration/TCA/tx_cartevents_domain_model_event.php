@@ -39,7 +39,7 @@ return [
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, teaser, description, meta_description, tax_class_id, slots, category, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, teaser, description, meta_description, tax_class_id, slots, related_events, category, categories, tags',
     ],
     'types' => [
         '1' => [
@@ -55,6 +55,8 @@ return [
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.slots,
                     tax_class_id,
                     slots,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.relations,
+                    related_events, 
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.categorization,
                     tags, category, categories,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
@@ -222,6 +224,45 @@ return [
                 'eval' => 'trim'
             ],
             'defaultExtras' => 'richtext[]'
+        ],
+
+        'related_events' => [
+            'exclude' => 1,
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.related_events',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_cartevents_domain_model_event',
+                'foreign_table' => 'tx_cartevents_domain_model_event',
+                'MM_opposite_field' => 'related_events_from',
+                'size' => 5,
+                'minitems' => 0,
+                'maxitems' => 100,
+                'MM' => 'tx_cartevents_domain_model_event_event_related_mm',
+                'wizards' => [
+                    'suggest' => [
+                        'type' => 'suggest',
+                        'default' => [
+                            'searchWholePhrase' => true
+                        ]
+                    ],
+                ],
+            ]
+        ],
+
+        'related_events_from' => [
+            'exclude' => 1,
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.related_events_from',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'foreign_table' => 'tx_cartevents_domain_model_event',
+                'allowed' => 'tx_cartevents_domain_model_event',
+                'size' => 5,
+                'maxitems' => 100,
+                'MM' => 'tx_cartevents_domain_model_event_event_related_mm',
+                'readOnly' => 1,
+            ]
         ],
 
         'images' => [
