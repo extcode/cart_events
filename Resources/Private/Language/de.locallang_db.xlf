@@ -44,6 +44,14 @@
                 <source>Slots</source>
                 <target>Slots</target>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.related_events">
+                <source>Related Events</source>
+                <target>Verwandte Veranstaltungen</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.related_events_from">
+                <source>Related Events (from)</source>
+                <target>Verwandte Veranstaltungen (von)</target>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.category">
                 <source>Main Category</source>
                 <target>Hauptkategorie</target>

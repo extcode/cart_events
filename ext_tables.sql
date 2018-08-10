@@ -17,6 +17,9 @@ CREATE TABLE tx_cartevents_domain_model_event (
     images varchar(255) DEFAULT '' NOT NULL,
     files varchar(255) DEFAULT '' NOT NULL,
 
+    related_events int(11) DEFAULT '0' NOT NULL,
+    related_events_from int(11) DEFAULT '0' NOT NULL,
+
     category int(11) unsigned DEFAULT '0' NOT NULL,
     categories int(11) unsigned DEFAULT '0' NOT NULL,
     tags int(11) DEFAULT '0' NOT NULL,
@@ -176,6 +179,18 @@ CREATE TABLE tx_cartevents_domain_model_specialprice (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
+);
+
+#
+# Table structure for table 'tx_cartevents_domain_model_event_event_related_mm'
+#
+CREATE TABLE tx_cartevents_domain_model_event_event_related_mm (
+    uid_local int(11) DEFAULT '0' NOT NULL,
+    uid_foreign int(11) DEFAULT '0' NOT NULL,
+    sorting int(11) DEFAULT '0' NOT NULL,
+    sorting_foreign int(11) DEFAULT '0' NOT NULL,
+    KEY uid_local (uid_local),
+    KEY uid_foreign (uid_foreign)
 );
 
 #

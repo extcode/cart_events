@@ -20,6 +20,10 @@
 				<source>Slots</source>
 				<target>Slots</target>
 			</trans-unit>
+			<trans-unit id="tx_cartevents_domain_model_event.div.relations">
+				<source>Relations</source>
+				<target>Relationen</target>
+			</trans-unit>
 			<trans-unit id="tx_cartevents_domain_model_slot.div.informations">
 				<source>Informations</source>
 				<target>Informationen</target>
