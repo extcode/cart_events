@@ -43,4 +43,4 @@ The extension ships some TypoScript code which needs to be included.
 
 #. Press the link **Edit the whole template record** and switch to the tab *Includes*.
 
-#. Select **Contacts (contacts)** at the field *Include static (from extensions):*
+#. Select **Shopping Cart - Cart Events** at the field *Include static (from extensions):*
