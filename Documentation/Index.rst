@@ -19,7 +19,7 @@ EXT: Contacts
 .. only:: html
 
    :Classification:
-      contacts
+      cart
 
    :Version:
       |release|
