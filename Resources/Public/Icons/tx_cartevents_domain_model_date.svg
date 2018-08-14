@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
 <g>
-	<g>
-		<path fill="#3A7CAE" d="M11,0.9v1.3v1.9h1.3V2.2h0.6c0.9,0,1.6,0.6,1.6,1.6v9.9c0,0.8-0.6,1.6-1.6,1.6H3.1c-0.8,0-1.6-0.6-1.6-1.6
-			V3.7c0-0.9,0.6-1.6,1.6-1.6h0.8v1.9h1.3V0.9h1.3v1.3h3.4V0.9H11"/>
-	</g>
+	<path fill="#3A7CAE" d="M11,0.9v1.3v1.9h1.3V2.2h0.6c0.9,0,1.6,0.6,1.6,1.6v9.9c0,0.8-0.6,1.6-1.6,1.6H3.1c-0.8,0-1.6-0.6-1.6-1.6 V3.7c0-0.9,0.6-1.6,1.6-1.6h0.8v1.9h1.3V0.9h1.3v1.3h3.4V0.9H11"/>
 	<path fill="#FFFFFF" d="M14.5,6.6h-13V5.9h13V6.6z"/>
 </g>
-<polygon fill="#FFFFFF" points="8,13.7 8,8 6.8,8 4.5,8 4.5,9.2 6.8,9.2 6.8,10.3 4.5,10.3 4.5,11.5 6.8,11.5 6.8,12.7 4.5,12.7
-	4.5,13.7 6.8,13.7 "/>
+<polygon fill="#FFFFFF" points="8,13.7 8,8 6.8,8 4.5,8 4.5,9.2 6.8,9.2 6.8,10.3 4.5,10.3 4.5,11.5 6.8,11.5 6.8,12.7 4.5,12.7 4.5,13.7 6.8,13.7 "/>
 <polygon fill="#FFFFFF" points="10.3,13.7 11.5,13.7 11.5,8 10.3,8 9.2,8 9.2,9.2 10.3,9.2 "/>
 </svg>
