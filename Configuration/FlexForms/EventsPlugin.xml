@@ -22,10 +22,6 @@
                                         <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.show</numIndex>
                                         <numIndex index="1">Event->show</numIndex>
                                     </numIndex>
-                                    <numIndex index="2">
-                                        <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser</numIndex>
-                                        <numIndex index="1">Event->teaser</numIndex>
-                                    </numIndex>
                                 </items>
                                 <default>Event->show;Event->list</default>
                             </config>
@@ -36,12 +32,7 @@
                     <settings.templateLayout>
                         <TCEforms>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout</label>
-                            <displayCond>
-                                <OR>
-                                    <numIndex index="0">FIELD:switchableControllerActions:=:Event->show;Event->list</numIndex>
-                                    <numIndex index="1">FIELD:switchableControllerActions:=:Event->teaser</numIndex>
-                                </OR>
-                            </displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
@@ -115,12 +106,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.limit</label>
-                            <displayCond>
-                                <OR>
-                                    <numIndex index="0">FIELD:switchableControllerActions:=:Event->show;Event->list</numIndex>
-                                    <numIndex index="1">FIELD:switchableControllerActions:=:Event->teaser</numIndex>
-                                </OR>
-                            </displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>input</type>
                                 <size>3</size>
@@ -157,21 +143,6 @@
                             </config>
                         </TCEforms>
                     </settings.showPageUids>
-
-                    <settings.eventUids>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser.select.events</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Event->teaser</displayCond>
-                            <config>
-                                <type>select</type>
-                                <foreign_table>tx_cartevents_domain_model_event</foreign_table>
-                                <size>3</size>
-                                <minitems>1</minitems>
-                                <maxitems>99</maxitems>
-                            </config>
-                        </TCEforms>
-                    </settings.eventUids>
 
                     <settings.categoriesList>
                         <TCEforms>

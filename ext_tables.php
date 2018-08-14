@@ -17,13 +17,16 @@ $_LLL = 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf';
  */
 $pluginNames = [
     'Events' => [
-        'pluginSignature' => 'select_key'
+        'subtypes_excludelist' => 'select_key'
+    ],
+    'TeaserEvents' => [
+        'subtypes_excludelist' => 'select_key, pages, recursive'
     ],
     'SingleEvent' => [
-        'pluginSignature' => 'select_key, pages, recursive'
+        'subtypes_excludelist' => 'select_key, pages, recursive'
     ],
     'Slots' => [
-        'pluginSignature' => 'select_key, recursive'
+        'subtypes_excludelist' => 'select_key, recursive'
     ],
 ];
 
@@ -36,7 +39,7 @@ foreach ($pluginNames as $pluginName => $pluginConf) {
         $_LLL . ':tx_cartevents.plugin.' . $pluginNameSC . '.title'
     );
 
-    $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = $pluginConf['pluginSignature'];
+    $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = $pluginConf['subtypes_excludelist'];
 
     $flexFormPath = 'EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
     if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormPath))) {

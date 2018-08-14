@@ -108,12 +108,16 @@
 				<source>Choose teaser product</source>
 			</trans-unit>
 
+			<trans-unit id="tx_cartevents.plugin.teaser_events.title">
+				<source>CartEvents: Events (Teaser)</source>
+			</trans-unit>
+
 			<trans-unit id="tx_cartevents.plugin.single_event.title">
 				<source>CartEvents: Single Event</source>
 			</trans-unit>
 
 			<trans-unit id="tx_cartevents.plugin.slots.title">
-				<source>CartEvents: Next Events</source>
+				<source>CartEvents: Event Dates (upcoming)</source>
 			</trans-unit>
 			<trans-unit id="tx_cartevents.plugin.slots.controller.slot.action.list.select.single_pid">
 				<source>Event Detail Page</source>
