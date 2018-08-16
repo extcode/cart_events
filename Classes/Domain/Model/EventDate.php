@@ -16,7 +16,7 @@ class EventDate extends AbstractEventDate
      * SKU
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $sku;
 
@@ -24,7 +24,7 @@ class EventDate extends AbstractEventDate
      * Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $title = '';
 
@@ -73,8 +73,8 @@ class EventDate extends AbstractEventDate
     /**
      * Event Special Price
      *
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\SpecialPrice>
-     * @cascade remove
      */
     protected $specialPrices;
 
@@ -102,8 +102,8 @@ class EventDate extends AbstractEventDate
     /**
      * Calendar Entries
      *
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\CalendarEntry>
-     * @cascade remove
      */
     protected $calendarEntries;
 

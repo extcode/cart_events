@@ -121,7 +121,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * @param \Extcode\CartEvents\Domain\Model\Event $event
      *
-     * @ignorevalidation $event
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $event
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function showAction(\Extcode\CartEvents\Domain\Model\Event $event = null)

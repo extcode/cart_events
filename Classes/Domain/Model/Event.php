@@ -11,7 +11,7 @@ class Event extends AbstractEntity
      * SKU
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $sku = '';
 
@@ -19,7 +19,7 @@ class Event extends AbstractEntity
      * Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $title = '';
 
@@ -61,24 +61,24 @@ class Event extends AbstractEntity
     /**
      * EventDates
      *
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\EventDate>
-     * @cascade remove
      */
     protected $eventDates;
 
     /**
      * Related Events
      *
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event>
-     * @lazy
      */
     protected $relatedEvents = null;
 
     /**
      * Related Events (from)
      *
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event>
-     * @lazy
      */
     protected $relatedEventsFrom;
 

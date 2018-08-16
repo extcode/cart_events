@@ -2,12 +2,13 @@
 
 defined('TYPO3_MODE') or die();
 
-// Extension manager configuration
-$configuration = \Extcode\CartEvents\Utility\EmConfiguration::getSettings();
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+ExtensionManagementUtility::makeCategorizable(
     'cart_events',
     'tx_cartevents_domain_model_event',
     'category',
@@ -23,7 +24,7 @@ $_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 
 $GLOBALS['TCA']['tx_cartevents_domain_model_event']['category']['config']['maxitems'] = 1;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+ExtensionManagementUtility::makeCategorizable(
     'cart_events',
     'tx_cartevents_domain_model_event',
     'categories',
@@ -33,7 +34,7 @@ $GLOBALS['TCA']['tx_cartevents_domain_model_event']['category']['config']['maxit
 );
 
 // category restriction based on settings in extension manager
-$categoryRestrictionSetting = $configuration->getCategoryRestriction();
+$categoryRestrictionSetting = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'categoryRestriction');
 
 if ($categoryRestrictionSetting) {
     $categoryRestriction = '';
