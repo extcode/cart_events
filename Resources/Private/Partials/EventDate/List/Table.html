@@ -2,33 +2,33 @@
       xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:for each="{slots}" as="slot">
-    <div class="slot-detail">
+<f:for each="{eventDates}" as="eventDate">
+    <div class="event-date-detail">
         <div class="row">
             <div class="medium-7 columns">
-                <f:if condition="{slot.event.images}">
-                    <cartevents:link.event pluginName="Events" controller="Event" event="{slot.event}" settings="{settings}">
-                        <f:image src="{slot.event.firstImage.originalResource.originalFile.uid}"
-                                 title="{slot.event.firstImage.originalResource.title}"
-                                 alt="{slot.event.firstImage.originalResource.title}"
+                <f:if condition="{eventDate.event.images}">
+                    <cartevents:link.event pluginName="Events" controller="Event" event="{eventDate.event}" settings="{settings}">
+                        <f:image src="{eventDate.event.firstImage.originalResource.originalFile.uid}"
+                                 title="{eventDate.event.firstImage.originalResource.title}"
+                                 alt="{eventDate.event.firstImage.originalResource.title}"
                                  width="{settings.listAction.media.image.size.small.maxWidth}"
                                  height="{settings.listAction.media.image.size.small.maxHeight}" />
                     </cartevents:link.event>
                 </f:if>
-                <cartevents:link.event pluginName="Events" controller="Event" event="{slot.event}" settings="{settings}">
-                    <div class="event-title"><h3>{slot.event.title}</h3><h4>{slot.title}</h4></div>
+                <cartevents:link.event pluginName="Events" controller="Event" event="{eventDate.event}" settings="{settings}">
+                    <div class="event-title"><h3>{eventDate.event.title}</h3><h4>{eventDate.title}</h4></div>
                 </cartevents:link.event>
                 <div class="row item--content">
                     <f:if condition="{event.teaser}">
                         <div class="item--teaser-column">
-                            <div class="description"><f:format.html>{slot.event.teaser}</f:format.html></div>
+                            <div class="description"><f:format.html>{eventDate.event.teaser}</f:format.html></div>
                         </div>
                     </f:if>
                 </div>
 
             </div>
             <div class="medium-5 columns">
-                <cartevents:link.event pluginName="Events" controller="Event" event="{slot.event}" settings="{settings}">
+                <cartevents:link.event pluginName="Events" controller="Event" event="{eventDate.event}" settings="{settings}">
                     <div class="event-detail-page"><f:translate key="tx_cartevents.more_link" /><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
                 </cartevents:link.event>
             </div>

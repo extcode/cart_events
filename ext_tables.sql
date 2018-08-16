@@ -5,7 +5,7 @@ CREATE TABLE tx_cartevents_domain_model_event (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
-    slots int(11) unsigned DEFAULT '0' NOT NULL,
+    event_dates int(11) unsigned DEFAULT '0' NOT NULL,
 
     sku varchar(255) DEFAULT '' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
@@ -57,14 +57,14 @@ CREATE TABLE tx_cartevents_domain_model_event (
 );
 
 #
-# Table structure for table 'tx_cartevents_domain_model_slot'
+# Table structure for table 'tx_cartevents_domain_model_eventdate'
 #
-CREATE TABLE tx_cartevents_domain_model_slot (
+CREATE TABLE tx_cartevents_domain_model_eventdate (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
     event int(11) unsigned DEFAULT '0' NOT NULL,
-    dates int(11) unsigned DEFAULT '0' NOT NULL,
+    calendar_entries int(11) unsigned DEFAULT '0' NOT NULL,
 
     sku varchar(255) DEFAULT '' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
@@ -74,7 +74,13 @@ CREATE TABLE tx_cartevents_domain_model_slot (
     images varchar(255) DEFAULT '' NOT NULL,
     files varchar(255) DEFAULT '' NOT NULL,
 
+    begin int(11) unsigned DEFAULT '0' NOT NULL,
+    end int(11) unsigned DEFAULT '0' NOT NULL,
+    note text NOT NULL,
+
     bookable tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
+    bookable_until int(11) unsigned DEFAULT '0' NOT NULL,
 
     price double(11,2) DEFAULT '0.00' NOT NULL,
     special_prices int(11) unsigned DEFAULT '0' NOT NULL,
@@ -114,13 +120,13 @@ CREATE TABLE tx_cartevents_domain_model_slot (
 );
 
 #
-# Table structure for table 'tx_cartevents_domain_model_date'
+# Table structure for table 'tx_cartevents_domain_model_calendarentry'
 #
-CREATE TABLE tx_cartevents_domain_model_date (
+CREATE TABLE tx_cartevents_domain_model_calendarentry (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
-    slot int(11) unsigned DEFAULT '0' NOT NULL,
+    event_date int(11) unsigned DEFAULT '0' NOT NULL,
 
     begin int(11) unsigned DEFAULT '0' NOT NULL,
     end int(11) unsigned DEFAULT '0' NOT NULL,
@@ -145,7 +151,7 @@ CREATE TABLE tx_cartevents_domain_model_specialprice (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
-    event_slot int(11) unsigned DEFAULT '0' NOT NULL,
+    event_date int(11) unsigned DEFAULT '0' NOT NULL,
 
     title varchar(255) DEFAULT '' NOT NULL,
 

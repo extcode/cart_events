@@ -36,31 +36,31 @@
     </div>
 </div>
 
-<f:if condition="{event.slots}">
-    <div class="event-slot-list">
-        <f:for each="{event.slots}" as="slot">
-            <div class="event-slot" data-uid="slot-{slot.uid}">
-                {slot.title}
+<f:if condition="{event.eventDates}">
+    <div class="event-event-date-list">
+        <f:for each="{event.eventDates}" as="eventDate">
+            <div class="event-event-date" data-uid="eventDate-{eventDate.uid}">
+                {eventDate.title}
 
-                <f:if condition="{slot.handleSeats}">
+                <f:if condition="{eventDate.handleSeats}">
                     <div>
-                        <f:render partial="Event/Seats" arguments="{slot: slot}" />
+                        <f:render partial="Event/Seats" arguments="{eventDate: eventDate}" />
                     </div>
                 </f:if>
 
-                <f:for each="{slot.dates}" as="date">
+                <f:for each="{eventDate.dates}" as="date">
                     <div class="date" data-uid="date-{date.uid}">
                         <f:format.date date="{date.begin}" format="d.m.Y H:i" /> - <f:format.date date="{date.end}" format="d.m.Y H:i" />
                     </div>
                 </f:for>
 
                 <div>
-                    <f:render partial="Event/Price" arguments="{slot: slot}" />
+                    <f:render partial="Event/Price" arguments="{eventDate: eventDate}" />
                 </div>
 
-                <f:if condition="{slot.bookable}">
+                <f:if condition="{eventDate.bookable}">
                     <div>
-                        <f:render partial="Event/CartForm" arguments="{slot: slot, pid: cartSettings.cart.pid}" />
+                        <f:render partial="Event/CartForm" arguments="{eventDate: eventDate, pid: cartSettings.cart.pid}" />
                     </div>
                 </f:if>
             </div>

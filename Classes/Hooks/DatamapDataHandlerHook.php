@@ -83,7 +83,7 @@ class DatamapDataHandlerHook
         if (($doktype == 186) && ($listType == 'cartevents_singleevent')) {
             return true;
         }
-        if (($doktype != 186) && ($listType == 'cartevents_events' || $listType == 'cartevents_slots' || $listType == 'cartevents_teaserevents')) {
+        if (($doktype != 186) && ($listType == 'cartevents_events' || $listType == 'cartevents_eventdates' || $listType == 'cartevents_teaserevents')) {
             return true;
         }
 

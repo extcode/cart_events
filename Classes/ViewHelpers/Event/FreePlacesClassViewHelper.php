@@ -14,9 +14,9 @@ class FreePlacesClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
         parent::initializeArguments();
 
         $this->registerArgument(
-            'slot',
-            \Extcode\CartEvents\Domain\Model\Slot::class,
-            'slot',
+            'eventDate',
+            \Extcode\CartEvents\Domain\Model\EventDate::class,
+            'eventDate',
             true
         );
 
@@ -54,26 +54,26 @@ class FreePlacesClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
      */
     public function render()
     {
-        /** @var \Extcode\CartEvents\Domain\Model\Slot $slot */
-        $slot = $this->arguments['slot'];
+        /** @var \Extcode\CartEvents\Domain\Model\EventDate $eventDate */
+        $eventDate = $this->arguments['eventDate'];
 
         $returnColorPrefix = $this->arguments['returnColorPrefix'] ?? '';
 
-        if ($slot->isHandleSeats()) {
-            $greenLowerBound  = $this->arguments['greenLowerBound']  ?? ($slot->getSeatsNumber() * 2/3);
+        if ($eventDate->isHandleSeats()) {
+            $greenLowerBound  = $this->arguments['greenLowerBound']  ?? ($eventDate->getSeatsNumber() * 2/3);
             $yellowLowerBound = $this->arguments['yellowLowerBound'];
-            $orangeLowerBound = $this->arguments['orangeLowerBound'] ?? ($slot->getSeatsNumber() * 1/3);
+            $orangeLowerBound = $this->arguments['orangeLowerBound'] ?? ($eventDate->getSeatsNumber() * 1/3);
             $orangeLowerBound = $orangeLowerBound <= 5 ? $orangeLowerBound : 5;
 
             if (($yellowLowerBound > $greenLowerBound) || ($yellowLowerBound < $orangeLowerBound)) {
                 unset($yellowLowerBound);
             }
 
-            if ($slot->getSeatsAvailable() > $greenLowerBound) {
+            if ($eventDate->getSeatsAvailable() > $greenLowerBound) {
                 return $returnColorPrefix . 'green';
-            } elseif (isset($yellowLowerBound) && $slot->getSeatsAvailable() > $yellowLowerBound) {
+            } elseif (isset($yellowLowerBound) && $eventDate->getSeatsAvailable() > $yellowLowerBound) {
                 return $returnColorPrefix . 'yellow';
-            } elseif ($slot->getSeatsAvailable() > $orangeLowerBound) {
+            } elseif ($eventDate->getSeatsAvailable() > $orangeLowerBound) {
                 return $returnColorPrefix . 'orange';
             }
         }

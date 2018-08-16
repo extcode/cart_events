@@ -27,7 +27,7 @@ class SchemaViewHelper extends AbstractViewHelper
         /** @var \Extcode\CartEvents\Domain\Model\Event $event */
         $event = $this->arguments['event'];
 
-        foreach ($event->getSlots() as $slot) {
+        foreach ($event->getEventDates() as $eventDate) {
             $schemaEvents[] = [
                 '@context' => 'http://schema.org',
                 '@type' => 'Event',
@@ -35,35 +35,20 @@ class SchemaViewHelper extends AbstractViewHelper
                     '@type' => 'Place',
                     'address' => [
                         '@type' => 'Text',
-                        'name' => $slot->getLocation(),
+                        'name' => $eventDate->getLocation(),
                     ],
                 ],
                 'name' => $event->getTitle(),
                 'description' => $event->getDescription(),
-                'startDate' => $this->getStartDate($slot),
+                'startDate' => $eventDate->getBegin()->format(\DateTime::ATOM),
                 'offers' => [
                     '@type' => 'Offer',
-                    'price' => $slot->getPrice(),
+                    'price' => $eventDate->getPrice(),
                     'priceCurrency' => 'EUR',
                 ]
             ];
         }
 
         return json_encode($schemaEvents);
-    }
-
-    /**
-     * @param \Extcode\CartEvents\Domain\Model\Slot $slot
-     * @return string
-     */
-    protected function getStartDate(\Extcode\CartEvents\Domain\Model\Slot $slot) : string
-    {
-        $firstDate = $slot->getFirstDate();
-
-        if ($firstDate) {
-            return $firstDate->getBegin()->format(\DateTime::ATOM);
-        }
-
-        return '';
     }
 }

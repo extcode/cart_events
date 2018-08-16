@@ -2,7 +2,7 @@
       data-namespace-typo3-fluid="true">
 
 <div class="cart_form">
-    <f:form id="slot-{slot.uid}"
+    <f:form id="event-date-{eventDate.uid}"
             class="add-to-cart-form"
             pageUid="{pid}"
             extensionName="Cart"
@@ -11,9 +11,9 @@
             action="add"
             method="post"
             pageType="{f:if(condition:'{settings.addToCartByAjax}', then:'{settings.addToCartByAjax}', else:'')}"
-            additionalAttributes="{data-ajax: '{f:if(condition: \'{settings.addToCartByAjax}\', then: \'1\', else: \'0\')}', data-type: 'slot', data-id: '{slot.uid}'}">
+            additionalAttributes="{data-ajax: '{f:if(condition: \'{settings.addToCartByAjax}\', then: \'1\', else: \'0\')}', data-type: 'eventDate', data-id: '{eventDate.uid}'}">
         <input type="hidden" name="tx_cart_cart[productType]" value="CartEvents">
-        <input type="hidden" name="tx_cart_cart[slot]" value="{slot.uid}">
+        <input type="hidden" name="tx_cart_cart[eventDate]" value="{eventDate.uid}">
 
         <input class="form-control" type="text" value="1" name="tx_cart_cart[quantity]">
         <input type="submit" class="btn btn-default" value="<f:translate key='tx_cartevents.plugin.form.submit' />">

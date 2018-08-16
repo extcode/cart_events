@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class SlotRepository extends Repository
+class EventDateRepository extends Repository
 {
     /**
      * @param int $limit
@@ -17,43 +17,29 @@ class SlotRepository extends Repository
      */
     public function findNext(int $limit, string $pidList)
     {
-        $table = 'tx_cartevents_domain_model_slot';
-        $joinTableDate = 'tx_cartevents_domain_model_date';
+        $table = 'tx_cartevents_domain_model_eventdate';
         $joinTableEvent = 'tx_cartevents_domain_model_event';
 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable($table);
 
         $queryBuilder
-            ->select('tx_cartevents_domain_model_slot.uid')
-            ->addSelect('date.begin')
+            ->select('tx_cartevents_domain_model_eventdate.uid, tx_cartevents_domain_model_eventdate.begin')
             ->addSelect('event.uid AS event_uid')
             ->addSelect('event.pid AS event_pid')
-            //->addSelect('category.cart_event_list_pid')
-            //->addSelect('category.cart_event_show_pid')
             ->from($table)
-            ->leftJoin(
-                $table,
-                $joinTableDate,
-                'date',
-                $queryBuilder->expr()->eq(
-                    'date.slot',
-                    $queryBuilder->quoteIdentifier('tx_cartevents_domain_model_slot.uid')
-                )
-            )
             ->leftJoin(
                 $table,
                 $joinTableEvent,
                 'event',
                 $queryBuilder->expr()->eq(
                     'event.uid',
-                    $queryBuilder->quoteIdentifier('tx_cartevents_domain_model_slot.event')
+                    $queryBuilder->quoteIdentifier('tx_cartevents_domain_model_eventdate.event')
                 )
             );
 
-        //$this->joinCategory($queryBuilder);
         $queryBuilder->andWhere(
-            'date.begin >= ' . time()
+            'tx_cartevents_domain_model_eventdate.begin >= ' . time()
         );
         $queryBuilder->andWhere(
             $queryBuilder->expr()->in(
@@ -63,16 +49,14 @@ class SlotRepository extends Repository
         );
 
         $queryBuilder
-            ->orderBy('date.begin')
-            ->groupBy('slot');
+            ->orderBy('tx_cartevents_domain_model_eventdate.begin')
+            ->groupBy('tx_cartevents_domain_model_eventdate');
 
         if ($limit) {
             $queryBuilder->setMaxResults($limit);
         }
 
-        $data = $queryBuilder->execute();
-
-        return $data;
+        return $queryBuilder->execute();
     }
 
     /**

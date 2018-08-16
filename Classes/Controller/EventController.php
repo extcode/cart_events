@@ -7,8 +7,6 @@ use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
 use Extcode\CartEvents\Domain\Repository\EventRepository;
 
 /**
- * Event Controller
- *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -155,11 +153,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         if ($eventUid > 0) {
-            $eventRepository = $this->objectManager->get(
-                \Extcode\CartEvents\Domain\Repository\EventRepository::class
-            );
-
-            $event =  $eventRepository->findByUid($eventUid);
+            $event =  $this->eventRepository->findByUid($eventUid);
         }
 
         return $event;

@@ -25,7 +25,7 @@ $pluginNames = [
     'SingleEvent' => [
         'subtypes_excludelist' => 'select_key, pages, recursive'
     ],
-    'Slots' => [
+    'EventDates' => [
         'subtypes_excludelist' => 'select_key, recursive'
     ],
 ];

@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Domain\Model;
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-
-class Slot extends AbstractEntity
+class EventDate extends AbstractEventDate
 {
     /**
      * Event
@@ -102,75 +100,83 @@ class Slot extends AbstractEntity
     protected $seatsTaken = 0;
 
     /**
-     * Dates
+     * Calendar Entries
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Date>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\CalendarEntry>
      * @cascade remove
      */
-    protected $dates;
+    protected $calendarEntries;
 
     /**
      * @return string
      */
-    public function getSku(): string
+    public function getSku() : string
     {
         return $this->sku;
     }
 
     /**
      * @param string $sku
+     * @return EventDate
      */
-    public function setSku(string $sku)
+    public function setSku(string $sku) : self
     {
         $this->sku = $sku;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle() : string
     {
         return $this->title;
     }
 
     /**
      * @param string $title
+     * @return EventDate
      */
-    public function setTitle(string $title)
+    public function setTitle(string $title) : self
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getLocation(): string
+    public function getLocation() : string
     {
         return $this->location;
     }
 
     /**
      * @param string $location
+     * @return EventDate
      */
-    public function setLocation(string $location)
+    public function setLocation(string $location) : self
     {
         $this->location = $location;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getLecturer(): string
+    public function getLecturer() : string
     {
         return $this->lecturer;
     }
 
     /**
      * @param string $lecturer
+     * @return EventDate
      */
-    public function setLecturer(string $lecturer)
+    public function setLecturer(string $lecturer) : self
     {
         $this->lecturer = $lecturer;
+        return $this;
     }
 
     /**
@@ -178,7 +184,7 @@ class Slot extends AbstractEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
      */
-    public function getImages()
+    public function getImages() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         return $this->images;
     }
@@ -188,7 +194,7 @@ class Slot extends AbstractEntity
      *
      * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      */
-    public function getFirstImage()
+    public function getFirstImage() : \TYPO3\CMS\Extbase\Domain\Model\FileReference
     {
         return array_shift($this->getImages()->toArray());
     }
@@ -197,10 +203,12 @@ class Slot extends AbstractEntity
      * Sets the Images
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     * @return EventDate
      */
-    public function setImages($images)
+    public function setImages($images) : self
     {
         $this->images = $images;
+        return $this;
     }
 
     /**
@@ -208,7 +216,7 @@ class Slot extends AbstractEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
      */
-    public function getFiles()
+    public function getFiles() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         return $this->files;
     }
@@ -217,42 +225,48 @@ class Slot extends AbstractEntity
      * Sets the Files
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
+     * @return EventDate
      */
-    public function setFiles($files)
+    public function setFiles($files) : self
     {
         $this->files = $files;
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isBookable(): bool
+    public function isBookable() : bool
     {
         return $this->bookable;
     }
 
     /**
      * @param bool $bookable
+     * @return EventDate
      */
-    public function setBookable(bool $bookable)
+    public function setBookable(bool $bookable) : self
     {
         $this->bookable = $bookable;
+        return $this;
     }
 
     /**
      * @return float
      */
-    public function getPrice(): float
+    public function getPrice() : float
     {
         return $this->price;
     }
 
     /**
      * @param float $price
+     * @return EventDate
      */
-    public function setPrice(float $price)
+    public function setPrice(float $price) : self
     {
         $this->price = $price;
+        return $this;
     }
 
     /**
@@ -260,7 +274,7 @@ class Slot extends AbstractEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\SpecialPrice>
      */
-    public function getSpecialPrices()
+    public function getSpecialPrices() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         return $this->specialPrices;
     }
@@ -269,30 +283,36 @@ class Slot extends AbstractEntity
      * Adds a Special Price
      *
      * @param \Extcode\CartEvents\Domain\Model\SpecialPrice $specialPrice
+     * @return EventDate
      */
-    public function addSpecialPrice(\Extcode\CartEvents\Domain\Model\SpecialPrice $specialPrice)
+    public function addSpecialPrice(\Extcode\CartEvents\Domain\Model\SpecialPrice $specialPrice) : self
     {
         $this->specialPrices->attach($specialPrice);
+        return $this;
     }
 
     /**
      * Removes a Special Price
      *
      * @param \Extcode\CartEvents\Domain\Model\SpecialPrice $specialPriceToRemove
+     * @return EventDate
      */
-    public function removeSpecialPrice(\Extcode\CartEvents\Domain\Model\SpecialPrice $specialPriceToRemove)
+    public function removeSpecialPrice(\Extcode\CartEvents\Domain\Model\SpecialPrice $specialPriceToRemove) : self
     {
         $this->specialPrices->detach($specialPriceToRemove);
+        return $this;
     }
 
     /**
      * Sets the Special Prices
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices
+     * @return EventDate
      */
-    public function setSpecialPrices(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices)
+    public function setSpecialPrices(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices) : self
     {
         $this->specialPrices = $specialPrices;
+        return $this;
     }
 
     /**
@@ -301,7 +321,7 @@ class Slot extends AbstractEntity
      * @var array $frontendUserGroupIds
      * @return float
      */
-    public function getBestSpecialPrice($frontendUserGroupIds = [])
+    public function getBestSpecialPrice(array $frontendUserGroupIds = []) : float
     {
         $bestSpecialPrice = $this->price;
 
@@ -323,75 +343,81 @@ class Slot extends AbstractEntity
     /**
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
      */
-    public function getDates(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getCalendarEntries() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
-        $sortedDates = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $dates = $this->dates->toArray();
+        $sortedCalendarEntries = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $calendarEntryArr = $this->calendarEntries->toArray();
 
-        usort($dates, function ($date1, $date2) {
-            $begin1 = $date1->getBegin();
-            $begin2 = $date2->getBegin();
+        usort($calendarEntryArr, function ($calendarEntry1, $calendarEntry2) {
+            $begin1 = $calendarEntry1->getBegin();
+            $begin2 = $calendarEntry2->getBegin();
 
-            if ($begin1 == $begin2) {
+            if ($begin1 === $begin2) {
                 return 0;
             }
 
             return $begin1 < $begin2 ? -1 : 1;
         });
 
-        foreach ($dates as $date) {
-            $sortedDates->attach($date);
+        foreach ($calendarEntryArr as $calendarEntry) {
+            $sortedCalendarEntries->attach($calendarEntry);
         }
 
-        return $sortedDates;
+        return $sortedCalendarEntries;
     }
 
     /**
-     * return \Extcode\CartEvents\Domain\Model\Date
+     * return \Extcode\CartEvents\Domain\Model\CalendarEntry
      */
-    public function getFirstDate()
+    public function getFirstCalendarEntry() : \Extcode\CartEvents\Domain\Model\CalendarEntry
     {
-        return $this->getDates()->current();
+        return $this->getCalendarEntries()->current();
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $dates
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $calendarEntries
+     * @return EventDate
      */
-    public function setDates(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $dates)
+    public function setCalendarEntries(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $calendarEntries) : self
     {
-        $this->dates = $dates;
+        $this->calendarEntries = $calendarEntries;
+        return $this;
     }
 
     /**
      * @return Event
      */
-    public function getEvent(): Event
+    public function getEvent() : Event
     {
         return $this->event;
     }
 
     /**
      * @param Event $event
+     * @return EventDate
      */
-    public function setEvent(Event $event)
+    public function setEvent(Event $event) : self
     {
         $this->event = $event;
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isHandleSeats(): bool
+    public function isHandleSeats() : bool
     {
         return $this->handleSeats;
     }
 
     /**
      * @param bool $handleSeats
+     * @return EventDate
      */
-    public function setHandleSeats(bool $handleSeats)
+    public function setHandleSeats(bool $handleSeats) : self
     {
         $this->handleSeats = $handleSeats;
+        return $this;
     }
 
     /**
@@ -399,7 +425,7 @@ class Slot extends AbstractEntity
      *
      * @return int
      */
-    public function getSeatsNumber(): int
+    public function getSeatsNumber() : int
     {
         if (!$this->handleSeats) {
             return 0;
@@ -409,10 +435,12 @@ class Slot extends AbstractEntity
 
     /**
      * @param int $seatsNumber
+     * @return EventDate
      */
-    public function setSeatsNumber(int $seatsNumber)
+    public function setSeatsNumber(int $seatsNumber) : self
     {
         $this->seatsNumber = $seatsNumber;
+        return $this;
     }
 
     /**
@@ -420,7 +448,7 @@ class Slot extends AbstractEntity
      *
      * @return int
      */
-    public function getSeatsTaken(): int
+    public function getSeatsTaken() : int
     {
         if (!$this->handleSeats) {
             return 0;
@@ -430,10 +458,12 @@ class Slot extends AbstractEntity
 
     /**
      * @param int $seatsTaken
+     * @return EventDate
      */
-    public function setSeatsTaken(int $seatsTaken)
+    public function setSeatsTaken(int $seatsTaken) : self
     {
         $this->seatsTaken = $seatsTaken;
+        return $this;
     }
 
     /**
@@ -441,7 +471,7 @@ class Slot extends AbstractEntity
      *
      * @return int
      */
-    public function getSeatsAvailable(): int
+    public function getSeatsAvailable() : int
     {
         if (!$this->handleSeats) {
             return 0;

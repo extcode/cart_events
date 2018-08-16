@@ -28,7 +28,7 @@ class EventRepository extends Repository
             $constraints[] = $query->like('title', '%' . $demand->getTitle() . '%');
         }
 
-        if ((!empty($demand->getCategories()))) {
+        if (!empty($demand->getCategories())) {
             $categoryConstraints = [];
             foreach ($demand->getCategories() as $category) {
                 $categoryConstraints[] = $query->contains('category', $category);
@@ -95,7 +95,7 @@ class EventRepository extends Repository
                 list($orderField, $ascDesc) =
                     \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $orderItem, true);
                 if ($ascDesc) {
-                    $orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
+                    $orderings[$orderField] = ((strtolower($ascDesc) === 'desc') ?
                         \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
                         \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
                 } else {

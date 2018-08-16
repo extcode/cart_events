@@ -5,7 +5,7 @@ namespace Extcode\CartEvents\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Date extends AbstractEntity
+abstract class AbstractEventDate extends AbstractEntity
 {
     /**
      * @var \DateTime
@@ -34,41 +34,47 @@ class Date extends AbstractEntity
 
     /**
      * @param \DateTime $begin
+     * @return CalendarEntry
      */
-    public function setBegin(\DateTime $begin)
+    public function setBegin(\DateTime $begin) : self
     {
         $this->begin = $begin;
+        return $this;
     }
 
     /**
      * @return \DateTime
      */
-    public function getEnd() : \DateTime
+    public function getEnd()
     {
         return $this->end;
     }
 
     /**
      * @param \DateTime $end
+     * @return CalendarEntry
      */
-    public function setEnd(\DateTime $end)
+    public function setEnd(\DateTime $end) : self
     {
         $this->end = $end;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getNote(): string
+    public function getNote() : string
     {
         return $this->note;
     }
 
     /**
      * @param string $note
+     * @return CalendarEntry
      */
-    public function setNote(string $note)
+    public function setNote(string $note) : self
     {
         $this->note = $note;
+        return $this;
     }
 }

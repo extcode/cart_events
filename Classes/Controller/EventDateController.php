@@ -3,26 +3,24 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Controller;
 
-use Extcode\CartEvents\Domain\Repository\SlotRepository;
+use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 
 /**
- * Slot Controller
- *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class SlotController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class EventDateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * @var SlotRepository
+     * @var EventDateRepository
      */
-    protected $slotRepository;
+    protected $eventDateRepository;
 
     /**
-     * @param SlotRepository $slotRepository
+     * @param EventDateRepository $eventDateRepository
      */
-    public function injectSlotRepository(SlotRepository $slotRepository)
+    public function injectEventDateRepository(EventDateRepository $eventDateRepository)
     {
-        $this->slotRepository = $slotRepository;
+        $this->eventDateRepository = $eventDateRepository;
     }
 
     protected function initializeAction()
@@ -55,27 +53,23 @@ class SlotController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         )['persistence']['storagePid'];
 
-        $nextSlots = $this->slotRepository->findNext($limit, $pidList)->fetchAll();
+        $eventDates = $this->eventDateRepository->findNext($limit, $pidList)->fetchAll();
 
-        $slots = [];
-        foreach ($nextSlots as $nextSlot) {
-            $slots[] = $this->slotRepository->findByUid($nextSlot['uid']);
-        }
+        $this->view->assign('eventDates', $eventDates);
 
-        $this->view->assign('slots', $slots);
-        $this->view->assign('events', $nextSlots);
+        $this->addCacheTags($eventDates);
     }
 
     /**
-     * @param $slots
+     * @param $eventDates
      */
-    protected function addCacheTags($slots)
+    protected function addCacheTags($eventDates)
     {
         $cacheTags = [];
 
         if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
-            foreach ($slots as $slot) {
-                $cacheTags[] = 'tx_cartevents_event_' . $slot['event_uid'];
+            foreach ($eventDates as $eventDate) {
+                $cacheTags[] = 'tx_cartevents_event_' . $eventDate['event'];
             }
 
             if (count($cacheTags) > 0) {

@@ -169,7 +169,7 @@ return [
             ]
         ],
 
-        'event_slot' => [
+        'event_date' => [
             'config' => [
                 'type' => 'passthrough',
             ],

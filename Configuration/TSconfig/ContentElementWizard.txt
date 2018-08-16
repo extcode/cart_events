@@ -1,6 +1,6 @@
 [page|doktype = 186]
 TCEFORM.tt_content.list_type {
-  removeItems = cartevents_events, cartevents_slots
+  removeItems = cartevents_events, cartevents_eventdates
 }
 [else]
 TCEFORM.tt_content.list_type {

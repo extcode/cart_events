@@ -138,7 +138,7 @@ class EventDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return int
      */
-    public function getLimit(): int
+    public function getLimit() : int
     {
         return $this->limit;
     }

@@ -23,7 +23,7 @@
                 <source>Not enough Seats available.</source>
             </trans-unit>
 
-            <trans-unit id="tx_cartevents_domain_model_slot.seats">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.seats">
                 <source>Seats</source>
             </trans-unit>
 

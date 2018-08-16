@@ -18,11 +18,9 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     protected $objectManager;
 
     /**
-     * Slot Repository
-     *
-     * @var \Extcode\CartEvents\Domain\Repository\SlotRepository
+     * @var \Extcode\CartEvents\Domain\Repository\EventDateRepository
      */
-    protected $slotRepository;
+    protected $eventDateRepository;
 
     /**
      * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
@@ -36,7 +34,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         \Extcode\Cart\Domain\Model\Cart\Product $cartProduct,
         \Extcode\Cart\Domain\Model\Cart\Cart $cart,
         string $mode = 'update'
-    ): \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse {
+    ) : \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse {
         $this->objectManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
         );
@@ -58,17 +56,17 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
             return $availabilityResponse;
         }
 
-        $this->slotRepository = $this->objectManager->get(
-            \Extcode\CartEvents\Domain\Repository\SlotRepository::class
+        $this->eventDateRepository = $this->objectManager->get(
+            \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
         );
 
-        $querySettings = $this->slotRepository->createQuery()->getQuerySettings();
+        $querySettings = $this->eventDateRepository->createQuery()->getQuerySettings();
         $querySettings->setRespectStoragePage(false);
-        $this->slotRepository->setDefaultQuerySettings($querySettings);
+        $this->eventDateRepository->setDefaultQuerySettings($querySettings);
 
-        $slot = $this->slotRepository->findByIdentifier($cartProduct->getProductId());
+        $eventDate = $this->eventDateRepository->findByIdentifier($cartProduct->getProductId());
 
-        if ($slot->isHandleSeats() && ($quantity > $slot->getSeatsAvailable())) {
+        if ($eventDate->isHandleSeats() && ($quantity > $eventDate->getSeatsAvailable())) {
             $availabilityResponse->setAvailable(false);
             $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
                 \TYPO3\CMS\Core\Messaging\FlashMessage::class,
@@ -102,10 +100,10 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         $errors = [];
         $cartProducts = [];
 
-        if (!(int)$requestArguments['slot']) {
+        if (!(int)$requestArguments['eventDate']) {
             $errors[] = [
                 'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                    'tx_cartevents.error.invalid_slot',
+                    'tx_cartevents.error.invalid_event_date',
                     'cart_events'
                 ),
                 'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
@@ -134,16 +132,16 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         $this->objectManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
         );
-        $this->slotRepository = $this->objectManager->get(
-            \Extcode\CartEvents\Domain\Repository\SlotRepository::class
+        $this->eventDateRepository = $this->objectManager->get(
+            \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
         );
 
-        $slot = $this->slotRepository->findByUid((int)$requestArguments['slot']);
+        $eventDate = $this->eventDateRepository->findByUid((int)$requestArguments['eventDate']);
 
-        if (!$slot) {
+        if (!$eventDate) {
             $errors[] = [
                 'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                    'tx_cartevents.error.slot_not_found',
+                    'tx_cartevents.error.event_date_not_found',
                     'cart_events'
                 ),
                 'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING
@@ -152,7 +150,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
             return [$errors, $cartProducts];
         }
 
-        if (!$slot->isBookable()) {
+        if (!$eventDate->isBookable()) {
             $errors[] = [
                 'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
                     'tx_cartevents.error.event_is_not_bookable',
@@ -167,7 +165,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         /**
          * TODO:
          *
-         * if ($this->areEnoughSeatsAvailable($slot, $newProduct)) {
+         * if ($this->areEnoughSeatsAvailable($eventDate, $newProduct)) {
          * $this->cart->addProduct($newProduct);
          *
          * $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
@@ -178,10 +176,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
          * );
          * }
          */
-        $topic = null;
-        $date = null;
-
-        $newProduct = $this->getProductFromSlot($slot, $quantity, $taxClasses);
+        $newProduct = $this->getProductFromEventDate($eventDate, $quantity, $taxClasses);
 
         $this->checkAvailability($request, $newProduct, $cart);
 
@@ -189,27 +184,27 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Model\Slot $slot
+     * @param \Extcode\CartEvents\Domain\Model\EventDate $eventDate
      * @param int $quantity
      * @param array $taxClasses
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    protected function getProductFromSlot(
-        \Extcode\CartEvents\Domain\Model\Slot $slot,
+    protected function getProductFromEventDate(
+        \Extcode\CartEvents\Domain\Model\EventDate $eventDate,
         int $quantity,
         array $taxClasses
     ) {
-        $event = $slot->getEvent();
-        $title = implode(' - ', [$event->getTitle(), $slot->getTitle()]);
-        $sku = implode(' - ', [$event->getSku(), $slot->getSku()]);
+        $event = $eventDate->getEvent();
+        $title = implode(' - ', [$event->getTitle(), $eventDate->getTitle()]);
+        $sku = implode(' - ', [$event->getSku(), $eventDate->getSku()]);
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             'CartEvents',
-            $slot->getUid(),
+            $eventDate->getUid(),
             $sku,
             $title,
-            $slot->getBestSpecialPrice(),
+            $eventDate->getBestSpecialPrice(),
             $taxClasses[$event->getTaxClassId()],
             $quantity,
             true,
@@ -220,16 +215,16 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Model\Slot $slot
+     * @param \Extcode\CartEvents\Domain\Model\EventDate $eventDate
      * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
      *
      * @return bool
      */
     protected function areEnoughSeatsAvailable(
-        \Extcode\CartEvents\Domain\Model\Slot $slot,
+        \Extcode\CartEvents\Domain\Model\EventDate $eventDate,
         \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-    ): bool {
-        if (!$slot->isHandleSeats()) {
+    ) : bool {
+        if (!$eventDate->isHandleSeats()) {
             return true;
         }
 
@@ -238,6 +233,6 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
             $qty += $this->cart->getProduct($cartProduct->getId())->getQuantity();
         }
 
-        return $qty <= $slot->getSeatsAvailable();
+        return $qty <= $eventDate->getSeatsAvailable();
     }
 }
