@@ -50,7 +50,7 @@ class StockUtility
 
         if ($cartProduct->getProductType() == 'CartEvents') {
             $productRepository = $this->objectManager->get(
-                \Extcode\CartEvents\Domain\Repository\SlotRepository::class
+                \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
             );
 
             $cartProductId = $cartProduct->getProductId();

@@ -39,7 +39,7 @@ return [
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, teaser, description, meta_description, tax_class_id, slots, related_events, category, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, teaser, description, meta_description, tax_class_id, event_dates, related_events, category, categories, tags',
     ],
     'types' => [
         '1' => [
@@ -52,9 +52,9 @@ return [
                     meta_description,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.images_and_files,
                     images, files,
-                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.slots,
+                --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.event_dates,
                     tax_class_id,
-                    slots,
+                    event_dates,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.relations,
                     related_events, 
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.categorization,
@@ -402,14 +402,14 @@ return [
             ],
         ],
 
-        'slots' => [
+        'event_dates' => [
             'exclude' => 1,
-            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.slots',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.event_dates',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_cartevents_domain_model_slot',
+                'foreign_table' => 'tx_cartevents_domain_model_eventdate',
                 'foreign_field' => 'event',
-                'foreign_table_where' => ' AND tx_cartevents_domain_model_slot.pid=###CURRENT_PID### ORDER BY tx_cartevents_domain_model_slot.title ',
+                'foreign_table_where' => ' AND tx_cartevents_domain_model_eventdate.pid=###CURRENT_PID### ORDER BY tx_cartevents_domain_model_eventdate.title ',
                 'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'appearance' => [

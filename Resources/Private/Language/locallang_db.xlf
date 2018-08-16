@@ -31,8 +31,8 @@
             <trans-unit id="tx_cartevents_domain_model_event.files">
                 <source>Files</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_event.slots">
-                <source>Slots</source>
+            <trans-unit id="tx_cartevents_domain_model_event.event_dates">
+                <source>Event Dates</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.related_events">
                 <source>Related Events</source>
@@ -50,46 +50,58 @@
                 <source>Tags</source>
             </trans-unit>
 
-            <trans-unit id="tx_cartevents_domain_model_slot">
-                <source>Slot</source>
+            <trans-unit id="tx_cartevents_domain_model_eventdate">
+                <source>Event Date</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.sku">
-                <source>Slot number</source>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.sku">
+                <source>SKU</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.title">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.title">
                 <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.location">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.begin">
+                <source>Begin</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.end">
+                <source>End</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.note">
+                <source>Note</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.location">
                 <source>Location</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.lecturer">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.lecturer">
                 <source>Lecturer</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.images">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.images">
                 <source>Images</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.files">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.files">
                 <source>Files</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.dates">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.dates">
                 <source>Dates</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.bookable">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.bookable">
                 <source>bookable?</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.price">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.bookable_until">
+                <source>bookable until</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.price">
                 <source>Price</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.special_prices">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.special_prices">
                 <source>Special Prices</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.handle_seats">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.handle_seats">
                 <source>Handle number of seats</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.seats_number">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.seats_number">
                 <source>Number of Seats</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_slot.seats_taken">
+            <trans-unit id="tx_cartevents_domain_model_eventdate.seats_taken">
                 <source>Number of Seats (taken)</source>
             </trans-unit>
 
@@ -106,16 +118,16 @@
                 <source>Price</source>
             </trans-unit>
 
-            <trans-unit id="tx_cartevents_domain_model_date">
+            <trans-unit id="tx_cartevents_domain_model_calendarentry">
                 <source>Date</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_date.begin">
+            <trans-unit id="tx_cartevents_domain_model_calendarentry.begin">
                 <source>Begin</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_date.end">
+            <trans-unit id="tx_cartevents_domain_model_calendarentry.end">
                 <source>End</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_date.note">
+            <trans-unit id="tx_cartevents_domain_model_calendarentry.note">
                 <source>Note</source>
             </trans-unit>
 

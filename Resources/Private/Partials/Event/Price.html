@@ -2,15 +2,15 @@
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:if condition="{slot.bestSpecialPrice} < {slot.price}">
+<f:if condition="{eventDate.bestSpecialPrice} < {eventDate.price}">
     <f:then>
-        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.bestSpecialPrice}</cart:format.currency>
+        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{eventDate.bestSpecialPrice}</cart:format.currency>
         <strike>
-            <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.price}</cart:format.currency>
+            <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{eventDate.price}</cart:format.currency>
         </strike>
     </f:then>
     <f:else>
-        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{slot.price}</cart:format.currency>
+        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{eventDate.price}</cart:format.currency>
     </f:else>
 </f:if>
 </html>

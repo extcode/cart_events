@@ -41,12 +41,12 @@ $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf';
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Extcode.' . $_EXTKEY,
-    'Slots',
+    'EventDates',
     [
-        'Slot' => 'list',
+        'EventDate' => 'list',
     ],
     [
-        'Slot' => '',
+        'EventDate' => '',
     ]
 );
 
@@ -126,6 +126,6 @@ $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$
 $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.grid', 'grid'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['teaser_events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.table', 'table'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['teaser_events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.grid', 'grid'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['slots'][] = [$_LLL_be . ':flexforms_template.templateLayout.slots.table', 'table'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['slots'][] = [$_LLL_be . ':flexforms_template.templateLayout.slots.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['event_dates'][] = [$_LLL_be . ':flexforms_template.templateLayout.event_dates.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['event_dates'][] = [$_LLL_be . ':flexforms_template.templateLayout.event_dates.grid', 'grid'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['single_event'][] = [$_LLL_be . ':flexforms_template.templateLayout.single_event.default', 'default'];

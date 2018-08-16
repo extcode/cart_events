@@ -39,11 +39,11 @@
             <trans-unit id="flexforms_template.templateLayout.events.grid">
                 <source>Grid</source>
             </trans-unit>
-            <trans-unit id="flexforms_template.templateLayout.slots.table">
+            <trans-unit id="flexforms_template.templateLayout.event_date.table">
                 <source>Table</source>
                 <target>Tabelle</target>
             </trans-unit>
-            <trans-unit id="flexforms_template.templateLayout.slots.grid">
+            <trans-unit id="flexforms_template.templateLayout.event_date.grid">
                 <source>Grid</source>
             </trans-unit>
             <trans-unit id="flexforms_template.templateLayout.single_event.default">
@@ -142,15 +142,15 @@
                 <target>CartEvents: Einzelveranstaltung</target>
             </trans-unit>
 
-            <trans-unit id="tx_cartevents.plugin.slots.title">
+            <trans-unit id="tx_cartevents.plugin.event_date.title">
                 <source>CartEvents: Event Dates (upcoming)</source>
                 <target>CartEvents: Veranstaltungstermine (kommende)</target>
             </trans-unit>
-            <trans-unit id="tx_cartevents.plugin.slots.controller.slot.action.list.select.single_pid">
+            <trans-unit id="tx_cartevents.plugin.event_date.controller.event_date.action.list.select.single_pid">
                 <source>Event Detail Page</source>
                 <target>Veranstaltungsdetailseite</target>
             </trans-unit>
-            <trans-unit id="tx_cartevents.plugin.slots.controller.slot.action.list.limit">
+            <trans-unit id="tx_cartevents.plugin.event_date.controller.event_date.action.list.limit">
                 <source>Number of records to display</source>
                 <target>Anzahl der anzuzeigenden Datensätze</target>
             </trans-unit>

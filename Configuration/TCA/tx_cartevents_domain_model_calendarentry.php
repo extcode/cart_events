@@ -7,7 +7,7 @@ $_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cartevents_domain_model_date',
+        'title' => $_LLL . ':tx_cartevents_domain_model_calendarentry',
         'label' => 'begin',
         'label_alt' => 'end',
         'label_alt_force' => 1,
@@ -24,7 +24,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_date.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_calendarentry.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, begin, end, note',
@@ -87,7 +87,7 @@ return [
         ],
 
         'begin' => [
-            'label' => $_LLL . ':tx_cartevents_domain_model_date.begin',
+            'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.begin',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -98,7 +98,7 @@ return [
             ],
         ],
         'end' => [
-            'label' => $_LLL . ':tx_cartevents_domain_model_date.end',
+            'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.end',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -111,7 +111,7 @@ return [
 
         'note' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_date.note',
+            'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.note',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -121,7 +121,7 @@ return [
             'defaultExtras' => 'richtext[]'
         ],
 
-        'slot' => [
+        'event_date' => [
             'config' => [
                 'type' => 'passthrough',
             ],
