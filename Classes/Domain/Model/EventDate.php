@@ -16,7 +16,7 @@ class EventDate extends AbstractEventDate
      * SKU
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $sku;
 
@@ -24,7 +24,7 @@ class EventDate extends AbstractEventDate
      * Title
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 

@@ -26,7 +26,7 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 
@@ -34,14 +34,14 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Price
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $price = 0.0;
 
     /**
      * Frontend User Group
      *
-     * @TYPO3\CMS\Extbase\Annotation\Validate \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @TYPO3\CMS\Extbase\Annotation\Validate("\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup")
      */
     protected $frontendUserGroup;
 

@@ -11,7 +11,7 @@ class Event extends AbstractEntity
      * SKU
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $sku = '';
 
@@ -19,7 +19,7 @@ class Event extends AbstractEntity
      * Title
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 
