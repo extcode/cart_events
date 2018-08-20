@@ -41,7 +41,7 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Frontend User Group
      *
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup")
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
     protected $frontendUserGroup;
 
@@ -92,9 +92,9 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the Frontend User Group
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @return null|\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
-    public function getFrontendUserGroup() : \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+    public function getFrontendUserGroup() : ?\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
     {
         return $this->frontendUserGroup;
     }
