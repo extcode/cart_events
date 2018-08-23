@@ -8,6 +8,11 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Event extends AbstractEntity
 {
     /**
+     * @var bool
+     */
+    protected $virtualProduct = true;
+
+    /**
      * SKU
      *
      * @var string
@@ -114,6 +119,24 @@ class Event extends AbstractEntity
      * @var string
      */
     protected $metaDescription = '';
+
+    /**
+     * @return bool
+     */
+    public function isVirtualProduct(): bool
+    {
+        return $this->virtualProduct;
+    }
+
+    /**
+     * @param bool $virtualProduct
+     * @return Event
+     */
+    public function setVirtualProduct(bool $virtualProduct) : self
+    {
+        $this->virtualProduct = $virtualProduct;
+        return $this;
+    }
 
     /**
      * @return string

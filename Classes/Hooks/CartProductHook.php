@@ -162,20 +162,6 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
             return [$errors, $cartProducts];
         }
 
-        /**
-         * TODO:
-         *
-         * if ($this->areEnoughSeatsAvailable($eventDate, $newProduct)) {
-         * $this->cart->addProduct($newProduct);
-         *
-         * $this->cartUtility->writeCartToSession($this->cart, $this->cartFrameworkConfig['settings']);
-         *
-         * $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-         * 'tx_cartevents.plugin.form.submit.success',
-         * 'cart_events'
-         * );
-         * }
-         */
         $newProduct = $this->getProductFromEventDate($eventDate, $quantity, $taxClasses);
 
         $this->checkAvailability($request, $newProduct, $cart);
@@ -210,29 +196,8 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
             true,
             null
         );
+        $product->setIsVirtualProduct($event->isVirtualProduct());
 
         return $product;
-    }
-
-    /**
-     * @param \Extcode\CartEvents\Domain\Model\EventDate $eventDate
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-     *
-     * @return bool
-     */
-    protected function areEnoughSeatsAvailable(
-        \Extcode\CartEvents\Domain\Model\EventDate $eventDate,
-        \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-    ) : bool {
-        if (!$eventDate->isHandleSeats()) {
-            return true;
-        }
-
-        $qty = $cartProduct->getQuantity();
-        if ($this->cart->getProduct($cartProduct->getId())) {
-            $qty += $this->cart->getProduct($cartProduct->getId())->getQuantity();
-        }
-
-        return $qty <= $eventDate->getSeatsAvailable();
     }
 }
