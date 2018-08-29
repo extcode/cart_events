@@ -31,7 +31,9 @@
     },
     "require-dev": {
         "nimut/testing-framework": "^2.0 || ^3.0 || ^4.0",
-        "friendsofphp/php-cs-fixer": "^2.0"
+        "friendsofphp/php-cs-fixer": "^2.0",
+        "phpro/grumphp": "*",
+        "phpmd/phpmd": "*"
     },
     "autoload": {
         "psr-4": {

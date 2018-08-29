@@ -1,0 +1,37 @@
+parameters:
+    git_dir: .
+    bin_dir: .Build/bin
+    hide_circumvention_tip: true
+    process_timeout: 300
+    tasks:
+        git_blacklist:
+            keywords:
+            - "die("
+            - "var_dump("
+            - "exit;"
+            - "console.log("
+            - "{f:debug"
+            - "<f:debug"
+            triggered_by: ['php', 'html', 'js']
+
+        git_commit_message:
+            allow_empty_message: false
+            enforce_no_subject_trailing_period: true
+            enforce_single_lined_subject: true
+            max_body_width: 72
+            max_subject_width: 60
+            matchers:
+                "Must start with a tag such as [FEATURE]":
+                    "/^(\\[!!!\\])?(\\[FOLLOWUP\\])?(\\[(FEATURE|BUGFIX|TASK|CLEANUP|SECURITY)\\]) .+$/"
+                "Must contain a correct 'Resolves' line (i.e. 'Resolves|Fixes|Related|Reverts: GITLAB|GITHUB #123 2f030d3d13d)":
+                    "/^(Resolves|Fixes|Related|Reverts):( ((GitLab|GitHub|Bitbucket|Redmine) (#[0-9]+))|( [a-z0-9]{10,}))+$/"
+            case_insensitive: false
+            multiline: true
+            additional_modifiers: ''
+
+        phpcsfixer2:
+            allow_risky: true
+            config: 'Build/.php_cs.dist'
+
+        phpmd:
+            ruleset: ['Build/phpmd-ruleset.xml']
