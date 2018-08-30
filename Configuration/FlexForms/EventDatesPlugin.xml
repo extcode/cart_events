@@ -53,7 +53,8 @@
                             <config>
                                 <type>select</type>
                                 <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
-                                <itemsProcFuncConf>EventDates</itemsProcFuncConf>
+                                <extKey>cart_events</extKey>
+                                <pluginName>EventDates</pluginName>
                                 <renderType>selectSingle</renderType>
                             </config>
                         </TCEforms>
