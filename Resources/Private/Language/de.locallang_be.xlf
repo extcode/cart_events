@@ -25,8 +25,8 @@
             </trans-unit>
 
             <trans-unit id="tcarecords-pages-contains.cart_events">
-                <source>CartEvents: Events</source>
-                <target>CartEvents: Veranstaltungen</target>
+                <source>Cart: Events</source>
+                <target>Cart: Veranstaltungen</target>
             </trans-unit>
 
             <trans-unit id="flexforms_template.templateLayout">
@@ -52,11 +52,11 @@
             </trans-unit>
 
             <trans-unit id="tx_cartevents.plugin.events.title">
-                <source>CartEvents: Events</source>
-                <target>CartEvents: Veranstaltungen</target>
+                <source>Cart: Events</source>
+                <target>Cart: Veranstaltungen</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.events.description">
-                <source>List and show events</source>
+                <source>list and show events</source>
                 <target>Listen- und Detailansicht für Veranstaltungen</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.events.action.switch">
@@ -133,18 +133,22 @@
             </trans-unit>
 
             <trans-unit id="tx_cartevents.plugin.teaser_events.title">
-                <source>CartEvents: Events (Teaser)</source>
-                <target>CartEvents: Veranstaltungen (Teaser)</target>
+                <source>Cart: selected Events</source>
+                <target>Cart: ausgewählte Veranstaltungen</target>
+            </trans-unit>
+            <trans-unit id="tx_cartevents.plugin.teaser_events.description">
+                <source>list or tease selected events</source>
+                <target>Listen- oder Teaseransicht für ausgewählte Veranstaltungen</target>
             </trans-unit>
 
             <trans-unit id="tx_cartevents.plugin.single_event.title">
-                <source>CartEvents: Single Event</source>
-                <target>CartEvents: Einzelveranstaltung</target>
+                <source>Cart: Single Event</source>
+                <target>Cart: Einzelveranstaltung</target>
             </trans-unit>
 
             <trans-unit id="tx_cartevents.plugin.event_date.title">
-                <source>CartEvents: Event Dates (upcoming)</source>
-                <target>CartEvents: Veranstaltungstermine (kommende)</target>
+                <source>Cart: Event Dates (upcoming)</source>
+                <target>Cart: Veranstaltungstermine (kommende)</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.event_date.controller.event_date.action.list.select.single_pid">
                 <source>Event Detail Page</source>

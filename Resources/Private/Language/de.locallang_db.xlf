@@ -156,12 +156,12 @@
             </trans-unit>
 
             <trans-unit id="tx_cartevents_domain_model_category.cart_event_list_pid">
-                <source>CartEvents: Page where Events of this category are listed.</source>
-                <target>CartEvents: Seite auf der Veranstaltungen dieser Kategorie aufgelistet werden.</target>
+                <source>Cart: Page where Events of this category are listed.</source>
+                <target>Cart: Seite auf der Veranstaltungen dieser Kategorie aufgelistet werden.</target>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_category.cart_event_show_pid">
-                <source>CartEvents: Page where Events of this category are shown.</source>
-                <target>CartEvents: Seite auf der Veranstaltungen dieser Kategorie angezeigt werden.</target>
+                <source>Cart: Page where Events of this category are shown.</source>
+                <target>Cart: Seite auf der Veranstaltungen dieser Kategorie angezeigt werden.</target>
             </trans-unit>
             
         </body>

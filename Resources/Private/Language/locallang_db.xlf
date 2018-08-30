@@ -132,10 +132,10 @@
             </trans-unit>
 
             <trans-unit id="tx_cartevents_domain_model_category.cart_event_list_pid">
-                <source>CartEvents: Page where Events of this category are listed.</source>
+                <source>Cart: Page where Events of this category are listed.</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_category.cart_event_show_pid">
-                <source>CartEvents: Page where Events of this category are shown.</source>
+                <source>Cart: Page where Events of this category are shown.</source>
             </trans-unit>
 
         </body>
