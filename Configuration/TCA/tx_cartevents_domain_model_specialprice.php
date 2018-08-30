@@ -63,6 +63,7 @@ return [
             'label' => $_LLL_general . ':LGL.language',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'items' => [
@@ -77,6 +78,7 @@ return [
             'label' => $_LLL_general . ':LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => [
                     ['', 0],
                 ],
@@ -158,6 +160,7 @@ return [
             'label' => $_LLL . ':tx_cartevents_domain_model_specialprice.frontend_user_group',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'readOnly' => 0,
                 'foreign_table' => 'fe_groups',
                 'size' => 1,
