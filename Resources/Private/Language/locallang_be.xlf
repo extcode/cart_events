@@ -25,7 +25,7 @@
 			</trans-unit>
 
 			<trans-unit id="tcarecords-pages-contains.cart_events">
-				<source>CartEvents: Events</source>
+				<source>Cart: Events</source>
 			</trans-unit>
 
 			<trans-unit id="flexforms_template.templateLayout">
@@ -48,10 +48,10 @@
 			</trans-unit>
 
 			<trans-unit id="tx_cartevents.plugin.events.title">
-				<source>CartEvents: Events</source>
+				<source>Cart: Events</source>
 			</trans-unit>
 			<trans-unit id="tx_cartevents.plugin.events.description">
-				<source>List and show events</source>
+				<source>list and show events</source>
 			</trans-unit>
 			<trans-unit id="tx_cartevents.plugin.events.action.switch">
 				<source>Display Type</source>
@@ -109,15 +109,18 @@
 			</trans-unit>
 
 			<trans-unit id="tx_cartevents.plugin.teaser_events.title">
-				<source>CartEvents: Events (Teaser)</source>
+				<source>Cart: selected Events</source>
+			</trans-unit>
+			<trans-unit id="tx_cartevents.plugin.teaser_events.description">
+				<source>list or tease selected events</source>
 			</trans-unit>
 
 			<trans-unit id="tx_cartevents.plugin.single_event.title">
-				<source>CartEvents: Single Event</source>
+				<source>Cart: Single Event</source>
 			</trans-unit>
 
 			<trans-unit id="tx_cartevents.plugin.event_dates.title">
-				<source>CartEvents: Event Dates (upcoming)</source>
+				<source>Cart: Event Dates (upcoming)</source>
 			</trans-unit>
 			<trans-unit id="tx_cartevents.plugin.event_dates.controller.event_date.action.list.select.single_pid">
 				<source>Event Detail Page</source>
