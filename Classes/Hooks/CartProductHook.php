@@ -12,6 +12,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
 {
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Mvc\Web\Request
+     */
+    protected $request;
+
+    /**
+     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     */
+    protected $cart;
+
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
@@ -94,6 +105,9 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         \TYPO3\CMS\Extbase\Mvc\Web\Request $request,
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
     ) {
+        $this->request = $request;
+        $this->cart = $cart;
+
         $requestArguments = $request->getArguments();
         $taxClasses = $cart->getTaxClasses();
 
