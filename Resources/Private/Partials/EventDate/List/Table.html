@@ -6,6 +6,8 @@
     <div class="event-date-detail">
         <div class="row">
             <div class="medium-7 columns">
+                <div class="date-day-month-year"><f:format.date format="d.m.Y">{eventDate.begin}</f:format.date></div>
+
                 <f:if condition="{eventDate.event.images}">
                     <cartevents:link.event pluginName="Events" controller="Event" event="{eventDate.event}" settings="{settings}">
                         <f:image src="{eventDate.event.firstImage.originalResource.originalFile.uid}"
