@@ -87,13 +87,6 @@ if (TYPO3_MODE === 'FE') {
         \Extcode\CartEvents\Hooks\CartProductHook::class;
 }
 
-// realurl Hook
-
-if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['ConfigurationReader_postProc'][1520842411] =
-        'EXT:cart_events/Classes/Hooks/RealUrlHook.php:Extcode\CartEvents\Hooks\RealUrlHook->postProcessConfiguration';
-}
-
 // processDatamapClass Hook
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['cartevents_allowed'] =
