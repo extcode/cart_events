@@ -9,6 +9,7 @@ CREATE TABLE tx_cartevents_domain_model_event (
 
     sku varchar(255) DEFAULT '' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
+    path_segment varchar(2048),
     teaser text NOT NULL,
     description text NOT NULL,
     meta_description text NOT NULL,

@@ -45,7 +45,7 @@ return [
         '1' => [
             'showitem' => '
                 sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
-                sku, title,
+                sku, title, path_segment,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.descriptions,
                     teaser;;;richtext:rte_transform[mode=ts_links],
                     description;;;richtext:rte_transform[mode=ts_links], audience;;;richtext:rte_transform[mode=ts_links],
@@ -180,6 +180,20 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'required,trim'
+            ],
+        ],
+        'path_segment' => [
+            'exclude' => true,
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.path_segment',
+            'config' => [
+                'type' => 'slug',
+                'size' => 50,
+                'generatorOptions' => [
+                    'fields' => ['title'],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInSite',
+                'default' => '',
             ],
         ],
         'teaser' => [

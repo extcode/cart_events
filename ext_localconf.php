@@ -114,6 +114,10 @@ $dispatcher->connect(
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
     = 'Extcode\\CartEvents\\ViewHelpers';
 
+// update wizard for slugs
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cartEventsSlugUpdater'] =
+    \Extcode\CartEvents\Updates\SlugUpdater::class;
+
 // register listTemplateLayouts
 $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.table', 'table'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . ':flexforms_template.templateLayout.events.grid', 'grid'];

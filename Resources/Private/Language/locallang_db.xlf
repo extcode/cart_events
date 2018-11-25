@@ -13,6 +13,9 @@
             <trans-unit id="tx_cartevents_domain_model_event.title">
                 <source>Title</source>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.path_segment">
+                <source>URL segment</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.teaser">
                 <source>Teaser</source>
             </trans-unit>
