@@ -33,6 +33,7 @@
     "require-dev": {
         "nimut/testing-framework": "^4.0",
         "friendsofphp/php-cs-fixer": "^2.0",
+        "helmich/typo3-typoscript-lint": "^1.4",
         "phpro/grumphp": "*",
         "phpmd/phpmd": "*"
     },
