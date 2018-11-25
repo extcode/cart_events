@@ -24,7 +24,7 @@ class EventDateRepository extends Repository
             ->getQueryBuilderForTable($table);
 
         $queryBuilder
-            ->select('tx_cartevents_domain_model_eventdate.uid, tx_cartevents_domain_model_eventdate.begin')
+            ->select('tx_cartevents_domain_model_eventdate.uid', 'tx_cartevents_domain_model_eventdate.begin')
             ->addSelect('event.uid AS event_uid')
             ->addSelect('event.pid AS event_pid')
             ->from($table)
@@ -50,7 +50,7 @@ class EventDateRepository extends Repository
 
         $queryBuilder
             ->orderBy('tx_cartevents_domain_model_eventdate.begin')
-            ->groupBy('tx_cartevents_domain_model_eventdate');
+            ->groupBy('tx_cartevents_domain_model_eventdate.uid');
 
         if ($limit) {
             $queryBuilder->setMaxResults($limit);
