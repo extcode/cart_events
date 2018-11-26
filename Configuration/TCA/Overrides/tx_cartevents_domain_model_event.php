@@ -5,14 +5,14 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-$_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
 
 ExtensionManagementUtility::makeCategorizable(
     'cart_events',
     'tx_cartevents_domain_model_event',
     'category',
     [
-        'label' => $_LLL . ':tx_cartevents_domain_model_event.category',
+        'label' => $_LLL_db . 'tx_cartevents_domain_model_event.category',
         'fieldConfiguration' => [
             'minitems' => 0,
             'maxitems' => 1,
@@ -28,7 +28,7 @@ ExtensionManagementUtility::makeCategorizable(
     'tx_cartevents_domain_model_event',
     'categories',
     [
-        'label' => $_LLL . ':tx_cartevents_domain_model_event.categories'
+        'label' => $_LLL_db . 'tx_cartevents_domain_model_event.categories'
     ]
 );
 
