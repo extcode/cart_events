@@ -3,7 +3,7 @@
 defined('TYPO3_MODE') or die();
 
 call_user_func(function () {
-    $_LLL_be = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:';
+    $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
 
     $pluginNames = [
         'Events' => [
