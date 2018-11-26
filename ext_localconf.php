@@ -122,10 +122,10 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
     = 'Extcode\\CartEvents\\ViewHelpers';
 
 // register listTemplateLayouts
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['teaser_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['teaser_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['event_dates'][] = [$_LLL_be . 'flexforms_template.templateLayout.event_dates.table', 'table'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['event_dates'][] = [$_LLL_be . 'flexforms_template.templateLayout.event_dates.grid', 'grid'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT'][$_EXTKEY]['templateLayouts']['single_event'][] = [$_LLL_be . 'flexforms_template.templateLayout.single_event.default', 'default'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['teaser_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['teaser_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['event_dates'][] = [$_LLL_be . 'flexforms_template.templateLayout.event_dates.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['event_dates'][] = [$_LLL_be . 'flexforms_template.templateLayout.event_dates.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['single_event'][] = [$_LLL_be . 'flexforms_template.templateLayout.single_event.default', 'default'];
