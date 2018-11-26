@@ -179,7 +179,7 @@ return [
         ],
 
         'begin' => [
-            'label' => $_LLL . ':tx_cartevents_domain_model_eventdate.begin',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.begin',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -190,7 +190,7 @@ return [
             ],
         ],
         'end' => [
-            'label' => $_LLL . ':tx_cartevents_domain_model_eventdate.end',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.end',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -202,7 +202,7 @@ return [
         ],
         'note' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_eventdate.note',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.note',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -392,7 +392,7 @@ return [
         'bookable_until' => [
             'exclude' => 1,
             'displayCond' => 'FIELD:bookable:REQ:TRUE',
-            'label' => $_LLL . ':tx_cartevents_domain_model_eventdate.bookable_until',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.bookable_until',
             'config' => [
                 'type' => 'input',
                 'size' => 13,

@@ -5,14 +5,14 @@ defined('TYPO3_MODE') or die();
 // Extension manager configuration
 $configuration = \Extcode\CartEvents\Utility\EmConfiguration::getSettings();
 
-$_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
     'cart_events',
     'tx_cartevents_domain_model_event',
     'category',
     [
-        'label' => $_LLL . ':tx_cartevents_domain_model_event.category',
+        'label' => $_LLL_db . 'tx_cartevents_domain_model_event.category',
         'fieldConfiguration' => [
             'minitems' => 0,
             'maxitems' => 1,
@@ -28,7 +28,7 @@ $GLOBALS['TCA']['tx_cartevents_domain_model_event']['category']['config']['maxit
     'tx_cartevents_domain_model_event',
     'categories',
     [
-        'label' => $_LLL . ':tx_cartevents_domain_model_event.categories'
+        'label' => $_LLL_db . 'tx_cartevents_domain_model_event.categories'
     ]
 );
 
