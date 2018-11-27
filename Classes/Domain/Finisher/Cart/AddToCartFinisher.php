@@ -1,66 +1,77 @@
 <?php
 declare(strict_types=1);
 
-namespace Extcode\CartEvents\Hooks;
+namespace Extcode\CartEvents\Domain\Finisher\Cart;
 
+use Extcode\Cart\Domain\Finisher\Cart\AddToCartFinisherInterface;
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Dto\AvailabilityResponse;
+use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Repository\EventDateRepository;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * CheckAvailability Hook
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
+class AddToCartFinisher implements AddToCartFinisherInterface
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Mvc\Web\Request
+     * @var Request
      */
     protected $request;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
     protected $cart;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var ObjectManager
      */
     protected $objectManager;
 
     /**
-     * @var \Extcode\CartEvents\Domain\Repository\EventDateRepository
+     * @var EventDateRepository
      */
     protected $eventDateRepository;
 
     /**
-     * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Request $request
+     * @param Product $cartProduct
+     * @param Cart $cart
+     * @param string $mode
      *
-     * @return \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse
+     * @return AvailabilityResponse
      */
     public function checkAvailability(
-        \TYPO3\CMS\Extbase\Mvc\Web\Request $request,
-        \Extcode\Cart\Domain\Model\Cart\Product $cartProduct,
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        Request $request,
+        Product $cartProduct,
+        Cart $cart,
         string $mode = 'update'
-    ) : \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse {
+    ) : AvailabilityResponse {
         $this->objectManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+            ObjectManager::class
         );
 
+        /** @var AvailabilityResponse $availabilityResponse */
         $availabilityResponse = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse::class
+            AvailabilityResponse::class
         );
 
         if ($request->hasArgument('quantities')) {
             $quantities = $request->getArgument('quantities');
             $quantity = (int)$quantities[$cartProduct->getId()];
-        } else {
-            if ($request->hasArgument('quantity')) {
-                $quantity = (int)$request->getArgument('quantity');
-            }
+        } elseif ($request->hasArgument('quantity')) {
+            $quantity = (int)$request->getArgument('quantity');
         }
 
         if ($cartProduct->getProductType() != 'CartEvents') {
@@ -68,7 +79,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         }
 
         $this->eventDateRepository = $this->objectManager->get(
-            \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
+            EventDateRepository::class
         );
 
         $querySettings = $this->eventDateRepository->createQuery()->getQuerySettings();
@@ -79,9 +90,9 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
 
         if ($eventDate->isHandleSeats() && ($quantity > $eventDate->getSeatsAvailable())) {
             $availabilityResponse->setAvailable(false);
-            $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                \TYPO3\CMS\Core\Messaging\FlashMessage::class,
-                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            $flashMessage = GeneralUtility::makeInstance(
+                FlashMessage::class,
+                LocalizationUtility::translate(
                     'tx_cart.error.stock_handling.update',
                     'cart'
                 ),
@@ -96,14 +107,14 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Request $request
+     * @param Cart $cart
      *
      * @return array
      */
     public function getProductFromRequest(
-        \TYPO3\CMS\Extbase\Mvc\Web\Request $request,
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+        Request $request,
+        Cart $cart
     ) {
         $this->request = $request;
         $this->cart = $cart;
@@ -116,11 +127,11 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
 
         if (!(int)$requestArguments['eventDate']) {
             $errors[] = [
-                'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'messageBody' => LocalizationUtility::translate(
                     'tx_cartevents.error.invalid_event_date',
                     'cart_events'
                 ),
-                'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                'severity' => AbstractMessage::ERROR
             ];
             return [$errors, $cartProducts];
         }
@@ -133,32 +144,32 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
 
         if ($quantity < 0) {
             $errors[] = [
-                'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'messageBody' => LocalizationUtility::translate(
                     'tx_cart.error.invalid_quantity',
                     'cart_events'
                 ),
-                'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING
+                'severity' => AbstractMessage::WARNING
             ];
 
             return [$errors, $cartProducts];
         }
 
         $this->objectManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+            ObjectManager::class
         );
         $this->eventDateRepository = $this->objectManager->get(
-            \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
+            EventDateRepository::class
         );
 
         $eventDate = $this->eventDateRepository->findByUid((int)$requestArguments['eventDate']);
 
         if (!$eventDate) {
             $errors[] = [
-                'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'messageBody' => LocalizationUtility::translate(
                     'tx_cartevents.error.event_date_not_found',
                     'cart_events'
                 ),
-                'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING
+                'severity' => AbstractMessage::WARNING
             ];
 
             return [$errors, $cartProducts];
@@ -166,11 +177,11 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
 
         if (!$eventDate->isBookable()) {
             $errors[] = [
-                'messageBody' => \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'messageBody' => LocalizationUtility::translate(
                     'tx_cartevents.error.event_is_not_bookable',
                     'cart_events'
                 ),
-                'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING
+                'severity' => AbstractMessage::WARNING
             ];
 
             return [$errors, $cartProducts];
@@ -184,14 +195,14 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Model\EventDate $eventDate
+     * @param EventDate $eventDate
      * @param int $quantity
      * @param array $taxClasses
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Product
+     * @return Product
      */
     protected function getProductFromEventDate(
-        \Extcode\CartEvents\Domain\Model\EventDate $eventDate,
+        EventDate $eventDate,
         int $quantity,
         array $taxClasses
     ) {
@@ -199,7 +210,7 @@ class CartProductHook implements \Extcode\Cart\Hooks\CartProductHookInterface
         $title = implode(' - ', [$event->getTitle(), $eventDate->getTitle()]);
         $sku = implode(' - ', [$event->getSku(), $eventDate->getSku()]);
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'CartEvents',
             $eventDate->getUid(),
             $sku,
