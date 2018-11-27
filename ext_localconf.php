@@ -83,8 +83,8 @@ if (TYPO3_MODE === 'BE') {
 // Cart Hooks
 
 if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents'] =
-        \Extcode\CartEvents\Hooks\CartProductHook::class;
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Cart']['AddToCartFinisher'] =
+        \Extcode\CartEvents\Domain\Finisher\Cart\AddToCartFinisher::class;
 }
 
 // processDatamapClass Hook
