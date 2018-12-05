@@ -139,7 +139,7 @@ sonarqube:
     SONAR_SOURCES: "./Classes"
     SONAR_GITLAB_PROJECT_ID: "$CI_PROJECT_ID"
   script:
-  - echo "sonar.projectKey=cart-events-8.x" > sonar-project.properties
+  - echo "sonar.projectKey=cart-events-1.x" > sonar-project.properties
   - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
   allow_failure: true
 
@@ -154,7 +154,7 @@ sonarqube-reports:
     SONAR_ANALYSIS_MODE: "publish"
     SONAR_SOURCES: "./Classes"
   script:
-  - echo "sonar.projectKey=cart-events-8.x" > sonar-project.properties
+  - echo "sonar.projectKey=cart-events-1.x" > sonar-project.properties
   - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
 
 ter-upload:
@@ -162,6 +162,7 @@ ter-upload:
   stage: upload
   only:
     - tags
+  when: manual
   before_script:
     - apk --no-cache add git zlib-dev libxml2-dev
     - docker-php-ext-install mbstring zip soap
