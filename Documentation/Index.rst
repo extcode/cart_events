@@ -44,20 +44,20 @@ EXT: Cart Events
       This document is published under the Open Publication License
       available from http://www.opencontent.org/openpub/
 
-    :Rendered:
-        |today|
+   :Rendered:
+      |today|
 
-    The content of this document is related to TYPO3,
-    a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
+   The content of this document is related to TYPO3,
+   a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
 
-    **Table of Contents**
+   **Table of Contents**
 
 .. toctree::
-    :maxdepth: 5
-    :titlesonly:
+   :maxdepth: 5
+   :titlesonly:
 
-    Introduction/Index
-    EditorManual/Index
-    DeveloperManual/Index
-    AdministratorManual/Index
-    Misc/Index
+   Introduction/Index
+   EditorManual/Index
+   DeveloperManual/Index
+   AdministratorManual/Index
+   Misc/Index
