@@ -27,7 +27,7 @@
         "typo3/cms-core": "^8.7",
         "typo3/cms-extbase": "^8.7",
         "typo3/cms-fluid": "^8.7",
-        "extcode/cart": "dev-5.x.alpha"
+        "extcode/cart": "^5.0"
     },
     "require-dev": {
         "nimut/testing-framework": "^2.0 || ^3.0 || ^4.0",
