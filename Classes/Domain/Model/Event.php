@@ -314,7 +314,7 @@ class Event extends AbstractEntity
      * @param \Extcode\CartEvents\Domain\Model\Event $relatedEvent
      * @return Event
      */
-    public function addRelatedEvent(\Extcode\CartEvents\Domain\Model\Event $relatedEvent) : self
+    public function addRelatedEvent(self $relatedEvent) : self
     {
         $this->relatedEvents->attach($relatedEvent);
         return $this;
@@ -326,7 +326,7 @@ class Event extends AbstractEntity
      * @param \Extcode\CartEvents\Domain\Model\Event $relatedEventToRemove
      * @return Event
      */
-    public function removeRelatedEvent(\Extcode\CartEvents\Domain\Model\Event $relatedEventToRemove) : self
+    public function removeRelatedEvent(self $relatedEventToRemove) : self
     {
         $this->relatedEvents->detach($relatedEventToRemove);
         return $this;
@@ -360,7 +360,7 @@ class Event extends AbstractEntity
      * @param \Extcode\CartEvents\Domain\Model\Event $relatedEventFrom
      * @return Event
      */
-    public function addRelatedEventFrom(\Extcode\CartEvents\Domain\Model\Event $relatedEventFrom) : self
+    public function addRelatedEventFrom(self $relatedEventFrom) : self
     {
         $this->relatedEventsFrom->attach($relatedEventFrom);
         return $this;
@@ -372,7 +372,7 @@ class Event extends AbstractEntity
      * @param \Extcode\CartEvents\Domain\Model\Event $relatedEventFromToRemove
      * @return Event
      */
-    public function removeRelatedEventFrom(\Extcode\CartEvents\Domain\Model\Event $relatedEventFromToRemove) : self
+    public function removeRelatedEventFrom(self $relatedEventFromToRemove) : self
     {
         $this->relatedEventsFrom->detach($relatedEventFromToRemove);
         return $this;
