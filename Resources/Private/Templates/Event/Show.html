@@ -37,6 +37,8 @@
 </div>
 
 <f:if condition="{event.eventDates}">
+    <div data-add-to-cart="result"></div>
+
     <div class="event-event-date-list">
         <f:for each="{event.eventDates}" as="eventDate">
             <div class="event-event-date" data-uid="eventDate-{eventDate.uid}">

@@ -1,0 +1,8 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+    <f:if condition="{eventDate}">
+        <formvh:render persistenceIdentifier="{eventDate.event.formDefinition}" overrideConfiguration="{formDefinitionOverrides}"/>
+    </f:if>
+</html>

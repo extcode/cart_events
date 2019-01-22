@@ -9,4 +9,8 @@ plugin.tx_cartevents {
         storagePid =
         recursive =
     }
+
+    settings {
+        ajaxCartEventDatesForm = 2278185
+    }
 }
