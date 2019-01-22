@@ -13,6 +13,11 @@ class Event extends AbstractEntity
     protected $virtualProduct = true;
 
     /**
+     * @var string
+     */
+    protected $formDefinition;
+
+    /**
      * SKU
      *
      * @var string
@@ -136,6 +141,22 @@ class Event extends AbstractEntity
     {
         $this->virtualProduct = $virtualProduct;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormDefinition(): string
+    {
+        return $this->formDefinition;
+    }
+
+    /**
+     * @param string $formDefinition
+     */
+    public function setFormDefinition(string $formDefinition): void
+    {
+        $this->formDefinition = $formDefinition;
     }
 
     /**

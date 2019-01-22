@@ -27,7 +27,7 @@ abstract class AbstractEventDate extends AbstractEntity
     /**
      * @return \DateTime
      */
-    public function getBegin() : \DateTime
+    public function getBegin() : ?\DateTime
     {
         return $this->begin;
     }

@@ -1,0 +1,53 @@
+renderingOptions:
+  submitButtonLabel: Submit
+  controllerAction: form
+type: Form
+identifier: cart-events-example
+label: 'Cart Events - Example'
+prototypeName: cart-events
+finishers:
+  -
+    identifier: AddToCart
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'previous Step'
+      nextButtonLabel: 'next Step'
+    type: Page
+    identifier: page-1
+    label: ''
+    renderables:
+      -
+        defaultValue: ''
+        type: Text
+        identifier: firstName
+        label: FirstName
+        properties:
+          fluidAdditionalAttributes:
+            required: required
+        validators:
+          -
+            identifier: NotEmpty
+      -
+        defaultValue: ''
+        type: Text
+        identifier: lastName
+        label: LastName
+        properties:
+          fluidAdditionalAttributes:
+            required: required
+        validators:
+          - identifier: NotEmpty
+      -
+        defaultValue: ''
+        type: Text
+        identifier: email
+        label: E-Mail
+        properties:
+          fluidAdditionalAttributes:
+            required: required
+        validators:
+          -
+            identifier: NotEmpty
+          -
+            identifier: EmailAddress

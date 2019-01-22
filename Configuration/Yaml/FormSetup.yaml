@@ -1,0 +1,17 @@
+TYPO3:
+  CMS:
+    Form:
+      formManager:
+        selectablePrototypesConfiguration:
+          100:
+            identifier: 'cart-events'
+            label: 'cart events'
+            newFormTemplates:
+              100:
+                templatePath: 'EXT:cart_events/Resources/Private/Backend/Templates/FormEditor/Yaml/NewForms/CartEventsExample.form.yaml'
+                label: 'Cart Events Form (Example)'
+
+      prototypes:
+        cart-events:
+          __inheritances:
+            10: 'TYPO3.CMS.Form.prototypes.cart'

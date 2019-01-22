@@ -27,6 +27,8 @@ CREATE TABLE tx_cartevents_domain_model_event (
 
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
 
+    form_definition varchar(255) DEFAULT '' NOT NULL,
+
     sorting int(11) DEFAULT '0' NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,

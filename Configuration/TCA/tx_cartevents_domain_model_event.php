@@ -45,7 +45,7 @@ return [
         '1' => [
             'showitem' => '
                 sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
-                sku, title, path_segment,
+                sku, title, path_segment, form_definition,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.descriptions,
                     teaser;;;richtext:rte_transform[mode=ts_links],
                     description;;;richtext:rte_transform[mode=ts_links], audience;;;richtext:rte_transform[mode=ts_links],
@@ -198,6 +198,27 @@ return [
                 'default' => '',
             ],
         ],
+
+        'form_definition' => [
+            'exclude' => 1,
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.form_definition',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['LLL:EXT:form/Resources/Private/Language/Database.xlf:tt_content.pi_flexform.formframework.selectPersistenceIdentifier', ''],
+                ],
+                'itemsProcFunc' => 'Extcode\\Cart\\Hooks\\ItemsProcFunc->user_formDefinition',
+                'itemsProcFuncConfig' => [
+                    'prototypeName' => 'cart-events'
+                ],
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'softref' => 'formPersistenceIdentifier',
+            ],
+        ],
+
         'teaser' => [
             'exclude' => 1,
             'label' => $_LLL_db . ':tx_cartevents_domain_model_event.teaser',

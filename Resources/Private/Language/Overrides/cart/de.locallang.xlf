@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" traget-language="de" datatype="plaintext" original="messages" date="2018-12-12T14:45:00Z" product-name="cart_events">
+        <header/>
+        <body>
+
+            <trans-unit id="tx_cart.add_to_cart_finisher.CartEvents.message.status.200.body">
+                <source>The event was added to cart.</source>
+                <target>Die Veranstaltung wurde zum Warenkorb hinzugefügt.</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
+

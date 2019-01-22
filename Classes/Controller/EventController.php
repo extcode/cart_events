@@ -143,6 +143,57 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * @param \Extcode\CartEvents\Domain\Model\EventDate $eventDate
+     */
+    public function formAction(\Extcode\CartEvents\Domain\Model\EventDate $eventDate = null)
+    {
+        if (!$eventDate) {
+            $arguments = $this->request->getArguments();
+            foreach ($arguments as $argumentKey => $argumentValue) {
+                if (preg_match('/cart-events-([a-z0-9-]+)/', $argumentKey)) {
+                    $productType = $argumentValue['productType'];
+                    $productUid = (int)$argumentValue['productUid'];
+
+                    if ($productType && $productUid) {
+                        $eventDateRepository = $this->objectManager->get(
+                            \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
+                        );
+                        $eventDate = $eventDateRepository->findByUid($productUid);
+                    }
+                }
+            }
+        }
+
+        $this->view->assign('eventDate', $eventDate);
+        $this->view->assign(
+            'formDefinitionOverrides',
+            [
+                'renderingOptions' => [
+                    'pageType' => $this->settings['ajaxCartEventDatesForm'],
+                ],
+                'renderables' => [
+                    0 => [
+                        'renderables' => [
+                            9998 => [
+                                'type' => 'Hidden',
+                                'identifier' => 'productType',
+                                'label' => 'productType',
+                                'defaultValue' => ($eventDate ? 'CartEvents':''),
+                            ],
+                            9999 => [
+                                'type' => 'Hidden',
+                                'identifier' => 'productUid',
+                                'label' => 'productUid',
+                                'defaultValue' => ($eventDate ? $eventDate->getUid():''),
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
      * @return \Extcode\CartEvents\Domain\Model\Event
      */
     protected function getEvent()

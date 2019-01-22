@@ -15,8 +15,23 @@
         <input type="hidden" name="tx_cart_cart[productType]" value="CartEvents">
         <input type="hidden" name="tx_cart_cart[eventDate]" value="{eventDate.uid}">
 
-        <input class="form-control" type="text" value="1" name="tx_cart_cart[quantity]">
-        <input type="submit" class="btn btn-default" value="<f:translate key='tx_cartevents.plugin.form.submit' />">
+        <f:if condition="!{eventDate.event.formDefinition}">
+            <f:then>
+                <input class="form-control" type="text" value="1" name="tx_cart_cart[quantity]">
+                <input type="submit" class="btn btn-default" value="<f:translate key='tx_cartevents.plugin.form.submit' />">
+            </f:then>
+            <f:else>
+                <input class="form-control" type="hidden" value="1" name="tx_cart_cart[quantity]">
+                <f:if condition="{eventDate.event.formDefinition}">
+                    <f:link.action class="btn btn-default"
+                                   pluginName="SingleEvent"
+                                   action="form"
+                                   arguments="{eventDate: eventDate}"
+                                   data="{add-to-cart: 'form'}"
+                                   pageType="{settings.ajaxCartEventDatesForm}"><f:translate key='tx_cartevents.plugin.form.submit' /></f:link.action>
+                </f:if>
+            </f:else>
+        </f:if>
 
         <div class="form-message" data-ajax-message-timeout="3000">
             <div class="form-success" style="display: none;" data-ajax-success-block>

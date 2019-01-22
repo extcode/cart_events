@@ -1,3 +1,18 @@
+ajaxCartEventDatesForm = PAGE
+ajaxCartEventDatesForm {
+    typeNum = {$plugin.tx_cartevents.settings.ajaxCartEventDatesForm}
+
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        debug = 0
+        no_cache = 1
+    }
+
+    10 < tt_content.list.20.cartevents_singleevent
+}
+
 plugin.tx_cartevents {
     view {
         templateRootPaths.0 = {$plugin.tx_cartevents.view.templateRootPath}
@@ -22,6 +37,7 @@ plugin.tx_cartevents {
         format.currency < plugin.tx_cart.settings.format.currency
 
         addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
+        ajaxCartEventDatesForm = {$plugin.tx_cartevents.settings.ajaxCartEventDatesForm}
 
         showAction {
             media {
@@ -43,4 +59,12 @@ plugin.tx_cartevents {
     features {
         skipDefaultArguments = 1
     }
+}
+
+plugin.tx_form.settings.yamlConfigurations {
+    1548152082 = EXT:cart_events/Configuration/Yaml/FormSetup.yaml
+}
+
+module.tx_form.settings.yamlConfigurations {
+    1548152082 = EXT:cart_events/Configuration/Yaml/FormSetup.yaml
 }

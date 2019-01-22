@@ -10,10 +10,10 @@ $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
     'Extcode.cart_events',
     'Events',
     [
-        'Event' => 'show, list',
+        'Event' => 'show, list, form',
     ],
     [
-        'Event' => '',
+        'Event' => 'form',
     ]
 );
 
@@ -32,10 +32,10 @@ $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
     'Extcode.cart_events',
     'SingleEvent',
     [
-        'Event' => 'show',
+        'Event' => 'show, form',
     ],
     [
-        'Event' => '',
+        'Event' => 'form',
     ]
 );
 
@@ -85,6 +85,8 @@ if (TYPO3_MODE === 'BE') {
 if (TYPO3_MODE === 'FE') {
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Cart']['AddToCartFinisher'] =
         \Extcode\CartEvents\Domain\Finisher\Cart\AddToCartFinisher::class;
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Form']['AddToCartFinisher'] =
+        \Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher::class;
 }
 
 // processDatamapClass Hook
@@ -117,6 +119,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
 // update wizard for slugs
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cartEventsSlugUpdater'] =
     \Extcode\CartEvents\Updates\SlugUpdater::class;
+
+// translation overrides
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['EXT:cart/Resources/Private/Language/locallang.xlf'][] = 'EXT:cart_events/Resources/Private/Language/Overrides/cart/locallang.xlf';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:cart/Resources/Private/Language/de.locallang.xlf'][] = 'EXT:cart_events/Resources/Private/Language/Overrides/cart/de.locallang.xlf';
 
 // register listTemplateLayouts
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
