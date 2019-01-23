@@ -20,6 +20,10 @@
                 <source>URL segment</source>
                 <target>URL Segment</target>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.form_definition">
+                <source>Form definition</source>
+                <target>Formulardefinition</target>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.teaser">
                 <source>Teaser</source>
                 <target>Kurzbeschreibung</target>
