@@ -89,6 +89,17 @@ if (TYPO3_MODE === 'FE') {
         \Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher::class;
 }
 
+// ke_search Hook - register indexer for events
+
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
+    \Extcode\CartEvents\Hooks\KeSearchEventsIndexer::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
+    \Extcode\CartEvents\Hooks\KeSearchEventsIndexer::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
+    \Extcode\CartEvents\Hooks\KeSearchSingleEventIndexer::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
+    \Extcode\CartEvents\Hooks\KeSearchSingleEventIndexer::class;
+
 // processDatamapClass Hook
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['cartevents_allowed'] =
