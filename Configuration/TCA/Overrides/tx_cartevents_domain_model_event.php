@@ -7,6 +7,41 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
 
+if (ExtensionManagementUtility::isLoaded('form')) {
+    $temporaryColumns = [
+        'form_definition' => [
+            'exclude' => 1,
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_event.form_definition',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['LLL:EXT:form/Resources/Private/Language/Database.xlf:tt_content.pi_flexform.formframework.selectPersistenceIdentifier', ''],
+                ],
+                'itemsProcFunc' => 'Extcode\\Cart\\Hooks\\ItemsProcFunc->user_formDefinition',
+                'itemsProcFuncConfig' => [
+                    'prototypeName' => 'cart-events'
+                ],
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'softref' => 'formPersistenceIdentifier',
+            ],
+        ],
+    ];
+
+    ExtensionManagementUtility::addTCAcolumns(
+        'tx_cartevents_domain_model_event',
+        $temporaryColumns
+    );
+    ExtensionManagementUtility::addToAllTCAtypes(
+        'tx_cartevents_domain_model_event',
+        'form_definition',
+        '',
+        'after:path_segment'
+    );
+}
+
 ExtensionManagementUtility::makeCategorizable(
     'cart_events',
     'tx_cartevents_domain_model_event',
