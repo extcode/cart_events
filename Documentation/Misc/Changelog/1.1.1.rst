@@ -9,4 +9,5 @@
 All Changes
 -----------
 
+   - 2019-01-23 [BUGFIX] Add missing label for form_definition field (by extcode)
    - 2019-01-23 [BUGFIX] Fix required version of cart (by extcode)
