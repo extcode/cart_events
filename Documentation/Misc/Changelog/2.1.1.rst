@@ -6,9 +6,14 @@
 2.1.1 - 23.01.2019
 ==================
 
+This version brings two Indexer for ke_search.
+The **Cart Events Indexer** is for Indexing events if you use the list and show plugin.
+The **Cart Single Event Indexer** is for Indexing the pages if you show events on single pages with the page type **Cart: Event** (doktype: 186).
+
 All Changes
 -----------
 
+   - 2019-01-23 [TASK] Add ke_search indexer (by extcode)
    - 2019-01-23 [BUGFIX] Add a condition if ext:form is installed (by extcode)
    - 2019-01-23 [BUGFIX] Add missing label for form_definition field (by extcode)
    - 2019-01-23 [BUGFIX] Fix required version of cart (by extcode)
