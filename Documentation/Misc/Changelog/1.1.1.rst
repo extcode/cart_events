@@ -3,14 +3,10 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-ChangeLog
-=========
+1.1.1 - 23.01.2019
+==================
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
+All Changes
+-----------
 
-   1.1.1
-   1.1.0
-   1.0.1
-   1.0.0
+   - 2019-01-23 [BUGFIX] Fix required version of cart (by extcode)
