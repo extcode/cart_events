@@ -3,15 +3,10 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-ChangeLog
-=========
+1.1.2 - 05.02.2019
+==================
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
+All Changes
+-----------
 
-   1.1.2
-   1.1.1
-   1.1.0
-   1.0.1
-   1.0.0
+   - 2019-02-05 [BUGFIX] Add only filled form fields to cart product as frontend variants (by extcode)
