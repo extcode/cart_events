@@ -104,11 +104,13 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
         if (!empty($data) && is_array($data)) {
             $feVariants = [];
             foreach ($data as $dataKey => $dataValue) {
-                $feVariants[] = [
-                    'sku' => $dataKey,
-                    'title' => $dataKey,
-                    'value' => $dataValue,
-                ];
+                if (!empty($dataKey) && !empty($dataValue)) {
+                    $feVariants[] = [
+                        'sku' => $dataKey,
+                        'title' => $dataKey,
+                        'value' => $dataValue,
+                    ];
+                }
             }
 
             $feVariant = $this->objectManager->get(
