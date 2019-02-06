@@ -3,19 +3,10 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-ChangeLog
-=========
+2.1.5 - 06.02.2019
+==================
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
+All Changes
+-----------
 
-   2.1.5
-   2.1.4
-   2.1.3
-   2.1.2
-   2.1.1
-   2.1.0
-   2.0.1
-   2.0.0
-   1.0.0
+   - 2019-02-06 [BUGFIX] Render begin and end of eventDate in show template (by extcode)
