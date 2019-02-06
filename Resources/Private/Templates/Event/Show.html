@@ -50,10 +50,15 @@
                     </div>
                 </f:if>
 
+                <div class="date" data-uid="date-{date.uid}">
+                    <f:format.date date="{eventDate.begin}" format="d.m.Y H:i" /> - <f:format.date date="{eventDate.end}" format="d.m.Y H:i" />
+                </div>
                 <f:for each="{eventDate.dates}" as="date">
-                    <div class="date" data-uid="date-{date.uid}">
-                        <f:format.date date="{date.begin}" format="d.m.Y H:i" /> - <f:format.date date="{date.end}" format="d.m.Y H:i" />
-                    </div>
+                    <ul>
+                        <div class="date" data-uid="date-{date.uid}">
+                            <li><f:format.date date="{date.begin}" format="d.m.Y H:i" /> - <f:format.date date="{date.end}" format="d.m.Y H:i" /></li>
+                        </div>
+                    </ul>
                 </f:for>
 
                 <div>
