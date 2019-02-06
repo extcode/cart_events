@@ -9,4 +9,5 @@
 All Changes
 -----------
 
+   - 2019-02-06 [BUGFIX] Remove links to event pages for hidden or non-translated pages (by extcode)
    - 2019-02-06 [BUGFIX] Render begin and end of eventDate in show template (by extcode)

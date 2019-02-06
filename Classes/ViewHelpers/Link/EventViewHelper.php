@@ -2,6 +2,8 @@
 
 namespace Extcode\CartEvents\ViewHelpers\Link;
 
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\LanguageAspect;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -25,7 +27,24 @@ class EventViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
         $page = $this->getEventPage($event);
 
         if ($page) {
-            $this->arguments['pageUid'] = $page['uid'];
+            $languageId = $this->getCurrentLanguageAspect()->getId();
+
+            if (
+                !(
+                    GeneralUtility::hideIfDefaultLanguage($page['l18n_cfg'])
+                    && (!$languageId || ($languageId && !$page['_PAGES_OVERLAY']))
+                )
+                &&
+                !(
+                    $languageId
+                    && GeneralUtility::hideIfNotTranslated($page['l18n_cfg'])
+                    && !$page['_PAGES_OVERLAY']
+                )
+            ) {
+                $this->arguments['pageUid'] = $page['uid'];
+            } else {
+                return '';
+            }
         } else {
             if ($event->getCategory() && $event->getCategory()->getCartEventShowPid()) {
                 $this->arguments['pageUid'] = $event->getCategory()->getCartEventShowPid();
@@ -56,5 +75,14 @@ class EventViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
             ->setMaxResults(1)
             ->execute()
             ->fetch();
+    }
+
+    /**
+     * @return LanguageAspect
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     */
+    protected function getCurrentLanguageAspect(): LanguageAspect
+    {
+        return GeneralUtility::makeInstance(Context::class)->getAspect('language');
     }
 }
