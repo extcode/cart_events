@@ -45,9 +45,9 @@ class EventDateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         }
 
         $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-                'CartEvents'
-            )['view']['list']['limit'];
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'CartEvents'
+        )['view']['list']['limit'];
 
         $pidList = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
