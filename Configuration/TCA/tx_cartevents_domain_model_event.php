@@ -26,6 +26,7 @@ return [
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
+        'translationSource' => 'l10n_source',
 
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -38,12 +39,11 @@ return [
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, teaser, description, meta_description, tax_class_id, event_dates, related_events, category, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_diffsource, l10n_parent, hidden, sku, title, teaser, description, meta_description, tax_class_id, event_dates, related_events, category, categories, tags',
     ],
     'types' => [
         '1' => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 sku, title, path_segment,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_event.div.descriptions,
                     teaser, description, audience,
@@ -105,6 +105,11 @@ return [
                 ],
                 'foreign_table' => 'tx_cartevents_domain_model_event',
                 'foreign_table_where' => 'AND tx_cartevents_domain_model_event.pid=###CURRENT_PID### AND tx_cartevents_domain_model_event.sys_language_uid IN (-1,0)',
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => true,
+                    ],
+                ],
                 'default' => 0,
             ],
         ],
@@ -126,6 +131,7 @@ return [
             'label' => $_LLL_general . ':LGL.hidden',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     '1' => [
                         '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
@@ -206,9 +212,6 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
         'description' => [
@@ -217,9 +220,6 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
         'meta_description' => [
@@ -238,9 +238,6 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
 
@@ -259,7 +256,7 @@ return [
                 'MM' => 'tx_cartevents_domain_model_event_event_related_mm',
                 'suggestOptions' => [
                     'default' => [
-                        'searchWholePhrase' => true
+                        'searchWholePhrase' => true,
                     ],
                 ],
             ]
@@ -430,7 +427,7 @@ return [
                 'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'appearance' => [
-                    'collapseAll' => 1,
+                    'expandSingle' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
@@ -462,7 +459,7 @@ return [
                 'MM' => 'tx_cartevents_domain_model_event_tag_mm',
                 'suggestOptions' => [
                     'default' => [
-                        'searchWholePhrase' => true
+                        'searchWholePhrase' => true,
                     ],
                 ],
             ],

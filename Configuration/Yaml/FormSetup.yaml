@@ -3,7 +3,7 @@ TYPO3:
     Form:
       formManager:
         selectablePrototypesConfiguration:
-          100:
+          1548152082:
             identifier: 'cart-events'
             label: 'cart events'
             newFormTemplates:

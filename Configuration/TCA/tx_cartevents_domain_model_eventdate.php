@@ -25,6 +25,7 @@ return [
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
+        'translationSource' => 'l10n_source',
 
         'hideTable' => true,
         'delete' => 'deleted',
@@ -37,7 +38,7 @@ return [
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_eventdate.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, begin, end, note, calendar_entries, bookable, bookable_until, price, special_prices, handle_seats, seats_number, seats_taken',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, begin, end, note, calendar_entries, bookable, bookable_until, price_categorized, price_categories, price, special_prices, handle_seats, handle_seats_in_price_category, seats_number, seats_taken',
     ],
     'types' => [
         '1' => [
@@ -49,7 +50,7 @@ return [
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_eventdate.div.images_and_files,
                     images, files,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_eventdate.div.order,
-                    bookable, bookable_until, price, special_prices, --linebreak--, handle_seats, seats_number, seats_taken,
+                    bookable, bookable_until, price_categorized, price_categories, price, special_prices, --linebreak--, handle_seats, handle_seats_in_price_category, seats_number, seats_taken,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                     --palette--;' . $_LLL_tca . ':palettes.visibility;hiddenonly,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access,
@@ -88,7 +89,7 @@ return [
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => $_LLL_general . ':LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
@@ -98,6 +99,11 @@ return [
                 ],
                 'foreign_table' => 'tx_cartevents_domain_model_eventdate',
                 'foreign_table_where' => 'AND tx_cartevents_domain_model_eventdate.pid=###CURRENT_PID### AND tx_cartevents_domain_model_eventdate.sys_language_uid IN (-1,0)',
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => true,
+                    ],
+                ],
                 'default' => 0,
             ],
         ],
@@ -119,6 +125,7 @@ return [
             'label' => $_LLL_general . ':LGL.hidden',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     '1' => [
                         '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
@@ -205,9 +212,6 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
 
@@ -345,9 +349,6 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
 
@@ -357,9 +358,6 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
 
@@ -388,6 +386,7 @@ return [
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.bookable',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
             ],
             'onChange' => 'reload',
         ],
@@ -405,9 +404,59 @@ return [
             ],
         ],
 
-        'price' => [
+        'price_categorized' => [
             'exclude' => 1,
             'displayCond' => 'FIELD:bookable:REQ:TRUE',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.price_categorized',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    [
+                        0 => '',
+                        1 => '',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
+                    ]
+                ],
+            ],
+            'onChange' => 'reload',
+        ],
+
+        'price_categories' => [
+            'exclude' => 1,
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:bookable:REQ:TRUE',
+                    'FIELD:price_categorized:REQ:TRUE',
+                ]
+            ],
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.price_categories',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_cartevents_domain_model_pricecategory',
+                'foreign_field' => 'event_date',
+                'foreign_table_where' => ' AND tx_cartevents_domain_model_pricecategory.pid=###CURRENT_PID### ',
+                'foreign_default_sortby' => 'price',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1,
+                ],
+            ],
+        ],
+
+        'price' => [
+            'exclude' => 1,
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:bookable:REQ:TRUE',
+                    'FIELD:price_categorized:REQ:FALSE',
+                ]
+            ],
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.price',
             'config' => [
                 'type' => 'input',
@@ -419,7 +468,12 @@ return [
 
         'special_prices' => [
             'exclude' => 1,
-            'displayCond' => 'FIELD:bookable:REQ:TRUE',
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:bookable:REQ:TRUE',
+                    'FIELD:price_categorized:REQ:FALSE',
+                ]
+            ],
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.special_prices',
             'config' => [
                 'type' => 'inline',
@@ -439,22 +493,46 @@ return [
         ],
 
         'handle_seats' => [
-            'exclude' => 1,
+            'exclude' => true,
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
             'displayCond' => 'FIELD:bookable:REQ:TRUE',
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.handle_seats',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
                 'default' => true,
+            ],
+            'onChange' => 'reload',
+        ],
+        'handle_seats_in_price_category' => [
+            'exclude' => true,
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:bookable:REQ:TRUE',
+                    'FIELD:price_categorized:REQ:TRUE',
+                    'FIELD:handle_seats:REQ:TRUE',
+                ]
+            ],
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.handle_seats_in_price_category',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
             ],
             'onChange' => 'reload',
         ],
 
         'seats_number' => [
-            'exclude' => 1,
+            'exclude' => true,
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
             'displayCond' => [
                 'AND' => [
                     'FIELD:bookable:REQ:TRUE',
                     'FIELD:handle_seats:REQ:TRUE',
+                    'FIELD:handle_seats_in_price_category:REQ:FALSE',
                 ]
             ],
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.seats_number',
@@ -466,11 +544,14 @@ return [
         ],
 
         'seats_taken' => [
-            'exclude' => 1,
+            'exclude' => true,
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
             'displayCond' => [
                 'AND' => [
                     'FIELD:bookable:REQ:TRUE',
                     'FIELD:handle_seats:REQ:TRUE',
+                    'FIELD:handle_seats_in_price_category:REQ:FALSE',
                 ]
             ],
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.seats_taken',

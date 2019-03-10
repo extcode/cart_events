@@ -1,4 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      xmlns:cartevents="http://typo3.org/ns/Extcode/CartEvents/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <div class="cart_form">
@@ -18,17 +20,47 @@
         <f:if condition="!{eventDate.event.formDefinition}">
             <f:then>
                 <input class="form-control" type="text" value="1" name="tx_cart_cart[quantity]">
+                <f:if condition="{eventDate.priceCategorized}">
+                    <f:for each="{eventDate.priceCategories}" as="priceCategory">
+                        <cartevents:form.priceCategorySelect
+                                class="price-category-select form-control"
+                                name="tx_cart_cart[priceCategory]"
+                                eventDate="{eventDate}"
+                                blank="{f:translate(key: 'tx_cartevents.price_category_select.choose')}" />
+                    </f:for>
+                </f:if>
                 <input type="submit" class="btn btn-default" value="<f:translate key='tx_cartevents.plugin.form.submit' />">
             </f:then>
             <f:else>
                 <input class="form-control" type="hidden" value="1" name="tx_cart_cart[quantity]">
-                <f:if condition="{eventDate.event.formDefinition}">
-                    <f:link.action class="btn btn-default"
-                                   pluginName="SingleEvent"
-                                   action="form"
-                                   arguments="{eventDate: eventDate}"
-                                   data="{add-to-cart: 'form'}"
-                                   pageType="{settings.ajaxCartEventDatesForm}"><f:translate key='tx_cartevents.plugin.form.submit' /></f:link.action>
+                <f:if condition="{eventDate.priceCategorized}">
+                    <f:then>
+                        <cart:variable.set name="firstAvailablePriceCategory" value="{eventDate.firstAvailablePriceCategory.uid}" />
+                        <cartevents:form.priceCategorySelect
+                                class="price-category-select form-control"
+                                name="tx_cart_cart[priceCategory]"
+                                eventDate="{eventDate}"
+                                blank="{f:translate(key: 'tx_cartevents.price_category_select.choose')}" />
+                        <f:for each="{eventDate.priceCategories}" as="priceCategory">
+                            <f:if condition="{priceCategory.available}">
+                                <f:link.action class="btn btn-default event-date-price-category event-date-price-category-{priceCategory.uid}"
+                                               style="display: {f:if(condition: '{cart:variable.get(name:\'firstAvailablePriceCategory\')} == {priceCategory.uid}', then: 'inline-block', else: 'none')};"
+                                               pluginName="SingleEvent"
+                                               action="form"
+                                               arguments="{eventDate: eventDate, priceCategory: priceCategory}"
+                                               data="{add-to-cart: 'form'}"
+                                               pageType="{settings.ajaxCartEventDatesForm}"><f:translate key='tx_cartevents.plugin.form.submit' /></f:link.action>
+                            </f:if>
+                        </f:for>
+                    </f:then>
+                    <f:else>
+                        <f:link.action class="btn btn-default"
+                                       pluginName="SingleEvent"
+                                       action="form"
+                                       arguments="{eventDate: eventDate}"
+                                       data="{add-to-cart: 'form'}"
+                                       pageType="{settings.ajaxCartEventDatesForm}"><f:translate key='tx_cartevents.plugin.form.submit' /></f:link.action>
+                    </f:else>
                 </f:if>
             </f:else>
         </f:if>

@@ -17,7 +17,7 @@
                 <source>URL segment</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.form_definition">
-                <source>Form definition</source>
+                <source>Form Definition</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_event.teaser">
                 <source>Teaser</source>
@@ -74,6 +74,9 @@
             <trans-unit id="tx_cartevents_domain_model_eventdate.note">
                 <source>Note</source>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.calendar_entries">
+                <source>Calendar Entries</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.location">
                 <source>Location</source>
             </trans-unit>
@@ -95,6 +98,12 @@
             <trans-unit id="tx_cartevents_domain_model_eventdate.bookable_until">
                 <source>bookable until</source>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.price_categorized">
+                <source>use Price Categories?</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.price_categories">
+                <source>Price categories</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.price">
                 <source>Price</source>
             </trans-unit>
@@ -104,10 +113,35 @@
             <trans-unit id="tx_cartevents_domain_model_eventdate.handle_seats">
                 <source>Handle number of seats</source>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.handle_seats_in_price_category">
+                <source>Handle number of seats in price categories</source>
+            </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.seats_number">
                 <source>Number of Seats</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.seats_taken">
+                <source>Number of Seats (taken)</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents_domain_model_pricecategory">
+                <source>Price Category</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.sku">
+                <source>SKU</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.price">
+                <source>Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.special_prices">
+                <source>Special Prices</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.seats_number">
+                <source>Number of Seats</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.seats_taken">
                 <source>Number of Seats (taken)</source>
             </trans-unit>
 
@@ -125,7 +159,7 @@
             </trans-unit>
 
             <trans-unit id="tx_cartevents_domain_model_calendarentry">
-                <source>Date</source>
+                <source>Calendar Entry</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_calendarentry.begin">
                 <source>Begin</source>

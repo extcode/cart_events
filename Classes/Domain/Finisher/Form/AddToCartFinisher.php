@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Domain\Finisher\Form;
 
+use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\FeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
+use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartFinisherInterface
@@ -34,6 +37,16 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
     protected $eventDate = null;
 
     /**
+     * @var PriceCategoryRepository
+     */
+    protected $priceCategoryRepository = null;
+
+    /**
+     * @var PriceCategory
+     */
+    protected $priceCategory = null;
+
+    /**
      * @param array $formValues
      * @param Cart $cart
      */
@@ -48,9 +61,11 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
         }
 
         $eventDateId = $formValues['eventDateId'];
+        $priceCategoryId = (int)$formValues['priceCategoryId'];
 
         unset($formValues['productType']);
         unset($formValues['eventDateId']);
+        unset($formValues['priceCategoryId']);
 
         $this->objectManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
@@ -60,6 +75,13 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
         );
         $this->eventDate = $this->eventDateRepository->findByUid((int)$eventDateId);
         $quantity = 1;
+
+        if ($priceCategoryId) {
+            $this->priceCategoryRepository = $this->objectManager->get(
+                PriceCategoryRepository::class
+            );
+            $this->priceCategory = $this->priceCategoryRepository->findByUid((int)$priceCategoryId);
+        }
 
         $newProduct = $this->getProductFromEventDate($quantity, $cart->getTaxClasses(), $formValues);
 
@@ -86,6 +108,9 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
         $sku = implode(' - ', [$event->getSku(), $this->eventDate->getSku()]);
 
         $price = $this->eventDate->getBestPrice();
+        if ($this->priceCategory) {
+            $price = $this->priceCategory->getBestPrice();
+        }
 
         $product = new Product(
             'CartEvents',
@@ -100,7 +125,43 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
 
+        if ($this->priceCategory) {
+            $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
+        }
+
         return $product;
+    }
+
+    /**
+     * @param Product $product
+     * @param int $quantity
+     *
+     * @return BeVariant
+     */
+    protected function getProductBackendVariant(
+        Product $product,
+        int $quantity
+    ): BeVariant {
+        $cartBackendVariant = $this->objectManager->get(
+            BeVariant::class,
+            PriceCategory::class . '-' . $this->priceCategory->getUid(),
+            $product,
+            null,
+            $this->priceCategory->getTitle(),
+            $this->priceCategory->getSku(),
+            1,
+            $this->priceCategory->getBestPrice(),
+            $quantity
+        );
+
+        /*
+           TODO
+            if ($bestSpecialPrice) {
+                $cartBackendVariant->setSpecialPrice($bestSpecialPrice->getPrice());
+            }
+         */
+
+        return $cartBackendVariant;
     }
 
     /**

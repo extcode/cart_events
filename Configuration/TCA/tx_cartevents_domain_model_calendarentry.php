@@ -3,11 +3,12 @@
 defined('TYPO3_MODE') or die();
 
 $_LLL_general = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-$_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_tca = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cartevents_domain_model_calendarentry',
+        'title' => $_LLL_db . ':tx_cartevents_domain_model_calendarentry',
         'label' => 'begin',
         'label_alt' => 'end',
         'label_alt_force' => 1,
@@ -31,12 +32,19 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'hidden, begin, end, note'
+            'showitem' => '
+                begin, end, note,
+                    --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                    --palette--;' . $_LLL_tca . ':palettes.visibility;hiddenonly
+                '
         ],
     ],
     'palettes' => [
         '1' => [
             'showitem' => ''
+        ],
+        'hiddenonly' => [
+            'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_calendarentry',
         ],
     ],
     'columns' => [
@@ -45,6 +53,7 @@ return [
             'label' => $_LLL_general . ':LGL.hidden',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     '1' => [
                         '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
@@ -85,7 +94,7 @@ return [
         ],
 
         'begin' => [
-            'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.begin',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_calendarentry.begin',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -96,7 +105,7 @@ return [
             ],
         ],
         'end' => [
-            'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.end',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_calendarentry.end',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -109,13 +118,10 @@ return [
 
         'note' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.note',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_calendarentry.note',
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
             ],
         ],
 

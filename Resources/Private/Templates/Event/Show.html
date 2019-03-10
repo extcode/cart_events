@@ -41,14 +41,8 @@
 
     <div class="event-event-date-list">
         <f:for each="{event.eventDates}" as="eventDate">
-            <div class="event-event-date" data-uid="eventDate-{eventDate.uid}">
-                {eventDate.title}
-
-                <f:if condition="{eventDate.handleSeats}">
-                    <div>
-                        <f:render partial="Event/Seats" arguments="{eventDate: eventDate}" />
-                    </div>
-                </f:if>
+            <div class="well event-event-date" data-uid="eventDate-{eventDate.uid}">
+                <h2>{event.title} - {eventDate.title}</h2>
 
                 <div class="date" data-uid="date-{date.uid}">
                     <f:format.date date="{eventDate.begin}" format="d.m.Y H:i" /> - <f:format.date date="{eventDate.end}" format="d.m.Y H:i" />
@@ -62,14 +56,22 @@
                 </f:for>
 
                 <div>
+                    <f:render partial="Event/Seats" arguments="{eventDate: eventDate}" />
+                </div>
+                <div class="event-date-price">
                     <f:render partial="Event/Price" arguments="{eventDate: eventDate}" />
                 </div>
 
-                <f:if condition="{eventDate.bookable}">
-                    <div>
-                        <f:render partial="Event/CartForm" arguments="{eventDate: eventDate, pid: cartSettings.cart.pid}" />
-                    </div>
-                </f:if>
+                <div class="event-event-date-form">
+                    <f:if condition="{eventDate.bookable}">
+                        <f:then>
+                                <f:render partial="Event/CartForm" arguments="{eventDate: eventDate, pid: cartSettings.cart.pid}" />
+                        </f:then>
+                        <f:else>
+                            <f:translate key="tx_cartevents_domain_model_eventdate.bookable.false" />
+                        </f:else>
+                    </f:if>
+                </div>
             </div>
         </f:for>
     </div>

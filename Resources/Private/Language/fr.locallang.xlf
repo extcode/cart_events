@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2018-04-09T14:55:00Z" product-name="cart_events">
+    <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2019-04-10T10:45:00Z" product-name="cart_events">
         <header/>
         <body>
 
             <trans-unit id="tx_cartevents.more_link">
                 <source>more</source>
+                <target>plus</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.form.submit">
                 <source>Add to cart</source>
+                <target>Ajouter au panier</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.form.submit.success">
                 <source>The event has been added to your shopping cart.</source>
+                <target>La manifestation a été ajoutée au panier.</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.form.submit.error">
                 <source>The event could not be added to the shopping cart!</source>
+                <target>La manifestation n'a pas pu être ajoutée au panier!</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.form.submit.error.event_is_not_bookable">
                 <source>Event is not bookable.</source>
+                <target>La manifestation ne peut pas être réservée.</target>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.form.submit.error.not_enough_seets_available">
                 <source>Not enough Seats available.</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cartevents.plugin.form.submit.error.invalid_event_date">
-                <source>Invalid event date given.</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cartevents.plugin.form.submit.error.invalid_event_date_category_price">
-                <source>Invalid category price for event date given</source>
+                <target>Pas assez de places libres disponibles.</target>
             </trans-unit>
 
             <trans-unit id="tx_cartevents_domain_model_eventdate.seats">
                 <source>Seats</source>
+                <target>Places</target>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.bookable.false">
                 <source>This event date can not be booked.</source>
+                <target>Cette date de manifestation  ne peut pas être réservée.</target>
             </trans-unit>
 
         </body>

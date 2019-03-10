@@ -1,0 +1,10 @@
+div.event-date-price span.special-price span {
+    padding-right: 1em;
+}
+div.event-date-price span.special-price span span {
+    padding-right: 0em;
+}
+
+div.event-date-price span.special-price span.regular-price {
+    text-decoration: line-through;
+}

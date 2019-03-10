@@ -4,11 +4,14 @@ declare(strict_types=1);
 namespace Extcode\CartEvents\Domain\Finisher\Cart;
 
 use Extcode\Cart\Domain\Finisher\Cart\AddToCartFinisherInterface;
+use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Dto\AvailabilityResponse;
 use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
+use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -45,6 +48,16 @@ class AddToCartFinisher implements AddToCartFinisherInterface
     protected $eventDate = null;
 
     /**
+     * @var PriceCategoryRepository
+     */
+    protected $priceCategoryRepository = null;
+
+    /**
+     * @var PriceCategory
+     */
+    protected $priceCategory = null;
+
+    /**
      * @param Request $request
      * @param Product $cartProduct
      * @param Cart $cart
@@ -79,8 +92,18 @@ class AddToCartFinisher implements AddToCartFinisherInterface
 
         $quantities = $this->getQuantitiesFromRequest($request, $cartProduct);
 
-        $quantity = (int)$quantities;
-        return $this->hasEventDateEnoughSeats($cartProduct, $cart, $mode, $quantity, $availabilityResponse);
+        if (!$this->eventDate->isHandleSeatsInPriceCategory()) {
+            $quantity = (int)$quantities;
+            return $this->hasEventDateEnoughSeats($cartProduct, $cart, $mode, $quantity, $availabilityResponse);
+        }
+
+        foreach ($this->eventDate->getPriceCategories() as $priceCategory) {
+            $beVariantId = PriceCategory::class . '-' . $priceCategory->getUid();
+            $quantity = (int)$quantities[$beVariantId];
+            $this->hasPriceCategoryEnoughSeats($cartProduct, $cart, $mode, $beVariantId, $quantity, $priceCategory, $availabilityResponse);
+        }
+
+        return $availabilityResponse;
     }
 
     /**
@@ -136,6 +159,37 @@ class AddToCartFinisher implements AddToCartFinisherInterface
             ], []];
         }
 
+        if (isset($requestArguments['priceCategory'])) {
+            if (!(int)$requestArguments['priceCategory']) {
+                $errors[] = [
+                    'messageBody' => LocalizationUtility::translate(
+                        'tx_cartevents.plugin.form.submit.error.invalid_event_date_category_price',
+                        'cart_events'
+                    ),
+                    'severity' => AbstractMessage::ERROR
+                ];
+                return [$errors, []];
+            }
+
+            $priceCategoryRepository = $this->objectManager->get(
+                PriceCategoryRepository::class
+            );
+
+            $this->priceCategory = $priceCategoryRepository->findByUid((int)$requestArguments['priceCategory']);
+
+            if (!$this->priceCategory->isBookable()) {
+                $errors[] = [
+                    'messageBody' => LocalizationUtility::translate(
+                        'tx_cartevents.plugin.form.submit.error.event_date.price_category.is_not_bookable',
+                        'cart_events'
+                    ),
+                    'severity' => AbstractMessage::WARNING
+                ];
+
+                return [$errors, []];
+            }
+        }
+
         $newProduct = $this->getProductFromEventDate($quantity, $taxClasses);
 
         $this->checkAvailability($request, $newProduct, $cart);
@@ -158,6 +212,9 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         $sku = implode(' - ', [$event->getSku(), $this->eventDate->getSku()]);
 
         $price = $this->eventDate->getBestPrice();
+        if ($this->priceCategory) {
+            $price = $this->priceCategory->getBestPrice();
+        }
 
         $product = new Product(
             'CartEvents',
@@ -172,7 +229,43 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
 
+        if ($this->priceCategory) {
+            $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
+        }
+
         return $product;
+    }
+
+    /**
+     * @param Product $product
+     * @param int $quantity
+     *
+     * @return BeVariant
+     */
+    protected function getProductBackendVariant(
+        Product $product,
+        int $quantity
+    ): BeVariant {
+        $cartBackendVariant = $this->objectManager->get(
+            BeVariant::class,
+            PriceCategory::class . '-' . $this->priceCategory->getUid(),
+            $product,
+            null,
+            $this->priceCategory->getTitle(),
+            $this->priceCategory->getSku(),
+            1,
+            $this->priceCategory->getBestPrice(),
+            $quantity
+        );
+
+        /*
+           TODO
+            if ($bestSpecialPrice) {
+                $cartBackendVariant->setSpecialPrice($bestSpecialPrice->getPrice());
+            }
+         */
+
+        return $cartBackendVariant;
     }
 
     /**
@@ -224,6 +317,38 @@ class AddToCartFinisher implements AddToCartFinisherInterface
     }
 
     /**
+     * @param Product $cartProduct
+     * @param Cart $cart
+     * @param string $mode
+     * @param string $beVariantId
+     * @param int $quantity
+     * @param $priceCategory
+     * @param AvailabilityResponse $availabilityResponse
+     */
+    protected function hasPriceCategoryEnoughSeats(Product $cartProduct, Cart $cart, string $mode, string $beVariantId, int $quantity, $priceCategory, AvailabilityResponse $availabilityResponse): void
+    {
+        if (($mode === 'add') && $cart->getProduct($cartProduct->getId())) {
+            if ($cart->getProduct($cartProduct->getId())->getBeVariant($beVariantId)) {
+                $quantity += (int)$cart->getProduct($cartProduct->getId())->getBeVariant($beVariantId)->getQuantity();
+            }
+        }
+        if ($quantity > $priceCategory->getSeatsAvailable()) {
+            $availabilityResponse->setAvailable(false);
+            $flashMessage = GeneralUtility::makeInstance(
+                FlashMessage::class,
+                LocalizationUtility::translate(
+                    'tx_cart.error.stock_handling.update',
+                    'cart'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+
+            $availabilityResponse->addMessage($flashMessage);
+        }
+    }
+
+    /**
      * @param Request $request
      * @param Product $cartProduct
      * @return mixed
@@ -237,6 +362,12 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         }
 
         if ($request->hasArgument('quantity')) {
+            if ($request->hasArgument('priceCategory')) {
+                $quantities[PriceCategory::class . '-' . $request->getArgument('priceCategory')] = $request->getArgument('quantity');
+
+                return $quantities;
+            }
+
             return $request->getArgument('quantity');
         }
 

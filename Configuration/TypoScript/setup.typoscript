@@ -13,6 +13,9 @@ ajaxCartEventDatesForm {
     10 < tt_content.list.20.cartevents_singleevent
 }
 
+page.includeCSS.tx_cartevents = EXT:cart_events/Resources/Public/Stylesheets/cart_events.css
+page.includeJSFooter.tx_cartevents = EXT:cart_events/Resources/Public/JavaScripts/cart_events.js
+
 plugin.tx_cartevents {
     view {
         templateRootPaths.0 = {$plugin.tx_cartevents.view.templateRootPath}

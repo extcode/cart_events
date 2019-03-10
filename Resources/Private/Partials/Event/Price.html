@@ -20,6 +20,17 @@
     </span>
 </f:section>
 
+<f:section name="price_categorized">
+    <f:if condition="{priceCategory.bestPrice} < {priceCategory.price}">
+        <f:then>
+            <f:render section="special-price" arguments="{price: priceCategory.price, specialPrice: priceCategory.bestSpecialPrice}"/>
+        </f:then>
+        <f:else>
+            <f:render section="regular-price" arguments="{price: priceCategory.price}"/>
+        </f:else>
+    </f:if>
+</f:section>
+
 <f:section name="price">
     <f:if condition="{eventDate.bestPrice} < {eventDate.price}">
         <f:then>
@@ -32,6 +43,13 @@
 </f:section>
 
 <f:if condition="{eventDate.bookable}">
-    <f:render section="price" arguments="{eventDate: eventDate}" />
+    <f:if condition="{eventDate.priceCategorized}">
+        <f:then>
+            <f:render section="price_categorized" arguments="{priceCategory: eventDate.firstAvailablePriceCategory}" />
+        </f:then>
+        <f:else>
+            <f:render section="price" arguments="{eventDate: eventDate}" />
+        </f:else>
+    </f:if>
 </f:if>
 </html>

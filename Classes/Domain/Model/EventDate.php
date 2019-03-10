@@ -86,7 +86,23 @@ class EventDate extends AbstractEventDate
     /**
      * @var bool
      */
+    protected $priceCategorized = false;
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\PriceCategory>
+     */
+    protected $priceCategories;
+
+    /**
+     * @var bool
+     */
     protected $handleSeats = false;
+
+    /**
+     * @var bool
+     */
+    protected $handleSeatsInPriceCategory = false;
 
     /**
      * Number of seats
@@ -319,6 +335,76 @@ class EventDate extends AbstractEventDate
     }
 
     /**
+     * @return bool
+     */
+    public function isPriceCategorized(): bool
+    {
+        return $this->priceCategorized;
+    }
+
+    /**
+     * @param bool $priceCategorized
+     */
+    public function setPriceCategorized(bool $priceCategorized): void
+    {
+        $this->priceCategorized = $priceCategorized;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getPriceCategories(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    {
+        return $this->priceCategories;
+    }
+
+    /**
+     * @return PriceCategory|null
+     */
+    public function getFirstAvailablePriceCategory(): ?\Extcode\CartEvents\Domain\Model\PriceCategory
+    {
+        foreach ($this->getPriceCategories() as $priceCategory) {
+            if ($priceCategory->isAvailable()) {
+                return $priceCategory;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Adds a Special Price
+     *
+     * @param \Extcode\CartEvents\Domain\Model\PriceCategory $priceCategory
+     * @return EventDate
+     */
+    public function addPriceCategory(\Extcode\CartEvents\Domain\Model\PriceCategory $priceCategory) : self
+    {
+        $this->priceCategories->attach($priceCategory);
+        return $this;
+    }
+
+    /**
+     * Removes a Special Price
+     *
+     * @param \Extcode\CartEvents\Domain\Model\PriceCategory $priceCategory
+     * @return EventDate
+     */
+    public function removePriceCategory(\Extcode\CartEvents\Domain\Model\PriceCategory $priceCategory) : self
+    {
+        $this->priceCategories->detach($priceCategory);
+        return $this;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $priceCategories
+     */
+    public function setPriceCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $priceCategories): void
+    {
+        $this->priceCategories = $priceCategories;
+    }
+
+    /**
      * Returns best Special Price
      *
      * @var array $frontendUserGroupIds
@@ -443,6 +529,22 @@ class EventDate extends AbstractEventDate
     }
 
     /**
+     * @return bool
+     */
+    public function isHandleSeatsInPriceCategory(): bool
+    {
+        return $this->handleSeatsInPriceCategory;
+    }
+
+    /**
+     * @param bool $handleSeatsInPriceCategory
+     */
+    public function setHandleSeatsInPriceCategory(bool $handleSeatsInPriceCategory): void
+    {
+        $this->handleSeatsInPriceCategory = $handleSeatsInPriceCategory;
+    }
+
+    /**
      * Returns the number of seats in the event if handling the number of seats is enabled, otherwise return 0.
      *
      * @return int
@@ -451,6 +553,15 @@ class EventDate extends AbstractEventDate
     {
         if (!$this->isHandleSeats()) {
             return 0;
+        }
+        if ($this->isHandleSeatsInPriceCategory()) {
+            $seats = 0;
+
+            foreach ($this->getPriceCategories() as $priceCategory) {
+                $seats += $priceCategory->getSeatsNumber();
+            }
+
+            return $seats;
         }
         return $this->seatsNumber;
     }
@@ -475,6 +586,15 @@ class EventDate extends AbstractEventDate
         if (!$this->isHandleSeats()) {
             return 0;
         }
+        if ($this->isHandleSeatsInPriceCategory()) {
+            $seats = 0;
+
+            foreach ($this->getPriceCategories() as $priceCategory) {
+                $seats += $priceCategory->getSeatsTaken();
+            }
+
+            return $seats;
+        }
         return $this->seatsTaken;
     }
 
@@ -497,6 +617,15 @@ class EventDate extends AbstractEventDate
     {
         if (!$this->isHandleSeats()) {
             return 0;
+        }
+        if ($this->isHandleSeatsInPriceCategory()) {
+            $seats = 0;
+
+            foreach ($this->getPriceCategories() as $priceCategory) {
+                $seats += $priceCategory->getSeatsAvailable();
+            }
+
+            return $seats;
         }
         return $this->seatsNumber - $this->seatsTaken;
     }

@@ -39,24 +39,48 @@ class StockUtility
         );
     }
 
-    public function handleStock($params)
+    /**
+     * @param array $params
+     */
+    public function handleStock(array $params): void
     {
         $cartProduct = $params['cartProduct'];
 
         if ($cartProduct->getProductType() === 'CartEvents') {
-            $productRepository = $this->objectManager->get(
+            $eventDateRepository = $this->objectManager->get(
                 \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
             );
+            $priceCategoryRepository = $this->objectManager->get(
+                \Extcode\CartEvents\Domain\Repository\PriceCategoryRepository::class
+            );
 
-            $cartProductId = $cartProduct->getProductId();
-            $product = $productRepository->findByUid($cartProductId);
+            /** @var \Extcode\CartEvents\Domain\Model\EventDate $eventDate */
+            $eventDate = $eventDateRepository->findByUid($cartProduct->getProductId());
 
-            if ($product && $product->isHandleSeats()) {
-                $product->setSeatsTaken($product->getSeatsTaken() + $cartProduct->getQuantity());
-                $productRepository->update($product);
+            if ($eventDate && $eventDate->isHandleSeats()) {
+                if ($eventDate->isHandleSeatsInPriceCategory()) {
+                    /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $cartBeVariant */
+                    foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
+                        $id = (int) end(explode('-', $cartBeVariant->getId()));
+                        /** @var \Extcode\CartEvents\Domain\Model\PriceCategory $priceCategory */
+                        $priceCategory = $priceCategoryRepository->findByUid($id);
+                        $priceCategory->setSeatsTaken($priceCategory->getSeatsTaken() + $cartBeVariant->getQuantity());
+                        $priceCategoryRepository->update($priceCategory);
+                    }
+
+                    $this->persistenceManager->persistAll();
+
+                    $this->flushCache($eventDate->getEvent()->getUid());
+
+                    return;
+                }
+
+                $eventDate->setSeatsTaken($eventDate->getSeatsTaken() + $cartProduct->getQuantity());
+                $eventDateRepository->update($eventDate);
+
                 $this->persistenceManager->persistAll();
 
-                $this->flushCache($product->getEvent()->getUid());
+                $this->flushCache($eventDate->getEvent()->getUid());
             }
         }
     }

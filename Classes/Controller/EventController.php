@@ -7,9 +7,11 @@ use Extcode\Cart\Utility\CartUtility;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
 use Extcode\CartEvents\Domain\Model\Event;
 use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\CategoryRepository;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\EventRepository;
+use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
@@ -143,14 +145,16 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * @param EventDate $eventDate
+     * @param PriceCategory $priceCategory
      */
-    public function formAction(EventDate $eventDate = null)
+    public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null)
     {
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
             foreach ($arguments as $argumentKey => $argumentValue) {
                 if (is_array($argumentValue) && array_key_exists('productType', $argumentValue) && $argumentValue['productType'] === 'CartEvents') {
                     $eventDateId = (int)$argumentValue['eventDateId'];
+                    $priceCategoryId = (int)$argumentValue['priceCategoryId'];
 
                     if ($eventDateId) {
                         $eventDateRepository = $this->objectManager->get(
@@ -166,6 +170,13 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
                         if ($form['identifier'] !== $argumentKey) {
                             throw new \InvalidArgumentException();
+                        }
+
+                        if ($priceCategoryId) {
+                            $priceCategoryRepository = $this->objectManager->get(
+                                PriceCategoryRepository::class
+                            );
+                            $priceCategory = $priceCategoryRepository->findByUid($priceCategoryId);
                         }
                     }
                 }
@@ -185,17 +196,23 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             'renderables' => [
                 0 => [
                     'renderables' => [
-                        9998 => [
+                        9997 => [
                             'type' => 'Hidden',
                             'identifier' => 'productType',
                             'label' => 'productType',
                             'defaultValue' => ($eventDate ? 'CartEvents' : ''),
                         ],
-                        9999 => [
+                        9998 => [
                             'type' => 'Hidden',
                             'identifier' => 'eventDateId',
                             'label' => 'eventDateId',
                             'defaultValue' => ($eventDate ? $eventDate->getUid() : ''),
+                        ],
+                        9999 => [
+                            'type' => 'Hidden',
+                            'identifier' => 'priceCategoryId',
+                            'label' => 'priceCategoryId',
+                            'defaultValue' => ($priceCategory ? $priceCategory->getUid() : ''),
                         ],
                     ],
                 ],

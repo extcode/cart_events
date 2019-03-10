@@ -1,5 +1,16 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:translate key="tx_cartevents_domain_model_eventdate.seats" />: {eventDate.seatsAvailable} / {eventDate.seatsNumber}
+<f:if condition="{eventDate.bookable} && {eventDate.handleSeats}">
+    <f:translate key="tx_cartevents_domain_model_eventdate.seats" />: {eventDate.seatsAvailable} / {eventDate.seatsNumber}
+    <f:if condition="{eventDate.handleSeatsInPriceCategory}">
+        <f:then>
+            <ul>
+                <f:for each="{eventDate.priceCategories}" as="priceCategory">
+                    <li>{priceCategory.title}: {priceCategory.seatsAvailable} / {priceCategory.seatsNumber}</li>
+                </f:for>
+            </ul>
+        </f:then>
+    </f:if>
+</f:if>
 </html>

@@ -33,6 +33,10 @@
                 <source>Seats</source>
                 <target>Plätze</target>
             </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.bookable.false">
+                <source>This event date can not be booked.</source>
+                <target>Dieser Veranstaltungstermin kann nicht gebucht werden.</target>
+            </trans-unit>
 
         </body>
     </file>
