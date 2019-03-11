@@ -16,11 +16,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-/**
- * CheckAvailability Hook
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class AddToCartFinisher implements AddToCartFinisherInterface
 {
 

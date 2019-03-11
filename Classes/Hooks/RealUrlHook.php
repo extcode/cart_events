@@ -5,11 +5,6 @@ namespace Extcode\CartEvents\Hooks;
 use DmitryDulepov\Realurl\Configuration\ConfigurationReader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * RealUrlHook
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class RealUrlHook
 {
     /**

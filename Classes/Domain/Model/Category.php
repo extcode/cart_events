@@ -2,11 +2,6 @@
 
 namespace Extcode\CartEvents\Domain\Model;
 
-/**
- * Category Model
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
 {
     /**

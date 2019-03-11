@@ -1,9 +1,6 @@
 <?php
 namespace Extcode\CartEvents\Domain\Model\Dto;
 
-/**
- * Extension Manager configuration
- */
 class EmConfiguration
 {
 

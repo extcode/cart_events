@@ -2,11 +2,6 @@
 
 namespace Extcode\CartEvents\ViewHelpers\Event;
 
-/**
- * Free Places ViewHelper
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class FreePlacesClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     public function initializeArguments()

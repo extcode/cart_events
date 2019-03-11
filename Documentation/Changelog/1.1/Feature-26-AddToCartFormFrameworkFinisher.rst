@@ -1,10 +1,13 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-1.1.0 - 22.01.2019
-==================
+====================================================
+Feature: #26 - Add addToCart form framework finisher
+====================================================
+
+See :issue:`26`
+
+Description
+===========
 
 In order to allow to individualize events when adding them to the cart, a new addToCart finisher for the form framework
 allow to load a form and submit the form with the selected event. The fields are handled as frontend variants in the
@@ -20,7 +23,4 @@ It can also serve as a template for manually creating forms.
    The form is currently loaded via AJAX into a <div> with the data-attribute **data-add-to-cart="result"**.
    There will be a more generic solution to load a modal view as well.
 
-All Changes
------------
-
-   - 2019-01-22 [FEATURE] Add addToCart form framework finisher (by extcode)
+.. index:: API, Frontend, Backend, JavaScript
