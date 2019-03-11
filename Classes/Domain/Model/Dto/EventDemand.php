@@ -3,11 +3,6 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Domain\Model\Dto;
 
-/**
- * Data Transfer Object Event
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class EventDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**

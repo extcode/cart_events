@@ -6,9 +6,6 @@ namespace Extcode\CartEvents\Controller;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
 use Extcode\CartEvents\Domain\Repository\EventRepository;
 
-/**
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**

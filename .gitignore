@@ -3,7 +3,7 @@ composer.lock
 
 .php_cs.cache
 
-Documentation/_make
+Documentation-GENERATED-temp/
 
 .DS_Store
 .idea

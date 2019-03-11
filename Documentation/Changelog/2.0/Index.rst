@@ -1,10 +1,7 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-2.0.0 - 05.12.2018
-------------------
+2.0 Changes
+===========
 
 This is the initial release of cart_products for TYPO3 v9. It is part of the cart extension.
 
