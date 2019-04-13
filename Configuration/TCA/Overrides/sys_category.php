@@ -7,7 +7,6 @@ $_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
 $newSysCategoryColumns = [
     'cart_event_list_pid' => [
         'exclude' => 1,
-        'l10n_mode' => 'mergeIfNotBlank',
         'label' => $_LLL_db . 'tx_cartevents_domain_model_category.cart_event_list_pid',
         'config' => [
             'type' => 'group',
@@ -16,21 +15,16 @@ $newSysCategoryColumns = [
             'size' => 1,
             'maxitems' => 1,
             'minitems' => 0,
-            'show_thumbs' => 1,
             'default' => 0,
-            'wizards' => [
-                'suggest' => [
-                    'type' => 'suggest',
-                    'default' => [
-                        'searchWholePhrase' => true
-                    ]
+            'suggestOptions' => [
+                'default' => [
+                    'searchWholePhrase' => true,
                 ],
             ],
         ]
     ],
     'cart_event_show_pid' => [
         'exclude' => 1,
-        'l10n_mode' => 'mergeIfNotBlank',
         'label' => $_LLL_db . 'tx_cartevents_domain_model_category.cart_event_show_pid',
         'config' => [
             'type' => 'group',
@@ -39,14 +33,10 @@ $newSysCategoryColumns = [
             'size' => 1,
             'maxitems' => 1,
             'minitems' => 0,
-            'show_thumbs' => 1,
             'default' => 0,
-            'wizards' => [
-                'suggest' => [
-                    'type' => 'suggest',
-                    'default' => [
-                        'searchWholePhrase' => true
-                    ]
+            'suggestOptions' => [
+                'default' => [
+                    'searchWholePhrase' => true,
                 ],
             ],
         ]

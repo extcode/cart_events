@@ -28,7 +28,7 @@ call_user_func(function () {
         'cart_events_event' => [
             'displayCond' => 'FIELD:doktype:=:186',
             'exclude' => true,
-            'label' => $_LLL_be . ':pages.singleview_cart_events_event',
+            'label' => $_LLL_be . 'pages.singleview_cart_events_event',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
