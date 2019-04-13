@@ -31,7 +31,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'hidden;;1, begin, end, note'
+            'showitem' => 'hidden, begin, end, note'
         ],
     ],
     'palettes' => [
@@ -55,12 +55,11 @@ return [
 
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $_LLL_general . ':LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
@@ -71,12 +70,11 @@ return [
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $_LLL_general . ':LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
@@ -90,8 +88,8 @@ return [
             'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.begin',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'required,datetime',
                 'checkbox' => 0,
                 'default' => 0,
@@ -101,8 +99,8 @@ return [
             'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.end',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
@@ -114,11 +112,11 @@ return [
             'label' => $_LLL . ':tx_cartevents_domain_model_calendarentry.note',
             'config' => [
                 'type' => 'text',
+                'enableRichtext' => true,
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
             ],
-            'defaultExtras' => 'richtext[]'
         ],
 
         'event_date' => [
