@@ -97,6 +97,7 @@ return [
                 ],
                 'foreign_table' => 'tx_cartevents_domain_model_eventdate',
                 'foreign_table_where' => 'AND tx_cartevents_domain_model_eventdate.pid=###CURRENT_PID### AND tx_cartevents_domain_model_eventdate.sys_language_uid IN (-1,0)',
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
