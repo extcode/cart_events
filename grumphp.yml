@@ -35,3 +35,8 @@ parameters:
 
         phpmd:
             ruleset: ['Build/phpmd-ruleset.xml']
+    ascii:
+        failed:
+            - Build/grumphp/resources/ascii/failed.txt
+        succeeded:
+            - Build/grumphp/resources/ascii/succeeded.txt
