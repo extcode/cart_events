@@ -26,7 +26,12 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
     /**
      * @var EventDateRepository
      */
-    protected $eventDateRepository;
+    protected $eventDateRepository = null;
+
+    /**
+     * @var EventDate
+     */
+    protected $eventDate = null;
 
     /**
      * @param array $formValues
@@ -38,10 +43,14 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
     ) {
         $errors = [];
 
-        $eventDateId = $formValues['productUid'];
+        if ($formValues['productType'] !== 'CartEvents') {
+            return [$errors, []];
+        }
+
+        $eventDateId = $formValues['eventDateId'];
 
         unset($formValues['productType']);
-        unset($formValues['productUid']);
+        unset($formValues['eventDateId']);
 
         $this->objectManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
@@ -49,10 +58,11 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
         $this->eventDateRepository = $this->objectManager->get(
             EventDateRepository::class
         );
-        $eventDate = $this->eventDateRepository->findByUid((int)$eventDateId);
+        $this->eventDate = $this->eventDateRepository->findByUid((int)$eventDateId);
         $quantity = 1;
 
-        $newProduct = $this->getProductFromEventDate($eventDate, $quantity, $cart->getTaxClasses(), $formValues);
+        $newProduct = $this->getProductFromEventDate($quantity, $cart->getTaxClasses(), $formValues);
+
         $newProduct->setMaxNumberInCart(1);
         $newProduct->setMinNumberInCart(1);
 
@@ -60,7 +70,6 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
     }
 
     /**
-     * @param EventDate $eventDate
      * @param int $quantity
      * @param array $taxClasses
      * @param array $feVariants
@@ -68,21 +77,22 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
      * @return Product
      */
     protected function getProductFromEventDate(
-        EventDate $eventDate,
         int $quantity,
         array $taxClasses,
         array $feVariants = null
     ) {
-        $event = $eventDate->getEvent();
-        $title = implode(' - ', [$event->getTitle(), $eventDate->getTitle()]);
-        $sku = implode(' - ', [$event->getSku(), $eventDate->getSku()]);
+        $event = $this->eventDate->getEvent();
+        $title = implode(' - ', [$event->getTitle(), $this->eventDate->getTitle()]);
+        $sku = implode(' - ', [$event->getSku(), $this->eventDate->getSku()]);
+
+        $price = $this->eventDate->getBestPrice();
 
         $product = new Product(
             'CartEvents',
-            $eventDate->getUid(),
+            $this->eventDate->getUid(),
             $sku,
             $title,
-            $eventDate->getBestSpecialPrice(),
+            $price,
             $taxClasses[$event->getTaxClassId()],
             $quantity,
             true,

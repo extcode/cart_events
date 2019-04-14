@@ -2,15 +2,36 @@
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:if condition="{eventDate.bestSpecialPrice} < {eventDate.price}">
-    <f:then>
-        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{eventDate.bestSpecialPrice}</cart:format.currency>
-        <strike>
-            <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{eventDate.price}</cart:format.currency>
-        </strike>
-    </f:then>
-    <f:else>
-        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{eventDate.price}</cart:format.currency>
-    </f:else>
+<f:section name="special-price">
+    <span class="regular-price"><span class="price"></span></span>
+    <span class="special-price">
+        <span class="special-price"><span class="price"><cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{specialPrice.price}</cart:format.currency></span></span>
+        <span class="title">{specialPrice.title}</span>
+        <span class="regular-price">bisher: <span class="price"><cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{price}</cart:format.currency></span></span>
+    </span>
+</f:section>
+
+<f:section name="regular-price">
+    <span class="regular-price"><span class="price"><cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{price}</cart:format.currency></span></span>
+    <span class="special-price">
+        <span class="special-price"><span class="price"></span></span>
+        <span class="title"></span>
+        <span class="regular-price"><span class="price"></span></span>
+    </span>
+</f:section>
+
+<f:section name="price">
+    <f:if condition="{eventDate.bestPrice} < {eventDate.price}">
+        <f:then>
+            <f:render partial="special-price" arguments="{price: eventDate.price, specialPrice: eventDate.bestSpecialPrice}"/>
+        </f:then>
+        <f:else>
+            <f:render section="regular-price" arguments="{price: eventDate.price}"/>
+        </f:else>
+    </f:if>
+</f:section>
+
+<f:if condition="{eventDate.bookable}">
+    <f:render section="price" arguments="{eventDate: eventDate}" />
 </f:if>
 </html>
