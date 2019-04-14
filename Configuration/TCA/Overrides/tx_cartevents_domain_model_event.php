@@ -5,7 +5,7 @@ defined('TYPO3_MODE') or die();
 // Extension manager configuration
 $configuration = \Extcode\CartEvents\Utility\EmConfiguration::getSettings();
 
-$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('form')) {
     $temporaryColumns = [

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-04-14T10:00:00Z" product-name="cart_events">
+        <header/>
+        <body>
+
+            <trans-unit id="form_definition.description">
+                <source>The form is displayed when the event is to be added to the shopping cart. Only forms of the prototype "cart-events" will be displayed.</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
