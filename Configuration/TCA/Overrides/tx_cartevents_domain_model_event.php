@@ -1,17 +1,20 @@
 <?php
+
 defined('TYPO3_MODE') or die();
 
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_tca = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf';
 
 if (ExtensionManagementUtility::isLoaded('form')) {
     $temporaryColumns = [
         'form_definition' => [
             'exclude' => 1,
             'label' => $_LLL_db . ':tx_cartevents_domain_model_event.form_definition',
+            'description' => $_LLL_tca . ':tx_cartevents_domain_model_event.form_definition.description',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',

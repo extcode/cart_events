@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-04-24T14:30:00Z" product-name="cart_events">
-		<header/>
-		<body>
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-04-14T10:00:00Z" product-name="cart_events">
+        <header/>
+        <body>
 
-			<trans-unit id="tx_cartevents_domain_model_event.div.categorization">
-				<source>Categorization</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_event.div.images_and_files">
-				<source>Images / Files</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_event.div.event_dates">
-				<source>Event Dates</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_event.div.relations">
-				<source>Relations</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_eventdate.div.informations">
-				<source>Informations</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_eventdate.div.dates">
-				<source>Dates</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_eventdate.div.order">
-				<source>Order</source>
-			</trans-unit>
-			<trans-unit id="tx_cartevents_domain_model_eventdate.div.images_and_files">
-				<source>Images / Files</source>
-			</trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.categorization">
+                <source>Categorization</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.images_and_files">
+                <source>Images / Files</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.event_dates">
+                <source>Event Dates</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_event.div.relations">
+                <source>Relations</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.div.informations">
+                <source>Informations</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.div.dates">
+                <source>Dates</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.div.order">
+                <source>Order</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.div.images_and_files">
+                <source>Images / Files</source>
+            </trans-unit>
 
-			<trans-unit id="palettes.visibility">
-				<source>Visibility</source>
-			</trans-unit>
+            <trans-unit id="palettes.visibility">
+                <source>Visibility</source>
+            </trans-unit>
 
-		</body>
-	</file>
+            <trans-unit id="tx_cartevents_domain_model_event.form_definition.description">
+                <source>The form is displayed when the event is to be added to the shopping cart. Only forms of the prototype "cart-events" will be displayed.</source>
+            </trans-unit>
+
+        </body>
+    </file>
 </xliff>
