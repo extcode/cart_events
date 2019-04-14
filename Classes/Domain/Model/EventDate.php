@@ -71,7 +71,12 @@ class EventDate extends AbstractEventDate
     protected $price = 0.0;
 
     /**
-     * Event Special Price
+     * @var bool
+     */
+    protected $netPrice = false;
+
+    /**
+     * EventDate Special Price
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\SpecialPrice>
      * @cascade remove
@@ -79,11 +84,9 @@ class EventDate extends AbstractEventDate
     protected $specialPrices;
 
     /**
-     * Handle number of seats
-     *
      * @var bool
      */
-    protected $handleSeats;
+    protected $handleSeats = false;
 
     /**
      * Number of seats
@@ -319,25 +322,44 @@ class EventDate extends AbstractEventDate
      * Returns best Special Price
      *
      * @var array $frontendUserGroupIds
-     * @return float
+     * @return SpecialPrice|null
      */
-    public function getBestSpecialPrice(array $frontendUserGroupIds = []) : float
+    public function getBestSpecialPrice(array $frontendUserGroupIds = [])
     {
-        $bestSpecialPrice = $this->price;
+        $bestSpecialPrice = null;
 
         if ($this->specialPrices) {
             foreach ($this->specialPrices as $specialPrice) {
-                if ($specialPrice->getPrice() < $bestSpecialPrice) {
+                if (!isset($bestSpecialPrice) || $specialPrice->getPrice() < $bestSpecialPrice->getPrice()) {
                     if (!$specialPrice->getFrontendUserGroup() ||
                         in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
                     ) {
-                        $bestSpecialPrice = $specialPrice->getPrice();
+                        $bestSpecialPrice = $specialPrice;
                     }
                 }
             }
         }
 
         return $bestSpecialPrice;
+    }
+
+    /**
+     * Returns price of best Special Price
+     *
+     * @var array $frontendUserGroupIds
+     * @return float
+     */
+    public function getBestPrice(array $frontendUserGroupIds = []): float
+    {
+        $price = $this->getPrice();
+
+        $specialPrice = $this->getBestSpecialPrice($frontendUserGroupIds);
+
+        if ($specialPrice && $specialPrice->getPrice() < $price) {
+            return $specialPrice->getPrice();
+        }
+
+        return $price;
     }
 
     /**
@@ -427,7 +449,7 @@ class EventDate extends AbstractEventDate
      */
     public function getSeatsNumber() : int
     {
-        if (!$this->handleSeats) {
+        if (!$this->isHandleSeats()) {
             return 0;
         }
         return $this->seatsNumber;
@@ -450,7 +472,7 @@ class EventDate extends AbstractEventDate
      */
     public function getSeatsTaken() : int
     {
-        if (!$this->handleSeats) {
+        if (!$this->isHandleSeats()) {
             return 0;
         }
         return $this->seatsTaken;
@@ -473,9 +495,27 @@ class EventDate extends AbstractEventDate
      */
     public function getSeatsAvailable() : int
     {
-        if (!$this->handleSeats) {
+        if (!$this->isHandleSeats()) {
             return 0;
         }
         return $this->seatsNumber - $this->seatsTaken;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAvailable(): bool
+    {
+        if (!$this->isBookable()) {
+            return false;
+        }
+        if (!$this->isHandleSeats()) {
+            return true;
+        }
+        if ($this->getSeatsAvailable()) {
+            return true;
+        }
+
+        return false;
     }
 }

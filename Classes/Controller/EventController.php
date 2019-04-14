@@ -3,15 +3,21 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Controller;
 
+use Extcode\Cart\Utility\CartUtility;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
+use Extcode\CartEvents\Domain\Model\Event;
+use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Repository\CategoryRepository;
+use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\EventRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
 
 class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * Cart Utility
-     *
-     * @var \Extcode\Cart\Utility\CartUtility
+     * @var CartUtility
      */
     protected $cartUtility;
 
@@ -21,9 +27,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $eventRepository;
 
     /**
-     * categoryRepository
-     *
-     * @var \Extcode\CartEvents\Domain\Repository\CategoryRepository
+     * @var CategoryRepository
      */
     protected $categoryRepository;
 
@@ -33,11 +37,10 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $cartSettings = [];
 
     /**
-     * @param \Extcode\Cart\Utility\CartUtility $cartUtility
+     * @param CartUtility $cartUtility
      */
-    public function injectCartUtility(
-        \Extcode\Cart\Utility\CartUtility $cartUtility
-    ) {
+    public function injectCartUtility(CartUtility $cartUtility)
+    {
         $this->cartUtility = $cartUtility;
     }
 
@@ -50,11 +53,10 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Repository\CategoryRepository $categoryRepository
+     * @param CategoryRepository $categoryRepository
      */
-    public function injectCategoryRepository(
-        \Extcode\CartEvents\Domain\Repository\CategoryRepository $categoryRepository
-    ) {
+    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    {
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -64,7 +66,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected function initializeAction()
     {
         $this->cartSettings = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Cart'
         );
 
@@ -103,7 +105,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function teaserAction()
     {
         $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'CartEvents'
         )['view']['list']['limit'];
 
@@ -116,12 +118,13 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Model\Event $event
+     * @param Event $event
      *
-     * @ignorevalidation $event
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("event")
+     *
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function showAction(\Extcode\CartEvents\Domain\Model\Event $event = null)
+    public function showAction(Event $event = null)
     {
         if (!$event) {
             $event = $this->getEvent();
@@ -139,58 +142,74 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Model\EventDate $eventDate
+     * @param EventDate $eventDate
      */
-    public function formAction(\Extcode\CartEvents\Domain\Model\EventDate $eventDate = null)
+    public function formAction(EventDate $eventDate = null)
     {
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
             foreach ($arguments as $argumentKey => $argumentValue) {
-                if (preg_match('/cart-events-([a-z0-9-]+)/', $argumentKey)) {
-                    $productType = $argumentValue['productType'];
-                    $productUid = (int)$argumentValue['productUid'];
+                if (is_array($argumentValue) && array_key_exists('productType', $argumentValue) && $argumentValue['productType'] === 'CartEvents') {
+                    $eventDateId = (int)$argumentValue['eventDateId'];
 
-                    if ($productType && $productUid) {
+                    if ($eventDateId) {
                         $eventDateRepository = $this->objectManager->get(
-                            \Extcode\CartEvents\Domain\Repository\EventDateRepository::class
+                            EventDateRepository::class
                         );
-                        $eventDate = $eventDateRepository->findByUid($productUid);
+                        $eventDate = $eventDateRepository->findByUid($eventDateId);
+
+                        $formDefinition = $eventDate->getEvent()->getFormDefinition();
+                        $formPersistenceManager = $this->objectManager->get(
+                            FormPersistenceManager::class
+                        );
+                        $form = $formPersistenceManager->load($formDefinition);
+
+                        if ($form['identifier'] !== $argumentKey) {
+                            throw new \InvalidArgumentException();
+                        }
                     }
                 }
             }
         }
 
+        if (!$eventDate) {
+            throw new \InvalidArgumentException();
+        }
+
         $this->view->assign('eventDate', $eventDate);
-        $this->view->assign(
-            'formDefinitionOverrides',
-            [
-                'renderingOptions' => [
-                    'pageType' => $this->settings['ajaxCartEventDatesForm'],
-                ],
-                'renderables' => [
-                    0 => [
-                        'renderables' => [
-                            9998 => [
-                                'type' => 'Hidden',
-                                'identifier' => 'productType',
-                                'label' => 'productType',
-                                'defaultValue' => ($eventDate ? 'CartEvents':''),
-                            ],
-                            9999 => [
-                                'type' => 'Hidden',
-                                'identifier' => 'productUid',
-                                'label' => 'productUid',
-                                'defaultValue' => ($eventDate ? $eventDate->getUid():''),
-                            ],
+
+        $formDefinitionOverrides = [
+            'renderingOptions' => [
+                'pageType' => $this->settings['ajaxCartEventDatesForm'],
+            ],
+            'renderables' => [
+                0 => [
+                    'renderables' => [
+                        9998 => [
+                            'type' => 'Hidden',
+                            'identifier' => 'productType',
+                            'label' => 'productType',
+                            'defaultValue' => ($eventDate ? 'CartEvents' : ''),
+                        ],
+                        9999 => [
+                            'type' => 'Hidden',
+                            'identifier' => 'eventDateId',
+                            'label' => 'eventDateId',
+                            'defaultValue' => ($eventDate ? $eventDate->getUid() : ''),
                         ],
                     ],
                 ],
-            ]
+            ],
+        ];
+
+        $this->view->assign(
+            'formDefinitionOverrides',
+            $formDefinitionOverrides
         );
     }
 
     /**
-     * @return \Extcode\CartEvents\Domain\Model\Event
+     * @return Event|null
      */
     protected function getEvent()
     {
@@ -202,9 +221,12 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         if ($eventUid > 0) {
             $event =  $this->eventRepository->findByUid($eventUid);
+            if ($event && $event instanceof Event) {
+                return $event;
+            }
         }
 
-        return $event;
+        return null;
     }
 
     /**
@@ -215,7 +237,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @return EventDemand
      */
-    protected function createDemandObjectFromSettings(string $type, array $settings) : EventDemand
+    protected function createDemandObjectFromSettings(string $type, array $settings): EventDemand
     {
         /** @var EventDemand $demand */
         $demand = $this->objectManager->get(
@@ -227,14 +249,14 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'CartEvents'
         )['view'][$type]['limit'];
 
         $demand->setLimit($limit);
 
         $order = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'CartEvents'
         )['view'][$type]['order'];
 
@@ -243,12 +265,12 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $orderBy =  $this->settings['orderBy'] ?: $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'CartEvents'
         )['view'][$type]['orderBy'];
 
         $orderDirection = $this->settings['orderDirection'] ?: $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'CartEvents'
         )['view'][$type]['orderDirection'];
 
@@ -267,7 +289,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected function addCategoriesToDemandObjectFromSettings(EventDemand &$demand)
     {
         if ($this->settings['categoriesList']) {
-            $selectedCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(
+            $selectedCategories = GeneralUtility::intExplode(
                 ',',
                 $this->settings['categoriesList'],
                 true
@@ -300,7 +322,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $currencyTranslationData = [];
 
             $cartFrameworkConfig = $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
                 'Cart'
             );
 
