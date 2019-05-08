@@ -67,6 +67,7 @@
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser.select.events</label>
                             <config>
                                 <type>select</type>
+                                <enableMultiSelectFilterTextfield>1</enableMultiSelectFilterTextfield>
                                 <foreign_table>tx_cartevents_domain_model_event</foreign_table>
                                 <size>3</size>
                                 <minitems>1</minitems>
