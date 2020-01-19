@@ -23,12 +23,12 @@
         "issues": "https://github.com/extcode/cart_events/issues"
     },
     "require": {
-        "php": ">=7.2.0 <7.4",
+        "php": ">=7.2.0 <7.5",
         "ext-pdo": "*",
         "typo3/cms-core": "^9.5",
         "typo3/cms-extbase": "^9.5",
         "typo3/cms-fluid": "^9.5",
-        "extcode/cart": "^6.1.4"
+        "extcode/cart": "^6.6.0"
     },
     "require-dev": {
         "nimut/testing-framework": "^4.0",

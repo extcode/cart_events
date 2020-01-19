@@ -25,7 +25,7 @@ $EM_CONF['cart_events'] = [
     'constraints' => [
         'depends' => [
             'typo3' => '9.5.0-9.5.99',
-            'cart' => '6.1.4'
+            'cart' => '6.6.0'
         ],
         'conflicts' => [],
         'suggests' => [],
