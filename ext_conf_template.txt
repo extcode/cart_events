@@ -3,3 +3,6 @@
 ###########################
 # cat=records/enable/100; type=options[LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:extmng.categoryRestriction.none=none,LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:extmng.categoryRestriction.pages_tsconfig=page_tsconfig,LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:extmng.categoryRestriction.current_pid=current_pid,LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:extmng.categoryRestriction.siteroot=siteroot]; label=LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:extmng.categoryRestriction
 categoryRestriction =
+
+# cat=records/enable/200; type=boolean; label=LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:extmng.input_is_net_price
+inputIsNetPrice = 1

@@ -104,8 +104,11 @@
             <trans-unit id="tx_cartevents_domain_model_eventdate.price_categories">
                 <source>Price categories</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_eventdate.price">
-                <source>Price</source>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.price.gross">
+                <source>Price (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_eventdate.price.net">
+                <source>Price (net)</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.special_prices">
                 <source>Special Prices</source>
@@ -132,8 +135,11 @@
             <trans-unit id="tx_cartevents_domain_model_pricecategory.title">
                 <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_pricecategory.price">
-                <source>Price</source>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.price.gross">
+                <source>Price (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_pricecategory.price.net">
+                <source>Price (net)</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_pricecategory.special_prices">
                 <source>Special Prices</source>
@@ -154,8 +160,11 @@
             <trans-unit id="tx_cartevents_domain_model_specialprice.frontend_user_group">
                 <source>Website Usergroup</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents_domain_model_specialprice.price">
-                <source>Price</source>
+            <trans-unit id="tx_cartevents_domain_model_specialprice.price.gross">
+                <source>Price (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents_domain_model_specialprice.price.net">
+                <source>Price (net)</source>
             </trans-unit>
 
             <trans-unit id="tx_cartevents_domain_model_calendarentry">

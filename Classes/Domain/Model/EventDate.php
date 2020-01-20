@@ -71,11 +71,6 @@ class EventDate extends AbstractEventDate
     protected $price = 0.0;
 
     /**
-     * @var bool
-     */
-    protected $netPrice = false;
-
-    /**
      * EventDate Special Price
      *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")

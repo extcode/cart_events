@@ -12,6 +12,7 @@ use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -216,6 +217,8 @@ class AddToCartFinisher implements AddToCartFinisherInterface
             $price = $this->priceCategory->getBestPrice();
         }
 
+        $inputIsNetPrice = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'inputIsNetPrice');
+
         $product = new Product(
             'CartEvents',
             $this->eventDate->getUid(),
@@ -224,7 +227,7 @@ class AddToCartFinisher implements AddToCartFinisherInterface
             $price,
             $taxClasses[$event->getTaxClassId()],
             $quantity,
-            true,
+            $inputIsNetPrice,
             null
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());

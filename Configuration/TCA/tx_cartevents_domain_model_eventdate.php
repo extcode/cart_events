@@ -457,7 +457,7 @@ return [
                     'FIELD:price_categorized:REQ:FALSE',
                 ]
             ],
-            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.price',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.price.gross',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

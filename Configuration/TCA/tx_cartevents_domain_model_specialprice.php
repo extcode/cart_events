@@ -155,7 +155,7 @@ return [
         ],
         'price' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_specialprice.price',
+            'label' => $_LLL . ':tx_cartevents_domain_model_specialprice.price.gross',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
