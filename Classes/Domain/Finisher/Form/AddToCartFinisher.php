@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Domain\Finisher\Form;
 
+use Extcode\Cart\Domain\Finisher\Form\AddToCartFinisherInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\FeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
@@ -10,7 +11,7 @@ use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartFinisherInterface
+class AddToCartFinisher implements AddToCartFinisherInterface
 {
 
     /**
@@ -99,6 +100,18 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
             $this->getFeVariant($feVariants)
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
+
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'] ?? [] as $className) {
+                $params = [
+                    'cart' => $this->cart,
+                    'eventDate' => $this->eventDate,
+                ];
+
+                $_procObj = GeneralUtility::makeInstance($className);
+                $_procObj->changeProductFromEventDate($product, $params);
+            }
+        }
 
         return $product;
     }

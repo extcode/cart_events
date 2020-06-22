@@ -172,6 +172,18 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
 
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'] ?? [] as $className) {
+                $params = [
+                    'cart' => $this->cart,
+                    'eventDate' => $this->eventDate,
+                ];
+
+                $_procObj = GeneralUtility::makeInstance($className);
+                $_procObj->changeProductFromEventDate($product, $params);
+            }
+        }
+
         return $product;
     }
 
