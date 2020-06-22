@@ -217,7 +217,7 @@ class AddToCartFinisher implements AddToCartFinisherInterface
             $price = $this->priceCategory->getBestPrice();
         }
 
-        $inputIsNetPrice = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'inputIsNetPrice');
+        $inputIsNetPrice = (bool)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'inputIsNetPrice');
 
         $product = new Product(
             'CartEvents',
@@ -234,6 +234,18 @@ class AddToCartFinisher implements AddToCartFinisherInterface
 
         if ($this->priceCategory) {
             $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
+        }
+
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'] ?? [] as $className) {
+                $params = [
+                    'cart' => $this->cart,
+                    'eventDate' => $this->eventDate,
+                ];
+
+                $_procObj = GeneralUtility::makeInstance($className);
+                $_procObj->changeProductFromEventDate($product, $params);
+            }
         }
 
         return $product;

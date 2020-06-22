@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Domain\Finisher\Form;
 
+use Extcode\Cart\Domain\Finisher\Form\AddToCartFinisherInterface;
 use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\FeVariant;
@@ -14,7 +15,7 @@ use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartFinisherInterface
+class AddToCartFinisher implements AddToCartFinisherInterface
 {
 
     /**
@@ -113,7 +114,7 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
             $price = $this->priceCategory->getBestPrice();
         }
 
-        $inputIsNetPrice = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'inputIsNetPrice');
+        $inputIsNetPrice = (bool)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'inputIsNetPrice');
 
         $product = new Product(
             'CartEvents',
@@ -130,6 +131,18 @@ class AddToCartFinisher implements \Extcode\Cart\Domain\Finisher\Form\AddToCartF
 
         if ($this->priceCategory) {
             $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
+        }
+
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'] ?? [] as $className) {
+                $params = [
+                    'cart' => $this->cart,
+                    'eventDate' => $this->eventDate,
+                ];
+
+                $_procObj = GeneralUtility::makeInstance($className);
+                $_procObj->changeProductFromEventDate($product, $params);
+            }
         }
 
         return $product;
