@@ -1,6 +1,6 @@
 .. include:: ../../Includes.txt
 
-3.0 Changes
+2.3 Changes
 ===========
 
 **Table of contents**
