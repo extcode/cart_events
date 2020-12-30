@@ -7,46 +7,46 @@ $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
 // configure plugins
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart_events',
+    'cart_events',
     'Events',
     [
-        'Event' => 'show, list, form',
+        \Extcode\CartEvents\Controller\EventController::class => 'show, list, form',
     ],
     [
-        'Event' => 'form',
+        \Extcode\CartEvents\Controller\EventController::class => 'form',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart_events',
+    'cart_events',
     'TeaserEvents',
     [
-        'Event' => 'teaser',
+        \Extcode\CartEvents\Controller\EventController::class => 'teaser',
     ],
     [
-        'Event' => '',
+        \Extcode\CartEvents\Controller\EventController::class => '',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart_events',
+    'cart_events',
     'SingleEvent',
     [
-        'Event' => 'show, form',
+        \Extcode\CartEvents\Controller\EventController::class => 'show, form',
     ],
     [
-        'Event' => 'form',
+        \Extcode\CartEvents\Controller\EventController::class => 'form',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart_events',
+    'cart_events',
     'EventDates',
     [
-        'EventDate' => 'list',
+        \Extcode\CartEvents\Controller\EventDateController::class => 'list',
     ],
     [
-        'EventDate' => '',
+        \Extcode\CartEvents\Controller\EventDateController::class => '',
     ]
 );
 
@@ -83,8 +83,6 @@ if (TYPO3_MODE === 'BE') {
 // Cart Hooks
 
 if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Cart']['AddToCartFinisher'] =
-        \Extcode\CartEvents\Domain\Finisher\Cart\AddToCartFinisher::class;
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Form']['AddToCartFinisher'] =
         \Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher::class;
 }
@@ -109,19 +107,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc']['cartevents_clearcache'] =
     \Extcode\CartEvents\Hooks\DataHandler::class . '->clearCachePostProc';
-
-// Signal Slots
-
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-);
-
-$dispatcher->connect(
-    \Extcode\Cart\Utility\StockUtility::class,
-    'handleStock',
-    \Extcode\CartEvents\Utility\StockUtility::class,
-    'handleStock'
-);
 
 // register "cartevents:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]

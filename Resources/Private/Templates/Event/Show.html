@@ -9,10 +9,12 @@
 
 <f:if condition="{event.metaDescription}">
     <f:then>
-        <cart:metaTag name="description" content="{event.metaDescription -> f:format.stripTags() -> f:format.crop(maxCharacters: '150')}" />
+        <cart:metaTag property="description" content="{event.metaDescription -> f:format.stripTags() -> f:format.crop(maxCharacters: '150')}" />
     </f:then>
     <f:else>
-        <cart:metaTag name="description" content="{event.description -> f:format.stripTags() -> f:format.crop(maxCharacters: '150')}" />
+        <f:if condition="{event.description}">
+            <cart:metaTag property="description" content="{event.description -> f:format.stripTags() -> f:format.crop(maxCharacters: '150')}" />
+        </f:if>
     </f:else>
 </f:if>
 

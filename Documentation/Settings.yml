@@ -4,7 +4,7 @@
 
 ---
 conf.py:
-  copyright: 2018-2021
+  copyright: 2021-2024
   project: Cart Events
-  version: 2.3
-  release: 2.3.0
+  version: 3.0
+  release: 3.0.0

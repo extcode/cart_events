@@ -2,7 +2,15 @@
 
 namespace Extcode\CartEvents\ViewHelpers;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+/*
+ * This file is part of the package extcode/cart-events.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+use Extcode\CartEvents\Domain\Model\Event;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class SchemaViewHelper extends AbstractViewHelper
 {
@@ -17,14 +25,18 @@ class SchemaViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('event', \Extcode\CartEvents\Domain\Model\Event::class, 'event', true);
+        $this->registerArgument(
+            'event',
+            Event::class,
+            'event',
+            true
+        );
     }
 
     public function render()
     {
         $schemaEvents = [];
 
-        /** @var \Extcode\CartEvents\Domain\Model\Event $event */
         $event = $this->arguments['event'];
 
         foreach ($event->getEventDates() as $eventDate) {

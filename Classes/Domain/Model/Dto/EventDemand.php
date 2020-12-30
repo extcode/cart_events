@@ -1,7 +1,13 @@
 <?php
 declare(strict_types=1);
-
 namespace Extcode\CartEvents\Domain\Model\Dto;
+
+/*
+ * This file is part of the package extcode/cart-events.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 class EventDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {

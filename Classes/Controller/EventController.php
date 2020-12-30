@@ -1,7 +1,13 @@
 <?php
 declare(strict_types=1);
-
 namespace Extcode\CartEvents\Controller;
+
+/*
+ * This file is part of the package extcode/cart-events.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 use Extcode\Cart\Utility\CartUtility;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
@@ -82,10 +88,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
     }
 
-    /**
-     *
-     */
-    public function listAction()
+    public function listAction(): void
     {
         if (!$this->settings) {
             $this->settings = [];
@@ -101,10 +104,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->addCacheTags($events);
     }
 
-    /**
-     * action teaser
-     */
-    public function teaserAction()
+    public function teaserAction(): void
     {
         $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -126,7 +126,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function showAction(Event $event = null)
+    public function showAction(Event $event = null): void
     {
         if (!$event) {
             $event = $this->getEvent();

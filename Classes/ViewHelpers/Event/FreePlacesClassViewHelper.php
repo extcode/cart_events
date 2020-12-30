@@ -2,7 +2,17 @@
 
 namespace Extcode\CartEvents\ViewHelpers\Event;
 
-class FreePlacesClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+/*
+ * This file is part of the package extcode/cart-events.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+use Extcode\CartEvents\Domain\Model\EventDate;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class FreePlacesClassViewHelper extends AbstractViewHelper
 {
     public function initializeArguments()
     {
@@ -10,7 +20,7 @@ class FreePlacesClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
 
         $this->registerArgument(
             'eventDate',
-            \Extcode\CartEvents\Domain\Model\EventDate::class,
+            EventDate::class,
             'eventDate',
             true
         );
@@ -49,7 +59,6 @@ class FreePlacesClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
      */
     public function render()
     {
-        /** @var \Extcode\CartEvents\Domain\Model\EventDate $eventDate */
         $eventDate = $this->arguments['eventDate'];
 
         $returnColorPrefix = $this->arguments['returnColorPrefix'] ?? '';
