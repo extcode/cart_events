@@ -13,6 +13,7 @@
                             <onChange>reload</onChange>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="0">
                                         <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list_and_show</numIndex>
@@ -35,10 +36,10 @@
                             <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
                                 <extKey>cart_events</extKey>
                                 <pluginName>Events</pluginName>
-                                <renderType>selectSingle</renderType>
                             </config>
                         </TCEforms>
                     </settings.templateLayout>
@@ -51,6 +52,7 @@
                             <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="0" type="array">
                                         <numIndex index="0"></numIndex>
@@ -85,6 +87,7 @@
                             <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="0" type="array">
                                         <numIndex index="0"></numIndex>
@@ -152,6 +155,7 @@
                             <displayCond>FIELD:switchableControllerActions:=:Event->show;Event->list</displayCond>
                             <config>
                                 <type>select</type>
+                                <renderType>selectTree</renderType>
                                 <autoSizeMax>20</autoSizeMax>
                                 <foreign_table>sys_category</foreign_table>
                                 <foreign_table_where>AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.title ASC

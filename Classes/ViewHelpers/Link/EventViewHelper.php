@@ -2,19 +2,38 @@
 
 namespace Extcode\CartEvents\ViewHelpers\Link;
 
+/*
+ * This file is part of the package extcode/cart-events.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+use Extcode\CartEvents\Domain\Model\Event;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\LanguageAspect;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
-class EventViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class EventViewHelper extends ActionViewHelper
 {
     public function initializeArguments()
     {
         parent::initializeArguments();
 
-        $this->registerArgument('event', \Extcode\CartEvents\Domain\Model\Event::class, 'event', true);
-        $this->registerArgument('settings', 'array', 'settings array', true);
+        $this->registerArgument(
+            'event',
+            Event::class,
+            'event',
+            true
+        );
+        $this->registerArgument(
+            'settings',
+            'array',
+            'settings array',
+            true
+        );
     }
 
     /**
@@ -60,10 +79,10 @@ class EventViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
     }
 
     /**
-     * @param \Extcode\CartEvents\Domain\Model\Event $event
+     * @param Event $event
      * @return array|bool
      */
-    protected function getEventPage(\Extcode\CartEvents\Domain\Model\Event $event)
+    protected function getEventPage(Event $event)
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         return $queryBuilder->select('*')

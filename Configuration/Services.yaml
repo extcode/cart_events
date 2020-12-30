@@ -1,0 +1,39 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Extcode\CartEvents\:
+    resource: '../Classes/*'
+
+  Extcode\CartEvents\EventListener\ProcessOrderCreate\HandleStock:
+    tags:
+      - name: event.listener
+        identifier: 'cart-events--process-order-create--handle-stock'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        after: 'cart--process-order-create--order'
+        before: 'cart--process-order-create--email'
+
+  Extcode\CartEvents\EventListener\ProcessOrderCreate\FlushCache:
+    tags:
+      - name: event.listener
+        identifier: 'cart-events--process-order-create--flush-cache'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        after: 'cart-events--process-order-create--handle-stock'
+        before: 'cart--process-order-create--email'
+
+  Extcode\CartEvents\EventListener\RetrieveProductsFromRequest:
+    tags:
+      - name: event.listener
+        identifier: 'cart-events--retrieve-products-from-request'
+        event: Extcode\Cart\Event\RetrieveProductsFromRequestEvent
+
+  Extcode\CartEvents\EventListener\CheckProductAvailability:
+    tags:
+      - name: event.listener
+        identifier: 'cart-events--check-product-availability'
+        event: Extcode\Cart\Event\CheckProductAvailabilityEvent
+
+  Extcode\CartEvents\Updates\SlugUpdater:
+    public: true

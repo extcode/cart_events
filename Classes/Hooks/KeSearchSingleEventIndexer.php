@@ -2,12 +2,13 @@
 
 namespace Extcode\CartEvents\Hooks;
 
-/**
- * This file is part of the "cart_events" Extension for TYPO3 CMS.
+/*
+ * This file is part of the package extcode/cart-events.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
+ * LICENSE file that was distributed with this source code.
  */
+
 class KeSearchSingleEventIndexer extends KeSearchIndexer
 {
     protected $indexerKey = 'cartsingleeventindexer';

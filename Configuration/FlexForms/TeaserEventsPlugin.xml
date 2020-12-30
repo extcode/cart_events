@@ -13,10 +13,10 @@
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:flexforms_template.templateLayout</label>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
                                 <extKey>cart_events</extKey>
                                 <pluginName>TeaserEvents</pluginName>
-                                <renderType>selectSingle</renderType>
                             </config>
                         </TCEforms>
                     </settings.templateLayout>
@@ -67,6 +67,7 @@
                             <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.teaser.select.events</label>
                             <config>
                                 <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
                                 <enableMultiSelectFilterTextfield>1</enableMultiSelectFilterTextfield>
                                 <foreign_table>tx_cartevents_domain_model_event</foreign_table>
                                 <size>3</size>

@@ -2,8 +2,8 @@
 composer.lock
 
 .php_cs.cache
-
-Documentation-GENERATED-temp/
+.phplint.cache
+Build/.phpunit.result.cache
 
 .DS_Store
 .idea
