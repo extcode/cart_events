@@ -143,6 +143,8 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * @param EventDate $eventDate
+     *
+     * @ignorevalidation $eventDate
      */
     public function formAction(EventDate $eventDate = null)
     {
