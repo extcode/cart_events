@@ -146,6 +146,9 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * @param EventDate $eventDate
      * @param PriceCategory $priceCategory
+     *
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("eventDate")
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("priceCategory")
      */
     public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null)
     {

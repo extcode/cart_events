@@ -27,6 +27,7 @@ lint:cgl:
   image: composer:2
   stage: lint
   before_script:
+    - composer config platform.php 7.4
     - composer remove typo3/cms-core --no-update
     - composer install --no-progress --no-ansi --no-interaction
   script:
@@ -36,6 +37,7 @@ lint:typoscriptcgl:
   stage: lint
   image: composer:2
   script:
+    - composer config platform.php 7.4
     - composer remove typo3/cms-core --no-update
     - composer install --no-progress --no-ansi --no-interaction
     - .Build/bin/typoscript-lint -c tslint.yaml
@@ -94,7 +96,8 @@ lint:php74:
       fi
     - >
       if [[ "$COVERAGE" == "1" ]]; then
-        .Build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml Tests/Unit
+        composer require typo3/cms-install="${TYPO3_VERSION}"
+        XDEBUG_MODE=coverage .Build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml Tests/Unit
       fi
   artifacts:
     paths:
