@@ -22,6 +22,30 @@
     "support": {
         "issues": "https://github.com/extcode/cart_events/issues"
     },
+    "autoload": {
+        "psr-4": {
+            "Extcode\\CartEvents\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Extcode\\CartEvents\\Tests\\": "Tests"
+        }
+    },
+    "config": {
+        "vendor-dir": ".build/vendor",
+        "bin-dir": ".build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "cart_events",
+            "app-dir": ".build",
+            "web-dir": ".build/public"
+        }
+    },
+    "replace": {
+        "extcode/cart-events": "self.version"
+    },
     "require": {
         "php": ">=7.2.0 <7.5",
         "ext-pdo": "*",
@@ -36,35 +60,34 @@
         "helmich/typo3-typoscript-lint": "^1.4",
         "phpmd/phpmd": "*"
     },
-    "autoload": {
-        "psr-4": {
-            "Extcode\\CartEvents\\": "Classes/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Extcode\\CartEvents\\Tests\\": "Tests"
-        }
-    },
-    "replace": {
-        "extcode/cart-events": "self.version"
-    },
-    "config": {
-        "vendor-dir": ".Build/vendor",
-        "bin-dir": ".Build/bin"
-    },
     "scripts": {
+        "test:cgl": [
+            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
+        ],
+        "test:cgl:dry-run": [
+            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
+        ],
+        "test:php:lint": [
+            ".build/bin/phplint -c Build/phplint.yaml"
+        ],
+        "test:php:unit": [
+            ".build/bin/phpunit -c Build/UnitTests.xml"
+        ],
+        "test:typoscript:lint": [
+            ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
+        ],
+        "test:php": [
+            "@test:php:lint",
+            "@test:php:unit"
+        ],
+        "test:all": [
+            "@test:cgl",
+            "@test:typoscript:lint",
+            "@test:php"
+        ],
         "post-autoload-dump": [
-            "mkdir -p .Build/Web/typo3conf/ext/",
-            "[ -L .Build/Web/typo3conf/ext/cart_events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cart_events"
+            "mkdir -p .build/public/typo3conf/ext/",
+            "[ -L .build/public/typo3conf/ext/cart_events ] || ln -snvf ../../../../. .build/public/typo3conf/ext/cart_events"
         ]
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "cart_events",
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "app-dir": ".Build",
-            "web-dir": ".Build/public"
-        }
     }
 }
