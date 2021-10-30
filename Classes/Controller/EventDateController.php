@@ -10,23 +10,22 @@ namespace Extcode\CartEvents\Controller;
  */
 
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-class EventDateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class EventDateController extends ActionController
 {
     /**
      * @var EventDateRepository
      */
     protected $eventDateRepository;
 
-    /**
-     * @param EventDateRepository $eventDateRepository
-     */
-    public function injectEventDateRepository(EventDateRepository $eventDateRepository)
+    public function injectEventDateRepository(EventDateRepository $eventDateRepository): void
     {
         $this->eventDateRepository = $eventDateRepository;
     }
 
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
             static $cacheTagsSet = false;
@@ -38,22 +37,19 @@ class EventDateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         }
     }
 
-    /**
-     *
-     */
-    public function listAction()
+    public function listAction(): void
     {
         if (!$this->settings) {
             $this->settings = [];
         }
 
         $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'CartEvents'
         )['view']['list']['limit'];
 
         $pidList = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         )['persistence']['storagePid'];
 
         $eventDates = $this->eventDateRepository->findNext($limit, $pidList)->fetchAll();
@@ -63,10 +59,7 @@ class EventDateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $this->addCacheTags($eventDates);
     }
 
-    /**
-     * @param $eventDates
-     */
-    protected function addCacheTags($eventDates)
+    protected function addCacheTags(iterable $eventDates): void
     {
         $cacheTags = [];
 

@@ -147,7 +147,7 @@ class CheckProductAvailability
                         'cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                    AbstractMessage::ERROR
                 )
             );
         }

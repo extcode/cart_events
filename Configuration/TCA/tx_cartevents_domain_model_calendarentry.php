@@ -15,7 +15,6 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
         'hideTable' => true,
         'delete' => 'deleted',
@@ -26,9 +25,6 @@ return [
         ],
         'searchFields' => 'title',
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_calendarentry.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, begin, end, note',
     ],
     'types' => [
         '1' => [

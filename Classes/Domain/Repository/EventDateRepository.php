@@ -16,9 +16,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class EventDateRepository extends Repository
 {
     /**
-     * @param int $limit
-     * @param string $pidList
-     *
      * @return \Doctrine\DBAL\Driver\Statement|int
      */
     public function findNext(int $limit, string $pidList)

@@ -10,6 +10,8 @@ namespace Extcode\CartEvents\Hooks;
  */
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\QueryGenerator;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class KeSearchIndexer
@@ -29,7 +31,7 @@ abstract class KeSearchIndexer
             $newArray = [
                 $this->indexerName,
                 $this->indexerKey,
-                \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cart_events') . 'ext_icon.svg'
+                ExtensionManagementUtility::extPath('cart_events') . 'ext_icon.svg'
             ];
             $params['items'][] = $newArray;
         }
@@ -95,7 +97,7 @@ abstract class KeSearchIndexer
         }
 
         $queryGenerator = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Database\QueryGenerator::class
+            QueryGenerator::class
         );
         $recursiveStoragePids = $pidList;
         $storagePids = GeneralUtility::intExplode(',', $pidList);

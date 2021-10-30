@@ -48,6 +48,7 @@
     },
     "require": {
         "php": ">=7.2.0 <7.5",
+        "ext-json": "*",
         "ext-pdo": "*",
         "typo3/cms-core": "^10.4",
         "typo3/cms-extbase": "^10.4",
@@ -56,9 +57,11 @@
     },
     "require-dev": {
         "typo3/testing-framework": "^5.0",
+        "typo3/cms-install": "^10.4",
         "friendsofphp/php-cs-fixer": "^2.14",
         "helmich/typo3-typoscript-lint": "^2.0",
-        "overtrue/phplint": "^1.1"
+        "overtrue/phplint": "^1.1",
+        "rector/rector": "^0.11"
     },
     "scripts": {
         "test:cgl": [
@@ -73,6 +76,12 @@
         "test:php:unit": [
             ".build/bin/phpunit -c Build/UnitTests.xml"
         ],
+        "test:rector:process": [
+            ".build/bin/rector process *"
+        ],
+        "test:rector:process:dry-run": [
+            ".build/bin/rector process * --dry-run"
+        ],
         "test:typoscript:lint": [
             ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
         ],
@@ -81,6 +90,7 @@
             "@test:php:unit"
         ],
         "test:all": [
+            "@test:rector:process",
             "@test:cgl",
             "@test:typoscript:lint",
             "@test:php"

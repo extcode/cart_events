@@ -30,38 +30,29 @@ class AddToCartFinisher implements AddToCartFinisherInterface
     protected $cart;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * @var EventDateRepository
      */
-    protected $eventDateRepository = null;
+    protected $eventDateRepository;
 
     /**
      * @var EventDate
      */
-    protected $eventDate = null;
+    protected $eventDate;
 
     /**
      * @var PriceCategoryRepository
      */
-    protected $priceCategoryRepository = null;
+    protected $priceCategoryRepository;
 
     /**
      * @var PriceCategory
      */
-    protected $priceCategory = null;
+    protected $priceCategory;
 
-    /**
-     * @param array $formValues
-     * @param Cart $cart
-     */
     public function getProductFromForm(
         array $formValues,
         Cart $cart
-    ) {
+    ): array {
         $errors = [];
 
         if ($formValues['productType'] !== 'CartEvents') {
@@ -75,17 +66,14 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         unset($formValues['eventDateId']);
         unset($formValues['priceCategoryId']);
 
-        $this->objectManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
-        );
-        $this->eventDateRepository = $this->objectManager->get(
+        $this->eventDateRepository = GeneralUtility::makeInstance(
             EventDateRepository::class
         );
         $this->eventDate = $this->eventDateRepository->findByUid((int)$eventDateId);
         $quantity = 1;
 
         if ($priceCategoryId) {
-            $this->priceCategoryRepository = $this->objectManager->get(
+            $this->priceCategoryRepository = GeneralUtility::makeInstance(
                 PriceCategoryRepository::class
             );
             $this->priceCategory = $this->priceCategoryRepository->findByUid((int)$priceCategoryId);
@@ -99,18 +87,11 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         return [$errors, [$newProduct]];
     }
 
-    /**
-     * @param int $quantity
-     * @param array $taxClasses
-     * @param array $feVariants
-     *
-     * @return Product
-     */
     protected function getProductFromEventDate(
         int $quantity,
         array $taxClasses,
         array $feVariants = null
-    ) {
+    ): Product {
         $event = $this->eventDate->getEvent();
         $title = implode(' - ', [$event->getTitle(), $this->eventDate->getTitle()]);
         $sku = implode(' - ', [$event->getSku(), $this->eventDate->getSku()]);
@@ -154,17 +135,11 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         return $product;
     }
 
-    /**
-     * @param Product $product
-     * @param int $quantity
-     *
-     * @return BeVariant
-     */
     protected function getProductBackendVariant(
         Product $product,
         int $quantity
     ): BeVariant {
-        $cartBackendVariant = $this->objectManager->get(
+        $cartBackendVariant = GeneralUtility::makeInstance(
             BeVariant::class,
             PriceCategory::class . '-' . $this->priceCategory->getUid(),
             $product,
@@ -186,10 +161,6 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         return $cartBackendVariant;
     }
 
-    /**
-     * @var array $data
-     * @return FeVariant|null
-     */
     protected function getFeVariant(array $data): ?FeVariant
     {
         $feVariant = null;
@@ -206,11 +177,12 @@ class AddToCartFinisher implements AddToCartFinisherInterface
                 }
             }
 
-            $feVariant = $this->objectManager->get(
+            $feVariant = GeneralUtility::makeInstance(
                 FeVariant::class,
                 $feVariants
             );
         }
+
         return $feVariant;
     }
 }

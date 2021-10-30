@@ -20,9 +20,10 @@ use Extcode\CartEvents\Domain\Repository\EventRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
 
-class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class EventController extends ActionController
 {
     /**
      * @var CartUtility
@@ -44,34 +45,22 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $cartSettings = [];
 
-    /**
-     * @param CartUtility $cartUtility
-     */
-    public function injectCartUtility(CartUtility $cartUtility)
+    public function injectCartUtility(CartUtility $cartUtility): void
     {
         $this->cartUtility = $cartUtility;
     }
 
-    /**
-     * @param EventRepository $eventRepository
-     */
-    public function injectEventRepository(EventRepository $eventRepository)
+    public function injectEventRepository(EventRepository $eventRepository): void
     {
         $this->eventRepository = $eventRepository;
     }
 
-    /**
-     * @param CategoryRepository $categoryRepository
-     */
-    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    public function injectCategoryRepository(CategoryRepository $categoryRepository): void
     {
         $this->categoryRepository = $categoryRepository;
     }
 
-    /**
-     * Action initialize
-     */
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         $this->cartSettings = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -120,11 +109,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * @param Event $event
-     *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("event")
-     *
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function showAction(Event $event = null): void
     {
@@ -144,13 +129,10 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * @param EventDate $eventDate
-     * @param PriceCategory $priceCategory
-     *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("eventDate")
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("priceCategory")
      */
-    public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null)
+    public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null): void
     {
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
@@ -160,13 +142,13 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $priceCategoryId = (int)$argumentValue['priceCategoryId'];
 
                     if ($eventDateId) {
-                        $eventDateRepository = $this->objectManager->get(
+                        $eventDateRepository = GeneralUtility::makeInstance(
                             EventDateRepository::class
                         );
                         $eventDate = $eventDateRepository->findByUid($eventDateId);
 
                         $formDefinition = $eventDate->getEvent()->getFormDefinition();
-                        $formPersistenceManager = $this->objectManager->get(
+                        $formPersistenceManager = GeneralUtility::makeInstance(
                             FormPersistenceManager::class
                         );
                         $form = $formPersistenceManager->load($formDefinition);
@@ -176,7 +158,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         }
 
                         if ($priceCategoryId) {
-                            $priceCategoryRepository = $this->objectManager->get(
+                            $priceCategoryRepository = GeneralUtility::makeInstance(
                                 PriceCategoryRepository::class
                             );
                             $priceCategory = $priceCategoryRepository->findByUid($priceCategoryId);
@@ -228,9 +210,6 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         );
     }
 
-    /**
-     * @return Event|null
-     */
     protected function getEvent(): ?Event
     {
         $eventUid = 0;
@@ -251,16 +230,11 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Create the demand object which define which records will get shown
-     *
-     * @param string $type
-     * @param array $settings
-     *
-     * @return EventDemand
      */
     protected function createDemandObjectFromSettings(string $type, array $settings): EventDemand
     {
         /** @var EventDemand $demand */
-        $demand = $this->objectManager->get(
+        $demand = GeneralUtility::makeInstance(
             EventDemand::class
         );
 
@@ -303,10 +277,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         return $demand;
     }
 
-    /**
-     * @param EventDemand $demand
-     */
-    protected function addCategoriesToDemandObjectFromSettings(EventDemand &$demand)
+    protected function addCategoriesToDemandObjectFromSettings(EventDemand &$demand): void
     {
         if ($this->settings['categoriesList']) {
             $selectedCategories = GeneralUtility::intExplode(
@@ -336,7 +307,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * assigns currency translation array to view
      */
-    protected function assignCurrencyTranslationData()
+    protected function assignCurrencyTranslationData(): void
     {
         if (TYPO3_MODE === 'FE') {
             $currencyTranslationData = [];
@@ -358,10 +329,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
     }
 
-    /**
-     * @param $events
-     */
-    protected function addCacheTags($events)
+    protected function addCacheTags(iterable $events): void
     {
         $cacheTags = [];
 

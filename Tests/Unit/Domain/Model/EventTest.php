@@ -9,6 +9,7 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\CartEvents\Domain\Model\Event;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class EventTest extends UnitTestCase
@@ -22,7 +23,7 @@ class EventTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->event = new \Extcode\CartEvents\Domain\Model\Event();
+        $this->event = new Event();
     }
 
     protected function tearDown(): void

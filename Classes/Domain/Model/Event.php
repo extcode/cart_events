@@ -9,7 +9,9 @@ namespace Extcode\CartEvents\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Tag;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Event extends AbstractEntity
 {
@@ -24,286 +26,187 @@ class Event extends AbstractEntity
     protected $formDefinition;
 
     /**
-     * SKU
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $sku = '';
 
     /**
-     * Title
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 
     /**
-     * Teaser
-     *
      * @var string
      */
     protected $teaser = '';
 
     /**
-     * Description
-     *
      * @var string
      */
     protected $description = '';
 
     /**
-     * Audience
-     *
      * @var string
      */
     protected $audience = '';
 
     /**
-     * Images
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<FileReference>
      */
     protected $images;
 
     /**
-     * Files
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<FileReference>
      */
     protected $files;
 
     /**
-     * EventDates
-     *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\EventDate>
+     * @var ObjectStorage<EventDate>
      */
     protected $eventDates;
 
     /**
-     * Related Events
-     *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event>
+     * @var ObjectStorage<Event>
      */
-    protected $relatedEvents = null;
+    protected $relatedEvents;
 
     /**
-     * Related Events (from)
-     *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event>
+     * @var ObjectStorage<Event>
      */
     protected $relatedEventsFrom;
 
     /**
-     * Main Category
-     *
-     * @var \Extcode\CartEvents\Domain\Model\Category
+     * @var Category
      */
     protected $category;
 
     /**
-     * Associated Categories
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Category>
+     * @var ObjectStorage<Category>
      */
     protected $categories;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Tag>
+     * @var ObjectStorage<Tag>
      */
     protected $tags;
 
     /**
-     * TaxClass Id
-     *
      * @var int
      */
     protected $taxClassId = 1;
 
     /**
-     * Meta description
-     *
      * @var string
      */
     protected $metaDescription = '';
 
-    /**
-     * @return bool
-     */
     public function isVirtualProduct(): bool
     {
         return $this->virtualProduct;
     }
 
-    /**
-     * @param bool $virtualProduct
-     * @return Event
-     */
-    public function setVirtualProduct(bool $virtualProduct) : self
+    public function setVirtualProduct(bool $virtualProduct): self
     {
         $this->virtualProduct = $virtualProduct;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getFormDefinition(): string
     {
         return $this->formDefinition;
     }
 
-    /**
-     * @param string $formDefinition
-     */
     public function setFormDefinition(string $formDefinition): void
     {
         $this->formDefinition = $formDefinition;
     }
 
-    /**
-     * @return string
-     */
-    public function getSku() : string
+    public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @param string $sku
-     * @return Event
-     */
-    public function setSku(string $sku) : self
+    public function setSku(string $sku): self
     {
         $this->sku = $sku;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return Event
-     */
-    public function setTitle(string $title) : self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTeaser() : string
+    public function getTeaser(): string
     {
         return $this->teaser;
     }
 
-    /**
-     * @param string $teaser
-     * @return Event
-     */
-    public function setTeaser(string $teaser) : self
+    public function setTeaser(string $teaser): self
     {
         $this->teaser = $teaser;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     * @return Event
-     */
-    public function setDescription(string $description) : self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getAudience() : string
+    public function getAudience(): string
     {
         return $this->audience;
     }
 
-    /**
-     * @param string $audience
-     * @return Event
-     */
-    public function setAudience(string $audience) : self
+    public function setAudience(string $audience): self
     {
         $this->audience = $audience;
         return $this;
     }
 
-    /**
-     * Returns the Images
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     */
-    public function getImages()
+    public function getImages(): ?ObjectStorage
     {
         return $this->images;
     }
 
-    /**
-     * Returns the first Image
-     *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
-     */
-    public function getFirstImage()
+    public function getFirstImage(): ?FileReference
     {
-        return array_shift($this->getImages()->toArray());
+        if (!$this->getImages()) {
+            return null;
+        }
+        $images = $this->getImages()->toArray();
+        return array_shift($images);
     }
 
-    /**
-     * Sets the Images
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
-     * @return Event
-     */
-    public function setImages($images) : self
+    public function setImages(ObjectStorage $images): self
     {
         $this->images = $images;
         return $this;
     }
 
-    /**
-     * Returns the Files
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     */
-    public function getFiles()
+    public function getFiles(): ?ObjectStorage
     {
         return $this->files;
     }
 
-    /**
-     * Sets the Files
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
-     * @return Event
-     */
-    public function setFiles($files) : self
+    public function setFiles(ObjectStorage $files): self
     {
         $this->files = $files;
         return $this;
@@ -312,210 +215,133 @@ class Event extends AbstractEntity
     /**
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\EventDate>
      */
-    public function getEventDates()
+    public function getEventDates(): ObjectStorage
     {
         return $this->eventDates;
     }
 
-    /**
-     * return \Extcode\CartEvents\Domain\Model\EventDate
-     */
-    public function getFirstEventDate() : \Extcode\CartEvents\Domain\Model\EventDate
+    public function getFirstEventDate(): ?EventDate
     {
+        if (!$this->getEventDates()) {
+            return null;
+        }
         return $this->getEventDates()->current();
     }
 
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $eventDates
-     * @return Event
-     */
-    public function setEventDates(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $eventDates) : self
+    public function setEventDates(ObjectStorage $eventDates): self
     {
         $this->eventDates = $eventDates;
         return $this;
     }
 
-    /**
-     * Adds a Related Event
-     *
-     * @param \Extcode\CartEvents\Domain\Model\Event $relatedEvent
-     * @return Event
-     */
-    public function addRelatedEvent(self $relatedEvent) : self
+    public function addRelatedEvent(self $relatedEvent): self
     {
         $this->relatedEvents->attach($relatedEvent);
         return $this;
     }
 
-    /**
-     * Removes a Related Event
-     *
-     * @param \Extcode\CartEvents\Domain\Model\Event $relatedEventToRemove
-     * @return Event
-     */
-    public function removeRelatedEvent(self $relatedEventToRemove) : self
+    public function removeRelatedEvent(self $relatedEvent): self
     {
-        $this->relatedEvents->detach($relatedEventToRemove);
+        $this->relatedEvents->detach($relatedEvent);
         return $this;
     }
 
     /**
-     * Returns the Related Events
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event> $relatedEvent
+     * @return ObjectStorage<Event>
      */
-    public function getRelatedEvents()
+    public function getRelatedEvents(): ?ObjectStorage
     {
         return $this->relatedEvents;
     }
 
-    /**
-     * Sets the Related Events
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event> $relatedEvents
-     * @return Event
-     */
-    public function setRelatedEvents(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedEvents) : self
+    public function setRelatedEvents(ObjectStorage $relatedEvents): self
     {
         $this->relatedEvents = $relatedEvents;
         return $this;
     }
 
-    /**
-     * Adds a Related Event (from)
-     *
-     * @param \Extcode\CartEvents\Domain\Model\Event $relatedEventFrom
-     * @return Event
-     */
-    public function addRelatedEventFrom(self $relatedEventFrom) : self
+    public function addRelatedEventFrom(self $relatedEventFrom): self
     {
         $this->relatedEventsFrom->attach($relatedEventFrom);
         return $this;
     }
 
-    /**
-     * Removes a Related Event (from)
-     *
-     * @param \Extcode\CartEvents\Domain\Model\Event $relatedEventFromToRemove
-     * @return Event
-     */
-    public function removeRelatedEventFrom(self $relatedEventFromToRemove) : self
+    public function removeRelatedEventFrom(self $relatedEventFrom): self
     {
-        $this->relatedEventsFrom->detach($relatedEventFromToRemove);
+        $this->relatedEventsFrom->detach($relatedEventFrom);
         return $this;
     }
 
     /**
-     * Returns the Related Events (from)
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event> $relatedEventFrom
+     * @return ObjectStorage<Event>
      */
-    public function getRelatedEventsFrom()
+    public function getRelatedEventsFrom(): ?ObjectStorage
     {
         return $this->relatedEventsFrom;
     }
 
-    /**
-     * Sets the Related Events (from)
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\Event> $relatedEventsFrom
-     * @return Event
-     */
-    public function setRelatedEventsFrom(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedEventsFrom) : self
+    public function setRelatedEventsFrom(ObjectStorage $relatedEventsFrom): self
     {
         $this->relatedEventsFrom = $relatedEventsFrom;
         return $this;
     }
 
-    /**
-     * @return \Extcode\CartEvents\Domain\Model\Category
-     */
-    public function getCategory()
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    /**
-     * @param \Extcode\CartEvents\Domain\Model\Category $category
-     * @return Event
-     */
-    public function setCategory(Category $category) : self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
         return $this;
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage<Category>
      */
-    public function getCategories() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getCategories(): ObjectStorage
     {
         return $this->categories;
     }
 
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories
-     * @return Event
-     */
-    public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories) : self
+    public function setCategories(ObjectStorage $categories): self
     {
         $this->categories = $categories;
         return $this;
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage<Tag>
      */
-    public function getTags() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getTags(): ObjectStorage
     {
         return $this->tags;
     }
 
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags
-     * @return Event
-     */
-    public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags) : self
+    public function setTags(ObjectStorage $tags): self
     {
         $this->tags = $tags;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getTaxClassId() : int
+    public function getTaxClassId(): int
     {
         return $this->taxClassId;
     }
 
-    /**
-     * @param int $taxClassId
-     * @return Event
-     */
-    public function setTaxClassId(int $taxClassId) : self
+    public function setTaxClassId(int $taxClassId): self
     {
         $this->taxClassId = $taxClassId;
         return $this;
     }
 
-    /**
-     * Returns MetaDescription
-     *
-     * @return string $metaDescription
-     */
-    public function getMetaDescription()
+    public function getMetaDescription(): string
     {
         return $this->metaDescription;
     }
 
-    /**
-     * Sets MetaDescription
-     *
-     * @param string $metaDescription
-     * @return Event
-     */
-    public function setMetaDescription($metaDescription) : self
+    public function setMetaDescription(string $metaDescription): self
     {
         $this->metaDescription = $metaDescription;
         return $this;

@@ -2,6 +2,8 @@
 
 defined('TYPO3_MODE') or die();
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 $_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf:';
 
 $newSysCategoryColumns = [
@@ -43,8 +45,8 @@ $newSysCategoryColumns = [
     ],
 ];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_category', $newSysCategoryColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+ExtensionManagementUtility::addTCAcolumns('sys_category', $newSysCategoryColumns);
+ExtensionManagementUtility::addToAllTCAtypes(
     'sys_category',
     'cart_event_list_pid, cart_event_show_pid',
     '',

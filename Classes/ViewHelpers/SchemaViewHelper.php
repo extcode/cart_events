@@ -33,7 +33,7 @@ class SchemaViewHelper extends AbstractViewHelper
         );
     }
 
-    public function render()
+    public function render(): string
     {
         $schemaEvents = [];
 

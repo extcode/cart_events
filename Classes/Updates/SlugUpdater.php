@@ -27,29 +27,17 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
     /**
      * Return the identifier for this wizard
      * This should be the same string as used in the ext_localconf class registration
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
         return self::IDENTIFIER;
     }
 
-    /**
-     * Get title
-     *
-     * @return string
-     */
     public function getTitle(): string
     {
         return 'Updates slug field "path_segment" of EXT:cart_events records';
     }
 
-    /**
-     * Return the description for this wizard
-     *
-     * @return string
-     */
     public function getDescription(): string
     {
         return 'TYPO3 includes native URL handling. Every event record has its own speaking URL path called "slug" which can be edited in TYPO3 Backend. However, it is necessary that all events have a URL pre-filled. This is done by evaluating the title.';
@@ -57,8 +45,6 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
 
     /**
      * Checks if an update is needed
-     *
-     * @return bool Whether an update is needed (TRUE) or not (FALSE)
      */
     public function updateNecessary(): bool
     {
@@ -79,8 +65,6 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
 
     /**
      * Performs the database update
-     *
-     * @return bool
      */
     public function executeUpdate(): bool
     {
@@ -132,8 +116,6 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
 
     /**
      * Setter injection for output into upgrade wizards
-     *
-     * @param OutputInterface $output
      */
     public function setOutput(OutputInterface $output): void
     {

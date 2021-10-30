@@ -9,28 +9,17 @@ namespace Extcode\CartEvents\Domain\Repository;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\CartEvents\Domain\Model\Category;
+
 class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
 {
-
-    /**
-     * findAllAsRecursiveTreeArray
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $selectedCategory
-     * @return array $categories
-     */
-    public function findAllAsRecursiveTreeArray($selectedCategory = null)
+    public function findAllAsRecursiveTreeArray(Category $selectedCategory = null): array
     {
         $categoriesArray = $this->findAllAsArray($selectedCategory);
         return $this->buildSubcategories($categoriesArray, null);
     }
 
-    /**
-     * findAllAsArray
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $selectedCategory
-     * @return array $categories
-     */
-    public function findAllAsArray($selectedCategory = null)
+    public function findAllAsArray(Category $selectedCategory = null): array
     {
         $localCategories = $this->findAll();
         $categories = [];
@@ -48,13 +37,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
         return $categories;
     }
 
-    /**
-     * findSubcategoriesRecursiveAsArray
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $parentCategory
-     * @return array $categories
-     */
-    public function findSubcategoriesRecursiveAsArray($parentCategory)
+    public function findSubcategoriesRecursiveAsArray(Category $parentCategory): array
     {
         $categories = [];
         $localCategories = $this->findAllAsArray();
@@ -72,18 +55,11 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
         return $categories;
     }
 
-    /**
-     * getSubcategoriesIds
-     *
-     * @param array $categoriesArray
-     * @param array $parentCategory
-     * @param array $subcategoriesArray
-     */
     protected function getSubcategoriesIds(
-        $categoriesArray,
-        $parentCategory,
-        &$subcategoriesArray
-    ) {
+        array $categoriesArray,
+        array $parentCategory,
+        array &$subcategoriesArray
+    ): void {
         $subcategoriesArray[] = $parentCategory['uid'];
         foreach ($categoriesArray as $category) {
             if ($category['parent'] === $parentCategory['uid']) {
@@ -96,14 +72,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
         }
     }
 
-    /**
-     * buildSubcategories
-     *
-     * @param array $categoriesArray
-     * @param array $parentCategory
-     * @return array $categories
-     */
-    protected function buildSubcategories($categoriesArray, $parentCategory)
+    protected function buildSubcategories(array $categoriesArray, array $parentCategory): array
     {
         $categories = null;
         foreach ($categoriesArray as $category) {

@@ -37,9 +37,9 @@ class EventViewHelper extends ActionViewHelper
     }
 
     /**
-     * @return string Rendered link
+     * returns the gendered link
      */
-    public function render()
+    public function render(): string
     {
         $event = $this->arguments['event'];
 

@@ -9,34 +9,28 @@ namespace Extcode\CartEvents\ViewHelpers\Form;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper;
+use Extcode\CartEvents\Domain\Model\EventDate;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class PriceCategorySelectViewHelper extends AbstractViewHelper
 {
-    /**
-     * Output is escaped already. We must not escape children, to avoid double encoding.
-     *
-     * @var bool
-     */
     protected $escapeOutput = false;
 
     /**
-     * @var \Extcode\CartEvents\Domain\Model\EventDate
+     * @var EventDate
      */
-    protected $eventDate = null;
+    protected $eventDate;
 
-    /**
-     * Initialize arguments.
-     *
-     * @api
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
 
         $this->registerArgument(
             'eventDate',
-            \Extcode\CartEvents\Domain\Model\EventDate::class,
+            EventDate::class,
             'event date for select options',
             true
         );
@@ -47,12 +41,7 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
         $this->registerArgument('required', 'bool', 'required adds html5 required', false, true);
     }
 
-    /**
-     * render
-     *
-     * @return string
-     */
-    public function render()
+    public function render(): string
     {
         $this->eventDate = $this->arguments['eventDate'];
 
@@ -88,18 +77,15 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
         return $out;
     }
 
-    /**
-     * @return array
-     */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         $options = [];
 
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+        $objectManager = GeneralUtility::makeInstance(
+            ObjectManager::class
         );
-        $currencyViewHelper = $objectManager->get(
-            \Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper::class
+        $currencyViewHelper = GeneralUtility::makeInstance(
+            CurrencyViewHelper::class
         );
         $currencyViewHelper->initialize();
         $currencyViewHelper->setRenderingContext($this->renderingContext);

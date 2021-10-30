@@ -54,10 +54,7 @@ class FreePlacesClassViewHelper extends AbstractViewHelper
         );
     }
 
-    /**
-     * @return string
-     */
-    public function render()
+    public function render(): string
     {
         $eventDate = $this->arguments['eventDate'];
 

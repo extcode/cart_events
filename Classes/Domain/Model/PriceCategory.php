@@ -10,26 +10,23 @@ namespace Extcode\CartEvents\Domain\Model;
  */
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class PriceCategory extends AbstractEntity
 {
 
     /**
-     * @var \Extcode\CartEvents\Domain\Model\EventDate
+     * @var EventDate
      */
-    protected $eventDate = null;
+    protected $eventDate;
 
     /**
-     * SKU
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $sku;
 
     /**
-     * Title
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
@@ -41,175 +38,112 @@ class PriceCategory extends AbstractEntity
     protected $price = 0.0;
 
     /**
-     * PriceCategory Special Price
-     *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\SpecialPrice>
+     * @var ObjectStorage<SpecialPrice>
      */
     protected $specialPrices;
 
     /**
-     * Number of seats
-     *
      * @var int
      */
     protected $seatsNumber = 0;
 
     /**
-     * Number of seats (taken)
-     *
      * @var int
      */
     protected $seatsTaken = 0;
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @return EventDate
-     */
-    public function getEventDate(): EventDate
-    {
-        return $this->eventDate;
-    }
-
-    /**
-     * @param EventDate $eventDate
-     */
-    public function setEventDate(EventDate $eventDate): void
-    {
-        $this->eventDate = $eventDate;
-    }
-
-    /**
-     * @param string $sku
-     */
     public function setSku(string $sku): void
     {
         $this->sku = $sku;
     }
 
-    /**
-     * @return string
-     */
+    public function getEventDate(): EventDate
+    {
+        return $this->eventDate;
+    }
+
+    public function setEventDate(EventDate $eventDate): void
+    {
+        $this->eventDate = $eventDate;
+    }
+
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @param float $price
-     */
     public function setPrice(float $price): void
     {
         $this->price = $price;
     }
 
     /**
-     * Returns the Special Prices
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\SpecialPrice>
+     * @return ObjectStorage<SpecialPrice>
      */
-    public function getSpecialPrices() : \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getSpecialPrices(): ?ObjectStorage
     {
         return $this->specialPrices;
     }
 
-    /**
-     * Adds a Special Price
-     *
-     * @param \Extcode\CartEvents\Domain\Model\SpecialPrice $specialPrice
-     * @return EventDate
-     */
-    public function addSpecialPrice(\Extcode\CartEvents\Domain\Model\SpecialPrice $specialPrice) : self
+    public function addSpecialPrice(SpecialPrice $specialPrice): self
     {
         $this->specialPrices->attach($specialPrice);
         return $this;
     }
 
-    /**
-     * Removes a Special Price
-     *
-     * @param \Extcode\CartEvents\Domain\Model\SpecialPrice $specialPriceToRemove
-     * @return EventDate
-     */
-    public function removeSpecialPrice(\Extcode\CartEvents\Domain\Model\SpecialPrice $specialPriceToRemove) : self
+    public function removeSpecialPrice(SpecialPrice $specialPrice): self
     {
-        $this->specialPrices->detach($specialPriceToRemove);
+        $this->specialPrices->detach($specialPrice);
         return $this;
     }
 
-    /**
-     * Sets the Special Prices
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices
-     * @return EventDate
-     */
-    public function setSpecialPrices(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices) : self
+    public function setSpecialPrices(ObjectStorage $specialPrices): self
     {
         $this->specialPrices = $specialPrices;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getSeatsNumber(): int
     {
         return $this->seatsNumber;
     }
 
-    /**
-     * @param int $seatsNumber
-     */
     public function setSeatsNumber(int $seatsNumber): void
     {
         $this->seatsNumber = $seatsNumber;
     }
 
-    /**
-     * @return int
-     */
     public function getSeatsTaken(): int
     {
         return $this->seatsTaken;
     }
 
-    /**
-     * @param int $seatsTaken
-     */
     public function setSeatsTaken(int $seatsTaken): void
     {
         $this->seatsTaken = $seatsTaken;
     }
 
     /**
-     * Returns the number of available seats in the event if handling the number of seats is enabled, otherwise return 0.
-     *
-     * @return int
+     * Returns the number of available seats in the event if handling the
+     * number of seats is enabled, otherwise return 0.
      */
-    public function getSeatsAvailable() : int
+    public function getSeatsAvailable(): int
     {
         if (!$this->getEventDate()->isHandleSeats()) {
             return 0;
@@ -219,9 +153,6 @@ class PriceCategory extends AbstractEntity
 
     /**
      * Returns best Special Price
-     *
-     * @var array $frontendUserGroupIds
-     * @return SpecialPrice|null
      */
     public function getBestSpecialPrice(array $frontendUserGroupIds = []): ?SpecialPrice
     {
@@ -244,9 +175,6 @@ class PriceCategory extends AbstractEntity
 
     /**
      * Returns price of best Special Price
-     *
-     * @var array $frontendUserGroupIds
-     * @return float
      */
     public function getBestPrice(array $frontendUserGroupIds = []): float
     {
@@ -263,8 +191,6 @@ class PriceCategory extends AbstractEntity
 
     /**
      * TODO
-     *
-     * @return float
      */
     public function getBestPriceCalculated(): float
     {
@@ -275,9 +201,6 @@ class PriceCategory extends AbstractEntity
      * TODO
      *
      * Returns best Special Price Percentage Discount
-     *
-     * @var array $frontendUserGroupIds
-     * @return float
      */
     public function getBestSpecialPricePercentageDiscount($frontendUserGroupIds = []): float
     {
@@ -286,8 +209,6 @@ class PriceCategory extends AbstractEntity
 
     /**
      * TODO
-     *
-     * @return bool
      */
     public function isAvailable(): bool
     {
@@ -306,8 +227,6 @@ class PriceCategory extends AbstractEntity
 
     /**
      * TODO
-     *
-     * @return bool
      */
     public function isBookable(): bool
     {

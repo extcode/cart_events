@@ -24,8 +24,6 @@ abstract class AbstractEventDate extends AbstractEntity
     protected $end;
 
     /**
-     * Note
-     *
      * @var string
      */
     protected $note = '';
@@ -33,7 +31,7 @@ abstract class AbstractEventDate extends AbstractEntity
     /**
      * @return \DateTime
      */
-    public function getBegin() : ?\DateTime
+    public function getBegin(): ?\DateTime
     {
         return $this->begin;
     }
@@ -42,7 +40,7 @@ abstract class AbstractEventDate extends AbstractEntity
      * @param \DateTime $begin
      * @return CalendarEntry
      */
-    public function setBegin(\DateTime $begin) : self
+    public function setBegin(\DateTime $begin): self
     {
         $this->begin = $begin;
         return $this;
@@ -51,7 +49,7 @@ abstract class AbstractEventDate extends AbstractEntity
     /**
      * @return \DateTime
      */
-    public function getEnd() : ?\DateTime
+    public function getEnd(): ?\DateTime
     {
         return $this->end;
     }
@@ -60,7 +58,7 @@ abstract class AbstractEventDate extends AbstractEntity
      * @param \DateTime $end
      * @return CalendarEntry
      */
-    public function setEnd(\DateTime $end) : self
+    public function setEnd(\DateTime $end): self
     {
         $this->end = $end;
         return $this;
@@ -69,7 +67,7 @@ abstract class AbstractEventDate extends AbstractEntity
     /**
      * @return string
      */
-    public function getNote() : string
+    public function getNote(): string
     {
         return $this->note;
     }
@@ -78,7 +76,7 @@ abstract class AbstractEventDate extends AbstractEntity
      * @param string $note
      * @return CalendarEntry
      */
-    public function setNote(string $note) : self
+    public function setNote(string $note): self
     {
         $this->note = $note;
         return $this;
