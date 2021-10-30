@@ -22,6 +22,31 @@
     "support": {
         "issues": "https://github.com/extcode/cart_events/issues"
     },
+    "autoload": {
+        "psr-4": {
+            "Extcode\\CartEvents\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Extcode\\CartEvents\\Tests\\": "Tests"
+        }
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "cart_events",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "app-dir": ".Build",
+            "web-dir": ".Build/public"
+        }
+    },
+    "replace": {
+        "extcode/cart-events": "self.version"
+    },
     "require": {
         "php": ">=7.0.0 <7.5",
         "typo3/cms-core": "^8.7",
@@ -35,35 +60,10 @@
         "helmich/typo3-typoscript-lint": "^1.4",
         "phpmd/phpmd": "*"
     },
-    "autoload": {
-        "psr-4": {
-            "Extcode\\CartEvents\\": "Classes/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Extcode\\CartEvents\\Tests\\": "Tests"
-        }
-    },
-    "replace": {
-        "extcode/cart-events": "self.version"
-    },
-    "config": {
-        "vendor-dir": ".Build/vendor",
-        "bin-dir": ".Build/bin"
-    },
     "scripts": {
         "post-autoload-dump": [
             "mkdir -p .Build/Web/typo3conf/ext/",
             "[ -L .Build/Web/typo3conf/ext/cart_events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cart_events"
         ]
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "cart_events",
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "app-dir": ".Build",
-            "web-dir": ".Build/public"
-        }
     }
 }
