@@ -1,6 +1,5 @@
 # Cart Events
 
-[![Build Status](https://travis-ci.org/extcode/cart_events.svg?branch=2.x)](https://travis-ci.org/extcode/cart_events)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f7809fa0f2ab40118e263cb714212d13)](https://www.codacy.com/app/extcode/cart_events?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart_events&amp;utm_campaign=Badge_Grade)
 
 Cart is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation.
