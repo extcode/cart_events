@@ -10,6 +10,7 @@ namespace Extcode\CartEvents\Domain\Model;
  */
 
 use Extcode\Cart\Domain\Model\Tag;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
