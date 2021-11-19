@@ -2,7 +2,7 @@
 composer.lock
 
 .php_cs.cache
-.phplint.cache
+.phplint-cache
 Build/.phpunit.result.cache
 
 .DS_Store
