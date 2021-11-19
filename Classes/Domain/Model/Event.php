@@ -216,7 +216,7 @@ class Event extends AbstractEntity
     /**
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\EventDate>
      */
-    public function getEventDates(): ObjectStorage
+    public function getEventDates(): ?ObjectStorage
     {
         return $this->eventDates;
     }
