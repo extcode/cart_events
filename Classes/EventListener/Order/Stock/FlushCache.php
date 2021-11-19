@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Extcode\CartEvents\EventListener\ProcessOrderCreate;
+namespace Extcode\CartEvents\EventListener\Order\Stock;
 
 /*
  * This file is part of the package extcode/cart-events.
@@ -9,7 +9,7 @@ namespace Extcode\CartEvents\EventListener\ProcessOrderCreate;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -27,7 +27,7 @@ class FlushCache
         $this->eventDateRepository = $eventDateRepository;
     }
 
-    public function __invoke(ProcessOrderCreateEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $cartProducts = $event->getCart()->getProducts();
 

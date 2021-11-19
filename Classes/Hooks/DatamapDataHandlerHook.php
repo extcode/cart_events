@@ -84,13 +84,13 @@ class DatamapDataHandlerHook
 
     protected function isAllowedTargetPage($listType, $doktype)
     {
-        if (empty($listType) || substr($listType, 0, 11) != 'cartevents_') {
+        if (empty($listType) || substr($listType, 0, 11) !== 'cartevents_') {
             return true;
         }
-        if (($doktype == 186) && ($listType == 'cartevents_singleevent')) {
+        if (($doktype == 186) && ($listType === 'cartevents_singleevent')) {
             return true;
         }
-        if (($doktype != 186) && ($listType == 'cartevents_events' || $listType == 'cartevents_eventdates' || $listType == 'cartevents_teaserevents')) {
+        if (($doktype != 186) && ($listType === 'cartevents_events' || $listType === 'cartevents_eventdates' || $listType === 'cartevents_teaserevents')) {
             return true;
         }
 

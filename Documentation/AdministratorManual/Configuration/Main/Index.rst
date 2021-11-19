@@ -13,8 +13,6 @@ Main Configuration
         }
     }
 
-settings.format.currency
-""""""""""""""""""""""""
 .. container:: table-row
 
    Property
@@ -28,8 +26,6 @@ settings.format.currency
       The TypoScript template copy the setting from settings of the cart extension.
 
 
-settings.addToCartByAjax
-""""""""""""""""""""""""
 .. container:: table-row
 
    Property

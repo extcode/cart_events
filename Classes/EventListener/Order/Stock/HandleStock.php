@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Extcode\CartEvents\EventListener\ProcessOrderCreate;
+namespace Extcode\CartEvents\EventListener\Order\Stock;
 
 /*
  * This file is part of the package extcode/cart-events.
@@ -10,7 +10,7 @@ namespace Extcode\CartEvents\EventListener\ProcessOrderCreate;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Product;
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -42,7 +42,7 @@ class HandleStock
         $this->priceCategoryRepository = $priceCategoryRepository;
     }
 
-    public function __invoke(ProcessOrderCreateEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $cartProducts = $event->getCart()->getProducts();
 
