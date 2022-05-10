@@ -34,14 +34,6 @@ plugin.tx_cartevents {
     persistence {
         storagePid = {$plugin.tx_cartevents.persistence.storagePid}
         recursive = {$plugin.tx_cartevents.persistence.recursive}
-
-        classes {
-            Extcode\CartEvents\Domain\Model\Category {
-                mapping {
-                    tableName = sys_category
-                }
-            }
-        }
     }
 
     settings {
