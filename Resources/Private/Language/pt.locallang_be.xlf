@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" date="2018-04-04T13:45:00Z" product-name="cart_events" target-language="pt-PT">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-04-04T13:45:00Z" product-name="cart_events" target-language="pt-BR">
     <header/>
     <body>
       <trans-unit id="extmng.categoryRestriction" xml:space="preserve">
