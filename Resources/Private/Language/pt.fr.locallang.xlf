@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" target-language="pt-PT" datatype="plaintext" original="messages" date="2019-04-10T10:45:00Z" product-name="cart_events">
+  <file source-language="en" target-language="pt-BR" datatype="plaintext" original="messages" date="2019-04-10T10:45:00Z" product-name="cart_events">
     <header/>
     <body>
       <trans-unit id="tx_cartevents.more_link">
