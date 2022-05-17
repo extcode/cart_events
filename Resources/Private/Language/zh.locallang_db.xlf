@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-03-12T09:30:00Z" product-name="cart_events" target-language="zh-CN">
+    <header/>
+    <body>
+      <trans-unit id="tx_cartevents_domain_model_event">
+        <source>Event</source>
+        <target state="needs-translation">Event</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.sku">
+        <source>Event number</source>
+        <target state="needs-translation">Event number</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.path_segment">
+        <source>URL segment</source>
+        <target state="needs-translation">URL segment</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.form_definition">
+        <source>Form Definition</source>
+        <target state="needs-translation">Form Definition</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.teaser">
+        <source>Teaser</source>
+        <target state="needs-translation">Teaser</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.description">
+        <source>Description</source>
+        <target state="needs-translation">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.meta_description">
+        <source>Meta description</source>
+        <target state="needs-translation">Meta description</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.audience">
+        <source>Audience</source>
+        <target state="needs-translation">Audience</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.images">
+        <source>Images</source>
+        <target state="needs-translation">Images</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.files">
+        <source>Files</source>
+        <target state="needs-translation">Files</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.event_dates">
+        <source>Event Dates</source>
+        <target state="needs-translation">Event Dates</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.related_events">
+        <source>Related Events</source>
+        <target state="needs-translation">Related Events</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.related_events_from">
+        <source>Related Events (from)</source>
+        <target state="needs-translation">Related Events (from)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.category">
+        <source>Main Category</source>
+        <target state="needs-translation">Main Category</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.categories">
+        <source>Associated Categories</source>
+        <target state="needs-translation">Associated Categories</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.tags">
+        <source>Tags</source>
+        <target state="needs-translation">Tags</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate">
+        <source>Event Date</source>
+        <target state="needs-translation">Event Date</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.sku">
+        <source>SKU</source>
+        <target state="needs-translation">SKU</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.begin">
+        <source>Begin</source>
+        <target state="needs-translation">Begin</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.end">
+        <source>End</source>
+        <target state="needs-translation">End</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.note">
+        <source>Note</source>
+        <target state="needs-translation">Note</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.calendar_entries">
+        <source>Calendar Entries</source>
+        <target state="needs-translation">Calendar Entries</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.location">
+        <source>Location</source>
+        <target state="needs-translation">Location</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.lecturer">
+        <source>Lecturer</source>
+        <target state="needs-translation">Lecturer</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.images">
+        <source>Images</source>
+        <target state="needs-translation">Images</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.files">
+        <source>Files</source>
+        <target state="needs-translation">Files</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.dates">
+        <source>Dates</source>
+        <target state="needs-translation">Dates</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.bookable">
+        <source>bookable?</source>
+        <target state="needs-translation">bookable?</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.bookable_until">
+        <source>bookable until</source>
+        <target state="needs-translation">bookable until</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.price_categorized">
+        <source>use Price Categories?</source>
+        <target state="needs-translation">use Price Categories?</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.price_categories">
+        <source>Price categories</source>
+        <target state="needs-translation">Price categories</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.price.gross">
+        <source>Price (gross)</source>
+        <target state="needs-translation">Price (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.price.net">
+        <source>Price (net)</source>
+        <target state="needs-translation">Price (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.special_prices">
+        <source>Special Prices</source>
+        <target state="needs-translation">Special Prices</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.handle_seats">
+        <source>Handle number of seats</source>
+        <target state="needs-translation">Handle number of seats</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.handle_seats_in_price_category">
+        <source>Handle number of seats in price categories</source>
+        <target state="needs-translation">Handle number of seats in price categories</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.seats_number">
+        <source>Number of Seats</source>
+        <target state="needs-translation">Number of Seats</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.seats_taken">
+        <source>Number of Seats (taken)</source>
+        <target state="needs-translation">Number of Seats (taken)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory">
+        <source>Price Category</source>
+        <target state="needs-translation">Price Category</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.sku">
+        <source>SKU</source>
+        <target state="needs-translation">SKU</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.price.gross">
+        <source>Price (gross)</source>
+        <target state="needs-translation">Price (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.price.net">
+        <source>Price (net)</source>
+        <target state="needs-translation">Price (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.special_prices">
+        <source>Special Prices</source>
+        <target state="needs-translation">Special Prices</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.seats_number">
+        <source>Number of Seats</source>
+        <target state="needs-translation">Number of Seats</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_pricecategory.seats_taken">
+        <source>Number of Seats (taken)</source>
+        <target state="needs-translation">Number of Seats (taken)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_specialprice">
+        <source>Special Price</source>
+        <target state="needs-translation">Special Price</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_specialprice.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_specialprice.frontend_user_group">
+        <source>Website Usergroup</source>
+        <target state="needs-translation">Website Usergroup</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_specialprice.price.gross">
+        <source>Price (gross)</source>
+        <target state="needs-translation">Price (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_specialprice.price.net">
+        <source>Price (net)</source>
+        <target state="needs-translation">Price (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_calendarentry">
+        <source>Calendar Entry</source>
+        <target state="needs-translation">Calendar Entry</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_calendarentry.begin">
+        <source>Begin</source>
+        <target state="needs-translation">Begin</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_calendarentry.end">
+        <source>End</source>
+        <target state="needs-translation">End</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_calendarentry.note">
+        <source>Note</source>
+        <target state="needs-translation">Note</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_category.cart_event_list_pid">
+        <source>Cart: Page where Events of this category are listed.</source>
+        <target state="needs-translation">Cart: Page where Events of this category are listed.</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_category.cart_event_show_pid">
+        <source>Cart: Page where Events of this category are shown.</source>
+        <target state="needs-translation">Cart: Page where Events of this category are shown.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
