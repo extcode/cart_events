@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" traget-language="fr" datatype="plaintext" original="messages" date="2019-04-10T10:45:00Z" product-name="cart_events" target-language="zh-TW">
+  <file source-language="en" traget-language="fr" datatype="plaintext" original="messages" date="2019-04-10T10:45:00Z" product-name="cart_events" target-language="zh-CN">
     <header/>
     <body>
       <trans-unit id="tx_cart.add_to_cart_finisher.CartEvents.message.status.200.body">
