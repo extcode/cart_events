@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2019-04-14T10:00:00Z" product-name="cart_events">
+    <header/>
+    <body>
+      <trans-unit id="tx_cartevents_domain_model_event.div.categorization">
+        <source>Categorization</source>
+        <target state="needs-translation">Categorization</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.div.descriptions">
+        <source>Description</source>
+        <target state="needs-translation">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.div.images_and_files">
+        <source>Images / Files</source>
+        <target state="needs-translation">Images / Files</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.div.event_dates">
+        <source>Event Dates</source>
+        <target state="needs-translation">Event Dates</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.div.relations">
+        <source>Relations</source>
+        <target state="needs-translation">Relations</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.div.informations">
+        <source>Informations</source>
+        <target state="needs-translation">Informations</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.div.dates">
+        <source>Dates</source>
+        <target state="needs-translation">Dates</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.div.order">
+        <source>Order</source>
+        <target state="needs-translation">Order</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.div.images_and_files">
+        <source>Images / Files</source>
+        <target state="needs-translation">Images / Files</target>
+      </trans-unit>
+      <trans-unit id="palettes.visibility">
+        <source>Visibility</source>
+        <target state="needs-translation">Visibility</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_event.form_definition.description">
+        <source>The form is displayed when the event is to be added to the shopping cart. Only forms of the prototype "cart-events" will be displayed.</source>
+        <target state="needs-translation">The form is displayed when the event is to be added to the shopping cart. Only forms of the prototype "cart-events" will be displayed.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
