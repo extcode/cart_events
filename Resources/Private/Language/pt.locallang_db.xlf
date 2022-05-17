@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" date="2018-03-12T09:30:00Z" product-name="cart_events" target-language="pt-BR">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-03-12T09:30:00Z" product-name="cart_events" target-language="pt-PT">
     <header/>
     <body>
       <trans-unit id="tx_cartevents_domain_model_event">
