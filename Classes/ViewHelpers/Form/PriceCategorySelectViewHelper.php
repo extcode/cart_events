@@ -12,7 +12,6 @@ namespace Extcode\CartEvents\ViewHelpers\Form;
 use Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper;
 use Extcode\CartEvents\Domain\Model\EventDate;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class PriceCategorySelectViewHelper extends AbstractViewHelper
@@ -81,9 +80,6 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
     {
         $options = [];
 
-        $objectManager = GeneralUtility::makeInstance(
-            ObjectManager::class
-        );
         $currencyViewHelper = GeneralUtility::makeInstance(
             CurrencyViewHelper::class
         );

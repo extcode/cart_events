@@ -21,7 +21,7 @@ use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
+use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class EventController extends ActionController
 {
@@ -149,7 +149,7 @@ class EventController extends ActionController
 
                         $formDefinition = $eventDate->getEvent()->getFormDefinition();
                         $formPersistenceManager = GeneralUtility::makeInstance(
-                            FormPersistenceManager::class
+                            FormPersistenceManagerInterface::class
                         );
                         $form = $formPersistenceManager->load($formDefinition);
 
