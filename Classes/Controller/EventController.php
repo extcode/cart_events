@@ -238,37 +238,31 @@ class EventController extends ActionController
             EventDemand::class
         );
 
-        if ($settings['orderBy']) {
-            $demand->setOrder($settings['orderBy'] . ' ' . $settings['orderDirection']);
+        if (isset($settings['view']) &&
+            is_array($settings['view']) &&
+            isset($settings['view'][$type]) &&
+            is_array($settings['view'][$type])
+        ) {
+            // Use default TypoScript settings for plugin configuration
+            $limit = (int)$settings['view'][$type]['limit'];
+            $orderBy = $settings['view'][$type]['orderBy'];
+            $orderDirection = $settings['view'][$type]['orderDirection'];
         }
 
-        $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'CartEvents'
-        )['view'][$type]['limit'];
-
-        $demand->setLimit($limit);
-
-        $order = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'CartEvents'
-        )['view'][$type]['order'];
-
-        if ($order) {
-            $demand->setOrder($order);
+        if (isset($settings['limit']) && (int)$settings['limit'] > 0) {
+            $limit = (int)$settings['limit'];
+        }
+        if (isset($limit) && $limit > 0) {
+            $demand->setLimit($limit);
         }
 
-        $orderBy =  $this->settings['orderBy'] ?: $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'CartEvents'
-        )['view'][$type]['orderBy'];
-
-        $orderDirection = $this->settings['orderDirection'] ?: $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'CartEvents'
-        )['view'][$type]['orderDirection'];
-
-        if ($orderBy && $orderDirection) {
+        if (isset($settings['orderBy']) && !empty($settings['orderBy'])) {
+            $orderBy = $settings['orderBy'];
+        }
+        if (isset($settings['orderDirection']) && !empty($settings['orderDirection'])) {
+            $orderDirection = $settings['orderDirection'];
+        }
+        if (isset($orderBy) && isset($orderDirection)) {
             $demand->setOrder($orderBy . ' ' . $orderDirection);
         }
 
