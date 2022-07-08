@@ -9,20 +9,14 @@ namespace Extcode\CartEvents\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 
+use Tpwd\KeSearch\Indexer\IndexerRunner;
+
 class KeSearchSingleEventIndexer extends KeSearchIndexer
 {
     protected $indexerKey = 'cartsingleeventindexer';
     protected $indexerName = 'Cart Single Event Indexer';
 
-    /**
-     * cart indexer for ke_search
-     *
-     * @param array $indexerConfig
-     * @param array $indexerObject
-     *
-     * @return string
-     */
-    public function cartEventIndexer(&$indexerConfig, &$indexerObject)
+    public function cartEventIndexer(array &$indexerConfig, IndexerRunner &$indexerObject): string
     {
         $eventIndexerName = 'Event Indexer "' . $indexerConfig['title'] . '"';
 

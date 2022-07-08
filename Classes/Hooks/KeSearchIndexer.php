@@ -9,6 +9,7 @@ namespace Extcode\CartEvents\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 
+use Tpwd\KeSearch\Indexer\IndexerRunner;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -19,13 +20,7 @@ abstract class KeSearchIndexer
     protected $indexerKey = '';
     protected $indexerName = '';
 
-    /**
-     * Registers the indexer configuration
-     *
-     * @param array $params
-     * @param $pObj
-     */
-    public function registerIndexerConfiguration(&$params, $pObj)
+    public function registerIndexerConfiguration(array &$params, $pObj): void
     {
         if (!empty($this->indexerKey) && !empty($this->indexerName)) {
             $newArray = [
@@ -37,14 +32,7 @@ abstract class KeSearchIndexer
         }
     }
 
-    /**
-     * custom indexer for ke_search
-     *
-     * @param array $indexerConfig
-     * @param array $indexerObject
-     * @return string Output.
-     */
-    public function customIndexer(&$indexerConfig, &$indexerObject)
+    public function customIndexer(array &$indexerConfig, IndexerRunner &$indexerObject): string
     {
         if ($indexerConfig['type'] === $this->indexerKey) {
             return $this->cartEventIndexer($indexerConfig, $indexerObject);
@@ -53,24 +41,12 @@ abstract class KeSearchIndexer
         return '';
     }
 
-    /**
-     * cart indexer for ke_search
-     *
-     * @param array $indexerConfig
-     * @param array $indexerObject
-     *
-     * @return string
-     */
-    abstract public function cartEventIndexer(&$indexerConfig, &$indexerObject);
+    abstract public function cartEventIndexer(array &$indexerConfig, IndexerRunner &$indexerObject): string;
 
     /**
      * Returns all Storage Pids for indexing
-     *
-     * @param $config
-     *
-     * @return string
      */
-    protected function getPidList($config)
+    protected function getPidList(array $config): string
     {
         $recursivePids = $this->extendPidListByChildren($config['startingpoints_recursive'], 99);
         if ($config['sysfolder']) {
@@ -82,13 +58,8 @@ abstract class KeSearchIndexer
 
     /**
      * Find all ids from given ids and level
-     *
-     * @param string $pidList
-     * @param int $recursive
-     *
-     * @return string
      */
-    protected function extendPidListByChildren($pidList = '', $recursive = 0)
+    protected function extendPidListByChildren(string $pidList = '', $recursive = 0): string
     {
         $recursive = (int)$recursive;
 
@@ -112,12 +83,8 @@ abstract class KeSearchIndexer
 
     /**
      * Returns all events for a given PidList
-     *
-     * @param string $indexPids
-     *
-     * @return array
      */
-    protected function getEventsToIndex($indexPids)
+    protected function getEventsToIndex(string $indexPids): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tx_cartevents_domain_model_event');
@@ -132,10 +99,7 @@ abstract class KeSearchIndexer
         return $queryBuilder->execute()->fetchAll();
     }
 
-    /**
-     *
-     */
-    protected function getTargetPidFormPage($eventUid)
+    protected function getTargetPidFormPage(int $eventUid): ?int
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('pages');
@@ -158,7 +122,7 @@ abstract class KeSearchIndexer
     /**
      *
      */
-    protected function getTargetPidFormCategory($categoryUid)
+    protected function getTargetPidFormCategory(int $categoryUid): ?int
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('sys_category');
