@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-04-09T14:55:00Z" product-name="cart_events" target-language="ja">
+    <header/>
+    <body>
+      <trans-unit id="tx_cartevents.more_link">
+        <source>more</source>
+        <target state="needs-translation">more</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit">
+        <source>Add to cart</source>
+        <target state="needs-translation">Add to cart</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit.success">
+        <source>The event has been added to your shopping cart.</source>
+        <target state="needs-translation">The event has been added to your shopping cart.</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit.error">
+        <source>The event could not be added to the shopping cart!</source>
+        <target state="needs-translation">The event could not be added to the shopping cart!</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit.error.event_is_not_bookable">
+        <source>Event is not bookable.</source>
+        <target state="needs-translation">Event is not bookable.</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit.error.not_enough_seets_available">
+        <source>Not enough Seats available.</source>
+        <target state="needs-translation">Not enough Seats available.</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit.error.invalid_event_date">
+        <source>Invalid event date given.</source>
+        <target state="needs-translation">Invalid event date given.</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents.plugin.form.submit.error.invalid_event_date_category_price">
+        <source>Invalid category price for event date given</source>
+        <target state="needs-translation">Invalid category price for event date given</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.seats">
+        <source>Seats</source>
+        <target state="needs-translation">Seats</target>
+      </trans-unit>
+      <trans-unit id="tx_cartevents_domain_model_eventdate.bookable.false">
+        <source>This event date can not be booked.</source>
+        <target state="needs-translation">This event date can not be booked.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

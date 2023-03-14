@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2019-04-10T10:45:00Z" product-name="cart_events" target-language="no">
+    <header/>
+    <body>
+      <trans-unit id="tx_cart.add_to_cart_finisher.CartEvents.message.status.200.body">
+        <source>The event has been added to your shopping cart.</source>
+        <target state="needs-translation">The event has been added to your shopping cart.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
