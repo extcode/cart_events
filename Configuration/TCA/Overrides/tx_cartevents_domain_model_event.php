@@ -50,7 +50,7 @@ ExtensionManagementUtility::makeCategorizable(
     'tx_cartevents_domain_model_event',
     'category',
     [
-        'label' => $_LLL_db . 'tx_cartevents_domain_model_event.category',
+        'label' => $_LLL_db . ':tx_cartevents_domain_model_event.category',
         'fieldConfiguration' => [
             'minitems' => 0,
             'maxitems' => 1,
@@ -66,7 +66,7 @@ ExtensionManagementUtility::makeCategorizable(
     'tx_cartevents_domain_model_event',
     'categories',
     [
-        'label' => $_LLL_db . 'tx_cartevents_domain_model_event.categories'
+        'label' => $_LLL_db . ':tx_cartevents_domain_model_event.categories'
     ]
 );
 
