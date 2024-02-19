@@ -1,10 +1,10 @@
 [traverse(page, "doktype") == 186]
 TCEFORM.tt_content.list_type {
-    removeItems = cartevents_events, cartevents_eventdates
+    removeItems := addToList(cartevents_events, cartevents_eventdates)
 }
 [ELSE]
 TCEFORM.tt_content.list_type {
-    removeItems = cartevents_singleevent
+    removeItems := addToList(cartevents_singleevent)
 }
 
 mod.wizards.newContentElement.wizardItems.plugins {
