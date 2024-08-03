@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Repository;
 
 /*
@@ -76,7 +78,7 @@ class EventRepository extends Repository
         return $this->orderByField($query->execute(), $uids);
     }
 
-    protected function createOrderingsFromDemand(EventDemand $demand) : array
+    protected function createOrderingsFromDemand(EventDemand $demand): array
     {
         $orderings = [];
 
@@ -84,7 +86,7 @@ class EventRepository extends Repository
 
         if (!empty($orderList)) {
             foreach ($orderList as $orderItem) {
-                list($orderField, $ascDesc) =
+                [$orderField, $ascDesc] =
                     GeneralUtility::trimExplode(' ', $orderItem, true);
                 if ($ascDesc) {
                     $orderings[$orderField] = ((strtolower($ascDesc) === 'desc') ?

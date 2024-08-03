@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -10,12 +10,12 @@ call_user_func(function () {
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
         $_LLL_be . ':pages.doktype.185',
         185,
-        'apps-pagetree-page-cartevents-events'
+        'apps-pagetree-page-cartevents-events',
     ];
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
         $_LLL_be . ':pages.doktype.186',
         186,
-        'apps-pagetree-page-cartevents-events'
+        'apps-pagetree-page-cartevents-events',
     ];
     $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = [
         $_LLL_be . ':tcarecords-pages-contains.cart_events',
@@ -34,7 +34,6 @@ call_user_func(function () {
             'label' => $_LLL_be . ':pages.singleview_cart_events_event',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_cartevents_domain_model_event',
                 'foreign_table' => 'tx_cartevents_domain_model_event',
                 'minitems' => 0,

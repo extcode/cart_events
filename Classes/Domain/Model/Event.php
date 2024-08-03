@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -9,112 +11,78 @@ namespace Extcode\CartEvents\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Tag;
+use Extcode\Cart\Domain\Model\Product\CategoryTrait;
+use Extcode\Cart\Domain\Model\Product\TagTrait;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Event extends AbstractEntity
 {
-    /**
-     * @var bool
-     */
-    protected $virtualProduct = true;
+    use CategoryTrait;
+    use TagTrait;
 
-    /**
-     * @var string
-     */
-    protected $formDefinition;
+    protected bool $virtualProduct = true;
 
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $sku = '';
+    protected string $formDefinition;
 
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $title = '';
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $sku = '';
 
-    /**
-     * @var string
-     */
-    protected $teaser = '';
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $title = '';
 
-    /**
-     * @var string
-     */
-    protected $description = '';
+    protected string $teaser = '';
 
-    /**
-     * @var string
-     */
-    protected $audience = '';
+    protected string $description = '';
+
+    protected string $audience = '';
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $images;
+    protected ObjectStorage $images;
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $files;
+    protected ObjectStorage $files;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var ObjectStorage<EventDate>
      */
-    protected $eventDates;
+    #[Cascade(['value' => 'remove'])]
+    protected ObjectStorage $eventDates;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var ObjectStorage<Event>
      */
-    protected $relatedEvents;
+    #[Lazy]
+    protected ObjectStorage $relatedEvents;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var ObjectStorage<Event>
      */
-    protected $relatedEventsFrom;
+    #[Lazy]
+    protected ObjectStorage $relatedEventsFrom;
 
-    /**
-     * @var Category
-     */
-    protected $category;
+    protected int $taxClassId = 1;
 
-    /**
-     * @var ObjectStorage<Category>
-     */
-    protected $categories;
+    protected string $metaDescription = '';
 
-    /**
-     * @var ObjectStorage<Tag>
-     */
-    protected $tags;
-
-    /**
-     * @var int
-     */
-    protected $taxClassId = 1;
-
-    /**
-     * @var string
-     */
-    protected $metaDescription = '';
+    public function __construct() {}
 
     public function isVirtualProduct(): bool
     {
         return $this->virtualProduct;
     }
 
-    public function setVirtualProduct(bool $virtualProduct): self
+    public function setVirtualProduct(bool $virtualProduct): void
     {
         $this->virtualProduct = $virtualProduct;
-        return $this;
     }
 
     public function getFormDefinition(): string
@@ -132,10 +100,9 @@ class Event extends AbstractEntity
         return $this->sku;
     }
 
-    public function setSku(string $sku): self
+    public function setSku(string $sku): void
     {
         $this->sku = $sku;
-        return $this;
     }
 
     public function getTitle(): string
@@ -143,10 +110,9 @@ class Event extends AbstractEntity
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-        return $this;
     }
 
     public function getTeaser(): string
@@ -154,10 +120,9 @@ class Event extends AbstractEntity
         return $this->teaser;
     }
 
-    public function setTeaser(string $teaser): self
+    public function setTeaser(string $teaser): void
     {
         $this->teaser = $teaser;
-        return $this;
     }
 
     public function getDescription(): string
@@ -165,10 +130,9 @@ class Event extends AbstractEntity
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-        return $this;
     }
 
     public function getAudience(): string
@@ -176,10 +140,9 @@ class Event extends AbstractEntity
         return $this->audience;
     }
 
-    public function setAudience(string $audience): self
+    public function setAudience(string $audience): void
     {
         $this->audience = $audience;
-        return $this;
     }
 
     public function getImages(): ?ObjectStorage
@@ -196,10 +159,9 @@ class Event extends AbstractEntity
         return array_shift($images);
     }
 
-    public function setImages(ObjectStorage $images): self
+    public function setImages(ObjectStorage $images): void
     {
         $this->images = $images;
-        return $this;
     }
 
     public function getFiles(): ?ObjectStorage
@@ -207,14 +169,13 @@ class Event extends AbstractEntity
         return $this->files;
     }
 
-    public function setFiles(ObjectStorage $files): self
+    public function setFiles(ObjectStorage $files): void
     {
         $this->files = $files;
-        return $this;
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\CartEvents\Domain\Model\EventDate>
+     * @return ObjectStorage<EventDate>
      */
     public function getEventDates(): ?ObjectStorage
     {
@@ -229,22 +190,19 @@ class Event extends AbstractEntity
         return $this->getEventDates()->current();
     }
 
-    public function setEventDates(ObjectStorage $eventDates): self
+    public function setEventDates(ObjectStorage $eventDates): void
     {
         $this->eventDates = $eventDates;
-        return $this;
     }
 
-    public function addRelatedEvent(self $relatedEvent): self
+    public function addRelatedEvent(self $relatedEvent): void
     {
         $this->relatedEvents->attach($relatedEvent);
-        return $this;
     }
 
-    public function removeRelatedEvent(self $relatedEvent): self
+    public function removeRelatedEvent(self $relatedEvent): void
     {
         $this->relatedEvents->detach($relatedEvent);
-        return $this;
     }
 
     /**
@@ -255,22 +213,19 @@ class Event extends AbstractEntity
         return $this->relatedEvents;
     }
 
-    public function setRelatedEvents(ObjectStorage $relatedEvents): self
+    public function setRelatedEvents(ObjectStorage $relatedEvents): void
     {
         $this->relatedEvents = $relatedEvents;
-        return $this;
     }
 
-    public function addRelatedEventFrom(self $relatedEventFrom): self
+    public function addRelatedEventFrom(self $relatedEventFrom): void
     {
         $this->relatedEventsFrom->attach($relatedEventFrom);
-        return $this;
     }
 
-    public function removeRelatedEventFrom(self $relatedEventFrom): self
+    public function removeRelatedEventFrom(self $relatedEventFrom): void
     {
         $this->relatedEventsFrom->detach($relatedEventFrom);
-        return $this;
     }
 
     /**
@@ -281,49 +236,9 @@ class Event extends AbstractEntity
         return $this->relatedEventsFrom;
     }
 
-    public function setRelatedEventsFrom(ObjectStorage $relatedEventsFrom): self
+    public function setRelatedEventsFrom(ObjectStorage $relatedEventsFrom): void
     {
         $this->relatedEventsFrom = $relatedEventsFrom;
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(Category $category): self
-    {
-        $this->category = $category;
-        return $this;
-    }
-
-    /**
-     * @return ObjectStorage<Category>
-     */
-    public function getCategories(): ObjectStorage
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(ObjectStorage $categories): self
-    {
-        $this->categories = $categories;
-        return $this;
-    }
-
-    /**
-     * @return ObjectStorage<Tag>
-     */
-    public function getTags(): ObjectStorage
-    {
-        return $this->tags;
-    }
-
-    public function setTags(ObjectStorage $tags): self
-    {
-        $this->tags = $tags;
-        return $this;
     }
 
     public function getTaxClassId(): int
@@ -331,10 +246,9 @@ class Event extends AbstractEntity
         return $this->taxClassId;
     }
 
-    public function setTaxClassId(int $taxClassId): self
+    public function setTaxClassId(int $taxClassId): void
     {
         $this->taxClassId = $taxClassId;
-        return $this;
     }
 
     public function getMetaDescription(): string
@@ -342,9 +256,8 @@ class Event extends AbstractEntity
         return $this->metaDescription;
     }
 
-    public function setMetaDescription(string $metaDescription): self
+    public function setMetaDescription(string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;
-        return $this;
     }
 }

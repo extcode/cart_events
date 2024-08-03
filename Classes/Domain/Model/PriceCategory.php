@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -8,50 +10,32 @@ namespace Extcode\CartEvents\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class PriceCategory extends AbstractEntity
 {
+    protected EventDate $eventDate;
+
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $sku;
+
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $title = '';
+
+    protected float $price = 0.0;
 
     /**
-     * @var EventDate
-     */
-    protected $eventDate;
-
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $sku;
-
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $title = '';
-
-    /**
-     * @var float
-     */
-    protected $price = 0.0;
-
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var ObjectStorage<SpecialPrice>
      */
-    protected $specialPrices;
+    #[Cascade(['value' => 'remove'])]
+    protected ObjectStorage $specialPrices;
 
-    /**
-     * @var int
-     */
-    protected $seatsNumber = 0;
+    protected int $seatsNumber = 0;
 
-    /**
-     * @var int
-     */
-    protected $seatsTaken = 0;
+    protected int $seatsTaken = 0;
 
     public function getSku(): string
     {
@@ -101,22 +85,19 @@ class PriceCategory extends AbstractEntity
         return $this->specialPrices;
     }
 
-    public function addSpecialPrice(SpecialPrice $specialPrice): self
+    public function addSpecialPrice(SpecialPrice $specialPrice): void
     {
         $this->specialPrices->attach($specialPrice);
-        return $this;
     }
 
-    public function removeSpecialPrice(SpecialPrice $specialPrice): self
+    public function removeSpecialPrice(SpecialPrice $specialPrice): void
     {
         $this->specialPrices->detach($specialPrice);
-        return $this;
     }
 
-    public function setSpecialPrices(ObjectStorage $specialPrices): self
+    public function setSpecialPrices(ObjectStorage $specialPrices): void
     {
         $this->specialPrices = $specialPrices;
-        return $this;
     }
 
     public function getSeatsNumber(): int

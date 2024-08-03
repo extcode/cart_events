@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\EventListener\Order\Stock;
 
 /*
@@ -16,16 +18,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlushCache
 {
-    /**
-     * @var EventDateRepository
-     */
-    protected $eventDateRepository;
-
     public function __construct(
-        EventDateRepository $eventDateRepository
-    ) {
-        $this->eventDateRepository = $eventDateRepository;
-    }
+        private readonly EventDateRepository $eventDateRepository
+    ) {}
 
     public function __invoke(EventInterface $event): void
     {

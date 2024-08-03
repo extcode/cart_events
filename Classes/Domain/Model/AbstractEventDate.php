@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -13,72 +15,39 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 abstract class AbstractEventDate extends AbstractEntity
 {
-    /**
-     * @var \DateTime
-     */
-    protected $begin;
+    protected ?\DateTime $begin = null;
 
-    /**
-     * @var \DateTime
-     */
-    protected $end;
+    protected ?\DateTime $end = null;
 
-    /**
-     * @var string
-     */
-    protected $note = '';
+    protected string $note = '';
 
-    /**
-     * @return \DateTime
-     */
     public function getBegin(): ?\DateTime
     {
         return $this->begin;
     }
 
-    /**
-     * @param \DateTime $begin
-     * @return CalendarEntry
-     */
-    public function setBegin(\DateTime $begin): self
+    public function setBegin(\DateTime $begin): void
     {
         $this->begin = $begin;
-        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getEnd(): ?\DateTime
     {
         return $this->end;
     }
 
-    /**
-     * @param \DateTime $end
-     * @return CalendarEntry
-     */
-    public function setEnd(\DateTime $end): self
+    public function setEnd(\DateTime $end): void
     {
         $this->end = $end;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getNote(): string
     {
         return $this->note;
     }
 
-    /**
-     * @param string $note
-     * @return CalendarEntry
-     */
-    public function setNote(string $note): self
+    public function setNote(string $note): void
     {
         $this->note = $note;
-        return $this;
     }
 }

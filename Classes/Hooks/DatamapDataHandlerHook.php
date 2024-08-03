@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Hooks;
 
 /*
@@ -23,7 +25,7 @@ class DatamapDataHandlerHook
     /**
      * @param DataHandler $dataHandler
      */
-    public function processDatamap_beforeStart(DataHandler $dataHandler)
+    public function processDatamap_beforeStart(DataHandler $dataHandler): void
     {
         $datamap = $dataHandler->datamap;
         if (empty($datamap['tt_content']) || $dataHandler->bypassAccessCheckForRecords) {
@@ -63,7 +65,7 @@ class DatamapDataHandlerHook
         }
     }
 
-    public function processDatamap_afterAllOperations(DataHandler $dataHandler)
+    public function processDatamap_afterAllOperations(DataHandler $dataHandler): void
     {
         $newIdUidArray = $dataHandler->substNEWwithIDs;
 
@@ -84,7 +86,7 @@ class DatamapDataHandlerHook
 
     protected function isAllowedTargetPage($listType, $doktype)
     {
-        if (empty($listType) || substr($listType, 0, 11) !== 'cartevents_') {
+        if (empty($listType) || !str_starts_with((string)$listType, 'cartevents_')) {
             return true;
         }
         if (($doktype == 186) && ($listType === 'cartevents_singleevent')) {

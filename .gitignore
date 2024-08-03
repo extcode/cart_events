@@ -1,12 +1,15 @@
 .build
 composer.lock
 
-.php_cs.cache
-.phplint-cache
-Build/.phpunit.result.cache
+.php-cs-fixer.cache
+.phplint.cache
+Build/.phpunit.cache
 
 .DS_Store
 .idea
+
+var/
+vendor/
 
 phpunit.coverage.xml
 phpunit.report.xml

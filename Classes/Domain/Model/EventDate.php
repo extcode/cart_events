@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -8,114 +10,72 @@ namespace Extcode\CartEvents\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class EventDate extends AbstractEventDate
 {
-    /**
-     * @var Event
-     */
-    protected $event;
+    protected Event $event;
 
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $sku;
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $sku;
 
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $title = '';
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $title = '';
 
-    /**
-     * @var string
-     */
-    protected $location = '';
+    protected string $location = '';
 
-    /**
-     * @var string
-     */
-    protected $lecturer = '';
+    protected string $lecturer = '';
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $images;
+    protected ObjectStorage $images;
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $files;
+    protected ObjectStorage $files;
+
+    protected bool $bookable = false;
+
+    protected float $price = 0.0;
 
     /**
-     * @var bool
-     */
-    protected $bookable = false;
-
-    /**
-     * @var float
-     */
-    protected $price = 0.0;
-
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var ObjectStorage<SpecialPrice>
      */
-    protected $specialPrices;
+    #[Cascade(['value' => 'remove'])]
+    protected ObjectStorage $specialPrices;
+
+    protected bool $priceCategorized = false;
+
+    #[Cascade(['value' => 'remove'])]
+    protected ObjectStorage $priceCategories;
+
+    protected bool $handleSeats = false;
+
+    protected bool $handleSeatsInPriceCategory = false;
+
+    protected int $seatsNumber = 0;
+
+    protected int $seatsTaken = 0;
 
     /**
-     * @var bool
-     */
-    protected $priceCategorized = false;
-
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     * @var ObjectStorage<PriceCategory>
-     */
-    protected $priceCategories;
-
-    /**
-     * @var bool
-     */
-    protected $handleSeats = false;
-
-    /**
-     * @var bool
-     */
-    protected $handleSeatsInPriceCategory = false;
-
-    /**
-     * @var int
-     */
-    protected $seatsNumber = 0;
-
-    /**
-     * @var int
-     */
-    protected $seatsTaken = 0;
-
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var ObjectStorage<CalendarEntry>
      */
-    protected $calendarEntries;
+    #[Cascade(['value' => 'remove'])]
+    protected ObjectStorage $calendarEntries;
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): self
+    public function setSku(string $sku): void
     {
         $this->sku = $sku;
-        return $this;
     }
 
     public function getTitle(): string
@@ -123,10 +83,9 @@ class EventDate extends AbstractEventDate
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-        return $this;
     }
 
     public function getLocation(): string
@@ -134,10 +93,9 @@ class EventDate extends AbstractEventDate
         return $this->location;
     }
 
-    public function setLocation(string $location): self
+    public function setLocation(string $location): void
     {
         $this->location = $location;
-        return $this;
     }
 
     public function getLecturer(): string
@@ -145,10 +103,9 @@ class EventDate extends AbstractEventDate
         return $this->lecturer;
     }
 
-    public function setLecturer(string $lecturer): self
+    public function setLecturer(string $lecturer): void
     {
         $this->lecturer = $lecturer;
-        return $this;
     }
 
     /**
@@ -168,10 +125,9 @@ class EventDate extends AbstractEventDate
         return array_shift($images);
     }
 
-    public function setImages(ObjectStorage $images): self
+    public function setImages(ObjectStorage $images): void
     {
         $this->images = $images;
-        return $this;
     }
 
     /**
@@ -182,10 +138,9 @@ class EventDate extends AbstractEventDate
         return $this->files;
     }
 
-    public function setFiles(ObjectStorage $files): self
+    public function setFiles(ObjectStorage $files): void
     {
         $this->files = $files;
-        return $this;
     }
 
     public function isBookable(): bool
@@ -193,10 +148,9 @@ class EventDate extends AbstractEventDate
         return $this->bookable;
     }
 
-    public function setBookable(bool $bookable): self
+    public function setBookable(bool $bookable): void
     {
         $this->bookable = $bookable;
-        return $this;
     }
 
     public function getPrice(): float
@@ -204,10 +158,9 @@ class EventDate extends AbstractEventDate
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(float $price): void
     {
         $this->price = $price;
-        return $this;
     }
 
     /**
@@ -218,22 +171,19 @@ class EventDate extends AbstractEventDate
         return $this->specialPrices;
     }
 
-    public function addSpecialPrice(SpecialPrice $specialPrice): self
+    public function addSpecialPrice(SpecialPrice $specialPrice): void
     {
         $this->specialPrices->attach($specialPrice);
-        return $this;
     }
 
-    public function removeSpecialPrice(SpecialPrice $specialPrice): self
+    public function removeSpecialPrice(SpecialPrice $specialPrice): void
     {
         $this->specialPrices->detach($specialPrice);
-        return $this;
     }
 
-    public function setSpecialPrices(ObjectStorage $specialPrices): self
+    public function setSpecialPrices(ObjectStorage $specialPrices): void
     {
         $this->specialPrices = $specialPrices;
-        return $this;
     }
 
     public function isPriceCategorized(): bool
@@ -262,16 +212,14 @@ class EventDate extends AbstractEventDate
         return null;
     }
 
-    public function addPriceCategory(PriceCategory $priceCategory): self
+    public function addPriceCategory(PriceCategory $priceCategory): void
     {
         $this->priceCategories->attach($priceCategory);
-        return $this;
     }
 
-    public function removePriceCategory(PriceCategory $priceCategory): self
+    public function removePriceCategory(PriceCategory $priceCategory): void
     {
         $this->priceCategories->detach($priceCategory);
-        return $this;
     }
 
     public function setPriceCategories(ObjectStorage $priceCategories): void
@@ -319,12 +267,7 @@ class EventDate extends AbstractEventDate
         usort($calendarEntryArr, function ($calendarEntry1, $calendarEntry2) {
             $begin1 = $calendarEntry1->getBegin();
             $begin2 = $calendarEntry2->getBegin();
-
-            if ($begin1 === $begin2) {
-                return 0;
-            }
-
-            return $begin1 < $begin2 ? -1 : 1;
+            return $begin1 <=> $begin2;
         });
 
         foreach ($calendarEntryArr as $calendarEntry) {
@@ -342,10 +285,9 @@ class EventDate extends AbstractEventDate
         return $this->getCalendarEntries()->current();
     }
 
-    public function setCalendarEntries(ObjectStorage $calendarEntries): self
+    public function setCalendarEntries(ObjectStorage $calendarEntries): void
     {
         $this->calendarEntries = $calendarEntries;
-        return $this;
     }
 
     public function getEvent(): ?Event
@@ -353,10 +295,9 @@ class EventDate extends AbstractEventDate
         return $this->event;
     }
 
-    public function setEvent(Event $event): self
+    public function setEvent(Event $event): void
     {
         $this->event = $event;
-        return $this;
     }
 
     public function isHandleSeats(): bool
@@ -364,10 +305,9 @@ class EventDate extends AbstractEventDate
         return $this->handleSeats;
     }
 
-    public function setHandleSeats(bool $handleSeats): self
+    public function setHandleSeats(bool $handleSeats): void
     {
         $this->handleSeats = $handleSeats;
-        return $this;
     }
 
     public function isHandleSeatsInPriceCategory(): bool
@@ -401,10 +341,9 @@ class EventDate extends AbstractEventDate
         return $this->seatsNumber;
     }
 
-    public function setSeatsNumber(int $seatsNumber): self
+    public function setSeatsNumber(int $seatsNumber): void
     {
         $this->seatsNumber = $seatsNumber;
-        return $this;
     }
 
     /**
@@ -430,10 +369,9 @@ class EventDate extends AbstractEventDate
         return $this->seatsTaken;
     }
 
-    public function setSeatsTaken(int $seatsTaken): self
+    public function setSeatsTaken(int $seatsTaken): void
     {
         $this->seatsTaken = $seatsTaken;
-        return $this;
     }
 
     /**

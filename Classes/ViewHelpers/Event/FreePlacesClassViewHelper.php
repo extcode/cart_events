@@ -14,7 +14,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class FreePlacesClassViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -61,9 +61,9 @@ class FreePlacesClassViewHelper extends AbstractViewHelper
         $returnColorPrefix = $this->arguments['returnColorPrefix'] ?? '';
 
         if ($eventDate->isHandleSeats()) {
-            $greenLowerBound  = $this->arguments['greenLowerBound']  ?? ($eventDate->getSeatsNumber() * 2/3);
+            $greenLowerBound  = $this->arguments['greenLowerBound']  ?? ($eventDate->getSeatsNumber() * 2 / 3);
             $yellowLowerBound = $this->arguments['yellowLowerBound'];
-            $orangeLowerBound = $this->arguments['orangeLowerBound'] ?? ($eventDate->getSeatsNumber() * 1/3);
+            $orangeLowerBound = $this->arguments['orangeLowerBound'] ?? ($eventDate->getSeatsNumber() * 1 / 3);
             $orangeLowerBound = $orangeLowerBound <= 5 ? $orangeLowerBound : 5;
 
             if (($yellowLowerBound > $greenLowerBound) || ($yellowLowerBound < $orangeLowerBound)) {
@@ -72,9 +72,11 @@ class FreePlacesClassViewHelper extends AbstractViewHelper
 
             if ($eventDate->getSeatsAvailable() > $greenLowerBound) {
                 return $returnColorPrefix . 'green';
-            } elseif (isset($yellowLowerBound) && $eventDate->getSeatsAvailable() > $yellowLowerBound) {
+            }
+            if (isset($yellowLowerBound) && $eventDate->getSeatsAvailable() > $yellowLowerBound) {
                 return $returnColorPrefix . 'yellow';
-            } elseif ($eventDate->getSeatsAvailable() > $orangeLowerBound) {
+            }
+            if ($eventDate->getSeatsAvailable() > $orangeLowerBound) {
                 return $returnColorPrefix . 'orange';
             }
         }
