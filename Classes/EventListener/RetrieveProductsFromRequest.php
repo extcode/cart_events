@@ -167,7 +167,7 @@ class RetrieveProductsFromRequest
             $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
         }
 
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate']) {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'])) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'] ?? [] as $className) {
                 $params = [
                     'cart' => $this->cart,

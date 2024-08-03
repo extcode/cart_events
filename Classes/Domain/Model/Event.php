@@ -27,7 +27,7 @@ class Event extends AbstractEntity
 
     protected bool $virtualProduct = true;
 
-    protected string $formDefinition;
+    protected ?string $formDefinition = null;
 
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $sku = '';
@@ -85,7 +85,7 @@ class Event extends AbstractEntity
         $this->virtualProduct = $virtualProduct;
     }
 
-    public function getFormDefinition(): string
+    public function getFormDefinition(): ?string
     {
         return $this->formDefinition;
     }
