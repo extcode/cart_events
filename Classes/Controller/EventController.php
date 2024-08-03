@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Controller;
 
 /*
@@ -9,6 +11,8 @@ namespace Extcode\CartEvents\Controller;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
 use Extcode\CartEvents\Domain\Model\Event;
@@ -18,52 +22,31 @@ use Extcode\CartEvents\Domain\Repository\CategoryRepository;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\EventRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class EventController extends ActionController
 {
-    /**
-     * @var CartUtility
-     */
-    protected $cartUtility;
+    private Cart $cart;
 
-    /**
-     * @var EventRepository
-     */
-    protected $eventRepository;
+    protected array $cartConfiguration = [];
 
-    /**
-     * @var CategoryRepository
-     */
-    protected $categoryRepository;
-
-    /**
-     * @var array
-     */
-    protected $cartSettings = [];
-
-    public function injectCartUtility(CartUtility $cartUtility): void
-    {
-        $this->cartUtility = $cartUtility;
-    }
-
-    public function injectEventRepository(EventRepository $eventRepository): void
-    {
-        $this->eventRepository = $eventRepository;
-    }
-
-    public function injectCategoryRepository(CategoryRepository $categoryRepository): void
-    {
-        $this->categoryRepository = $categoryRepository;
-    }
+    public function __construct(
+        private readonly SessionHandler $sessionHandler,
+        private readonly CartUtility $cartUtility,
+        private readonly EventRepository $eventRepository,
+        private readonly CategoryRepository $categoryRepository,
+    ) {}
 
     protected function initializeAction(): void
     {
-        $this->cartSettings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+        $this->cartConfiguration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
 
@@ -77,23 +60,24 @@ class EventController extends ActionController
         }
     }
 
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
         if (!$this->settings) {
             $this->settings = [];
         }
         $demand = $this->createDemandObjectFromSettings('list', $this->settings);
-        $demand->setActionAndClass(__METHOD__, __CLASS__);
+        $demand->setActionAndClass(__METHOD__, self::class);
 
         $events = $this->eventRepository->findDemanded($demand);
 
         $this->view->assign('events', $events);
-        $this->view->assign('cartSettings', $this->cartSettings);
+        $this->view->assign('cartSettings', $this->cartConfiguration);
 
         $this->addCacheTags($events);
+        return $this->htmlResponse();
     }
 
-    public function teaserAction(): void
+    public function teaserAction(): ResponseInterface
     {
         $limit = (int)$this->settings['limit'] ?: (int)$this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -103,36 +87,37 @@ class EventController extends ActionController
         $events = $this->eventRepository->findByUids($limit, $this->settings['eventUids']);
 
         $this->view->assign('events', $events);
-        $this->view->assign('cartSettings', $this->cartSettings);
+        $this->view->assign('cartSettings', $this->cartConfiguration);
 
         $this->addCacheTags($events);
+        return $this->htmlResponse();
     }
 
     /**
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("event")
      */
-    public function showAction(Event $event = null): void
+    #[IgnoreValidation(['value' => 'event'])]
+    public function showAction(Event $event = null): ResponseInterface
     {
         if (!$event) {
             $event = $this->getEvent();
         }
         if (!$event) {
-            $this->forward('list');
+            return new ForwardResponse('list');
         }
 
         $this->view->assign('event', $event);
-        $this->view->assign('cartSettings', $this->cartSettings);
+        $this->view->assign('cartSettings', $this->cartConfiguration);
 
         $this->assignCurrencyTranslationData();
 
         $this->addCacheTags([$event]);
+        return $this->htmlResponse();
     }
 
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("eventDate")
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("priceCategory")
-     */
-    public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null): void
+    #[IgnoreValidation(['value' => 'eventDate'])]
+    #[IgnoreValidation(['value' => 'priceCategory'])]
+    public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null): ResponseInterface
     {
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
@@ -208,6 +193,7 @@ class EventController extends ActionController
             'formDefinitionOverrides',
             $formDefinitionOverrides
         );
+        return $this->htmlResponse();
     }
 
     protected function getEvent(): ?Event
@@ -238,9 +224,7 @@ class EventController extends ActionController
             EventDemand::class
         );
 
-        if (isset($settings['view']) &&
-            is_array($settings['view']) &&
-            isset($settings['view'][$type]) &&
+        if (isset($settings['view'][$type]) &&
             is_array($settings['view'][$type])
         ) {
             // Use default TypoScript settings for plugin configuration
@@ -256,10 +240,10 @@ class EventController extends ActionController
             $demand->setLimit($limit);
         }
 
-        if (isset($settings['orderBy']) && !empty($settings['orderBy'])) {
+        if (!empty($settings['orderBy'])) {
             $orderBy = $settings['orderBy'];
         }
-        if (isset($settings['orderDirection']) && !empty($settings['orderDirection'])) {
+        if (!empty($settings['orderDirection'])) {
             $orderDirection = $settings['orderDirection'];
         }
         if (isset($orderBy) && isset($orderDirection)) {
@@ -303,24 +287,15 @@ class EventController extends ActionController
      */
     protected function assignCurrencyTranslationData(): void
     {
-        if (TYPO3_MODE === 'FE') {
-            $currencyTranslationData = [];
+        $this->restoreSession();
 
-            $cartFrameworkConfig = $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                'Cart'
-            );
+        $currencyTranslationData = [
+            'currencyCode' => $this->cart->getCurrencyCode(),
+            'currencySign' => $this->cart->getCurrencySign(),
+            'currencyTranslation' => $this->cart->getCurrencyTranslation(),
+        ];
 
-            $cart = $this->cartUtility->getCartFromSession($cartFrameworkConfig);
-
-            if ($cart) {
-                $currencyTranslationData['currencyCode'] = $cart->getCurrencyCode();
-                $currencyTranslationData['currencySign'] = $cart->getCurrencySign();
-                $currencyTranslationData['currencyTranslation'] = $cart->getCurrencyTranslation();
-            }
-
-            $this->view->assign('currencyTranslationData', $currencyTranslationData);
-        }
+        $this->view->assign('currencyTranslationData', $currencyTranslationData);
     }
 
     protected function addCacheTags(iterable $events): void
@@ -335,5 +310,18 @@ class EventController extends ActionController
                 $GLOBALS['TSFE']->addCacheTags($cacheTags);
             }
         }
+    }
+
+    protected function restoreSession(): void
+    {
+        $cart = $this->sessionHandler->restoreCart($this->cartConfiguration['settings']['cart']['pid']);
+
+        if ($cart instanceof Cart) {
+            $this->cart = $cart;
+            return;
+        }
+
+        $this->cart = $this->cartUtility->getNewCart($this->cartConfiguration);
+        $this->sessionHandler->writeCart($this->cartConfiguration['settings']['cart']['pid'], $this->cart);
     }
 }

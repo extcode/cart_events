@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -9,6 +11,4 @@ namespace Extcode\CartEvents\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
-class CalendarEntry extends AbstractEventDate
-{
-}
+class CalendarEntry extends AbstractEventDate {}

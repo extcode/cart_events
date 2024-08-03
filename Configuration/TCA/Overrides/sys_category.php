@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -12,7 +12,6 @@ $newSysCategoryColumns = [
         'label' => $_LLL_db . 'tx_cartevents_domain_model_category.cart_event_list_pid',
         'config' => [
             'type' => 'group',
-            'internal_type' => 'db',
             'allowed' => 'pages',
             'size' => 1,
             'maxitems' => 1,
@@ -23,14 +22,13 @@ $newSysCategoryColumns = [
                     'searchWholePhrase' => true,
                 ],
             ],
-        ]
+        ],
     ],
     'cart_event_show_pid' => [
         'exclude' => 1,
         'label' => $_LLL_db . 'tx_cartevents_domain_model_category.cart_event_show_pid',
         'config' => [
             'type' => 'group',
-            'internal_type' => 'db',
             'allowed' => 'pages',
             'size' => 1,
             'maxitems' => 1,
@@ -41,7 +39,7 @@ $newSysCategoryColumns = [
                     'searchWholePhrase' => true,
                 ],
             ],
-        ]
+        ],
     ],
 ];
 

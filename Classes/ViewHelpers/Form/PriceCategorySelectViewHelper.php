@@ -8,9 +8,9 @@ namespace Extcode\CartEvents\ViewHelpers\Form;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper;
 use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Model\PriceCategory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -23,7 +23,7 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
      */
     protected $eventDate;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -88,12 +88,10 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
 
         foreach ($this->eventDate->getPriceCategories() as $priceCategory) {
             /**
-             * @var \Extcode\CartEvents\Domain\Model\PriceCategory $priceCategory
+             * @var PriceCategory $priceCategory
              */
             $currencyViewHelper->setRenderChildrenClosure(
-                function () use ($priceCategory) {
-                    return $priceCategory->getPrice();
-                }
+                fn() => $priceCategory->getPrice()
             );
             $regularPrice = $currencyViewHelper->render();
 
@@ -103,9 +101,7 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
             $specialPrice = $priceCategory->getBestSpecialPrice();
             if ($specialPrice) {
                 $currencyViewHelper->setRenderChildrenClosure(
-                    function () use ($priceCategory) {
-                        return $priceCategory->getBestPrice();
-                    }
+                    fn() => $priceCategory->getBestPrice()
                 );
                 $specialPricePrice = $currencyViewHelper->render();
 

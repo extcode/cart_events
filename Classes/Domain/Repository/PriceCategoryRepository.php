@@ -1,4 +1,5 @@
 <?php
+
 namespace Extcode\CartEvents\Domain\Repository;
 
 /*
@@ -10,6 +11,4 @@ namespace Extcode\CartEvents\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class PriceCategoryRepository extends Repository
-{
-}
+class PriceCategoryRepository extends Repository {}

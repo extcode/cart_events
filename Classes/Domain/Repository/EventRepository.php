@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Repository;
 
 /*
@@ -33,15 +35,15 @@ class EventRepository extends Repository
         if (!empty($demand->getCategories())) {
             $categoryConstraints = [];
             foreach ($demand->getCategories() as $category) {
-                $categoryConstraints[] = $query->contains('category', $category);
+                $categoryConstraints[] = $query->equals('category', $category);
                 $categoryConstraints[] = $query->contains('categories', $category);
             }
-            $constraints = $query->logicalOr($categoryConstraints);
+            $constraints = $query->logicalOr(...array_values($categoryConstraints));
         }
 
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...array_values($constraints))
             );
         }
 
@@ -76,7 +78,7 @@ class EventRepository extends Repository
         return $this->orderByField($query->execute(), $uids);
     }
 
-    protected function createOrderingsFromDemand(EventDemand $demand) : array
+    protected function createOrderingsFromDemand(EventDemand $demand): array
     {
         $orderings = [];
 
@@ -84,7 +86,7 @@ class EventRepository extends Repository
 
         if (!empty($orderList)) {
             foreach ($orderList as $orderItem) {
-                list($orderField, $ascDesc) =
+                [$orderField, $ascDesc] =
                     GeneralUtility::trimExplode(' ', $orderItem, true);
                 if ($ascDesc) {
                     $orderings[$orderField] = ((strtolower($ascDesc) === 'desc') ?

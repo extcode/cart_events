@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\EventListener\Order\Stock;
 
 /*
@@ -17,30 +19,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class HandleStock
 {
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
-
-    /**
-     * @var EventDateRepository
-     */
-    protected $eventDateRepository;
-
-    /**
-     * @var PriceCategoryRepository
-     */
-    protected $priceCategoryRepository;
-
     public function __construct(
-        PersistenceManager $persistenceManager,
-        EventDateRepository $eventDateRepository,
-        PriceCategoryRepository $priceCategoryRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->eventDateRepository = $eventDateRepository;
-        $this->priceCategoryRepository = $priceCategoryRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly EventDateRepository $eventDateRepository,
+        private readonly PriceCategoryRepository $priceCategoryRepository,
+    ) {}
 
     public function __invoke(EventInterface $event): void
     {
@@ -53,17 +36,14 @@ class HandleStock
         }
     }
 
-    /**
-     * @param Product $cartProduct
-     */
-    protected function handleStockForEventDate(Product $cartProduct)
+    protected function handleStockForEventDate(Product $cartProduct): void
     {
         $eventDate = $this->eventDateRepository->findByUid($cartProduct->getProductId());
 
         if ($eventDate && $eventDate->isHandleSeats()) {
             if ($eventDate->isHandleSeatsInPriceCategory()) {
                 foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
-                    $explodedId = explode('-', $cartBeVariant->getId());
+                    $explodedId = explode('-', (string)$cartBeVariant->getId());
                     $id = (int)end($explodedId);
                     $priceCategory = $this->priceCategoryRepository->findByUid($id);
                     $priceCategory->setSeatsTaken($priceCategory->getSeatsTaken() + $cartBeVariant->getQuantity());

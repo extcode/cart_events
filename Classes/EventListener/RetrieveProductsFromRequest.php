@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\EventListener;
 
 /*
@@ -18,44 +20,23 @@ use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class RetrieveProductsFromRequest
 {
-    /**
-     * @var EventDateRepository
-     */
-    protected $eventDateRepository;
+    protected Cart $cart;
 
-    /**
-     * @var PriceCategoryRepository
-     */
-    protected $priceCategoryRepository;
+    protected EventDate $eventDate;
 
-    /**
-     * @var Cart
-     */
-    protected $cart;
-
-    /**
-     * @var EventDate
-     */
-    protected $eventDate;
-
-    /**
-     * @var PriceCategory
-     */
-    protected $priceCategory;
+    protected ?PriceCategory $priceCategory = null;
 
     public function __construct(
-        EventDateRepository $eventDateRepository,
-        PriceCategoryRepository $priceCategoryRepository
-    ) {
-        $this->eventDateRepository = $eventDateRepository;
-        $this->priceCategoryRepository = $priceCategoryRepository;
-    }
+        private readonly EventDateRepository $eventDateRepository,
+        private readonly PriceCategoryRepository $priceCategoryRepository
+    ) {}
 
     public function __invoke(RetrieveProductsFromRequestEvent $event): void
     {
@@ -81,26 +62,30 @@ class RetrieveProductsFromRequest
 
         if (!$this->eventDate) {
             $event->addError(
-                [
-                    'messageBody' => LocalizationUtility::translate(
+                GeneralUtility::makeInstance(
+                    FlashMessage::class,
+                    LocalizationUtility::translate(
                         'tx_cartevents.error.event_date_not_found',
-                        'cart_events'
+                        'CartEvents'
                     ),
-                    'severity' => AbstractMessage::WARNING
-                ]
+                    '',
+                    ContextualFeedbackSeverity::WARNING
+                )
             );
             return;
         }
 
         if (!$this->eventDate->isBookable()) {
             $event->addError(
-                [
-                    'messageBody' => LocalizationUtility::translate(
+                GeneralUtility::makeInstance(
+                    FlashMessage::class,
+                    LocalizationUtility::translate(
                         'tx_cartevents.error.event_is_not_bookable',
-                        'cart_events'
+                        'CartEvents'
                     ),
-                    'severity' => AbstractMessage::WARNING
-                ]
+                    '',
+                    ContextualFeedbackSeverity::WARNING
+                )
             );
             return;
         }
@@ -108,13 +93,15 @@ class RetrieveProductsFromRequest
         if (isset($requestArguments['priceCategory'])) {
             if (!(int)$requestArguments['priceCategory']) {
                 $event->addError(
-                    [
-                        'messageBody' => LocalizationUtility::translate(
+                    GeneralUtility::makeInstance(
+                        FlashMessage::class,
+                        LocalizationUtility::translate(
                             'tx_cartevents.plugin.form.submit.error.invalid_event_date_category_price',
-                            'cart_events'
+                            'CartEvents'
                         ),
-                        'severity' => AbstractMessage::ERROR
-                    ]
+                        '',
+                        ContextualFeedbackSeverity::ERROR
+                    )
                 );
                 return;
             }
@@ -123,13 +110,15 @@ class RetrieveProductsFromRequest
 
             if (!$this->priceCategory->isBookable()) {
                 $event->addError(
-                    [
-                        'messageBody' => LocalizationUtility::translate(
+                    GeneralUtility::makeInstance(
+                        FlashMessage::class,
+                        LocalizationUtility::translate(
                             'tx_cartevents.plugin.form.submit.error.event_date.price_category.is_not_bookable',
-                            'cart_events'
+                            'CartEvents'
                         ),
-                        'severity' => AbstractMessage::WARNING
-                    ]
+                        '',
+                        ContextualFeedbackSeverity::WARNING
+                    )
                 );
                 return;
             }
@@ -155,7 +144,7 @@ class RetrieveProductsFromRequest
         $sku = implode(' - ', [$event->getSku(), $this->eventDate->getSku()]);
 
         $price = $this->eventDate->getBestPrice();
-        if ($this->priceCategory) {
+        if ($this->priceCategory instanceof PriceCategory) {
             $price = $this->priceCategory->getBestPrice();
         }
 
@@ -174,11 +163,11 @@ class RetrieveProductsFromRequest
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
 
-        if ($this->priceCategory) {
+        if ($this->priceCategory instanceof PriceCategory) {
             $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
         }
 
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate']) {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'])) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart_events']['getProductFromEventDate'] ?? [] as $className) {
                 $params = [
                     'cart' => $this->cart,
@@ -231,9 +220,9 @@ class RetrieveProductsFromRequest
             return [
                 'messageBody' => LocalizationUtility::translate(
                     'tx_cartevents.plugin.form.submit.error.invalid_event_date',
-                    'cart_events'
+                    'CartEvents'
                 ),
-                'severity' => AbstractMessage::ERROR
+                'severity' => ContextualFeedbackSeverity::ERROR,
             ];
         }
 
@@ -241,9 +230,9 @@ class RetrieveProductsFromRequest
             return [
                 'messageBody' => LocalizationUtility::translate(
                     'tx_cart.error.invalid_quantity',
-                    'cart_events'
+                    'CartEvents'
                 ),
-                'severity' => AbstractMessage::WARNING
+                'severity' => ContextualFeedbackSeverity::WARNING,
             ];
         }
 

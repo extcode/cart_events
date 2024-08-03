@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -11,15 +13,9 @@ namespace Extcode\CartEvents\Domain\Model;
 
 class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
 {
-    /**
-     * @var int
-     */
-    protected $cartEventListPid;
+    protected int $cartEventListPid;
 
-    /**
-     * @var int
-     */
-    protected $cartEventShowPid;
+    protected int $cartEventShowPid;
 
     public function getCartEventListPid(): int
     {

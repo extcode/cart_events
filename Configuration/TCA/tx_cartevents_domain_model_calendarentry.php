@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL_general = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 $_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
@@ -14,7 +14,6 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'hideTable' => true,
         'delete' => 'deleted',
@@ -24,7 +23,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_calendarentry.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_calendarentry.svg',
     ],
     'types' => [
         '1' => [
@@ -32,12 +31,12 @@ return [
                 begin, end, note,
                     --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                     --palette--;' . $_LLL_tca . ':palettes.visibility;hiddenonly
-                '
+                ',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
         'hiddenonly' => [
             'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_calendarentry',
@@ -50,11 +49,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
-                    ]
-                ]
             ],
         ],
 
@@ -62,14 +56,12 @@ return [
             'exclude' => 1,
             'label' => $_LLL_general . ':LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 ],
             ],
         ],
@@ -77,14 +69,12 @@ return [
             'exclude' => 1,
             'label' => $_LLL_general . ':LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 ],
             ],
         ],
@@ -92,21 +82,18 @@ return [
         'begin' => [
             'label' => $_LLL_db . ':tx_cartevents_domain_model_calendarentry.begin',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'required,datetime',
                 'checkbox' => 0,
                 'default' => 0,
+                'required' => true,
             ],
         ],
         'end' => [
             'label' => $_LLL_db . ':tx_cartevents_domain_model_calendarentry.end',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
             ],

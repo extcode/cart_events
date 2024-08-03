@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Repository;
 
 /*
@@ -8,7 +10,7 @@ namespace Extcode\CartEvents\Domain\Repository;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use Doctrine\DBAL\Driver\Statement;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -16,7 +18,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class EventDateRepository extends Repository
 {
     /**
-     * @return \Doctrine\DBAL\Driver\Statement|int
+     * @return Statement|int
      */
     public function findNext(int $limit, string $pidList)
     {
@@ -97,7 +99,7 @@ class EventDateRepository extends Repository
      * @param string $pidList
      * @return array
      */
-    protected function getPids(string $pidList):array
+    protected function getPids(string $pidList): array
     {
         return GeneralUtility::intExplode(',', $pidList, true);
     }

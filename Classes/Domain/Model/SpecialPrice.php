@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model;
 
 /*
@@ -9,40 +11,28 @@ namespace Extcode\CartEvents\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
+use Extcode\Cart\Domain\Model\FrontendUserGroup;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class SpecialPrice extends AbstractEntity
 {
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $title = '';
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $title = '';
 
-    /**
-     * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $price = 0.0;
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected float $price = 0.0;
 
-    /**
-     * @var FrontendUserGroup
-     */
-    protected $frontendUserGroup;
+    protected FrontendUserGroup $frontendUserGroup;
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-        return $this;
     }
 
     public function getPrice(): float
@@ -50,10 +40,9 @@ class SpecialPrice extends AbstractEntity
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(float $price): void
     {
         $this->price = $price;
-        return $this;
     }
 
     public function getFrontendUserGroup(): ?FrontendUserGroup
@@ -61,9 +50,8 @@ class SpecialPrice extends AbstractEntity
         return $this->frontendUserGroup;
     }
 
-    public function setFrontendUserGroup(FrontendUserGroup $frontendUserGroup): self
+    public function setFrontendUserGroup(FrontendUserGroup $frontendUserGroup): void
     {
         $this->frontendUserGroup = $frontendUserGroup;
-        return $this;
     }
 }

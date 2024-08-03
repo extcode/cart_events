@@ -1,0 +1,15 @@
+{
+  "name": "extcode/cart-events-test",
+  "description": "Add a cart_events test extension",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "typo3/cms-core": "*",
+    "extcode/cart-events": "@dev"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "cart_events_test"
+    }
+  }
+}

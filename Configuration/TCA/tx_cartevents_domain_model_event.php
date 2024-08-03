@@ -1,9 +1,8 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 $_LLL_general = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 $_LLL_ttc = 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf';
@@ -19,7 +18,6 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'sortby' => 'sorting',
 
@@ -37,7 +35,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'sku,title,teaser,description,audience',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg',
     ],
     'types' => [
         '1' => [
@@ -58,12 +56,12 @@ return [
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                     --palette--;' . $_LLL_tca . ':palettes.visibility;hiddenonly,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access,
-            '
+            ',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
         'hiddenonly' => [
             'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_event',
@@ -77,19 +75,7 @@ return [
         'sys_language_uid' => [
             'exclude' => 1,
             'label' => $_LLL_general . ':LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        $_LLL_general . ':LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ],
-                ],
-                'default' => 0,
-            ],
+            'config' => ['type' => 'language'],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
@@ -98,7 +84,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_cartevents_domain_model_event',
                 'foreign_table_where' => 'AND tx_cartevents_domain_model_event.pid=###CURRENT_PID### AND tx_cartevents_domain_model_event.sys_language_uid IN (-1,0)',
@@ -121,7 +107,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
         'hidden' => [
             'exclude' => 1,
@@ -129,25 +115,18 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
-                    ]
-                ]
             ],
         ],
         'starttime' => [
             'exclude' => 1,
             'label' => $_LLL_general . ':LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 ],
             ],
         ],
@@ -155,14 +134,12 @@ return [
             'exclude' => 1,
             'label' => 'LLL' . ':EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 ],
             ],
         ],
@@ -173,7 +150,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,trim'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'title' => [
@@ -182,7 +160,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,trim'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'path_segment' => [
@@ -226,7 +205,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 5,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'audience' => [
@@ -243,7 +222,6 @@ return [
             'label' => $_LLL_db . ':tx_cartevents_domain_model_event.related_events',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_cartevents_domain_model_event',
                 'foreign_table' => 'tx_cartevents_domain_model_event',
                 'MM_opposite_field' => 'related_events_from',
@@ -256,7 +234,7 @@ return [
                         'searchWholePhrase' => true,
                     ],
                 ],
-            ]
+            ],
         ],
 
         'related_events_from' => [
@@ -264,136 +242,131 @@ return [
             'label' => $_LLL_db . ':tx_cartevents_domain_model_event.related_events_from',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'foreign_table' => 'tx_cartevents_domain_model_event',
                 'allowed' => 'tx_cartevents_domain_model_event',
                 'size' => 5,
                 'maxitems' => 100,
                 'MM' => 'tx_cartevents_domain_model_event_event_related_mm',
                 'readOnly' => 1,
-            ]
+            ],
         ],
 
         'images' => [
             'exclude' => 1,
             'label' => $_LLL_db . ':tx_cartevents_domain_model_event.images',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
-                'images',
-                [
-                    'appearance' => [
-                        'createNewRelationLinkTitle' => $_LLL_ttc . ':images.addFileReference',
-                        'showPossibleLocalizationRecords' => true,
-                        'showRemovedLocalizationRecords' => true,
-                        'showAllLocalizationLink' => true,
-                        'showSynchronizationLink' => true,
-                    ],
-                    'foreign_match_fields' => [
-                        'fieldname' => 'image',
-                        'tablenames' => 'tx_cartevents_domain_model_event',
-                        'table_local' => 'sys_file',
-                    ],
-                    // custom configuration for displaying fields in the overlay/reference table
-                    // to use the imageoverlayPalette instead of the basicoverlayPalette
-                    'overrideChildTca' => [
-                        'types' => [
-                            '0' => [
-                                'showitem' => '
+            'config' => [
+                //## !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+                'appearance' => [
+                    'createNewRelationLinkTitle' => $_LLL_ttc . ':images.addFileReference',
+                    'showPossibleLocalizationRecords' => true,
+                    'showRemovedLocalizationRecords' => true,
+                    'showAllLocalizationLink' => true,
+                    'showSynchronizationLink' => true,
+                ],
+                'foreign_match_fields' => [
+                    'fieldname' => 'image',
+                    'tablenames' => 'tx_cartevents_domain_model_event',
+                ],
+                // custom configuration for displaying fields in the overlay/reference table
+                // to use the imageoverlayPalette instead of the basicoverlayPalette
+                'overrideChildTca' => [
+                    'types' => [
+                        '0' => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_TEXT => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_TEXT => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_IMAGE => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_IMAGE => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_AUDIO => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_AUDIO => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_VIDEO => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_VIDEO => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_APPLICATION => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_APPLICATION => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
+                                --palette--;;filePalette',
                         ],
                     ],
-                    'minitems' => 0,
-                    'maxitems' => 99,
                 ],
-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-            ),
+                'minitems' => 0,
+                'maxitems' => 99,
+            ],
         ],
 
         'files' => [
             'exclude' => 1,
             'label' => $_LLL_db . ':tx_cartevents_domain_model_event.files',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
-                'files',
-                [
-                    'appearance' => [
-                        'createNewRelationLinkTitle' => $_LLL_ttc . ':images.addFileReference',
-                        'showPossibleLocalizationRecords' => true,
-                        'showRemovedLocalizationRecords' => true,
-                        'showAllLocalizationLink' => true,
-                        'showSynchronizationLink' => true,
-                    ],
-                    'foreign_match_fields' => [
-                        'fieldname' => 'files',
-                        'tablenames' => 'tx_cartevents_domain_model_event',
-                        'table_local' => 'sys_file',
-                    ],
-                    // custom configuration for displaying fields in the overlay/reference table
-                    // to use the imageoverlayPalette instead of the basicoverlayPalette
-                    'overrideChildTca' => [
-                        'types' => [
-                            '0' => [
-                                'showitem' => '
+            'config' => [
+                //## !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] . ', pdf',
+                'appearance' => [
+                    'createNewRelationLinkTitle' => $_LLL_ttc . ':images.addFileReference',
+                    'showPossibleLocalizationRecords' => true,
+                    'showRemovedLocalizationRecords' => true,
+                    'showAllLocalizationLink' => true,
+                    'showSynchronizationLink' => true,
+                ],
+                'foreign_match_fields' => [
+                    'fieldname' => 'files',
+                    'tablenames' => 'tx_cartevents_domain_model_event',
+                ],
+                // custom configuration for displaying fields in the overlay/reference table
+                // to use the imageoverlayPalette instead of the basicoverlayPalette
+                'overrideChildTca' => [
+                    'types' => [
+                        '0' => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_TEXT => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_TEXT => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_IMAGE => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_IMAGE => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_AUDIO => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_AUDIO => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_VIDEO => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_VIDEO => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
-                            File::FILETYPE_APPLICATION => [
-                                'showitem' => '
+                                --palette--;;filePalette',
+                        ],
+                        File::FILETYPE_APPLICATION => [
+                            'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
-                            ],
+                                --palette--;;filePalette',
                         ],
                     ],
-                    'minitems' => 0,
-                    'maxitems' => 99,
                 ],
-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] . ', pdf'
-            ),
+                'minitems' => 0,
+                'maxitems' => 99,
+            ],
         ],
 
         'tax_class_id' => [
@@ -403,9 +376,9 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL_cart . ':tx_cart.tax_class_id.1', 1],
-                    [$_LLL_cart . ':tx_cart.tax_class_id.2', 2],
-                    [$_LLL_cart . ':tx_cart.tax_class_id.3', 3],
+                    ['label' => $_LLL_cart . ':tx_cart.tax_class_id.1', 'value' => 1],
+                    ['label' => $_LLL_cart . ':tx_cart.tax_class_id.2', 'value' => 2],
+                    ['label' => $_LLL_cart . ':tx_cart.tax_class_id.3', 'value' => 3],
                 ],
                 'size' => 1,
                 'minitems' => 1,
@@ -437,7 +410,7 @@ return [
                         'hide' => true,
                         'delete' => true,
                         'localize' => true,
-                    ]
+                    ],
                 ],
             ],
         ],
@@ -447,7 +420,6 @@ return [
             'label' => $_LLL_cart . ':tx_cart_domain_model_tags',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_cart_domain_model_tag',
                 'foreign_table' => 'tx_cart_domain_model_tag',
                 'size' => 5,
@@ -459,6 +431,19 @@ return [
                         'searchWholePhrase' => true,
                     ],
                 ],
+            ],
+        ],
+
+        'category' => [
+            'config' => [
+                'type' => 'category',
+                'relationship' => 'oneToOne',
+            ],
+        ],
+
+        'categories' => [
+            'config' => [
+                'type' => 'category',
             ],
         ],
     ],

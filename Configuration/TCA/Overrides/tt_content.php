@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -11,22 +11,22 @@ call_user_func(function () {
 
     $pluginNames = [
         'Events' => [
-            'subtypes_excludelist' => 'select_key'
+            'subtypes_excludelist' => 'select_key',
         ],
         'TeaserEvents' => [
-            'subtypes_excludelist' => 'select_key, pages, recursive'
+            'subtypes_excludelist' => 'select_key, pages, recursive',
         ],
         'SingleEvent' => [
-            'subtypes_excludelist' => 'select_key, pages, recursive'
+            'subtypes_excludelist' => 'select_key, pages, recursive',
         ],
         'EventDates' => [
-            'subtypes_excludelist' => 'select_key, recursive'
+            'subtypes_excludelist' => 'select_key, recursive',
         ],
     ];
 
     foreach ($pluginNames as $pluginName => $pluginConf) {
         $pluginSignature = 'cartevents_' . strtolower($pluginName);
-        $pluginNameSC = strtolower(preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)));
+        $pluginNameSC = strtolower((string)preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)));
         ExtensionUtility::registerPlugin(
             'CartEvents',
             $pluginName,
