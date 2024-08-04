@@ -99,3 +99,12 @@ jobs:
 
       - name: Run Unit Tests PHP8.3
         run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-unit
+
+      - name: Run Acceptance Tests PHP8.1
+        run: nix-shell --arg phpVersion \"php81\" --pure --run project-test-acceptance
+
+      - name: Run Acceptance Tests PHP8.2
+        run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-acceptance
+
+      - name: Run Acceptance Tests PHP8.3
+        run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-acceptance

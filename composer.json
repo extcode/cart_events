@@ -55,6 +55,10 @@
         "typo3/cms-fluid": "^12.4"
     },
     "require-dev": {
+        "codappix/typo3-php-datasets": "^1.5",
+        "codeception/codeception": "^5.0",
+        "codeception/module-db": "^3.1",
+        "codeception/module-webdriver": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.16",
         "helmich/typo3-typoscript-lint": "^3.1",
         "overtrue/phplint": "^5.5",
