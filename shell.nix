@@ -76,6 +76,32 @@ let
     '';
   };
 
+  projectTestAcceptance = pkgs.writeShellApplication {
+    name = "project-test-acceptance";
+    runtimeInputs = [
+      projectInstall
+      pkgs.sqlite
+      pkgs.firefox
+      pkgs.geckodriver
+      pkgs.procps
+      php
+    ];
+    text = ''
+      project-install
+
+      mkdir -p "$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance"
+      mkdir -p "$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance-logs"
+      mkdir -p "$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance-reports"
+      mkdir -p "$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance-sqlite-dbs"
+
+      export INSTANCE_PATH="$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance"
+
+      ./vendor/bin/codecept run
+
+      pgrep -f "php -S" | xargs -r kill
+    '';
+  };
+
 in pkgs.mkShellNoCC {
   name = "TYPO3 Extension extcode/cart-products";
   buildInputs = [
@@ -86,6 +112,7 @@ in pkgs.mkShellNoCC {
     projectCgl
     projectCglFix
     projectTestUnit
+    projectTestAcceptance
   ];
 
   shellHook = ''

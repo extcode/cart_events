@@ -139,6 +139,58 @@ test:php83:typo3_12:
     TYPO3_VERSION: ^12.4
     COVERAGE: 1
 
+.test_codeception: &test_codeception
+  stage: test
+  image: $CONTAINER_IMAGE
+  only:
+    - branches
+  before_script:
+    - sed -i -e "s#ssh://git@code.extco.de:22722#https://gitlab-ci-token:$CI_JOB_TOKEN@code.extco.de#g" composer.json
+    - composer config --no-plugins allow-plugins.typo3/cms-composer-installers true
+    - composer config --no-plugins allow-plugins.typo3/class-alias-loader true
+    - composer require typo3/cms-core="${TYPO3_VERSION}"
+  script:
+    - mkdir -p .build/public/typo3temp/var/tests/acceptance-sqlite-dbs
+    - export typo3DatabaseDriver=pdo_sqlite
+    - export PROJECT_ROOT="$(pwd)"
+    - export INSTANCE_PATH="$(pwd)/.build/web/typo3temp/var/tests/acceptance"
+    - mkdir -p "$INSTANCE_PATH"
+    - mkdir -p "$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance-logs/"
+    - vendor/bin/codecept run
+  artifacts:
+    paths:
+      - .build
+    expire_in: 1 day
+    when: always
+
+# Build in PHP 8.1 and TYPO3 12.4
+test:codception:php81:typo3_12:
+  <<: *test_codeception
+  variables:
+    CONTAINER_IMAGE: $CI_REGISTRY/containers/codeception-with-php-8.1:main
+    TYPO3_VERSION: ^12.4
+    GECKODRIVER_VERSION: v0.34.0
+
+# Build in PHP 8.2 and TYPO3 12.4
+test:codception:php82:typo3_12:
+  <<: *test_codeception
+  needs:
+    - test:codception:php81:typo3_12
+  variables:
+    CONTAINER_IMAGE: $CI_REGISTRY/containers/codeception-with-php-8.2:main
+    TYPO3_VERSION: ^12.4
+    GECKODRIVER_VERSION: v0.34.0
+
+# Build in PHP 8.3 and TYPO3 12.4
+test:codception:php83:typo3_12:
+  <<: *test_codeception
+  needs:
+    - test:codception:php82:typo3_12
+  variables:
+    CONTAINER_IMAGE: $CI_REGISTRY/containers/codeception-with-php-8.3:main
+    TYPO3_VERSION: ^12.4
+    GECKODRIVER_VERSION: v0.34.0
+
 documentation:
   stage: documentation
   image:
