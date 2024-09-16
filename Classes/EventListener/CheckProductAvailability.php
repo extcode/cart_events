@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\EventListener;
 
 /*
@@ -15,47 +17,23 @@ use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
-use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CheckProductAvailability
 {
-    /**
-     * @var EventDateRepository
-     */
-    protected $eventDateRepository;
+    protected Cart $cart;
 
-    /**
-     * @var PriceCategoryRepository
-     */
-    protected $priceCategoryRepository;
+    protected EventDate $eventDate;
 
-    /**
-     * @var Cart
-     */
-    protected $cart;
-
-    /**
-     * @var EventDate
-     */
-    protected $eventDate;
-
-    /**
-     * @var PriceCategory
-     */
-    protected $priceCategory;
+    protected PriceCategory $priceCategory;
 
     public function __construct(
-        EventDateRepository $eventDateRepository,
-        PriceCategoryRepository $priceCategoryRepository
-    ) {
-        $this->eventDateRepository = $eventDateRepository;
-        $this->priceCategory = $priceCategoryRepository;
-    }
+        private readonly EventDateRepository $eventDateRepository,
+    ) {}
 
     public function __invoke(CheckProductAvailabilityEvent $listenerEvent): void
     {
@@ -86,10 +64,7 @@ class CheckProductAvailability
         }
     }
 
-    /**
-     * @param Product $cartProduct
-     */
-    protected function retrieveEventDateFromDatabase(Product $cartProduct)
+    protected function retrieveEventDateFromDatabase(Product $cartProduct): void
     {
         $querySettings = $this->eventDateRepository->createQuery()->getQuerySettings();
         $querySettings->setRespectStoragePage(false);
@@ -98,12 +73,7 @@ class CheckProductAvailability
         $this->eventDate = $this->eventDateRepository->findByIdentifier($cartProduct->getProductId());
     }
 
-    /**
-     * @param Request $request
-     * @param Product $cartProduct
-     * @return mixed
-     */
-    protected function getQuantitiesFromRequest(Request $request, Product $cartProduct)
+    protected function getQuantitiesFromRequest(Request $request, Product $cartProduct): mixed
     {
         if ($request->hasArgument('quantities')) {
             $quantities = $request->getArgument('quantities');
@@ -124,17 +94,15 @@ class CheckProductAvailability
         return 0;
     }
 
-    /**
-     * @param Product $cartProduct
-     * @param Cart $cart
-     * @param string $mode
-     * @param int $quantity
-     * @param CheckProductAvailabilityEvent $listenerEvent
-     */
-    protected function hasEventDateEnoughSeats(Product $cartProduct, Cart $cart, string $mode, int $quantity, CheckProductAvailabilityEvent $listenerEvent): void
-    {
-        if (($mode === 'add') && $cart->getProduct($cartProduct->getId())) {
-            $quantity += $cart->getProduct($cartProduct->getId())->getQuantity();
+    protected function hasEventDateEnoughSeats(
+        Product $cartProduct,
+        Cart $cart,
+        string $mode,
+        int $quantity,
+        CheckProductAvailabilityEvent $listenerEvent
+    ): void {
+        if (($mode === 'add') && $cart->getProductById($cartProduct->getId())) {
+            $quantity += $cart->getProductById($cartProduct->getId())->getQuantity();
         }
 
         if ($quantity > $this->eventDate->getSeatsAvailable()) {
@@ -147,26 +115,24 @@ class CheckProductAvailability
                         'cart'
                     ),
                     '',
-                    AbstractMessage::ERROR
+                    ContextualFeedbackSeverity::ERROR
                 )
             );
         }
     }
 
-    /**
-     * @param Product $cartProduct
-     * @param Cart $cart
-     * @param string $mode
-     * @param string $beVariantId
-     * @param int $quantity
-     * @param $priceCategory
-     * @param CheckProductAvailabilityEvent $listenerEvent
-     */
-    protected function hasPriceCategoryEnoughSeats(Product $cartProduct, Cart $cart, string $mode, string $beVariantId, int $quantity, $priceCategory, CheckProductAvailabilityEvent $listenerEvent): void
-    {
-        if (($mode === 'add') && $cart->getProduct($cartProduct->getId())) {
-            if ($cart->getProduct($cartProduct->getId())->getBeVariant($beVariantId)) {
-                $quantity += (int)$cart->getProduct($cartProduct->getId())->getBeVariant($beVariantId)->getQuantity();
+    protected function hasPriceCategoryEnoughSeats(
+        Product $cartProduct,
+        Cart $cart,
+        string $mode,
+        string $beVariantId,
+        int $quantity,
+        $priceCategory,
+        CheckProductAvailabilityEvent $listenerEvent
+    ): void {
+        if (($mode === 'add') && $cart->getProductById($cartProduct->getId())) {
+            if ($cart->getProductById($cartProduct->getId())->getBeVariantById($beVariantId)) {
+                $quantity += (int)$cart->getProductById($cartProduct->getId())->getBeVariantById($beVariantId)->getQuantity();
             }
         }
         if ($quantity > $priceCategory->getSeatsAvailable()) {
@@ -179,7 +145,7 @@ class CheckProductAvailability
                         'cart'
                     ),
                     '',
-                    AbstractMessage::ERROR
+                    ContextualFeedbackSeverity::ERROR
                 )
             );
         }

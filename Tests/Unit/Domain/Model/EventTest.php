@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
 
 /*
@@ -17,9 +19,9 @@ class EventTest extends UnitTestCase
     /**
      * Event
      *
-     * @var \Extcode\CartEvents\Domain\Model\Event
+     * @var Event
      */
-    protected $event = null;
+    protected $event;
 
     protected function setUp(): void
     {
@@ -34,9 +36,9 @@ class EventTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTeaserReturnsInitialValueForTeaser()
+    public function getTeaserReturnsInitialValueForTeaser(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->event->getTeaser()
         );
@@ -45,11 +47,11 @@ class EventTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTeaserForStringSetsTeaser()
+    public function setTeaserForStringSetsTeaser(): void
     {
         $this->event->setTeaser('Conceived at T3CON10');
 
-        $this->assertSame(
+        self::assertSame(
             'Conceived at T3CON10',
             $this->event->getTeaser()
         );

@@ -67,7 +67,7 @@
                 <div class="event-event-date-form">
                     <f:if condition="{eventDate.bookable}">
                         <f:then>
-                                <f:render partial="Event/CartForm" arguments="{eventDate: eventDate, pid: cartSettings.cart.pid}" />
+                            <f:render partial="Event/CartForm" arguments="{eventDate: eventDate, pid: cartSettings.cart.pid}" />
                         </f:then>
                         <f:else>
                             <f:translate key="tx_cartevents_domain_model_eventdate.bookable.false" />

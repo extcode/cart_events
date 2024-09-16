@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Finisher\Form;
 
 /*
@@ -23,31 +25,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class AddToCartFinisher implements AddToCartFinisherInterface
 {
+    protected Cart $cart;
 
-    /**
-     * @var Cart
-     */
-    protected $cart;
+    protected EventDate $eventDate;
 
-    /**
-     * @var EventDateRepository
-     */
-    protected $eventDateRepository;
+    protected PriceCategory $priceCategory;
 
-    /**
-     * @var EventDate
-     */
-    protected $eventDate;
-
-    /**
-     * @var PriceCategoryRepository
-     */
-    protected $priceCategoryRepository;
-
-    /**
-     * @var PriceCategory
-     */
-    protected $priceCategory;
+    public function __construct(
+        private readonly EventDateRepository $eventDateRepository,
+        private readonly PriceCategoryRepository $priceCategoryRepository,
+    ) {}
 
     public function getProductFromForm(
         array $formValues,
@@ -66,16 +53,10 @@ class AddToCartFinisher implements AddToCartFinisherInterface
         unset($formValues['eventDateId']);
         unset($formValues['priceCategoryId']);
 
-        $this->eventDateRepository = GeneralUtility::makeInstance(
-            EventDateRepository::class
-        );
         $this->eventDate = $this->eventDateRepository->findByUid((int)$eventDateId);
         $quantity = 1;
 
         if ($priceCategoryId) {
-            $this->priceCategoryRepository = GeneralUtility::makeInstance(
-                PriceCategoryRepository::class
-            );
             $this->priceCategory = $this->priceCategoryRepository->findByUid((int)$priceCategoryId);
         }
 

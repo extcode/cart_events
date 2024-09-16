@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Model\Dto;
 
 /*
@@ -13,52 +15,25 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class EventDemand extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    protected $sku = '';
+    protected string $sku = '';
 
-    /**
-     * @var string
-     */
-    protected $title = '';
+    protected string $title = '';
 
-    /**
-     * @var array
-     */
-    protected $categories = [];
+    protected array $categories = [];
 
-    /**
-     * @var string
-     */
-    protected $order = '';
+    protected string $order = '';
 
-    /**
-     * @var int
-     */
-    protected $limit = 0;
+    protected int $limit = 0;
 
-    /**
-     * @var string
-     */
-    protected $action = '';
+    protected string $action = '';
 
-    /**
-     * @var string
-     */
-    protected $class = '';
+    protected string $class = '';
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @param string $sku
-     */
     public function setSku(string $sku): void
     {
         $this->sku = $sku;

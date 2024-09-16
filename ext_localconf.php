@@ -1,112 +1,84 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+use Extcode\CartEvents\Controller\EventController;
+use Extcode\CartEvents\Controller\EventDateController;
+use Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher;
+use Extcode\CartEvents\Hooks\DataHandler;
+use Extcode\CartEvents\Hooks\DatamapDataHandlerHook;
+use Extcode\CartEvents\Updates\SlugUpdater;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
+defined('TYPO3') or die();
 
 $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
 
 // configure plugins
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'cart_events',
     'Events',
     [
-        \Extcode\CartEvents\Controller\EventController::class => 'show, list, form',
+        EventController::class => 'show, list, form',
     ],
     [
-        \Extcode\CartEvents\Controller\EventController::class => 'form',
+        EventController::class => 'form',
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'cart_events',
     'TeaserEvents',
     [
-        \Extcode\CartEvents\Controller\EventController::class => 'teaser',
+        EventController::class => 'teaser',
     ],
     [
-        \Extcode\CartEvents\Controller\EventController::class => '',
+        EventController::class => '',
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'cart_events',
     'SingleEvent',
     [
-        \Extcode\CartEvents\Controller\EventController::class => 'show, form',
+        EventController::class => 'show, form',
     ],
     [
-        \Extcode\CartEvents\Controller\EventController::class => 'form',
+        EventController::class => 'form',
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'cart_events',
     'EventDates',
     [
-        \Extcode\CartEvents\Controller\EventDateController::class => 'list',
+        EventDateController::class => 'list',
     ],
     [
-        \Extcode\CartEvents\Controller\EventDateController::class => '',
+        EventDateController::class => '',
     ]
 );
 
-// Icon Registry
-
-if (TYPO3_MODE === 'BE') {
-    $icons = [
-        'apps-pagetree-folder-cartevents-events' => 'apps_pagetree_folder_cartevents_events.svg',
-        'apps-pagetree-page-cartevents-events' => 'apps_pagetree_page_cartevents_events.svg',
-        'ext-cartevents-wizard-icon' => 'cartevents_plugin_wizard.svg',
-    ];
-
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-        \TYPO3\CMS\Core\Imaging\IconRegistry::class
-    );
-
-    foreach ($icons as $identifier => $fileName) {
-        $iconRegistry->registerIcon(
-            $identifier,
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-            [
-                'source' => 'EXT:cart_events/Resources/Public/Icons/' . $fileName,
-            ]
-        );
-    }
-}
-
 // TSconfig
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+ExtensionManagementUtility::addPageTSConfig('
     <INCLUDE_TYPOSCRIPT: source="FILE:EXT:cart_events/Configuration/TSconfig/ContentElementWizard.tsconfig">
 ');
 
 // Cart Hooks
 
-if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Form']['AddToCartFinisher'] =
-        \Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher::class;
-}
-
-// ke_search Hook - register indexer for events
-
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
-    \Extcode\CartEvents\Hooks\KeSearchEventsIndexer::class;
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
-    \Extcode\CartEvents\Hooks\KeSearchEventsIndexer::class;
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
-    \Extcode\CartEvents\Hooks\KeSearchSingleEventIndexer::class;
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
-    \Extcode\CartEvents\Hooks\KeSearchSingleEventIndexer::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Form']['AddToCartFinisher'] =
+    AddToCartFinisher::class;
 
 // processDatamapClass Hook
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['cartevents_allowed'] =
-    \Extcode\CartEvents\Hooks\DatamapDataHandlerHook::class;
+    DatamapDataHandlerHook::class;
 
 // clearCachePostProc Hook
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc']['cartevents_clearcache'] =
-    \Extcode\CartEvents\Hooks\DataHandler::class . '->clearCachePostProc';
+    DataHandler::class . '->clearCachePostProc';
 
 // register "cartevents:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
@@ -114,7 +86,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cartevents'][]
 
 // update wizard for slugs
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cartEventsSlugUpdater'] =
-    \Extcode\CartEvents\Updates\SlugUpdater::class;
+    SlugUpdater::class;
 
 // translation overrides
 

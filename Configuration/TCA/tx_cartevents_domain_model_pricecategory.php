@@ -1,19 +1,18 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL_general = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-$_LLL = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
+$_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cartevents_domain_model_pricecategory',
+        'title' => $_LLL_db . ':tx_cartevents_domain_model_pricecategory',
         'label' => 'sku',
         'label_alt' => 'title, price',
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
 
@@ -31,22 +30,22 @@ return [
             'fe_group' => 'frontend_user_group',
         ],
         'searchFields' => 'price',
-        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_pricecategory.svg'
+        'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_pricecategory.svg',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'sku,title,price,special_prices,seats_number,seats_taken,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,--palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
+            'showitem' => 'sku,title,price,special_prices,seats_number,seats_taken,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,--palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
         ],
         '2' => [
-            'showitem' => 'sku,title,price,seats_number,seats_taken,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,--palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
+            'showitem' => 'sku,title,price,seats_number,seats_taken,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,--palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
         'hiddenonly' => [
-            'showitem' => 'hidden;' . $_LLL . ':tx_cartevents_domain_model_pricecategory',
+            'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_pricecategory',
         ],
         'access' => [
             'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
@@ -56,18 +55,7 @@ return [
         'sys_language_uid' => [
             'exclude' => 1,
             'label' => $_LLL_general . ':LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'items' => [
-                    [$_LLL_general . ':LGL.allLanguages', -1],
-                    [$_LLL_general . ':LGL.default_value', 0]
-                ],
-                'eval' => 'int',
-                'default' => 0,
-            ],
+            'config' => ['type' => 'language'],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
@@ -76,7 +64,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_cartevents_domain_model_pricecategory',
                 'foreign_table_where' => 'AND tx_cartevents_domain_model_pricecategory.pid=###CURRENT_PID### AND tx_cartevents_domain_model_pricecategory.sys_language_uid IN (-1,0)',
@@ -100,7 +88,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
 
         'hidden' => [
@@ -117,10 +105,8 @@ return [
             'l10n_display' => 'defaultAsReadonly',
             'label' => $_LLL_general . ':LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
             ],
@@ -131,10 +117,8 @@ return [
             'l10n_display' => 'defaultAsReadonly',
             'label' => $_LLL_general . ':LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
             ],
@@ -142,31 +126,32 @@ return [
 
         'sku' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_pricecategory.sku',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_pricecategory.sku',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'title' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_pricecategory.title',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_pricecategory.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'price' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cartevents_domain_model_pricecategory.price.gross',
+            'label' => $_LLL_db . ':tx_cartevents_domain_model_pricecategory.price.gross',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'required,double2',
                 'default' => '0.00',
-            ]
+                'format' => 'decimal',
+                'required' => true,
+            ],
         ],
 
         'special_prices' => [
@@ -195,10 +180,9 @@ return [
             'l10n_display' => 'defaultAsReadonly',
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.seats_number',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'int'
-            ]
+            ],
         ],
 
         'seats_taken' => [
@@ -207,10 +191,9 @@ return [
             'l10n_display' => 'defaultAsReadonly',
             'label' => $_LLL_db . ':tx_cartevents_domain_model_eventdate.seats_taken',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'int'
-            ]
+            ],
         ],
 
         'event_date' => [

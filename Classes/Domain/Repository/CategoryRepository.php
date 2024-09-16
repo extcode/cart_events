@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\CartEvents\Domain\Repository;
 
 /*
@@ -10,8 +12,9 @@ namespace Extcode\CartEvents\Domain\Repository;
  */
 
 use Extcode\CartEvents\Domain\Model\Category;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
+class CategoryRepository extends Repository
 {
     public function findAllAsRecursiveTreeArray(Category $selectedCategory = null): array
     {
@@ -30,7 +33,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
                 'title' => $localCategory->getTitle(),
                 'parent' => $localCategory->getParent() ? $localCategory->getParent()->getUid() : null,
                 'subcategories' => null,
-                'isSelected' => $selectedCategory == $localCategory
+                'isSelected' => $selectedCategory == $localCategory,
             ];
             $categories[] = $newCategory;
         }
