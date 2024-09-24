@@ -8,19 +8,19 @@ call_user_func(function () {
     $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf';
 
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
-        $_LLL_be . ':pages.doktype.185',
-        185,
-        'apps-pagetree-page-cartevents-events',
+        'label' => $_LLL_be . ':pages.doktype.185',
+        'value' => 185,
+        'icon' => 'apps-pagetree-page-cartevents-events',
     ];
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
-        $_LLL_be . ':pages.doktype.186',
-        186,
-        'apps-pagetree-page-cartevents-events',
+        'label' => $_LLL_be . ':pages.doktype.186',
+        'value' => 186,
+        'icon' => 'apps-pagetree-page-cartevents-events',
     ];
     $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = [
-        $_LLL_be . ':tcarecords-pages-contains.cart_events',
-        'cartevents',
-        'apps-pagetree-folder-cartevents-events',
+        'label' => $_LLL_be . ':tcarecords-pages-contains.cart_events',
+        'value' => 'cartevents',
+        'icon' => 'apps-pagetree-folder-cartevents-events',
     ];
 
     $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][185] = 'apps-pagetree-page-cartevents-events';

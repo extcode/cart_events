@@ -12,16 +12,14 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
  */
 
 use Extcode\CartEvents\Domain\Model\Event;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Event::class)]
 class EventTest extends UnitTestCase
 {
-    /**
-     * Event
-     *
-     * @var Event
-     */
-    protected $event;
+    protected Event $event;
 
     protected function setUp(): void
     {
@@ -33,9 +31,84 @@ class EventTest extends UnitTestCase
         unset($this->event);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
+    public function isVirtualProductReturnsInitialValueForVirtualProduct(): void
+    {
+        self::assertTrue(
+            $this->event->isVirtualProduct()
+        );
+    }
+
+    #[Test]
+    public function setVirtualProductSetsVirtualProduct()
+    {
+        $this->event->setVirtualProduct(false);
+
+        self::assertFalse(
+            $this->event->isVirtualProduct()
+        );
+    }
+
+    #[Test]
+    public function getFormDefinitionReturnsInitialValueNull(): void
+    {
+        self::assertNull(
+            $this->event->getFormDefinition()
+        );
+    }
+
+    #[Test]
+    public function setFormDefinitionSetsFormDefinition()
+    {
+        $this->event->setFormDefinition('EXT:cart_events/Resources/Private/Forms/test-form.form.yaml');
+
+        self::assertSame(
+            'EXT:cart_events/Resources/Private/Forms/test-form.form.yaml',
+            $this->event->getFormDefinition()
+        );
+    }
+
+    #[Test]
+    public function getSkuReturnsInitialValueForSku(): void
+    {
+        self::assertSame(
+            '',
+            $this->event->getSku()
+        );
+    }
+
+    #[Test]
+    public function setSkuSetsSku(): void
+    {
+        $this->event->setSku('sku');
+
+        self::assertSame(
+            'sku',
+            $this->event->getSku()
+        );
+    }
+
+    #[Test]
+    public function getTitleReturnsInitialValueForTitle(): void
+    {
+        self::assertSame(
+            '',
+            $this->event->getTitle()
+        );
+    }
+
+    #[Test]
+    public function setTitleSetsTitle(): void
+    {
+        $this->event->setTitle('Title');
+
+        self::assertSame(
+            'Title',
+            $this->event->getTitle()
+        );
+    }
+
+    #[Test]
     public function getTeaserReturnsInitialValueForTeaser(): void
     {
         self::assertSame(
@@ -44,16 +117,76 @@ class EventTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function setTeaserForStringSetsTeaser(): void
+    #[Test]
+    public function setTeaserSetsTeaser(): void
     {
-        $this->event->setTeaser('Conceived at T3CON10');
+        $this->event->setTeaser('Teaser');
 
         self::assertSame(
-            'Conceived at T3CON10',
+            'Teaser',
             $this->event->getTeaser()
+        );
+    }
+
+    #[Test]
+    public function getDescriptionReturnsInitialValueForDescription(): void
+    {
+        self::assertSame(
+            '',
+            $this->event->getDescription()
+        );
+    }
+
+    #[Test]
+    public function setDescriptionSetsDescription(): void
+    {
+        $this->event->setDescription('Description');
+
+        self::assertSame(
+            'Description',
+            $this->event->getDescription()
+        );
+    }
+
+    #[Test]
+    public function getAudienceReturnsInitialValueForAudience(): void
+    {
+        self::assertSame(
+            '',
+            $this->event->getAudience()
+        );
+    }
+
+    #[Test]
+    public function setAudienceSetsAudience(): void
+    {
+        $this->event->setAudience('Audience');
+
+        self::assertSame(
+            'Audience',
+            $this->event->getAudience()
+        );
+    }
+
+    // todo: images, files, eventDates, relatedEvents, taxClassId,
+
+    #[Test]
+    public function getMetaDescriptionReturnsInitialValueForMetaDescription(): void
+    {
+        self::assertSame(
+            '',
+            $this->event->getMetaDescription()
+        );
+    }
+
+    #[Test]
+    public function setMetaDescriptionSetsMetaDescription(): void
+    {
+        $this->event->setMetaDescription('MetaDescription');
+
+        self::assertSame(
+            'MetaDescription',
+            $this->event->getMetaDescription()
         );
     }
 }

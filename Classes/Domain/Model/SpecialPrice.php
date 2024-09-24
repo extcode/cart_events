@@ -23,7 +23,7 @@ class SpecialPrice extends AbstractEntity
     #[Validate(['validator' => 'NotEmpty'])]
     protected float $price = 0.0;
 
-    protected FrontendUserGroup $frontendUserGroup;
+    protected ?FrontendUserGroup $frontendUserGroup = null;
 
     public function getTitle(): string
     {

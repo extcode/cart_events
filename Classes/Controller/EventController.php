@@ -84,7 +84,7 @@ class EventController extends ActionController
             'CartEvents'
         )['view']['list']['limit'];
 
-        $events = $this->eventRepository->findByUids($limit, $this->settings['eventUids']);
+        $events = $this->eventRepository->findByUids($this->settings['eventUids'], $limit);
 
         $this->view->assign('events', $events);
         $this->view->assign('cartSettings', $this->cartConfiguration);

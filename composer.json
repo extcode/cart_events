@@ -81,6 +81,9 @@
         "test:php:unit": [
             "vendor/bin/phpunit -c Build/UnitTests.xml"
         ],
+        "test:php:functional": [
+            "typo3DatabaseDriver=\"pdo_sqlite\" vendor/bin/phpunit -c Build/FunctionalTests.xml"
+        ],
         "test:phpstan:analyse": [
             "vendor/bin/phpstan analyse -c Build/phpstan.neon"
         ],
@@ -95,7 +98,8 @@
         ],
         "test:php": [
             "@test:php:lint",
-            "@test:php:unit"
+            "@test:php:unit",
+            "@test:php:functional"
         ],
         "test:all": [
             "@test:phpstan:analyse",

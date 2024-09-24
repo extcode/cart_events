@@ -76,6 +76,18 @@ let
     '';
   };
 
+  projectTestFunctional = pkgs.writeShellApplication {
+    name = "project-test-functional";
+    runtimeInputs = [
+      php
+      projectInstall
+    ];
+    text = ''
+      project-install
+      ./vendor/bin/phpunit -c Build/FunctionalTests.xml
+    '';
+  };
+
   projectTestAcceptance = pkgs.writeShellApplication {
     name = "project-test-acceptance";
     runtimeInputs = [
@@ -112,6 +124,7 @@ in pkgs.mkShellNoCC {
     projectCgl
     projectCglFix
     projectTestUnit
+    projectTestFunctional
     projectTestAcceptance
   ];
 

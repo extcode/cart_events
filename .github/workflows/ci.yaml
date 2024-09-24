@@ -76,6 +76,9 @@ jobs:
         run: |-
           composer require --no-interaction --prefer-dist --no-progress "typo3/cms-core:${{ matrix.typo3-version }}" "typo3/cms-extbase:${{ matrix.typo3-version }}" "typo3/cms-frontend:${{ matrix.typo3-version }}"
 
+      - name: Build codeception tester
+        run: vendor/bin/codecept build
+
       - name: Code Quality (by PHPStan)
         run: vendor/bin/phpstan analyse -c Build/phpstan.neon
 
@@ -99,6 +102,15 @@ jobs:
 
       - name: Run Unit Tests PHP8.3
         run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-unit
+
+      - name: Run Functional Tests PHP8.1
+        run: nix-shell --arg phpVersion \"php81\" --pure --run project-test-functional
+
+      - name: Run Functional Tests PHP8.2
+        run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-functional
+
+      - name: Run Functional Tests PHP8.3
+        run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-functional
 
       - name: Run Acceptance Tests PHP8.1
         run: nix-shell --arg phpVersion \"php81\" --pure --run project-test-acceptance
