@@ -20,7 +20,7 @@ class PriceCategory extends AbstractEntity
     protected EventDate $eventDate;
 
     #[Validate(['validator' => 'NotEmpty'])]
-    protected string $sku;
+    protected string $sku = '';
 
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';

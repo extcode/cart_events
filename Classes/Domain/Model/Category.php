@@ -13,16 +13,16 @@ namespace Extcode\CartEvents\Domain\Model;
 
 class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
 {
-    protected int $cartEventListPid;
+    protected ?int $cartEventListPid = null;
 
-    protected int $cartEventShowPid;
+    protected ?int $cartEventShowPid = null;
 
-    public function getCartEventListPid(): int
+    public function getCartEventListPid(): ?int
     {
         return $this->cartEventListPid;
     }
 
-    public function getcartEventShowPid(): int
+    public function getCartEventShowPid(): ?int
     {
         return $this->cartEventShowPid;
     }

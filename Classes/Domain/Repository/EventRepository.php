@@ -38,7 +38,7 @@ class EventRepository extends Repository
                 $categoryConstraints[] = $query->equals('category', $category);
                 $categoryConstraints[] = $query->contains('categories', $category);
             }
-            $constraints = $query->logicalOr(...array_values($categoryConstraints));
+            $constraints[] = $query->logicalOr(...array_values($categoryConstraints));
         }
 
         if (!empty($constraints)) {
@@ -61,7 +61,7 @@ class EventRepository extends Repository
     /**
      * Find all events based on selected uids
      */
-    public function findByUids(int $limit, string $uids): array
+    public function findByUids(string $uids, ?int $limit = null): array
     {
         $uids = explode(',', $uids);
 

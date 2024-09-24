@@ -20,7 +20,7 @@ class EventDate extends AbstractEventDate
     protected Event $event;
 
     #[Validate(['validator' => 'NotEmpty'])]
-    protected string $sku;
+    protected string $sku = '';
 
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';

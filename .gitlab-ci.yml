@@ -86,6 +86,7 @@ phpstan:analyse:
     - composer config platform.php 8.1
     - composer install --no-progress --no-ansi --no-interaction
   script:
+    - vendor/bin/codecept build
     - vendor/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
 
 .test_php: &test_php
@@ -108,6 +109,7 @@ phpstan:analyse:
       if [[ "$COVERAGE" == "1" ]]; then
         XDEBUG_MODE=coverage TYPO3_PATH_WEB=${TYPO3_PATH_WEB} vendor/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml Tests/Unit
       fi
+    - typo3DatabaseDriver=pdo_sqlite vendor/bin/phpunit -c Build/FunctionalTests.xml
   artifacts:
     paths:
       - phpunit.coverage.xml
