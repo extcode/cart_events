@@ -1,4 +1,4 @@
-.. include:: ../Includes.txt
+.. include:: ../Includes.rst.txt
 
 Introduction
 ------------
@@ -12,4 +12,3 @@ Cart Events provides an own data storage for events. Events can be offered via a
 
    Support/Index
    Sponsoring/Index
-   NoteOfThanks/Index

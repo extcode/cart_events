@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ===================================================================
 Important: #38 - Render begin and end of eventDate in show template

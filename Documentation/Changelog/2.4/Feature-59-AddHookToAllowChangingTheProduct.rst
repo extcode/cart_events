@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =====================================================
 Feature: #59 - Add Hook to Allow Changing the Product
