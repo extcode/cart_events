@@ -124,7 +124,6 @@ class AddToCartFinisher implements AddToCartFinisherInterface
             BeVariant::class,
             PriceCategory::class . '-' . $this->priceCategory->getUid(),
             $product,
-            null,
             $this->priceCategory->getTitle(),
             $this->priceCategory->getSku(),
             1,

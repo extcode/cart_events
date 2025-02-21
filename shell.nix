@@ -111,6 +111,7 @@ let
       ./vendor/bin/codecept run
 
       pgrep -f "php -S" | xargs -r kill
+      pgrep -f "geckodriver" | xargs -r kill
     '';
   };
 

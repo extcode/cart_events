@@ -83,7 +83,7 @@ class SpecialPriceTest extends UnitTestCase
     #[Test]
     public function setFrontendUserGroupSetsFrontendUserGroup(): void
     {
-        $frontendUserGroup = $this->createStub(
+        $frontendUserGroup = self::createStub(
             FrontendUserGroup::class
         );
         $this->specialPrice->setFrontendUserGroup($frontendUserGroup);
