@@ -35,7 +35,7 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 
 | Cart Events | TYPO3      | PHP       | Support/Development                  |
 |-------------|------------|-----------|--------------------------------------|
-| 5.x.x       | 12.4       | 8.1+      | Features, Bugfixes, Security Updates |
+| 5.x.x       | 12.4       | 8.1 - 8.4 | Features, Bugfixes, Security Updates |
 | 4.x.x       | 10.4, 11.5 | 7.2+      | Bugfixes, Security Updates           |
 | 3.x.x       | 10.4       | 7.2 - 7.4 | Security Updates                     |
 | 2.x.x       | 9.5        | 7.2 - 7.4 |                                      |
