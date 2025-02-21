@@ -71,7 +71,7 @@ class AddToCartFinisher implements AddToCartFinisherInterface
     protected function getProductFromEventDate(
         int $quantity,
         array $taxClasses,
-        array $feVariants = null
+        array $feVariants = []
     ): Product {
         $event = $this->eventDate->getEvent();
         $title = implode(' - ', [$event->getTitle(), $this->eventDate->getTitle()]);

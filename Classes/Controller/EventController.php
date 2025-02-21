@@ -97,7 +97,7 @@ class EventController extends ActionController
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("event")
      */
     #[IgnoreValidation(['value' => 'event'])]
-    public function showAction(Event $event = null): ResponseInterface
+    public function showAction(?Event $event = null): ResponseInterface
     {
         if (!$event) {
             $event = $this->getEvent();
@@ -117,7 +117,7 @@ class EventController extends ActionController
 
     #[IgnoreValidation(['value' => 'eventDate'])]
     #[IgnoreValidation(['value' => 'priceCategory'])]
-    public function formAction(EventDate $eventDate = null, PriceCategory $priceCategory = null): ResponseInterface
+    public function formAction(?EventDate $eventDate = null, ?PriceCategory $priceCategory = null): ResponseInterface
     {
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
