@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ====================================
 Feature: #33 - Add ke_search indexer

@@ -1,10 +1,10 @@
-.. include:: Includes.txt
+.. include:: Includes.rst.txt
 
 .. _start:
 
-===========================
+================
 EXT: Cart Events
-===========================
+================
 
 .. image:: Images/cart_events_logo.png
    :height: 200
@@ -52,5 +52,5 @@ EXT: Cart Events
    :titlesonly:
 
    Introduction/Index
-   AdministratorManual/Index
+   Administrator/Index
    Changelog/Index
