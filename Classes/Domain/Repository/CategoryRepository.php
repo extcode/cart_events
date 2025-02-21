@@ -16,13 +16,13 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class CategoryRepository extends Repository
 {
-    public function findAllAsRecursiveTreeArray(Category $selectedCategory = null): array
+    public function findAllAsRecursiveTreeArray(?Category $selectedCategory = null): array
     {
         $categoriesArray = $this->findAllAsArray($selectedCategory);
         return $this->buildSubcategories($categoriesArray, null);
     }
 
-    public function findAllAsArray(Category $selectedCategory = null): array
+    public function findAllAsArray(?Category $selectedCategory = null): array
     {
         $localCategories = $this->findAll();
         $categories = [];
