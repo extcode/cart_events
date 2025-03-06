@@ -5,7 +5,7 @@ Configuration
 =============
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 1
    :titlesonly:
 
-   Main/Index
+   TypoScript/Index

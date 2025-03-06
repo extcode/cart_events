@@ -39,7 +39,7 @@ class EventDateRepositoryTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function findNextReturnsNext()
+    public function findNextReturnsNext(): never
     {
         self::markTestSkipped();
     }

@@ -9,18 +9,28 @@ TCEFORM.tt_content.list_type {
 
 mod.wizards.newContentElement.wizardItems.plugins {
     elements {
-        events {
-            iconIdentifier = ext-cartevents-wizard-icon
-            title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.title
-            description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.description
+        list_events {
+            iconIdentifier = ext-cartevents-wizard-icon-list
+            title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.list_events.title
+            description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.list_events.description
             tt_content_defValues {
                 CType = list
-                list_type = cartevents_events
+                list_type = cartevents_listevents
+            }
+        }
+
+        show_events {
+            iconIdentifier = ext-cartevents-wizard-icon-show
+            title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.show_event.title
+            description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.show_event.description
+            tt_content_defValues {
+                CType = list
+                list_type = cartevents_showevent
             }
         }
 
         teaser_events {
-            iconIdentifier = ext-cartevents-wizard-icon
+            iconIdentifier = ext-cartevents-wizard-icon-teaser
             title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.teaser_events.title
             description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.teaser_events.description
             tt_content_defValues {

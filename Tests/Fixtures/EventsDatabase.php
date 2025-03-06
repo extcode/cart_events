@@ -90,6 +90,9 @@ return [
             'note' => '',
             'price' => 29.99,
             'bookable' => true,
+            'handle_seats' => true,
+            'seats_number' => 10,
+            'seats_taken' => 1,
         ],
         3 => [
             'uid' => '4',
@@ -104,6 +107,9 @@ return [
             'note' => '',
             'price' => 32.99,
             'bookable' => true,
+            'handle_seats' => true,
+            'seats_number' => 10,
+            'seats_taken' => 2,
         ],
         4 => [
             'uid' => '5',
@@ -118,6 +124,9 @@ return [
             'note' => '',
             'price' => 34.99,
             'bookable' => true,
+            'handle_seats' => true,
+            'seats_number' => 10,
+            'seats_taken' => 3,
         ],
         5 => [
             'uid' => '6',

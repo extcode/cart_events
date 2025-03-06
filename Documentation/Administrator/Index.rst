@@ -7,7 +7,7 @@ For Administrators
 ==================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
    :titlesonly:
 
    Installation/Index

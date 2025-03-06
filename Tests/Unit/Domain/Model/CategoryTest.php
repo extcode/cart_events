@@ -32,7 +32,7 @@ class CategoryTest extends UnitTestCase
     }
 
     #[Test]
-    public function categoryExtendsExtbaseCategoryModel()
+    public function categoryExtendsExtbaseCategoryModel(): void
     {
         self::assertInstanceOf(\TYPO3\CMS\Extbase\Domain\Model\Category::class, $this->category);
     }

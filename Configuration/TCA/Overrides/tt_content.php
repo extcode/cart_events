@@ -10,7 +10,10 @@ call_user_func(function () {
     $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
 
     $pluginNames = [
-        'Events' => [
+        'ShowEvent' => [
+            'subtypes_excludelist' => 'select_key, pages, recursive',
+        ],
+        'ListEvents' => [
             'subtypes_excludelist' => 'select_key',
         ],
         'TeaserEvents' => [

@@ -40,7 +40,7 @@ class EventTest extends UnitTestCase
     }
 
     #[Test]
-    public function setVirtualProductSetsVirtualProduct()
+    public function setVirtualProductSetsVirtualProduct(): void
     {
         $this->event->setVirtualProduct(false);
 
@@ -58,7 +58,7 @@ class EventTest extends UnitTestCase
     }
 
     #[Test]
-    public function setFormDefinitionSetsFormDefinition()
+    public function setFormDefinitionSetsFormDefinition(): void
     {
         $this->event->setFormDefinition('EXT:cart_events/Resources/Private/Forms/test-form.form.yaml');
 

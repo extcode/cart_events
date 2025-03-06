@@ -17,9 +17,20 @@ $_LLL_be = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:';
 
 ExtensionUtility::configurePlugin(
     'cart_events',
-    'Events',
+    'ShowEvent',
     [
-        EventController::class => 'show, list, form',
+        EventController::class => 'show, form',
+    ],
+    [
+        EventController::class => 'form',
+    ]
+);
+
+ExtensionUtility::configurePlugin(
+    'cart_events',
+    'ListEvents',
+    [
+        EventController::class => 'list, show, form',
     ],
     [
         EventController::class => 'form',
@@ -94,8 +105,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['EXT:cart/Resources/P
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:cart/Resources/Private/Language/de.locallang.xlf'][] = 'EXT:cart_events/Resources/Private/Language/Overrides/cart/de.locallang.xlf';
 
 // register listTemplateLayouts
-$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
-$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['list_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['list_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['teaser_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.table', 'table'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['teaser_events'][] = [$_LLL_be . 'flexforms_template.templateLayout.events.grid', 'grid'];
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['cart_events']['templateLayouts']['event_dates'][] = [$_LLL_be . 'flexforms_template.templateLayout.event_dates.table', 'table'];

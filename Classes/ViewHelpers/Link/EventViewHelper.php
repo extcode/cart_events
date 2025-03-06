@@ -94,14 +94,22 @@ class EventViewHelper extends AbstractTagBasedViewHelper
         $page = $this->getEventPage($event);
 
         if ($page) {
+            $pluginName = 'SingleEvent';
+
             $this->arguments['pageUid'] = $page['uid'];
         } else {
-            $pluginName = 'Events';
+            $pluginName = 'ShowEvent';
 
             if ($event->getCategory() && $event->getCategory()->getCartProductShowPid()) {
                 $pageUid = $event->getCategory()->getCartProductShowPid();
             } elseif ($this->arguments['settings']['showPageUids']) {
                 $pageUid = $this->arguments['settings']['showPageUids'];
+            }
+
+            // A missing $pageUid means the product does not have a defined detail view via category or flexform
+            // In this case the $pluginName of the extbase context should be used.
+            if (!$pageUid) {
+                $pluginName = $renderingContext->getRequest()->getAttributes()['extbase']->getPluginName();
             }
 
             $action = 'show';

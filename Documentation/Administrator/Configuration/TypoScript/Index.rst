@@ -1,8 +1,12 @@
 .. include:: ../../../Includes.rst.txt
 
-==================
-Main Configuration
-==================
+==========
+TypoScript
+==========
+
+The following snippet shows how to set the needed TypoScript parameter by mostly
+reusing the parameter that already were set as TypoScript constants format
+EXT:cart.
 
 ::
 

@@ -28,18 +28,6 @@ let
     '';
   };
 
-  projectPhpstan = pkgs.writeShellApplication {
-    name = "project-phpstan";
-
-    runtimeInputs = [
-      php
-    ];
-
-    text = ''
-      ./vendor/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
-    '';
-  };
-
   projectCgl = pkgs.writeShellApplication {
     name = "project-cgl";
 
@@ -61,6 +49,30 @@ let
 
     text = ''
       ./vendor/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php
+    '';
+  };
+
+  projectLint = pkgs.writeShellApplication {
+    name = "project-lint";
+
+    runtimeInputs = [
+      php
+    ];
+
+    text = ''
+      find ./*.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+    '';
+  };
+
+  projectPhpstan = pkgs.writeShellApplication {
+    name = "project-phpstan";
+
+    runtimeInputs = [
+      php
+    ];
+
+    text = ''
+      ./vendor/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
     '';
   };
 
@@ -121,9 +133,10 @@ in pkgs.mkShellNoCC {
     php
     composer
     projectInstall
-    projectPhpstan
     projectCgl
     projectCglFix
+    projectLint
+    projectPhpstan
     projectTestUnit
     projectTestFunctional
     projectTestAcceptance

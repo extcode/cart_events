@@ -41,7 +41,7 @@ class EventRepositoryTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function findByUidsWithoutLimit()
+    public function findByUidsWithoutLimit(): void
     {
         $uids = '1,2,3,4';
         $events = $this->eventRepository->findByUids($uids);
@@ -53,7 +53,7 @@ class EventRepositoryTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function findByUidsWithLimit()
+    public function findByUidsWithLimit(): void
     {
         $uids = '1,2,3,4';
         $events = $this->eventRepository->findByUids($uids, 2);
@@ -65,7 +65,7 @@ class EventRepositoryTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function findDemandedByNewEventDemand()
+    public function findDemandedByNewEventDemand(): void
     {
         $eventDemand = new EventDemand();
 
@@ -81,7 +81,7 @@ class EventRepositoryTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function findDemandedByNewEventDemandWithLimit()
+    public function findDemandedByNewEventDemandWithLimit(): void
     {
         $eventDemand = new EventDemand();
         $eventDemand->setLimit(2);

@@ -10,8 +10,8 @@ namespace Extcode\CartEvents\Updates;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -58,7 +58,7 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE_NAME);
         $queryBuilder->getRestrictions()->removeAll();
         $elementCount = $queryBuilder->count('uid')
-            ->from(self::TABLE_NAME)->where($queryBuilder->expr()->or($queryBuilder->expr()->eq('path_segment', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)), $queryBuilder->expr()->isNull('path_segment')))->executeQuery()->fetchOne();
+            ->from(self::TABLE_NAME)->where($queryBuilder->expr()->or($queryBuilder->expr()->eq('path_segment', $queryBuilder->createNamedParameter('', Connection::PARAM_STR)), $queryBuilder->expr()->isNull('path_segment')))->executeQuery()->fetchOne();
 
         return (bool)$elementCount;
     }
@@ -79,14 +79,14 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
         $statement = $queryBuilder->select('uid', 'title')
-            ->from(self::TABLE_NAME)->where($queryBuilder->expr()->or($queryBuilder->expr()->eq('path_segment', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)), $queryBuilder->expr()->isNull('path_segment')))->executeQuery();
-        while ($record = $statement->fetch()) {
+            ->from(self::TABLE_NAME)->where($queryBuilder->expr()->or($queryBuilder->expr()->eq('path_segment', $queryBuilder->createNamedParameter('', Connection::PARAM_STR)), $queryBuilder->expr()->isNull('path_segment')))->executeQuery();
+        while ($record = $statement->fetchAssociative()) {
             $queryBuilder = $connection->createQueryBuilder();
             $queryBuilder->update(self::TABLE_NAME)
                 ->where(
                     $queryBuilder->expr()->eq(
                         'uid',
-                        $queryBuilder->createNamedParameter($record['uid'], \PDO::PARAM_INT)
+                        $queryBuilder->createNamedParameter($record['uid'], Connection::PARAM_INT)
                     )
                 )
                 ->set('path_segment', $slugHelper->sanitize((string)$record['title']));

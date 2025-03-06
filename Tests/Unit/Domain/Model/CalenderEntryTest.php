@@ -33,7 +33,7 @@ class CalenderEntryTest extends UnitTestCase
     }
 
     #[Test]
-    public function calendarEntryExtendsAbstractEventDate()
+    public function calendarEntryExtendsAbstractEventDate(): void
     {
         self::assertInstanceOf(AbstractEventDate::class, $this->calendarEntry);
     }

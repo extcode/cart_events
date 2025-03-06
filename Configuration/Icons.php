@@ -13,8 +13,16 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:cart_events/Resources/Public/Icons/apps_pagetree_page_cartevents_events.svg',
     ],
-    'ext-cartevents-wizard-icon' => [
+    'ext-cartevents-wizard-icon-list' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:cart_events/Resources/Public/Icons/cartevents_plugin_wizard.svg',
+        'source' => 'EXT:cart_events/Resources/Public/Icons/cartevents_plugin_wizard-list.svg',
+    ],
+    'ext-cartevents-wizard-icon-show' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:cart_events/Resources/Public/Icons/cartevents_plugin_wizard-show.svg',
+    ],
+    'ext-cartevents-wizard-icon-teaser' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:cart_events/Resources/Public/Icons/cartevents_plugin_wizard-teaser.svg',
     ],
 ];

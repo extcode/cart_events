@@ -62,6 +62,11 @@ class EventController extends ActionController
 
     public function listAction(): ResponseInterface
     {
+        $possibleRedirect = $this->forwardToShowActionWhenRequested();
+        if ($possibleRedirect) {
+            return $possibleRedirect;
+        }
+
         if (!$this->settings) {
             $this->settings = [];
         }
@@ -93,17 +98,11 @@ class EventController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("event")
-     */
-    #[IgnoreValidation(['value' => 'event'])]
     public function showAction(?Event $event = null): ResponseInterface
     {
-        if (!$event) {
-            $event = $this->getEvent();
-        }
-        if (!$event) {
-            return new ForwardResponse('list');
+        if ((int)$GLOBALS['TSFE']->page['doktype'] === 186) {
+            $eventUid = (int)$GLOBALS['TSFE']->page['cart_events_event'];
+            $event = $this->eventRepository->findByUid($eventUid);
         }
 
         $this->view->assign('event', $event);
@@ -310,6 +309,28 @@ class EventController extends ActionController
                 $GLOBALS['TSFE']->addCacheTags($cacheTags);
             }
         }
+    }
+
+    private function isActionAllowed(string $action): bool
+    {
+        $frameworkConfiguration = $this->configurationManager->getConfiguration($this->configurationManager::CONFIGURATION_TYPE_FRAMEWORK);
+        $allowedActions = $frameworkConfiguration['controllerConfiguration'][EventController::class]['actions'] ?? [];
+
+        return in_array($action, $allowedActions, true);
+    }
+
+    /**
+     * When list action is called along with an event argument, we forward to show action.
+     */
+    private function forwardToShowActionWhenRequested(): ?ForwardResponse
+    {
+        if (!$this->isActionAllowed('show') || !$this->request->hasArgument('event')
+        ) {
+            return null;
+        }
+
+        $forwardResponse = new ForwardResponse('show');
+        return $forwardResponse->withArguments(['event' => $this->request->getArgument('event')]);
     }
 
     protected function restoreSession(): void

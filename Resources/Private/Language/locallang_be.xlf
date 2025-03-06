@@ -50,11 +50,18 @@
                 <source>Default</source>
             </trans-unit>
 
-            <trans-unit id="tx_cartevents.plugin.events.title">
-                <source>Cart: Events</source>
+            <trans-unit id="tx_cartevents.plugin.show_event.title">
+                <source>Cart: Show an event</source>
             </trans-unit>
-            <trans-unit id="tx_cartevents.plugin.events.description">
-                <source>list and show events</source>
+            <trans-unit id="tx_cartevents.plugin.show_event.description">
+                <source>Detail view to show an event</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cartevents.plugin.list_events.title">
+                <source>Cart: List events</source>
+            </trans-unit>
+            <trans-unit id="tx_cartevents.plugin.list_events.description">
+                <source>List events</source>
             </trans-unit>
             <trans-unit id="tx_cartevents.plugin.events.action.switch">
                 <source>Display Type</source>
