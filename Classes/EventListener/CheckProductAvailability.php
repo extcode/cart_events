@@ -52,15 +52,17 @@ class CheckProductAvailability
             return;
         }
 
-        if (!$this->eventDate->isHandleSeatsInPriceCategory()) {
+        if ($this->eventDate->isHandleSeatsInPriceCategory() === false) {
             $this->hasEventDateEnoughSeats($cartProduct, $cart, $mode, (int)$quantity, $listenerEvent);
             return;
         }
 
         foreach ($this->eventDate->getPriceCategories() as $priceCategory) {
             $beVariantId = PriceCategory::class . '-' . $priceCategory->getUid();
-            $quantity = (int)$quantity[$beVariantId];
-            $this->hasPriceCategoryEnoughSeats($cartProduct, $cart, $mode, $beVariantId, $quantity, $priceCategory, $listenerEvent);
+            if (array_key_exists($beVariantId, $cartProduct->getBeVariants()) === false) {
+                continue;
+            }
+            $this->hasPriceCategoryEnoughSeats($cartProduct, $cart, $mode, $beVariantId, (int)$quantity, $priceCategory, $listenerEvent);
         }
     }
 

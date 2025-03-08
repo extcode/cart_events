@@ -54,6 +54,9 @@ class EventDate extends AbstractEventDate
 
     protected bool $priceCategorized = false;
 
+    /**
+     * @var ObjectStorage<PriceCategory>
+     */
     #[Cascade(['value' => 'remove'])]
     protected ObjectStorage $priceCategories;
 
@@ -70,6 +73,15 @@ class EventDate extends AbstractEventDate
      */
     #[Cascade(['value' => 'remove'])]
     protected ObjectStorage $calendarEntries;
+
+    public function __construct()
+    {
+        $this->images = new ObjectStorage();
+        $this->files = new ObjectStorage();
+        $this->specialPrices = new ObjectStorage();
+        $this->priceCategories = new ObjectStorage();
+        $this->calendarEntries = new ObjectStorage();
+    }
 
     public function getSku(): string
     {

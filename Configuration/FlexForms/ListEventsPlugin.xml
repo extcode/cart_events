@@ -12,7 +12,7 @@
                             <renderType>selectSingle</renderType>
                             <itemsProcFunc>Extcode\Cart\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
                             <extKey>cart_events</extKey>
-                            <pluginName>Events</pluginName>
+                            <pluginName>ListEvents</pluginName>
                         </config>
                     </settings.templateLayout>
 
@@ -76,10 +76,9 @@
                         <exclude>1</exclude>
                         <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.limit</label>
                         <config>
-                            <type>input</type>
+                            <type>number</type>
                             <size>3</size>
                             <max>3</max>
-                            <eval>int</eval>
                             <checkbox>1</checkbox>
                             <range>
                                 <lower>0</lower>
@@ -94,7 +93,6 @@
                         <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.select.single_pid</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>pages</allowed>
                             <size>1</size>
                             <maxitems>1</maxitems>

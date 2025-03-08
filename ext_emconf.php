@@ -11,8 +11,8 @@ $EM_CONF['cart_events'] = [
     'author_company' => 'extco.de UG (haftungsbeschränkt)',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.0-12.4.99',
-            'cart' => '10.0.0',
+            'typo3' => '13.4.0-13.4.99',
+            'cart' => '11.3.0',
         ],
         'conflicts' => [],
         'suggests' => [],

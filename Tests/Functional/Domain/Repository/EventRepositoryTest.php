@@ -75,7 +75,7 @@ class EventRepositoryTest extends FunctionalTestCase
         $events = $this->eventRepository->findDemanded($eventDemand);
 
         self::assertCount(
-            3,
+            4,
             $events
         );
     }

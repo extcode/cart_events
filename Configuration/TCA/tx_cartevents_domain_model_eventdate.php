@@ -2,8 +2,6 @@
 
 defined('TYPO3') or die();
 
-use TYPO3\CMS\Core\Resource\File;
-
 $_LLL_general = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 $_LLL_ttc = 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf';
 $_LLL_db = 'LLL:EXT:cart_events/Resources/Private/Language/locallang_db.xlf';
@@ -40,7 +38,7 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-                sku, title, 
+                sku, title,
                 --div--;' . $_LLL_tca . ':tx_cartevents_domain_model_eventdate.div.informations,
                     --palette--;' . $_LLL_tca . ':tx_cartevents_domain_model_eventdate.palettes.begin_and_end;begin_and_end, calendar_entries,
                     location, lecturer,
@@ -195,7 +193,6 @@ return [
             'config' => [
                 //## !!! Watch out for fieldName different from columnName
                 'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'appearance' => [
                     'createNewRelationLinkTitle' => $_LLL_ttc . ':images.addFileReference',
                     'showPossibleLocalizationRecords' => true,
@@ -203,48 +200,10 @@ return [
                     'showAllLocalizationLink' => true,
                     'showSynchronizationLink' => true,
                 ],
-                'foreign_match_fields' => [
-                    'fieldname' => 'image',
-                    'tablenames' => 'tx_cartevents_domain_model_eventdate',
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
                 ],
-                // custom configuration for displaying fields in the overlay/reference table
-                // to use the imageoverlayPalette instead of the basicoverlayPalette
-                'overrideChildTca' => [
-                    'types' => [
-                        '0' => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_TEXT => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_IMAGE => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_AUDIO => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_VIDEO => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_APPLICATION => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                    ],
-                ],
-                'minitems' => 0,
-                'maxitems' => 99,
+                'allowed' => 'common-image-types',
             ],
         ],
 
@@ -254,7 +213,6 @@ return [
             'config' => [
                 //## !!! Watch out for fieldName different from columnName
                 'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] . ', pdf',
                 'appearance' => [
                     'createNewRelationLinkTitle' => $_LLL_ttc . ':images.addFileReference',
                     'showPossibleLocalizationRecords' => true,
@@ -262,48 +220,10 @@ return [
                     'showAllLocalizationLink' => true,
                     'showSynchronizationLink' => true,
                 ],
-                'foreign_match_fields' => [
-                    'fieldname' => 'files',
-                    'tablenames' => 'tx_cartevents_domain_model_eventdate',
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
                 ],
-                // custom configuration for displaying fields in the overlay/reference table
-                // to use the imageoverlayPalette instead of the basicoverlayPalette
-                'overrideChildTca' => [
-                    'types' => [
-                        '0' => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_TEXT => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_IMAGE => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_AUDIO => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_VIDEO => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                        File::FILETYPE_APPLICATION => [
-                            'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                        ],
-                    ],
-                ],
-                'minitems' => 0,
-                'maxitems' => 99,
+                'allowed' => 'common-media-types',
             ],
         ],
 

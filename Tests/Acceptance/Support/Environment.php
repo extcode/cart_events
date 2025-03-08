@@ -22,9 +22,9 @@ final class Environment extends BackendEnvironment
             'typo3/cms-core',
             'typo3/cms-backend',
             'typo3/cms-extbase',
-            'typo3/cms-frontend',
             'typo3/cms-fluid',
             'typo3/cms-fluid-styled-content',
+            'typo3/cms-frontend',
             'typo3/cms-install',
         ],
         'testExtensionsToLoad' => [

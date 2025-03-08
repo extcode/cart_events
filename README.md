@@ -3,13 +3,20 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f7809fa0f2ab40118e263cb714212d13)](https://www.codacy.com/app/extcode/cart_events?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart_events&amp;utm_campaign=Badge_Grade)
 
 Cart is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation.
-Cart Events provides an own data storage for events. Events can be offered via a list and detail view and can be purchased via cart function of the Cart extension.
+Cart Events provides an own data storage for events.
 
 ## 1. Features
 
--
--
--
+* It provides events and their event dates which can be created in the TYPO3 backend.
+* The data for those events are stored in own data tables.
+* The data fields of the events fit many use cases for seminars, workshops, theatre
+  performances or generally date-related seat reservations.
+* The events and their dates can be displayed on the website with a list view and a
+  detail view.
+* It is possible to limit the number of bookable seats per event date or per price
+  category of an event date.
+* As it extends EXT:cart are the products compatible with EXT:cart and can
+  therefore be be purchased with the cart functionality of EXT:cart.
 
 ## 2. Installation
 
@@ -17,7 +24,7 @@ Cart Events provides an own data storage for events. Events can be offered via a
 
 #### Installation using Composer
 
-The recommended way to install the extension is by using [Composer][2]. In your Composer based TYPO3 project root, just do `composer require extcode/cart-events`. 
+The recommended way to install the extension is by using [Composer][2]. In your Composer based TYPO3 project root, just do `composer require extcode/cart-events`.
 
 #### Installation as extension from TYPO3 Extension Repository (TER)
 
@@ -35,9 +42,10 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 
 | Cart Events | TYPO3      | PHP       | Support/Development                  |
 |-------------|------------|-----------|--------------------------------------|
-| 5.x.x       | 12.4       | 8.1 - 8.4 | Features, Bugfixes, Security Updates |
-| 4.x.x       | 10.4, 11.5 | 7.2+      | Bugfixes, Security Updates           |
-| 3.x.x       | 10.4       | 7.2 - 7.4 | Security Updates                     |
+| 6.x.x       | 13.4       | 8.2 - 8.4 | Features, Bugfixes, Security Updates |
+| 5.x.x       | 12.4       | 8.1 - 8.4 | Bugfixes, Security Updates           |
+| 4.x.x       | 10.4, 11.5 | 7.2+      | Security Updates                     |
+| 3.x.x       | 10.4       | 7.2 - 7.4 |                                      |
 | 2.x.x       | 9.5        | 7.2 - 7.4 |                                      |
 | 1.x.x       | 8.7        | 7.0 - 7.4 |                                      |
 

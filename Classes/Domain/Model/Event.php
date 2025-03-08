@@ -73,7 +73,14 @@ class Event extends AbstractEntity
 
     protected string $metaDescription = '';
 
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->images = new ObjectStorage();
+        $this->files = new ObjectStorage();
+        $this->eventDates = new ObjectStorage();
+        $this->relatedEvents = new ObjectStorage();
+        $this->relatedEventsFrom = new ObjectStorage();
+    }
 
     public function isVirtualProduct(): bool
     {

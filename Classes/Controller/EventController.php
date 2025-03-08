@@ -28,9 +28,8 @@ use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
-class EventController extends ActionController
+final class EventController extends ActionController
 {
     private Cart $cart;
 
@@ -118,6 +117,10 @@ class EventController extends ActionController
     #[IgnoreValidation(['value' => 'priceCategory'])]
     public function formAction(?EventDate $eventDate = null, ?PriceCategory $priceCategory = null): ResponseInterface
     {
+        if (class_exists(\TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class) === false) {
+            throw new \BadFunctionCallException('This action requires the installation of typo3/cms-form.');
+        }
+
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
             foreach ($arguments as $argumentKey => $argumentValue) {
@@ -133,7 +136,7 @@ class EventController extends ActionController
 
                         $formDefinition = $eventDate->getEvent()->getFormDefinition();
                         $formPersistenceManager = GeneralUtility::makeInstance(
-                            FormPersistenceManagerInterface::class
+                            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class
                         );
                         $form = $formPersistenceManager->load($formDefinition);
 
@@ -195,28 +198,7 @@ class EventController extends ActionController
         return $this->htmlResponse();
     }
 
-    protected function getEvent(): ?Event
-    {
-        $eventUid = 0;
-
-        if ((int)$GLOBALS['TSFE']->page['doktype'] == 186) {
-            $eventUid = (int)$GLOBALS['TSFE']->page['cart_events_event'];
-        }
-
-        if ($eventUid > 0) {
-            $event =  $this->eventRepository->findByUid($eventUid);
-            if ($event && $event instanceof Event) {
-                return $event;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Create the demand object which define which records will get shown
-     */
-    protected function createDemandObjectFromSettings(string $type, array $settings): EventDemand
+    private function createDemandObjectFromSettings(string $type, array $settings): EventDemand
     {
         /** @var EventDemand $demand */
         $demand = GeneralUtility::makeInstance(
@@ -254,7 +236,7 @@ class EventController extends ActionController
         return $demand;
     }
 
-    protected function addCategoriesToDemandObjectFromSettings(EventDemand &$demand): void
+    private function addCategoriesToDemandObjectFromSettings(EventDemand &$demand): void
     {
         if ($this->settings['categoriesList']) {
             $selectedCategories = GeneralUtility::intExplode(
@@ -281,10 +263,7 @@ class EventController extends ActionController
         }
     }
 
-    /**
-     * assigns currency translation array to view
-     */
-    protected function assignCurrencyTranslationData(): void
+    private function assignCurrencyTranslationData(): void
     {
         $this->restoreSession();
 
@@ -297,7 +276,7 @@ class EventController extends ActionController
         $this->view->assign('currencyTranslationData', $currencyTranslationData);
     }
 
-    protected function addCacheTags(iterable $events): void
+    private function addCacheTags(iterable $events): void
     {
         $cacheTags = [];
 
@@ -333,7 +312,7 @@ class EventController extends ActionController
         return $forwardResponse->withArguments(['event' => $this->request->getArgument('event')]);
     }
 
-    protected function restoreSession(): void
+    private function restoreSession(): void
     {
         $cart = $this->sessionHandler->restoreCart($this->cartConfiguration['settings']['cart']['pid']);
 

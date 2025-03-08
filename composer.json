@@ -46,25 +46,24 @@
         }
     },
     "require": {
-        "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
         "ext-json": "*",
         "ext-pdo": "*",
-        "extcode/cart": "^10.0",
-        "typo3/cms-core": "^12.4",
-        "typo3/cms-extbase": "^12.4",
-        "typo3/cms-fluid": "^12.4"
+        "extcode/cart": "^11.3",
+        "typo3/cms-core": "^13.4",
+        "typo3/cms-extbase": "^13.4",
+        "typo3/cms-fluid": "^13.4"
     },
     "require-dev": {
-        "codappix/typo3-php-datasets": "^1.5",
+        "codappix/typo3-php-datasets": "^2.1",
         "codeception/codeception": "^5.0",
         "codeception/module-db": "^3.1",
         "codeception/module-webdriver": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.16",
         "helmich/typo3-typoscript-lint": "^3.1",
         "phpstan/phpstan": "^1.10",
-        "ssch/typo3-rector": "^2.6",
-        "typo3/cms-fluid-styled-content": "^12.4",
-        "typo3/cms-install": "^12.4",
+        "typo3/cms-fluid-styled-content": "^13.4",
+        "typo3/cms-install": "^13.4",
         "typo3/testing-framework": "^8.0"
     },
     "scripts": {
@@ -107,5 +106,8 @@
             "@test:typoscript:lint",
             "@test:php"
         ]
+    },
+    "suggest": {
+        "typo3/cms-form": "^13.4"
     }
 }

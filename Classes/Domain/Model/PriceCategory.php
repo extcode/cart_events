@@ -40,6 +40,11 @@ class PriceCategory extends AbstractEntity
 
     protected int $seatsTaken = 0;
 
+    public function __construct()
+    {
+        $this->specialPrices = new ObjectStorage();
+    }
+
     public function getSku(): string
     {
         return $this->sku;
