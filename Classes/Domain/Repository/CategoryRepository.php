@@ -81,8 +81,8 @@ class CategoryRepository extends Repository
         foreach ($categoriesArray as $category) {
             if ($category['parent'] === $parentCategory['uid']) {
                 $newCategory = $category;
-                $newCategory['subcategories'] =
-                    $this->buildSubcategories($categoriesArray, $category);
+                $newCategory['subcategories']
+                    = $this->buildSubcategories($categoriesArray, $category);
                 $categories[] = $newCategory;
             }
         }

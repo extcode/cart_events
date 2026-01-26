@@ -223,8 +223,8 @@ class EventController extends ActionController
             EventDemand::class
         );
 
-        if (isset($settings['view'][$type]) &&
-            is_array($settings['view'][$type])
+        if (isset($settings['view'][$type])
+            && is_array($settings['view'][$type])
         ) {
             // Use default TypoScript settings for plugin configuration
             $limit = (int)$settings['view'][$type]['limit'];

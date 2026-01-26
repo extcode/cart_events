@@ -234,8 +234,8 @@ class EventDate extends AbstractEventDate
         if ($this->specialPrices) {
             foreach ($this->specialPrices as $specialPrice) {
                 if (!isset($bestSpecialPrice) || $specialPrice->getPrice() < $bestSpecialPrice->getPrice()) {
-                    if (!$specialPrice->getFrontendUserGroup() ||
-                        in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
+                    if (!$specialPrice->getFrontendUserGroup()
+                        || in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
                     ) {
                         $bestSpecialPrice = $specialPrice;
                     }
