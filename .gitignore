@@ -11,5 +11,4 @@ Build/.phpunit.cache
 var/
 vendor/
 
-phpunit.coverage.xml
-phpunit.report.xml
+coverage_result/
