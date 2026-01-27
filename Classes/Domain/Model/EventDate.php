@@ -10,6 +10,9 @@ namespace Extcode\CartEvents\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -227,8 +230,13 @@ class EventDate extends AbstractEventDate
         $this->priceCategories = $priceCategories;
     }
 
-    public function getBestSpecialPrice(array $frontendUserGroupIds = []): ?SpecialPrice
+    public function getBestSpecialPrice(?array $frontendUserGroupIds = null): ?SpecialPrice
     {
+        if (is_null($frontendUserGroupIds)) {
+            $context = GeneralUtility::makeInstance(Context::class);
+            $frontendUserGroupIds = $context->getPropertyFromAspect('frontend.user', 'groupIds');
+        }
+
         $bestSpecialPrice = null;
 
         if ($this->specialPrices) {
@@ -246,8 +254,13 @@ class EventDate extends AbstractEventDate
         return $bestSpecialPrice;
     }
 
-    public function getBestPrice(array $frontendUserGroupIds = []): float
+    public function getBestPrice(?array $frontendUserGroupIds = null): float
     {
+        if (is_null($frontendUserGroupIds)) {
+            $context = GeneralUtility::makeInstance(Context::class);
+            $frontendUserGroupIds = $context->getPropertyFromAspect('frontend.user', 'groupIds');
+        }
+
         $price = $this->getPrice();
 
         $specialPrice = $this->getBestSpecialPrice($frontendUserGroupIds);

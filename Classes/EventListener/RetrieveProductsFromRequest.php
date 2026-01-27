@@ -143,9 +143,11 @@ class RetrieveProductsFromRequest
         $title = implode(' - ', [$event->getTitle(), $this->eventDate->getTitle()]);
         $sku = implode(' - ', [$event->getSku(), $this->eventDate->getSku()]);
 
-        $price = $this->eventDate->getBestPrice();
+        $price = $this->eventDate->getPrice();
+        $bestPrice = $this->eventDate->getBestPrice();
         if ($this->priceCategory instanceof PriceCategory) {
-            $price = $this->priceCategory->getBestPrice();
+            $price = $this->priceCategory->getPrice();
+            $bestPrice = $this->priceCategory->getBestPrice();
         }
 
         $inputIsNetPrice = (bool)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cart_events', 'inputIsNetPrice');
@@ -162,6 +164,10 @@ class RetrieveProductsFromRequest
             null
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
+
+        if ($bestPrice < $price) {
+            $product->setSpecialPrice($bestPrice);
+        }
 
         if ($this->priceCategory instanceof PriceCategory) {
             $product->addBeVariant($this->getProductBackendVariant($product, $quantity));
