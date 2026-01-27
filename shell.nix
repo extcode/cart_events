@@ -90,7 +90,7 @@ let
     ];
     text = ''
       project-install
-      ./vendor/bin/phpunit -c Build/UnitTests.xml
+      ./vendor/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors
     '';
   };
 
@@ -102,7 +102,19 @@ let
     ];
     text = ''
       project-install
-      ./vendor/bin/phpunit -c Build/FunctionalTests.xml
+      ./vendor/bin/phpunit -c Build/phpunit.xml.dist --testsuite functional --display-warnings --display-deprecations --display-errors
+    '';
+  };
+
+  projectTestWithCoverage = pkgs.writeShellApplication {
+    name = "project-test-with-coverage";
+    runtimeInputs = [
+      php
+      projectInstall
+    ];
+    text = ''
+      project-install
+      XDEBUG_MODE=coverage ./vendor/bin/phpunit -c Build/phpunit.xml.dist --coverage-html=coverage_result
     '';
   };
 
@@ -145,6 +157,7 @@ in pkgs.mkShellNoCC {
     projectPhpstan
     projectTestUnit
     projectTestFunctional
+    projectTestWithCoverage
     projectTestAcceptance
   ];
 

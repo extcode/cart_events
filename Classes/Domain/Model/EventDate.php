@@ -403,10 +403,7 @@ class EventDate extends AbstractEventDate
         if (!$this->isHandleSeats()) {
             return true;
         }
-        if ($this->getSeatsAvailable()) {
-            return true;
-        }
 
-        return false;
+        return $this->getSeatsAvailable() > 0;
     }
 }
