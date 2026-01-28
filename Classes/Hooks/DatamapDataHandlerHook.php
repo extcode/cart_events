@@ -46,8 +46,9 @@ class DatamapDataHandlerHook
             }
 
             $page = BackendUtility::getRecord('pages', abs($pageId));
+            $listType = $incomingFieldArray['list_type'] ?? '';
 
-            if (!$this->isAllowedTargetPage($incomingFieldArray['list_type'], $page['doktype'])) {
+            if (!$this->isAllowedTargetPage($listType, $page['doktype'])) {
                 unset($dataHandler->datamap['tt_content'][$id]);
                 $dataHandler->log(
                     'tt_content',
@@ -92,7 +93,7 @@ class DatamapDataHandlerHook
         if (($doktype == 186) && ($listType === 'cartevents_singleevent')) {
             return true;
         }
-        if (($doktype != 186) && ($listType === 'cartevents_events' || $listType === 'cartevents_eventdates' || $listType === 'cartevents_teaserevents')) {
+        if (($doktype != 186) && ($listType === 'cartevents_listevents' || $listType === 'cartevents_showevent' || $listType === 'cartevents_teaserevents' || $listType === 'cartevents_eventdates')) {
             return true;
         }
 
