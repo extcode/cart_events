@@ -23,20 +23,13 @@ class AbstractEventDateTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    protected $eventDate;
+    protected AbstractEventDate $eventDate;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->eventDate = new class extends AbstractEventDate {};
-    }
-
-    protected function tearDown(): void
-    {
-        unset($this->eventDate);
-
-        parent::tearDown();
     }
 
     #[Test]

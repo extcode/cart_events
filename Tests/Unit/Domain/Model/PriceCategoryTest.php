@@ -29,13 +29,6 @@ class PriceCategoryTest extends UnitTestCase
         $this->priceCategory = new PriceCategory();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->priceCategory);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function getSkuReturnsValueForSku(): void
     {
@@ -129,7 +122,7 @@ class PriceCategoryTest extends UnitTestCase
     }
 
     #[Test]
-    public function setSeatsTakenSetsSeatsTaken()
+    public function setSeatsTakenSetsSeatsTaken(): void
     {
         $priceCategory = new PriceCategory();
 

@@ -12,7 +12,6 @@ namespace Extcode\CartEvents\EventListener;
  */
 
 use Exception;
-use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Extcode\CartEvents\Domain\Model\Cart\ProductFactoryInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
@@ -41,9 +40,7 @@ class RetrieveProductsFromRequest
                 (bool)$this->extensionConfiguration->get('cart_events', 'inputIsNetPrice'),
             );
 
-            if ($product instanceof Product) {
-                $event->addProduct($product);
-            }
+            $event->addProduct($product);
         } catch (Exception $exception) {
             $event->setErrors(
                 [

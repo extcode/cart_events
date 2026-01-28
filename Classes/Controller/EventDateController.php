@@ -49,7 +49,7 @@ final class EventDateController extends ActionController
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         )['persistence']['storagePid'];
 
-        $eventDates = $this->eventDateRepository->findNext($limit, $pidList)->fetchAll();
+        $eventDates = $this->eventDateRepository->findNext($limit, $pidList);
 
         $this->view->assign('eventDates', $eventDates);
 

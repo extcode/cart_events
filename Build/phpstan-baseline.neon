@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Extcode\\\\CartEvents\\\\Domain\\\\Model\\\\AbstractEventDate'' and Extcode\\CartEvents\\Domain\\Model\\CalendarEntry will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: ../Tests/Unit/Domain/Model/CalenderEntryTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''TYPO3\\\\CMS\\\\Extbase\\\\Domain\\\\Model\\\\Category'' and Extcode\\CartEvents\\Domain\\Model\\Category will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: ../Tests/Unit/Domain/Model/CategoryTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Extcode\\\\CartEvents\\\\Domain\\\\Model\\\\AbstractEventDate'' and Extcode\\CartEvents\\Domain\\Model\\EventDate will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: ../Tests/Unit/Domain/Model/EventDateTest.php

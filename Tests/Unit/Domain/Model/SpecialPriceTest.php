@@ -30,13 +30,6 @@ class SpecialPriceTest extends UnitTestCase
         $this->specialPrice = new SpecialPrice();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->specialPrice);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function getTitleReturnsTitle(): void
     {

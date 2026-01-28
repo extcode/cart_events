@@ -29,13 +29,6 @@ class CategoryTest extends UnitTestCase
         $this->category = new Category();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->category);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function categoryExtendsExtbaseCategoryModel(): void
     {

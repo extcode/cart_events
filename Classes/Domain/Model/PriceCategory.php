@@ -112,14 +112,12 @@ class PriceCategory extends AbstractEntity
 
         $bestSpecialPrice = null;
 
-        if ($this->specialPrices) {
-            foreach ($this->specialPrices as $specialPrice) {
-                if (!isset($bestSpecialPrice) || $specialPrice->getPrice() < $bestSpecialPrice->getPrice()) {
-                    if (!$specialPrice->getFrontendUserGroup()
-                        || in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
-                    ) {
-                        $bestSpecialPrice = $specialPrice;
-                    }
+        foreach ($this->specialPrices as $specialPrice) {
+            if (!isset($bestSpecialPrice) || $specialPrice->getPrice() < $bestSpecialPrice->getPrice()) {
+                if (!$specialPrice->getFrontendUserGroup()
+                    || in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
+                ) {
+                    $bestSpecialPrice = $specialPrice;
                 }
             }
         }
@@ -177,7 +175,7 @@ class PriceCategory extends AbstractEntity
         if (!$this->getEventDate()->isHandleSeatsInPriceCategory()) {
             return $this->getEventDate()->isAvailable();
         }
-        if ($this->getEventDate()->isHandleSeatsInPriceCategory() && $this->getSeatsAvailable()) {
+        if ($this->getSeatsAvailable()) {
             return true;
         }
 

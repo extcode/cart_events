@@ -24,11 +24,4 @@ class PriceCategoryTest extends AbstractSpecialPrice
 
         parent::setUp();
     }
-
-    protected function tearDown(): void
-    {
-        unset($this->subject);
-
-        parent::tearDown();
-    }
 }

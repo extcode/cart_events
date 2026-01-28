@@ -29,13 +29,6 @@ class CalenderEntryTest extends UnitTestCase
         $this->calendarEntry = new CalendarEntry();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->calendarEntry);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function calendarEntryExtendsAbstractEventDate(): void
     {

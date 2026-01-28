@@ -119,7 +119,7 @@ return [
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                    'lower' => mktime(0, 0, 0, (int)date('m'), (int)date('d'), (int)date('Y')),
                 ],
             ],
         ],
@@ -132,7 +132,7 @@ return [
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                    'lower' => mktime(0, 0, 0, (int)date('m'), (int)date('d'), (int)date('Y')),
                 ],
             ],
         ],

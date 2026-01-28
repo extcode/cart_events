@@ -10,6 +10,7 @@ namespace Extcode\CartEvents\Domain\Model\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\BeVariant;
+use Extcode\Cart\Domain\Model\Cart\FeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Model\PriceCategory;
@@ -52,12 +53,18 @@ final class ProductFactory implements ProductFactoryInterface
             $priceCategory = $this->getPriceCategoryFromRequestArgument($requestArguments['priceCategory']);
         }
 
+        $feVariant = null;
+        if (isset($requestArguments['feVariant']) && ($requestArguments['feVariant'] instanceof FeVariant)) {
+            $feVariant = $requestArguments['feVariant'];
+        }
+
         return $this->getProductFromEventDate(
             $quantity,
             $taxClasses,
             $isNetPrice,
             $eventDate,
             $priceCategory,
+            $feVariant
         );
     }
 
@@ -84,10 +91,6 @@ final class ProductFactory implements ProductFactoryInterface
     private function getPriceCategoryFromRequestArgument(
         int $identifier,
     ): PriceCategory {
-        if (is_numeric($identifier) === false) {
-            throw new InvalidArgumentException('Price category argument is invalid', 1741692831);
-        }
-
         $priceCategory = $this->priceCategoryRepository->findByUid($identifier);
 
         if (($priceCategory instanceof PriceCategory) === false) {
@@ -107,6 +110,7 @@ final class ProductFactory implements ProductFactoryInterface
         bool $isNetPrice,
         EventDate $eventDate,
         ?PriceCategory $priceCategory = null,
+        ?FeVariant $feVariant = null,
     ): Product {
         $event = $eventDate->getEvent();
         $title = implode(' - ', [$event->getTitle(), $eventDate->getTitle()]);
@@ -128,7 +132,7 @@ final class ProductFactory implements ProductFactoryInterface
             $taxClasses[$event->getTaxClassId()],
             $quantity,
             $isNetPrice,
-            null
+            $feVariant
         );
         $product->setIsVirtualProduct($event->isVirtualProduct());
 

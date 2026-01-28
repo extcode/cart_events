@@ -38,12 +38,12 @@ class EventRepository extends Repository
                 $categoryConstraints[] = $query->equals('category', $category);
                 $categoryConstraints[] = $query->contains('categories', $category);
             }
-            $constraints[] = $query->logicalOr(...array_values($categoryConstraints));
+            $constraints[] = $query->logicalOr(...$categoryConstraints);
         }
 
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd(...array_values($constraints))
+                $query->logicalAnd(...$constraints)
             );
         }
 

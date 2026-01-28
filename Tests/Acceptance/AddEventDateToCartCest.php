@@ -337,7 +337,7 @@ class AddEventDateToCartCest
     #[Test]
     public function addBookableEventDateWithPriceCategoryAvailableNumberOfSeatToCart(Tester $I): void
     {
-        $I->wantToTest('I can add a bookable event date with price category wit available number of seats to the cart.');
+        $I->wantToTest('I can add a bookable event date with price category with available number of seats to the cart.');
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 

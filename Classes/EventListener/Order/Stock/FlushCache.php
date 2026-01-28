@@ -11,15 +11,18 @@ namespace Extcode\CartEvents\EventListener\Order\Stock;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use Extcode\Cart\Event\Order\EventInterface;
+use Extcode\CartEvents\Domain\Model\Event;
+use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class FlushCache
+readonly class FlushCache
 {
     public function __construct(
-        private readonly EventDateRepository $eventDateRepository
+        private EventDateRepository $eventDateRepository
     ) {}
 
     public function __invoke(EventInterface $event): void
@@ -29,8 +32,14 @@ class FlushCache
         foreach ($cartProducts as $cartProduct) {
             if ($cartProduct->getProductType() === 'CartEvents') {
                 $eventDate = $this->eventDateRepository->findByUid($cartProduct->getProductId());
-
-                $cacheTag = 'tx_cartevents_event_' . $eventDate->getEvent()->getUid();
+                if (($eventDate instanceof EventDate) === false) {
+                    throw new Exception('Can not find EventDate with uid ' . $cartProduct->getProductId() . ' has no event!', 1769617880);
+                }
+                $event = $eventDate->getEvent();
+                if (($event instanceof Event) === false) {
+                    throw new Exception('EventDate with uid ' . $cartProduct->getProductId() . ' has no event!', 1769617883);
+                }
+                $cacheTag = 'tx_cartevents_event_' . $event->getUid();
                 $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
                 $cacheManager->flushCachesInGroupByTag('pages', $cacheTag);
             }

@@ -31,13 +31,6 @@ class EventDateTest extends UnitTestCase
         $this->eventDate = new EventDate();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->eventDate);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function eventDateExtendsAbstractEventDate(): void
     {
@@ -274,7 +267,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsNumberReturnsZeroIfHandleSeatsIsFalse()
+    public function getSeatsNumberReturnsZeroIfHandleSeatsIsFalse(): void
     {
         $eventDate = new EventDate();
 
@@ -292,7 +285,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsNumberReturnsInitialValueForSeatsNumberIfHandleSeatsIsTrue()
+    public function getSeatsNumberReturnsInitialValueForSeatsNumberIfHandleSeatsIsTrue(): void
     {
         $eventDate = new EventDate();
 
@@ -305,7 +298,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function setSeatsNumberSetsSeatsNumber()
+    public function setSeatsNumberSetsSeatsNumber(): void
     {
         $eventDate = new EventDate();
 
@@ -325,7 +318,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsTakenReturnsZeroIfHandleSeatsIsFalse()
+    public function getSeatsTakenReturnsZeroIfHandleSeatsIsFalse(): void
     {
         $eventDate = new EventDate();
 
@@ -343,7 +336,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsTakenReturnsInitialValueForSeatsTakenIfHandleSeatsIsTrue()
+    public function getSeatsTakenReturnsInitialValueForSeatsTakenIfHandleSeatsIsTrue(): void
     {
         $eventDate = new EventDate();
 
@@ -356,7 +349,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function setSeatsTakenSetsSeatsTaken()
+    public function setSeatsTakenSetsSeatsTaken(): void
     {
         $eventDate = new EventDate();
 
@@ -376,7 +369,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsAvailableReturnsZeroIfHandleSeatsIsFalse()
+    public function getSeatsAvailableReturnsZeroIfHandleSeatsIsFalse(): void
     {
         $eventDate = new EventDate();
 
@@ -394,7 +387,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsAvailableReturnsDifferenceOfInitialValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue()
+    public function getSeatsAvailableReturnsDifferenceOfInitialValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue(): void
     {
         $eventDate = new EventDate();
 
@@ -407,7 +400,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSeatsAvailableDifferenceOfValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue()
+    public function getSeatsAvailableDifferenceOfValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue(): void
     {
         $eventDate = new EventDate();
 
@@ -428,7 +421,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[TEST]
-    public function isAvailableReturnsFalseIfBookableIsFalse()
+    public function isAvailableReturnsFalseIfBookableIsFalse(): void
     {
         $eventDate = new EventDate();
 
@@ -448,7 +441,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[TEST]
-    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsFalse()
+    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsFalse(): void
     {
         $eventDate = new EventDate();
 
@@ -467,7 +460,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[TEST]
-    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsGreaterThanZero()
+    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsGreaterThanZero(): void
     {
         $eventDate = new EventDate();
 
@@ -493,7 +486,7 @@ class EventDateTest extends UnitTestCase
     }
 
     #[TEST]
-    public function isAvailableReturnsFalseIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsLowerOrEqualToZero()
+    public function isAvailableReturnsFalseIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsLowerOrEqualToZero(): void
     {
         $eventDate = new EventDate();
 

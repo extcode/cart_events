@@ -28,13 +28,6 @@ class EventDemandTest extends UnitTestCase
         $this->eventDemand = new EventDemand();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->eventDemand);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function getSkuReturnsInitialValueForSku(): void
     {

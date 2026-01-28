@@ -16,18 +16,16 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class CategoryRepository extends Repository
 {
-    public function findAllAsRecursiveTreeArray(?Category $selectedCategory = null): array
-    {
-        $categoriesArray = $this->findAllAsArray($selectedCategory);
-        return $this->buildSubcategories($categoriesArray, null);
-    }
-
     public function findAllAsArray(?Category $selectedCategory = null): array
     {
         $localCategories = $this->findAll();
         $categories = [];
         // Transform categories to array
         foreach ($localCategories as $localCategory) {
+            if (($localCategory instanceof Category) === false) {
+                continue;
+            }
+
             $newCategory = [
                 'uid' => $localCategory->getUid(),
                 'title' => $localCategory->getTitle(),
@@ -45,9 +43,7 @@ class CategoryRepository extends Repository
         $categories = [];
         $localCategories = $this->findAllAsArray();
         foreach ($localCategories as $category) {
-            if (!$parentCategory
-                || ($parentCategory && $category['uid'] === $parentCategory->getUid())
-            ) {
+            if ($category['uid'] === $parentCategory->getUid()) {
                 $this->getSubcategoriesIds(
                     $localCategories,
                     $category,
@@ -73,19 +69,5 @@ class CategoryRepository extends Repository
                 );
             }
         }
-    }
-
-    protected function buildSubcategories(array $categoriesArray, array $parentCategory): array
-    {
-        $categories = null;
-        foreach ($categoriesArray as $category) {
-            if ($category['parent'] === $parentCategory['uid']) {
-                $newCategory = $category;
-                $newCategory['subcategories']
-                    = $this->buildSubcategories($categoriesArray, $category);
-                $categories[] = $newCategory;
-            }
-        }
-        return $categories;
     }
 }

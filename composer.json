@@ -36,7 +36,8 @@
         "allow-plugins": {
             "typo3/cms-composer-installers": true,
             "typo3/class-alias-loader": true,
-            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true
+            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
@@ -61,7 +62,13 @@
         "codeception/module-webdriver": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.16",
         "helmich/typo3-typoscript-lint": "^3.1",
-        "phpstan/phpstan": "^1.10",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "saschaegerer/phpstan-typo3": "^2.1",
+        "spaze/phpstan-disallowed-calls": "^4.7",
+        "staabm/phpstan-todo-by": "^0.3",
         "typo3/cms-fluid-styled-content": "^13.4",
         "typo3/cms-install": "^13.4",
         "typo3/testing-framework": "^8.0"

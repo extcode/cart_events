@@ -11,9 +11,11 @@ namespace Extcode\CartEvents\Controller;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
+use Extcode\CartEvents\Domain\Model\Category;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
 use Extcode\CartEvents\Domain\Model\Event;
 use Extcode\CartEvents\Domain\Model\EventDate;
@@ -39,6 +41,7 @@ final class EventController extends ActionController
         private readonly SessionHandler $sessionHandler,
         private readonly CartUtility $cartUtility,
         private readonly EventRepository $eventRepository,
+        private readonly EventDateRepository $eventDateRepository,
         private readonly CategoryRepository $categoryRepository,
     ) {}
 
@@ -129,12 +132,15 @@ final class EventController extends ActionController
                     $priceCategoryId = (int)$argumentValue['priceCategoryId'];
 
                     if ($eventDateId) {
-                        $eventDateRepository = GeneralUtility::makeInstance(
-                            EventDateRepository::class
-                        );
-                        $eventDate = $eventDateRepository->findByUid($eventDateId);
-
-                        $formDefinition = $eventDate->getEvent()->getFormDefinition();
+                        $eventDate = $this->eventDateRepository->findByUid($eventDateId);
+                        if (($eventDate instanceof EventDate) === false) {
+                            throw new Exception('Can not find EventDate with uid ' . $eventDateId . '.', 1769617660);
+                        }
+                        $event = $eventDate->getEvent();
+                        if (($event instanceof Event) === false) {
+                            throw new Exception('EventDate with uid ' . $eventDateId . ' has no event!', 1769617873);
+                        }
+                        $formDefinition = $event->getFormDefinition();
                         $formPersistenceManager = GeneralUtility::makeInstance(
                             \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class
                         );
@@ -149,14 +155,17 @@ final class EventController extends ActionController
                                 PriceCategoryRepository::class
                             );
                             $priceCategory = $priceCategoryRepository->findByUid($priceCategoryId);
+                            if (($priceCategory instanceof PriceCategory) === false) {
+                                throw new Exception('Can not find PriceCategory with uid ' . $priceCategoryId . '.', 1769642011);
+                            }
                         }
                     }
                 }
             }
         }
 
-        if (!$eventDate) {
-            throw new \InvalidArgumentException();
+        if (($eventDate instanceof EventDate) === false) {
+            throw new Exception('Can not find EventDate.', 1769641914);
         }
 
         $this->view->assign('eventDate', $eventDate);
@@ -172,19 +181,19 @@ final class EventController extends ActionController
                             'type' => 'Hidden',
                             'identifier' => 'productType',
                             'label' => 'productType',
-                            'defaultValue' => ($eventDate ? 'CartEvents' : ''),
+                            'defaultValue' => 'CartEvents',
                         ],
                         9998 => [
                             'type' => 'Hidden',
                             'identifier' => 'eventDateId',
                             'label' => 'eventDateId',
-                            'defaultValue' => ($eventDate ? $eventDate->getUid() : ''),
+                            'defaultValue' => $eventDate->getUid(),
                         ],
                         9999 => [
                             'type' => 'Hidden',
                             'identifier' => 'priceCategoryId',
                             'label' => 'priceCategoryId',
-                            'defaultValue' => ($priceCategory ? $priceCategory->getUid() : ''),
+                            'defaultValue' => (($priceCategory instanceof PriceCategory) ? $priceCategory->getUid() : ''),
                         ],
                     ],
                 ],
@@ -250,6 +259,9 @@ final class EventController extends ActionController
             if ($this->settings['listSubcategories']) {
                 foreach ($selectedCategories as $selectedCategory) {
                     $category = $this->categoryRepository->findByUid($selectedCategory);
+                    if (($category instanceof Category) === false) {
+                        continue;
+                    }
                     $categories = array_merge(
                         $categories,
                         $this->categoryRepository->findSubcategoriesRecursiveAsArray($category)

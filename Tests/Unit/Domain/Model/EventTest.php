@@ -31,13 +31,6 @@ class EventTest extends UnitTestCase
         $this->event = new Event();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->event);
-
-        parent::tearDown();
-    }
-
     #[Test]
     public function isVirtualProductReturnsInitialValueForVirtualProduct(): void
     {
@@ -258,9 +251,9 @@ class EventTest extends UnitTestCase
             $this->event->getEventDates()->count()
         );
 
-        $eventDate1 = self::createStub(FileReference::class);
+        $eventDate1 = self::createStub(EventDate::class);
         $eventDates->attach($eventDate1);
-        $eventDate2 = self::createStub(FileReference::class);
+        $eventDate2 = self::createStub(EventDate::class);
         $eventDates->attach($eventDate2);
 
         self::assertSame(
