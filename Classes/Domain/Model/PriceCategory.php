@@ -50,19 +50,9 @@ class PriceCategory extends AbstractEntity
         return $this->sku;
     }
 
-    public function setSku(string $sku): void
-    {
-        $this->sku = $sku;
-    }
-
     public function getEventDate(): EventDate
     {
         return $this->eventDate;
-    }
-
-    public function setEventDate(EventDate $eventDate): void
-    {
-        $this->eventDate = $eventDate;
     }
 
     public function getTitle(): string
@@ -70,19 +60,9 @@ class PriceCategory extends AbstractEntity
         return $this->title;
     }
 
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
     public function getPrice(): float
     {
         return $this->price;
-    }
-
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
     }
 
     /**
@@ -93,29 +73,9 @@ class PriceCategory extends AbstractEntity
         return $this->specialPrices;
     }
 
-    public function addSpecialPrice(SpecialPrice $specialPrice): void
-    {
-        $this->specialPrices->attach($specialPrice);
-    }
-
-    public function removeSpecialPrice(SpecialPrice $specialPrice): void
-    {
-        $this->specialPrices->detach($specialPrice);
-    }
-
-    public function setSpecialPrices(ObjectStorage $specialPrices): void
-    {
-        $this->specialPrices = $specialPrices;
-    }
-
     public function getSeatsNumber(): int
     {
         return $this->seatsNumber;
-    }
-
-    public function setSeatsNumber(int $seatsNumber): void
-    {
-        $this->seatsNumber = $seatsNumber;
     }
 
     public function getSeatsTaken(): int

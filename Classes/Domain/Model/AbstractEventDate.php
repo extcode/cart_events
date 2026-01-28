@@ -27,28 +27,13 @@ abstract class AbstractEventDate extends AbstractEntity
         return $this->begin;
     }
 
-    public function setBegin(DateTime $begin): void
-    {
-        $this->begin = $begin;
-    }
-
     public function getEnd(): ?DateTime
     {
         return $this->end;
     }
 
-    public function setEnd(DateTime $end): void
-    {
-        $this->end = $end;
-    }
-
     public function getNote(): string
     {
         return $this->note;
-    }
-
-    public function setNote(string $note): void
-    {
-        $this->note = $note;
     }
 }

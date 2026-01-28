@@ -13,6 +13,7 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
 
 use Extcode\Cart\Domain\Model\FrontendUserGroup;
 use Extcode\CartEvents\Domain\Model\SpecialPrice;
+use Extcode\CartEvents\Tests\ObjectAccess;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -24,73 +25,71 @@ class SpecialPriceTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->specialPrice = new SpecialPrice();
     }
 
     protected function tearDown(): void
     {
         unset($this->specialPrice);
+
+        parent::tearDown();
     }
 
     #[Test]
-    public function getTitleReturnsInitialValueForTitle(): void
+    public function getTitleReturnsTitle(): void
     {
+        $specialPrice = new SpecialPrice();
+
         self::assertSame(
             '',
-            $this->specialPrice->getTitle()
+            $specialPrice->getTitle()
         );
-    }
 
-    #[Test]
-    public function setTitleSetsTitle(): void
-    {
-        $this->specialPrice->setTitle('Title');
+        ObjectAccess::setProperty($specialPrice, 'title', 'title');
 
         self::assertSame(
-            'Title',
-            $this->specialPrice->getTitle()
+            'title',
+            $specialPrice->getTitle()
         );
     }
 
     #[Test]
-    public function getPriceReturnsInitialValueForPrice(): void
+    public function getPriceReturnsPrice(): void
     {
+        $specialPrice = new SpecialPrice();
+
         self::assertSame(
             0.0,
-            $this->specialPrice->getPrice()
+            $specialPrice->getPrice()
         );
-    }
 
-    #[Test]
-    public function setPriceSetsPrice(): void
-    {
-        $this->specialPrice->setPrice(19.99);
+        ObjectAccess::setProperty($specialPrice, 'price', 82.36);
 
         self::assertSame(
-            19.99,
-            $this->specialPrice->getPrice()
+            82.36,
+            $specialPrice->getPrice()
         );
     }
 
     #[Test]
     public function getFrontendUserGroupReturnsInitialValueNull(): void
     {
+        $specialPrice = new SpecialPrice();
+
         self::assertNull(
             $this->specialPrice->getFrontendUserGroup()
         );
-    }
 
-    #[Test]
-    public function setFrontendUserGroupSetsFrontendUserGroup(): void
-    {
         $frontendUserGroup = self::createStub(
             FrontendUserGroup::class
         );
-        $this->specialPrice->setFrontendUserGroup($frontendUserGroup);
+        ObjectAccess::setProperty($specialPrice, 'frontendUserGroup', $frontendUserGroup);
 
         self::assertSame(
             $frontendUserGroup,
-            $this->specialPrice->getFrontendUserGroup()
+            $specialPrice->getFrontendUserGroup()
         );
     }
 }

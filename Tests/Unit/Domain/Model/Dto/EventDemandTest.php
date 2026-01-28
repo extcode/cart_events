@@ -23,12 +23,16 @@ class EventDemandTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->eventDemand = new EventDemand();
     }
 
     protected function tearDown(): void
     {
         unset($this->eventDemand);
+
+        parent::tearDown();
     }
 
     #[Test]
@@ -71,7 +75,25 @@ class EventDemandTest extends UnitTestCase
         );
     }
 
-    // todo: categories
+    #[Test]
+    public function getCategoriesReturnsInitialValueForCategories(): void
+    {
+        self::assertSame(
+            [],
+            $this->eventDemand->getCategories()
+        );
+    }
+
+    #[Test]
+    public function setCategoriesSetsCategories(): void
+    {
+        $this->eventDemand->setCategories([2, 3, 5, 7]);
+
+        self::assertSame(
+            [2, 3, 5, 7],
+            $this->eventDemand->getCategories()
+        );
+    }
 
     #[Test]
     public function getOrderReturnsInitialValueForOrder(): void
