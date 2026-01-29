@@ -11,8 +11,11 @@ namespace Extcode\CartEvents\EventListener\Order\Stock;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\Order\EventInterface;
+use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Domain\Model\PriceCategory;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -40,12 +43,19 @@ class HandleStock
     {
         $eventDate = $this->eventDateRepository->findByUid($cartProduct->getProductId());
 
-        if ($eventDate && $eventDate->isHandleSeats()) {
+        if (($eventDate instanceof EventDate) === false) {
+            return;
+        }
+
+        if ($eventDate->isHandleSeats()) {
             if ($eventDate->isHandleSeatsInPriceCategory()) {
                 foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
                     $explodedId = explode('-', (string)$cartBeVariant->getId());
                     $id = (int)end($explodedId);
                     $priceCategory = $this->priceCategoryRepository->findByUid($id);
+                    if (($priceCategory instanceof PriceCategory) === false) {
+                        throw new Exception('Can not find PriceCategory with $id=' . $id, 1769617418);
+                    }
                     $priceCategory->setSeatsTaken($priceCategory->getSeatsTaken() + $cartBeVariant->getQuantity());
                     $this->priceCategoryRepository->update($priceCategory);
                 }

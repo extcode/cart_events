@@ -24,12 +24,9 @@ class CalenderEntryTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->calendarEntry = new CalendarEntry();
-    }
+        parent::setUp();
 
-    protected function tearDown(): void
-    {
-        unset($this->calendarEntry);
+        $this->calendarEntry = new CalendarEntry();
     }
 
     #[Test]

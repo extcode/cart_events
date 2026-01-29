@@ -11,39 +11,51 @@ call_user_func(function () {
 
     $pluginNames = [
         'ShowEvent' => [
-            'subtypes_excludelist' => 'select_key, pages, recursive',
+            'pluginIcon' => 'ext-cartevents-wizard-icon-show',
+            'translationKeyPrefix' => $_LLL_be . 'tx_cartevents.plugin.show_event',
         ],
         'ListEvents' => [
-            'subtypes_excludelist' => 'select_key',
+            'additionalNewFields' => 'pages, recursive',
+            'pluginIcon' => 'ext-cartevents-wizard-icon-list',
+            'translationKeyPrefix' => $_LLL_be . 'tx_cartevents.plugin.list_events',
         ],
         'TeaserEvents' => [
-            'subtypes_excludelist' => 'select_key, pages, recursive',
+            'pluginIcon' => 'ext-cartevents-wizard-icon-teaser',
+            'translationKeyPrefix' => $_LLL_be . 'tx_cartevents.plugin.teaser_events',
         ],
         'SingleEvent' => [
-            'subtypes_excludelist' => 'select_key, pages, recursive',
+            'pluginIcon' => 'ext-cartevents-wizard-icon-show',
+            'translationKeyPrefix' => $_LLL_be . 'tx_cartevents.plugin.single_event',
         ],
         'EventDates' => [
-            'subtypes_excludelist' => 'select_key, recursive',
+            'pluginIcon' => 'ext-cartevents-wizard-icon-show',
+            'translationKeyPrefix' => $_LLL_be . 'tx_cartevents.plugin.event_dates',
         ],
     ];
 
     foreach ($pluginNames as $pluginName => $pluginConf) {
-        $pluginSignature = 'cartevents_' . strtolower($pluginName);
-        $pluginNameSC = strtolower((string)preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)));
-        ExtensionUtility::registerPlugin(
-            'CartEvents',
+        $pluginSignature = ExtensionUtility::registerPlugin(
+            'cart_events',
             $pluginName,
-            $_LLL_be . 'tx_cartevents.plugin.' . $pluginNameSC . '.title'
+            $pluginConf['translationKeyPrefix'] . '.title',
+            $pluginConf['pluginIcon'],
+            'cart',
+            $pluginConf['translationKeyPrefix'] . '.description',
         );
-
-        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = $pluginConf['subtypes_excludelist'];
 
         $flexFormPath = 'EXT:cart_events/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
         if (file_exists(GeneralUtility::getFileAbsFileName($flexFormPath))) {
-            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-            ExtensionManagementUtility::addPiFlexFormValue(
+            ExtensionManagementUtility::addToAllTCAtypes(
+                'tt_content',
+                rtrim('--div--;Configuration,pi_flexform,' . ($pluginConf['additionalNewFields'] ?? ''), ','),
                 $pluginSignature,
-                'FILE:' . $flexFormPath
+                'after:subheader',
+            );
+
+            ExtensionManagementUtility::addPiFlexFormValue(
+                '*',
+                'FILE:' . $flexFormPath,
+                $pluginSignature,
             );
         }
     }

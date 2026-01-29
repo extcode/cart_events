@@ -2,6 +2,7 @@
 
 defined('TYPO3') or die();
 
+use Extcode\Cart\Hooks\FormDefinitions;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,7 +22,7 @@ if (ExtensionManagementUtility::isLoaded('form')) {
                 'items' => [
                     ['label' => 'LLL:EXT:form/Resources/Private/Language/Database.xlf:tt_content.pi_flexform.formframework.selectPersistenceIdentifier', 'value' => ''],
                 ],
-                'itemsProcFunc' => 'Extcode\\Cart\\Hooks\\ItemsProcFunc->user_formDefinition',
+                'itemsProcFunc' => FormDefinitions::class . '->getItems',
                 'itemsProcFuncConfig' => [
                     'prototypeName' => 'cart-events',
                 ],

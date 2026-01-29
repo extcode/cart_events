@@ -38,12 +38,12 @@ class EventRepository extends Repository
                 $categoryConstraints[] = $query->equals('category', $category);
                 $categoryConstraints[] = $query->contains('categories', $category);
             }
-            $constraints[] = $query->logicalOr(...array_values($categoryConstraints));
+            $constraints[] = $query->logicalOr(...$categoryConstraints);
         }
 
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd(...array_values($constraints))
+                $query->logicalAnd(...$constraints)
             );
         }
 
@@ -78,7 +78,7 @@ class EventRepository extends Repository
         return $this->orderByField($query->execute(), $uids);
     }
 
-    protected function createOrderingsFromDemand(EventDemand $demand): array
+    private function createOrderingsFromDemand(EventDemand $demand): array
     {
         $orderings = [];
 
@@ -101,7 +101,7 @@ class EventRepository extends Repository
         return $orderings;
     }
 
-    protected function orderByField(QueryResultInterface $events, array $uids): array
+    private function orderByField(QueryResultInterface $events, array $uids): array
     {
         $indexedEvents = [];
         $orderedEvents = [];

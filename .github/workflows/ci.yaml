@@ -15,7 +15,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - 8.1
           - 8.2
           - 8.3
           - 8.4
@@ -54,7 +53,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: "8.2"
           tools: composer:v2
 
       - name: Install dependencies
@@ -70,14 +69,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - php-version: '8.1'
-            typo3-version: '^12.4'
           - php-version: '8.2'
-            typo3-version: '^12.4'
+            typo3-version: '^13.4'
           - php-version: '8.3'
-            typo3-version: '^12.4'
+            typo3-version: '^13.4'
           - php-version: '8.4'
-            typo3-version: '^12.4'
+            typo3-version: '^13.4'
     steps:
       - uses: actions/checkout@v4
 
@@ -112,9 +109,6 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= fossar.cachix.org-1:Zv6FuqIboeHPWQS7ysLCJ7UT7xExb4OE8c4LyGb5AsE=
             substituters = https://cache.nixos.org/ https://fossar.cachix.org
 
-      - name: Run Unit Tests PHP8.1
-        run: nix-shell --arg phpVersion \"php81\" --pure --run project-test-unit
-
       - name: Run Unit Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-unit
 
@@ -123,9 +117,6 @@ jobs:
 
       - name: Run Unit Tests PHP8.4
         run: nix-shell --arg phpVersion \"php84\" --pure --run project-test-unit
-
-      - name: Run Functional Tests PHP8.1
-        run: nix-shell --arg phpVersion \"php81\" --pure --run project-test-functional
 
       - name: Run Functional Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-functional
@@ -149,9 +140,6 @@ jobs:
           extra_nix_config: |
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= fossar.cachix.org-1:Zv6FuqIboeHPWQS7ysLCJ7UT7xExb4OE8c4LyGb5AsE=
             substituters = https://cache.nixos.org/ https://fossar.cachix.org
-
-      - name: Run Acceptance Tests PHP8.1
-        run: nix-shell --arg phpVersion \"php81\" --pure --run project-test-acceptance
 
       - name: Run Acceptance Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-acceptance

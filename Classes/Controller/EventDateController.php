@@ -10,12 +10,13 @@ namespace Extcode\CartEvents\Controller;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-class EventDateController extends ActionController
+final class EventDateController extends ActionController
 {
     public function __construct(
         private readonly EventDateRepository $eventDateRepository,
@@ -48,7 +49,7 @@ class EventDateController extends ActionController
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         )['persistence']['storagePid'];
 
-        $eventDates = $this->eventDateRepository->findNext($limit, $pidList)->fetchAll();
+        $eventDates = $this->eventDateRepository->findNext($limit, $pidList);
 
         $this->view->assign('eventDates', $eventDates);
 

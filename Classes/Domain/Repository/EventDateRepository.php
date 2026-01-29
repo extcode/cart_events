@@ -10,17 +10,14 @@ namespace Extcode\CartEvents\Domain\Repository;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-use Doctrine\DBAL\Driver\Statement;
+
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class EventDateRepository extends Repository
 {
-    /**
-     * @return Statement|int
-     */
-    public function findNext(int $limit, string $pidList)
+    public function findNext(int $limit, string $pidList): array
     {
         $table = 'tx_cartevents_domain_model_eventdate';
         $joinTableEvent = 'tx_cartevents_domain_model_event';
@@ -61,45 +58,10 @@ class EventDateRepository extends Repository
             $queryBuilder->setMaxResults($limit);
         }
 
-        return $queryBuilder->execute();
+        return $queryBuilder->executeQuery()->fetchAllAssociative();
     }
 
-    /**
-     * @param $queryBuilder
-     * @return mixed
-     */
-    protected function joinCategory($queryBuilder)
-    {
-        return $queryBuilder
-            ->leftJoin(
-                'event',
-                'sys_category_record_mm',
-                'categoryMM',
-                $queryBuilder->expr()->eq(
-                    'categoryMM.uid_foreign',
-                    $queryBuilder->quoteIdentifier('event.uid')
-                )
-            )
-            ->where(
-                $queryBuilder->expr()->eq('categoryMM.tablenames', '"tx_cartevents_domain_model_event"'),
-                $queryBuilder->expr()->eq('categoryMM.fieldname', '"category"')
-            )
-            ->leftJoin(
-                'categoryMM',
-                'sys_category',
-                'category',
-                $queryBuilder->expr()->eq(
-                    'category.uid',
-                    $queryBuilder->quoteIdentifier('categoryMM.uid_local')
-                )
-            );
-    }
-
-    /**
-     * @param string $pidList
-     * @return array
-     */
-    protected function getPids(string $pidList): array
+    private function getPids(string $pidList): array
     {
         return GeneralUtility::intExplode(',', $pidList, true);
     }

@@ -26,7 +26,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 2', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bevent%5D=2&cHash=c02777b6ed45d4187afc3fd7f1a42b85');
+        $I->seeLink('Event 2', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=18eb8b460c56ca88173743ab54524f53');
         $I->click('Event 2');
         $I->see('19,99 €');
 
@@ -68,7 +68,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 2', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bevent%5D=2&cHash=c02777b6ed45d4187afc3fd7f1a42b85');
+        $I->seeLink('Event 2', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=18eb8b460c56ca88173743ab54524f53');
         $I->click('Event 2');
         $I->see('19,99 €');
 
@@ -104,7 +104,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bevent%5D=3&cHash=d1b28fe9400d030f4a10cd177e517670');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -149,7 +149,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bevent%5D=3&cHash=d1b28fe9400d030f4a10cd177e517670');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -203,7 +203,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bevent%5D=3&cHash=d1b28fe9400d030f4a10cd177e517670');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -257,7 +257,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bevent%5D=3&cHash=d1b28fe9400d030f4a10cd177e517670');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -332,5 +332,121 @@ class AddEventDateToCartCest
         $I->seeElement("input[name='tx_cart_cart[quantities][CartEvents_4]']");
         $I->seeInField("input[name='tx_cart_cart[quantities][CartEvents_4]']", '8');
         $I->see('314,06', '.checkout-product-table tr:nth-child(2) td:nth-child(4)');
+    }
+
+    #[Test]
+    public function addBookableEventDateWithPriceCategoryAvailableNumberOfSeatToCart(Tester $I): void
+    {
+        $I->wantToTest('I can add a bookable event date with price category with available number of seats to the cart.');
+
+        $I->amOnUrl('http://127.0.0.1:8080/events/');
+
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->click('Event 5');
+
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category C');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('Item was added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category C');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '7');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('7 Items were added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+    }
+
+    #[Test]
+    public function addBookableEventDateWithPriceCategoryAvailableNumberOfSeatButNotMoreToCart(Tester $I): void
+    {
+        $I->wantToTest('I can add a bookable event date with price category with available number of seats but not more to the cart.');
+
+        $I->amOnUrl('http://127.0.0.1:8080/events/');
+
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->click('Event 5');
+
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category B');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '38');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('Desired number of this item not available.', '#event-date-7 .form-message .form-error');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category B');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '38');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '37');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('37 Items were added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category B');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('Desired number of this item not available.', '#event-date-7 .form-message .form-error');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+    }
+
+    #[Test]
+    public function addDifferentBookableEventDateWithPriceCategoryAvailableNumberOfSeatButNotMoreToCart(Tester $I): void
+    {
+        $I->wantToTest('I can add a bookable event date with different price categories with available number of seats but not more to the cart.');
+
+        $I->amOnUrl('http://127.0.0.1:8080/events/');
+
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->click('Event 5');
+
+        $I->wantTo('Add the price group "Category B" with quantity of 37 to cart.');
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category B');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '37');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('37 Items were added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+
+        $I->wantTo('Add the first price group "Category B" with quantity of 1 to cart.');
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category B');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('Desired number of this item not available.', '#event-date-7 .form-message .form-error');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
+
+        $I->wantTo('Add the first price group "Category A" with quantity of 1 to cart.');
+        $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category A');
+        $I->seeElement("#event-date-7 input[name='tx_cart_cart[quantity]']");
+        $I->seeInField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
+        $I->seeElement('#event-date-7 input[type="submit"]');
+        $I->click('#event-date-7 input[type="submit"]');
+        $I->see('Item was added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
+        $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
     }
 }

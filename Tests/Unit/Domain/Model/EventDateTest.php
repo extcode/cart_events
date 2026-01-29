@@ -13,8 +13,10 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
 
 use Extcode\CartEvents\Domain\Model\AbstractEventDate;
 use Extcode\CartEvents\Domain\Model\EventDate;
+use Extcode\CartEvents\Tests\ObjectAccess;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(EventDate::class)]
@@ -24,12 +26,9 @@ class EventDateTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->eventDate = new EventDate();
-    }
+        parent::setUp();
 
-    protected function tearDown(): void
-    {
-        unset($this->eventDate);
+        $this->eventDate = new EventDate();
     }
 
     #[Test]
@@ -39,90 +38,172 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function getSkuReturnsInitialValueForSku(): void
+    public function getSkuReturnsSku(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             '',
-            $this->eventDate->getSku()
+            $eventDate->getSku()
         );
-    }
 
-    #[Test]
-    public function setSkuSetsSku(): void
-    {
-        $this->eventDate->setSku('sku');
+        ObjectAccess::setProperty($eventDate, 'sku', 'sku');
 
         self::assertSame(
             'sku',
-            $this->eventDate->getSku()
+            $eventDate->getSku()
         );
     }
 
     #[Test]
-    public function getTitleReturnsInitialValueForTitle(): void
+    public function getTitleReturnsTitle(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             '',
-            $this->eventDate->getTitle()
+            $eventDate->getTitle()
         );
-    }
 
-    #[Test]
-    public function setTitleSetsTitle(): void
-    {
-        $this->eventDate->setTitle('Title');
+        ObjectAccess::setProperty($eventDate, 'title', 'title');
 
         self::assertSame(
-            'Title',
-            $this->eventDate->getTitle()
+            'title',
+            $eventDate->getTitle()
         );
     }
 
     #[Test]
-    public function getLocationReturnsInitialValueForLocation(): void
+    public function getLocationReturnsLocation(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             '',
-            $this->eventDate->getLocation()
+            $eventDate->getLocation()
         );
-    }
 
-    #[Test]
-    public function setLocationSetsLocation(): void
-    {
-        $this->eventDate->setLocation('Location');
+        ObjectAccess::setProperty($eventDate, 'location', 'location');
 
         self::assertSame(
-            'Location',
-            $this->eventDate->getLocation()
+            'location',
+            $eventDate->getLocation()
         );
     }
 
     #[Test]
-    public function getLecturerReturnsInitialValueForLecturer(): void
+    public function getLecturerReturnsLecturer(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             '',
-            $this->eventDate->getLecturer()
+            $eventDate->getLecturer()
         );
-    }
 
-    #[Test]
-    public function setLecturerSetsLecturer(): void
-    {
-        $this->eventDate->setLecturer('Lecturer');
+        ObjectAccess::setProperty($eventDate, 'lecturer', 'lecturer');
 
         self::assertSame(
-            'Lecturer',
-            $this->eventDate->getLecturer()
+            'lecturer',
+            $eventDate->getLecturer()
         );
     }
 
     #[Test]
-    public function isBookableReturnsInitialValueForBookable(): void
+    public function getImagesReturnsImages(): void
     {
+        $images = $this->eventDate->getImages();
+
+        self::assertSame(
+            $images,
+            $this->eventDate->getImages()
+        );
+
+        self::assertSame(
+            0,
+            $this->eventDate->getImages()->count()
+        );
+
+        $image1 = self::createStub(FileReference::class);
+        $images->attach($image1);
+        $image2 = self::createStub(FileReference::class);
+        $images->attach($image2);
+
+        self::assertSame(
+            $images,
+            $this->eventDate->getImages()
+        );
+
+        self::assertSame(
+            2,
+            $this->eventDate->getImages()->count()
+        );
+    }
+
+    #[Test]
+    public function getFirstImageReturnsFirstImage(): void
+    {
+        $images = $this->eventDate->getImages();
+
+        self::assertNull(
+            $this->eventDate->getFirstImage()
+        );
+
+        $image1 = self::createStub(FileReference::class);
+        $images->attach($image1);
+        $image2 = self::createStub(FileReference::class);
+        $images->attach($image2);
+
+        self::assertSame(
+            $image1,
+            $this->eventDate->getFirstImage()
+        );
+    }
+
+    #[Test]
+    public function getFilesReturnsFiles(): void
+    {
+        $files = $this->eventDate->getFiles();
+
+        self::assertSame(
+            $files,
+            $this->eventDate->getFiles()
+        );
+
+        self::assertSame(
+            0,
+            $this->eventDate->getFiles()->count()
+        );
+
+        $file1 = self::createStub(FileReference::class);
+        $files->attach($file1);
+        $file2 = self::createStub(FileReference::class);
+        $files->attach($file2);
+
+        self::assertSame(
+            $files,
+            $this->eventDate->getFiles()
+        );
+
+        self::assertSame(
+            2,
+            $this->eventDate->getFiles()->count()
+        );
+    }
+
+    #[Test]
+    public function isBookableReturnsBookable(): void
+    {
+        $eventDate = new EventDate();
+
         self::assertFalse(
-            $this->eventDate->isBookable()
+            $eventDate->isBookable()
+        );
+
+        ObjectAccess::setProperty($eventDate, 'bookable', true);
+
+        self::assertTrue(
+            $eventDate->isBookable()
         );
     }
 
@@ -137,79 +218,65 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function isPriceCategorizedReturnsInitialValueForPriceCategorized(): void
+    public function isPriceCategorizedReturnsCategorized(): void
     {
-        self::assertFalse(
-            $this->eventDate->isPriceCategorized()
-        );
-    }
+        $eventDate = new EventDate();
 
-    #[Test]
-    public function setPriceCategorizedSetsPriceCategorized(): void
-    {
-        $this->eventDate->setPriceCategorized(true);
+        self::assertFalse(
+            $eventDate->isPriceCategorized()
+        );
+
+        ObjectAccess::setProperty($eventDate, 'priceCategorized', true);
 
         self::assertTrue(
-            $this->eventDate->isPriceCategorized()
+            $eventDate->isPriceCategorized()
         );
     }
 
     #[Test]
-    public function isHandleSeatsReturnsInitialValueForHandleSeats(): void
+    public function isHandleSeatsReturnsHandleSeats(): void
     {
+        $eventDate = new EventDate();
+
         self::assertFalse(
-            $this->eventDate->isHandleSeats()
+            $eventDate->isHandleSeats()
         );
-    }
 
-    #[Test]
-    public function setHandleSeatsSetsHandleSeats(): void
-    {
-        $this->eventDate->setHandleSeats(true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertTrue(
-            $this->eventDate->isHandleSeats()
+            $eventDate->isHandleSeats()
         );
     }
 
     #[Test]
-    public function isHandleSeatsInPriceCategoryReturnsInitialValueForHandleSeatsInPriceCategory(): void
+    public function isHandleSeatsInPriceCategoryReturnsHandleSeatsInPriceCategory(): void
     {
+
+        $eventDate = new EventDate();
+
         self::assertFalse(
-            $this->eventDate->isHandleSeatsInPriceCategory()
+            $eventDate->isHandleSeatsInPriceCategory()
         );
-    }
 
-    #[Test]
-    public function setHandleSeatsInPriceCategorySetsHandleSeatsInPriceCategory(): void
-    {
-        $this->eventDate->setHandleSeatsInPriceCategory(true);
+        ObjectAccess::setProperty($eventDate, 'handleSeatsInPriceCategory', true);
 
         self::assertTrue(
-            $this->eventDate->isHandleSeatsInPriceCategory()
+            $eventDate->isHandleSeatsInPriceCategory()
         );
     }
 
     #[Test]
-    public function getSeatsNumberReturnsZeroIfHandleSeatsIsFalse()
+    public function getSeatsNumberReturnsZeroIfHandleSeatsIsFalse(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             0,
             $this->eventDate->getSeatsNumber()
         );
 
-        $this->eventDate->setSeatsNumber(15);
-
-        self::assertSame(
-            0,
-            $this->eventDate->getSeatsNumber()
-        );
-    }
-
-    #[Test]
-    public function getSeatsNumberReturnsInitialValueForSeatsNumberIfHandleSeatsIsTrue()
-    {
-        $this->eventDate->setHandleSeats(true);
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 15);
 
         self::assertSame(
             0,
@@ -218,181 +285,223 @@ class EventDateTest extends UnitTestCase
     }
 
     #[Test]
-    public function setSeatsNumberSetsSeatsNumber()
+    public function getSeatsNumberReturnsInitialValueForSeatsNumberIfHandleSeatsIsTrue(): void
     {
-        $this->eventDate->setSeatsNumber(15);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsNumber()
+            $eventDate->getSeatsNumber()
+        );
+    }
+
+    #[Test]
+    public function setSeatsNumberSetsSeatsNumber(): void
+    {
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 15);
+
+        self::assertSame(
+            0,
+            $eventDate->getSeatsNumber()
         );
 
-        $this->eventDate->setHandleSeats(true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertSame(
             15,
-            $this->eventDate->getSeatsNumber()
+            $eventDate->getSeatsNumber()
         );
     }
 
     #[Test]
-    public function getSeatsTakenReturnsZeroIfHandleSeatsIsFalse()
+    public function getSeatsTakenReturnsZeroIfHandleSeatsIsFalse(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             0,
-            $this->eventDate->getSeatsTaken()
+            $eventDate->getSeatsTaken()
         );
 
-        $this->eventDate->setSeatsTaken(15);
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 15);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsTaken()
+            $eventDate->getSeatsTaken()
         );
     }
 
     #[Test]
-    public function getSeatsTakenReturnsInitialValueForSeatsTakenIfHandleSeatsIsTrue()
+    public function getSeatsTakenReturnsInitialValueForSeatsTakenIfHandleSeatsIsTrue(): void
     {
-        $this->eventDate->setHandleSeats(true);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsTaken()
+            $eventDate->getSeatsTaken()
         );
     }
 
     #[Test]
-    public function setSeatsTakenSetsSeatsTaken()
+    public function setSeatsTakenSetsSeatsTaken(): void
     {
-        $this->eventDate->setSeatsTaken(15);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'seatsTaken', 15);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsTaken()
+            $eventDate->getSeatsTaken()
         );
 
-        $this->eventDate->setHandleSeats(true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertSame(
             15,
-            $this->eventDate->getSeatsTaken()
+            $eventDate->getSeatsTaken()
         );
     }
 
     #[Test]
-    public function getSeatsAvailableReturnsZeroIfHandleSeatsIsFalse()
+    public function getSeatsAvailableReturnsZeroIfHandleSeatsIsFalse(): void
     {
+        $eventDate = new EventDate();
+
         self::assertSame(
             0,
-            $this->eventDate->getSeatsAvailable()
+            $eventDate->getSeatsAvailable()
         );
 
-        $this->eventDate->setSeatsNumber(15);
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 15);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsAvailable()
+            $eventDate->getSeatsAvailable()
         );
     }
 
     #[Test]
-    public function getSeatsAvailableReturnsDifferenceOfInitialValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue()
+    public function getSeatsAvailableReturnsDifferenceOfInitialValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue(): void
     {
-        $this->eventDate->setHandleSeats(true);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsAvailable()
+            $eventDate->getSeatsAvailable()
         );
     }
 
     #[Test]
-    public function getSeatsAvailableDifferenceOfValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue()
+    public function getSeatsAvailableDifferenceOfValueForSeatsNumberAndSeatsTakenIfHandleSeatsIsTrue(): void
     {
-        $this->eventDate->setSeatsNumber(30);
-        $this->eventDate->setSeatsTaken(13);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 30);
+        ObjectAccess::setProperty($eventDate, 'seatsTaken', 13);
 
         self::assertSame(
             0,
-            $this->eventDate->getSeatsAvailable()
+            $eventDate->getSeatsAvailable()
         );
 
-        $this->eventDate->setHandleSeats(true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
 
         self::assertSame(
             17,
-            $this->eventDate->getSeatsAvailable()
+            $eventDate->getSeatsAvailable()
         );
     }
 
     #[TEST]
-    public function isAvailableReturnsFalseIfBookableIsFalse()
+    public function isAvailableReturnsFalseIfBookableIsFalse(): void
     {
-        $this->eventDate->setHandleSeats(true);
-        $this->eventDate->setSeatsNumber(20);
-        $this->eventDate->setBookable(false);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 15);
+        ObjectAccess::setProperty($eventDate, 'bookable', false);
 
         self::assertFalse(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
 
-        $this->eventDate->setBookable(true);
+        ObjectAccess::setProperty($eventDate, 'bookable', true);
 
         self::assertTrue(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
     }
 
     #[TEST]
-    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsFalse()
+    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsFalse(): void
     {
-        $this->eventDate->setBookable(true);
-        $this->eventDate->setHandleSeats(false);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'bookable', true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', false);
+
         self::assertTrue(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
 
-        $this->eventDate->setHandleSeats(true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
+
         self::assertFalse(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
     }
 
     #[TEST]
-    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsGreaterThanZero()
+    public function isAvailableReturnsTrueIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsGreaterThanZero(): void
     {
-        $this->eventDate->setBookable(true);
-        $this->eventDate->setHandleSeats(true);
-        $this->eventDate->setSeatsNumber(2);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'bookable', true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 2);
+
         self::assertTrue(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
 
-        $this->eventDate->setSeatsTaken(1);
+        ObjectAccess::setProperty($eventDate, 'seatsTaken', 1);
+
         self::assertTrue(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
 
-        $this->eventDate->setSeatsTaken(2);
+        ObjectAccess::setProperty($eventDate, 'seatsTaken', 2);
+
         self::assertFalse(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
     }
 
     #[TEST]
-    public function isAvailableReturnsFalseIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsLowerOrEqualToZero()
+    public function isAvailableReturnsFalseIfIsBookableAndHandleSeatsIsTrueAndNumberOfSeatsIsLowerOrEqualToZero(): void
     {
-        $this->eventDate->setBookable(true);
-        $this->eventDate->setHandleSeats(true);
-        $this->eventDate->setSeatsNumber(0);
+        $eventDate = new EventDate();
+
+        ObjectAccess::setProperty($eventDate, 'bookable', true);
+        ObjectAccess::setProperty($eventDate, 'handleSeats', true);
+        ObjectAccess::setProperty($eventDate, 'seatsNumber', 0);
+
         self::assertFalse(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
 
-        $this->eventDate->setSeatsTaken(1);
+        ObjectAccess::setProperty($eventDate, 'seatsTaken', 1);
+
         self::assertFalse(
-            $this->eventDate->isAvailable()
+            $eventDate->isAvailable()
         );
     }
 }

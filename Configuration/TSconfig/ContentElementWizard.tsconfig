@@ -1,43 +1,5 @@
 [traverse(page, "doktype") == 186]
-TCEFORM.tt_content.list_type {
-    removeItems := addToList(cartevents_events, cartevents_eventdates)
-}
+    TCEFORM.tt_content.CType.removeItems := addToList(cartevents_listevents, cartevents_eventdates)
 [ELSE]
-TCEFORM.tt_content.list_type {
-    removeItems := addToList(cartevents_singleevent)
-}
-
-mod.wizards.newContentElement.wizardItems.plugins {
-    elements {
-        list_events {
-            iconIdentifier = ext-cartevents-wizard-icon-list
-            title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.list_events.title
-            description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.list_events.description
-            tt_content_defValues {
-                CType = list
-                list_type = cartevents_listevents
-            }
-        }
-
-        show_events {
-            iconIdentifier = ext-cartevents-wizard-icon-show
-            title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.show_event.title
-            description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.show_event.description
-            tt_content_defValues {
-                CType = list
-                list_type = cartevents_showevent
-            }
-        }
-
-        teaser_events {
-            iconIdentifier = ext-cartevents-wizard-icon-teaser
-            title = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.teaser_events.title
-            description = LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.teaser_events.description
-            tt_content_defValues {
-                CType = list
-                list_type = cartevents_teaserevents
-            }
-        }
-    }
-}
+    TCEFORM.tt_content.CType.removeItems := addToList(cartevents_singleevent)
 [END]

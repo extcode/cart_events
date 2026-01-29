@@ -20,8 +20,8 @@ class PriceCategoryTest extends AbstractSpecialPrice
     protected function setUp(): void
     {
         $this->price = 13.44;
-
         $this->subject = new PriceCategory();
-        $this->subject->setPrice($this->price);
+
+        parent::setUp();
     }
 }

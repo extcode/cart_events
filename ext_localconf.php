@@ -6,7 +6,6 @@ use Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher;
 use Extcode\CartEvents\Hooks\DataHandler;
 use Extcode\CartEvents\Hooks\DatamapDataHandlerHook;
 use Extcode\CartEvents\Updates\SlugUpdater;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') or die();
@@ -23,7 +22,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => 'form',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -34,7 +34,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => 'form',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -45,7 +46,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -56,7 +58,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => 'form',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -67,14 +70,9 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventDateController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
-
-// TSconfig
-
-ExtensionManagementUtility::addPageTSConfig('
-    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:cart_events/Configuration/TSconfig/ContentElementWizard.tsconfig">
-');
 
 // Cart Hooks
 

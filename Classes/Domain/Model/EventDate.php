@@ -54,6 +54,9 @@ class EventDate extends AbstractEventDate
 
     protected bool $priceCategorized = false;
 
+    /**
+     * @var ObjectStorage<PriceCategory>
+     */
     #[Cascade(['value' => 'remove'])]
     protected ObjectStorage $priceCategories;
 
@@ -71,14 +74,18 @@ class EventDate extends AbstractEventDate
     #[Cascade(['value' => 'remove'])]
     protected ObjectStorage $calendarEntries;
 
+    public function __construct()
+    {
+        $this->images = new ObjectStorage();
+        $this->files = new ObjectStorage();
+        $this->specialPrices = new ObjectStorage();
+        $this->priceCategories = new ObjectStorage();
+        $this->calendarEntries = new ObjectStorage();
+    }
+
     public function getSku(): string
     {
         return $this->sku;
-    }
-
-    public function setSku(string $sku): void
-    {
-        $this->sku = $sku;
     }
 
     public function getTitle(): string
@@ -86,29 +93,14 @@ class EventDate extends AbstractEventDate
         return $this->title;
     }
 
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
     public function getLocation(): string
     {
         return $this->location;
     }
 
-    public function setLocation(string $location): void
-    {
-        $this->location = $location;
-    }
-
     public function getLecturer(): string
     {
         return $this->lecturer;
-    }
-
-    public function setLecturer(string $lecturer): void
-    {
-        $this->lecturer = $lecturer;
     }
 
     /**
@@ -128,22 +120,12 @@ class EventDate extends AbstractEventDate
         return array_shift($images);
     }
 
-    public function setImages(ObjectStorage $images): void
-    {
-        $this->images = $images;
-    }
-
     /**
      * @return ObjectStorage<FileReference>
      */
     public function getFiles(): ?ObjectStorage
     {
         return $this->files;
-    }
-
-    public function setFiles(ObjectStorage $files): void
-    {
-        $this->files = $files;
     }
 
     public function isBookable(): bool
@@ -161,11 +143,6 @@ class EventDate extends AbstractEventDate
         return $this->price;
     }
 
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
     /**
      * @return ObjectStorage<SpecialPrice>
      */
@@ -174,29 +151,9 @@ class EventDate extends AbstractEventDate
         return $this->specialPrices;
     }
 
-    public function addSpecialPrice(SpecialPrice $specialPrice): void
-    {
-        $this->specialPrices->attach($specialPrice);
-    }
-
-    public function removeSpecialPrice(SpecialPrice $specialPrice): void
-    {
-        $this->specialPrices->detach($specialPrice);
-    }
-
-    public function setSpecialPrices(ObjectStorage $specialPrices): void
-    {
-        $this->specialPrices = $specialPrices;
-    }
-
     public function isPriceCategorized(): bool
     {
         return $this->priceCategorized;
-    }
-
-    public function setPriceCategorized(bool $priceCategorized): void
-    {
-        $this->priceCategorized = $priceCategorized;
     }
 
     public function getPriceCategories(): ?ObjectStorage
@@ -215,21 +172,6 @@ class EventDate extends AbstractEventDate
         return null;
     }
 
-    public function addPriceCategory(PriceCategory $priceCategory): void
-    {
-        $this->priceCategories->attach($priceCategory);
-    }
-
-    public function removePriceCategory(PriceCategory $priceCategory): void
-    {
-        $this->priceCategories->detach($priceCategory);
-    }
-
-    public function setPriceCategories(ObjectStorage $priceCategories): void
-    {
-        $this->priceCategories = $priceCategories;
-    }
-
     public function getBestSpecialPrice(?array $frontendUserGroupIds = null): ?SpecialPrice
     {
         if (is_null($frontendUserGroupIds)) {
@@ -239,14 +181,12 @@ class EventDate extends AbstractEventDate
 
         $bestSpecialPrice = null;
 
-        if ($this->specialPrices) {
-            foreach ($this->specialPrices as $specialPrice) {
-                if (!isset($bestSpecialPrice) || $specialPrice->getPrice() < $bestSpecialPrice->getPrice()) {
-                    if (!$specialPrice->getFrontendUserGroup()
-                        || in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
-                    ) {
-                        $bestSpecialPrice = $specialPrice;
-                    }
+        foreach ($this->specialPrices as $specialPrice) {
+            if (!isset($bestSpecialPrice) || $specialPrice->getPrice() < $bestSpecialPrice->getPrice()) {
+                if (!$specialPrice->getFrontendUserGroup()
+                    || in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
+                ) {
+                    $bestSpecialPrice = $specialPrice;
                 }
             }
         }
@@ -298,19 +238,9 @@ class EventDate extends AbstractEventDate
         return $this->getCalendarEntries()->current();
     }
 
-    public function setCalendarEntries(ObjectStorage $calendarEntries): void
-    {
-        $this->calendarEntries = $calendarEntries;
-    }
-
     public function getEvent(): ?Event
     {
         return $this->event;
-    }
-
-    public function setEvent(Event $event): void
-    {
-        $this->event = $event;
     }
 
     public function isHandleSeats(): bool
@@ -318,19 +248,9 @@ class EventDate extends AbstractEventDate
         return $this->handleSeats;
     }
 
-    public function setHandleSeats(bool $handleSeats): void
-    {
-        $this->handleSeats = $handleSeats;
-    }
-
     public function isHandleSeatsInPriceCategory(): bool
     {
         return $this->handleSeatsInPriceCategory;
-    }
-
-    public function setHandleSeatsInPriceCategory(bool $handleSeatsInPriceCategory): void
-    {
-        $this->handleSeatsInPriceCategory = $handleSeatsInPriceCategory;
     }
 
     /**
@@ -352,11 +272,6 @@ class EventDate extends AbstractEventDate
             return $seats;
         }
         return $this->seatsNumber;
-    }
-
-    public function setSeatsNumber(int $seatsNumber): void
-    {
-        $this->seatsNumber = $seatsNumber;
     }
 
     /**

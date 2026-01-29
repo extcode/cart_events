@@ -73,16 +73,18 @@ class Event extends AbstractEntity
 
     protected string $metaDescription = '';
 
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->images = new ObjectStorage();
+        $this->files = new ObjectStorage();
+        $this->eventDates = new ObjectStorage();
+        $this->relatedEvents = new ObjectStorage();
+        $this->relatedEventsFrom = new ObjectStorage();
+    }
 
     public function isVirtualProduct(): bool
     {
         return $this->virtualProduct;
-    }
-
-    public function setVirtualProduct(bool $virtualProduct): void
-    {
-        $this->virtualProduct = $virtualProduct;
     }
 
     public function getFormDefinition(): ?string
@@ -90,19 +92,9 @@ class Event extends AbstractEntity
         return $this->formDefinition;
     }
 
-    public function setFormDefinition(string $formDefinition): void
-    {
-        $this->formDefinition = $formDefinition;
-    }
-
     public function getSku(): string
     {
         return $this->sku;
-    }
-
-    public function setSku(string $sku): void
-    {
-        $this->sku = $sku;
     }
 
     public function getTitle(): string
@@ -110,19 +102,9 @@ class Event extends AbstractEntity
         return $this->title;
     }
 
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
     public function getTeaser(): string
     {
         return $this->teaser;
-    }
-
-    public function setTeaser(string $teaser): void
-    {
-        $this->teaser = $teaser;
     }
 
     public function getDescription(): string
@@ -130,19 +112,9 @@ class Event extends AbstractEntity
         return $this->description;
     }
 
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
     public function getAudience(): string
     {
         return $this->audience;
-    }
-
-    public function setAudience(string $audience): void
-    {
-        $this->audience = $audience;
     }
 
     public function getImages(): ?ObjectStorage
@@ -159,19 +131,9 @@ class Event extends AbstractEntity
         return array_shift($images);
     }
 
-    public function setImages(ObjectStorage $images): void
-    {
-        $this->images = $images;
-    }
-
     public function getFiles(): ?ObjectStorage
     {
         return $this->files;
-    }
-
-    public function setFiles(ObjectStorage $files): void
-    {
-        $this->files = $files;
     }
 
     /**
@@ -187,22 +149,8 @@ class Event extends AbstractEntity
         if (!$this->getEventDates()) {
             return null;
         }
+
         return $this->getEventDates()->current();
-    }
-
-    public function setEventDates(ObjectStorage $eventDates): void
-    {
-        $this->eventDates = $eventDates;
-    }
-
-    public function addRelatedEvent(self $relatedEvent): void
-    {
-        $this->relatedEvents->attach($relatedEvent);
-    }
-
-    public function removeRelatedEvent(self $relatedEvent): void
-    {
-        $this->relatedEvents->detach($relatedEvent);
     }
 
     /**
@@ -213,21 +161,6 @@ class Event extends AbstractEntity
         return $this->relatedEvents;
     }
 
-    public function setRelatedEvents(ObjectStorage $relatedEvents): void
-    {
-        $this->relatedEvents = $relatedEvents;
-    }
-
-    public function addRelatedEventFrom(self $relatedEventFrom): void
-    {
-        $this->relatedEventsFrom->attach($relatedEventFrom);
-    }
-
-    public function removeRelatedEventFrom(self $relatedEventFrom): void
-    {
-        $this->relatedEventsFrom->detach($relatedEventFrom);
-    }
-
     /**
      * @return ObjectStorage<Event>
      */
@@ -236,28 +169,13 @@ class Event extends AbstractEntity
         return $this->relatedEventsFrom;
     }
 
-    public function setRelatedEventsFrom(ObjectStorage $relatedEventsFrom): void
-    {
-        $this->relatedEventsFrom = $relatedEventsFrom;
-    }
-
     public function getTaxClassId(): int
     {
         return $this->taxClassId;
     }
 
-    public function setTaxClassId(int $taxClassId): void
-    {
-        $this->taxClassId = $taxClassId;
-    }
-
     public function getMetaDescription(): string
     {
         return $this->metaDescription;
-    }
-
-    public function setMetaDescription(string $metaDescription): void
-    {
-        $this->metaDescription = $metaDescription;
     }
 }

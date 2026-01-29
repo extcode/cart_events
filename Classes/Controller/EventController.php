@@ -11,9 +11,11 @@ namespace Extcode\CartEvents\Controller;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
+use Extcode\CartEvents\Domain\Model\Category;
 use Extcode\CartEvents\Domain\Model\Dto\EventDemand;
 use Extcode\CartEvents\Domain\Model\Event;
 use Extcode\CartEvents\Domain\Model\EventDate;
@@ -28,9 +30,8 @@ use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
-class EventController extends ActionController
+final class EventController extends ActionController
 {
     private Cart $cart;
 
@@ -40,6 +41,7 @@ class EventController extends ActionController
         private readonly SessionHandler $sessionHandler,
         private readonly CartUtility $cartUtility,
         private readonly EventRepository $eventRepository,
+        private readonly EventDateRepository $eventDateRepository,
         private readonly CategoryRepository $categoryRepository,
     ) {}
 
@@ -118,6 +120,10 @@ class EventController extends ActionController
     #[IgnoreValidation(['value' => 'priceCategory'])]
     public function formAction(?EventDate $eventDate = null, ?PriceCategory $priceCategory = null): ResponseInterface
     {
+        if (class_exists(\TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class) === false) {
+            throw new \BadFunctionCallException('This action requires the installation of typo3/cms-form.');
+        }
+
         if (!$eventDate) {
             $arguments = $this->request->getArguments();
             foreach ($arguments as $argumentKey => $argumentValue) {
@@ -126,14 +132,17 @@ class EventController extends ActionController
                     $priceCategoryId = (int)$argumentValue['priceCategoryId'];
 
                     if ($eventDateId) {
-                        $eventDateRepository = GeneralUtility::makeInstance(
-                            EventDateRepository::class
-                        );
-                        $eventDate = $eventDateRepository->findByUid($eventDateId);
-
-                        $formDefinition = $eventDate->getEvent()->getFormDefinition();
+                        $eventDate = $this->eventDateRepository->findByUid($eventDateId);
+                        if (($eventDate instanceof EventDate) === false) {
+                            throw new Exception('Can not find EventDate with uid ' . $eventDateId . '.', 1769617660);
+                        }
+                        $event = $eventDate->getEvent();
+                        if (($event instanceof Event) === false) {
+                            throw new Exception('EventDate with uid ' . $eventDateId . ' has no event!', 1769617873);
+                        }
+                        $formDefinition = $event->getFormDefinition();
                         $formPersistenceManager = GeneralUtility::makeInstance(
-                            FormPersistenceManagerInterface::class
+                            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class
                         );
                         $form = $formPersistenceManager->load($formDefinition);
 
@@ -146,14 +155,17 @@ class EventController extends ActionController
                                 PriceCategoryRepository::class
                             );
                             $priceCategory = $priceCategoryRepository->findByUid($priceCategoryId);
+                            if (($priceCategory instanceof PriceCategory) === false) {
+                                throw new Exception('Can not find PriceCategory with uid ' . $priceCategoryId . '.', 1769642011);
+                            }
                         }
                     }
                 }
             }
         }
 
-        if (!$eventDate) {
-            throw new \InvalidArgumentException();
+        if (($eventDate instanceof EventDate) === false) {
+            throw new Exception('Can not find EventDate.', 1769641914);
         }
 
         $this->view->assign('eventDate', $eventDate);
@@ -169,19 +181,19 @@ class EventController extends ActionController
                             'type' => 'Hidden',
                             'identifier' => 'productType',
                             'label' => 'productType',
-                            'defaultValue' => ($eventDate ? 'CartEvents' : ''),
+                            'defaultValue' => 'CartEvents',
                         ],
                         9998 => [
                             'type' => 'Hidden',
                             'identifier' => 'eventDateId',
                             'label' => 'eventDateId',
-                            'defaultValue' => ($eventDate ? $eventDate->getUid() : ''),
+                            'defaultValue' => $eventDate->getUid(),
                         ],
                         9999 => [
                             'type' => 'Hidden',
                             'identifier' => 'priceCategoryId',
                             'label' => 'priceCategoryId',
-                            'defaultValue' => ($priceCategory ? $priceCategory->getUid() : ''),
+                            'defaultValue' => (($priceCategory instanceof PriceCategory) ? $priceCategory->getUid() : ''),
                         ],
                     ],
                 ],
@@ -195,28 +207,7 @@ class EventController extends ActionController
         return $this->htmlResponse();
     }
 
-    protected function getEvent(): ?Event
-    {
-        $eventUid = 0;
-
-        if ((int)$GLOBALS['TSFE']->page['doktype'] == 186) {
-            $eventUid = (int)$GLOBALS['TSFE']->page['cart_events_event'];
-        }
-
-        if ($eventUid > 0) {
-            $event =  $this->eventRepository->findByUid($eventUid);
-            if ($event && $event instanceof Event) {
-                return $event;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Create the demand object which define which records will get shown
-     */
-    protected function createDemandObjectFromSettings(string $type, array $settings): EventDemand
+    private function createDemandObjectFromSettings(string $type, array $settings): EventDemand
     {
         /** @var EventDemand $demand */
         $demand = GeneralUtility::makeInstance(
@@ -254,7 +245,7 @@ class EventController extends ActionController
         return $demand;
     }
 
-    protected function addCategoriesToDemandObjectFromSettings(EventDemand &$demand): void
+    private function addCategoriesToDemandObjectFromSettings(EventDemand &$demand): void
     {
         if ($this->settings['categoriesList']) {
             $selectedCategories = GeneralUtility::intExplode(
@@ -268,6 +259,9 @@ class EventController extends ActionController
             if ($this->settings['listSubcategories']) {
                 foreach ($selectedCategories as $selectedCategory) {
                     $category = $this->categoryRepository->findByUid($selectedCategory);
+                    if (($category instanceof Category) === false) {
+                        continue;
+                    }
                     $categories = array_merge(
                         $categories,
                         $this->categoryRepository->findSubcategoriesRecursiveAsArray($category)
@@ -281,10 +275,7 @@ class EventController extends ActionController
         }
     }
 
-    /**
-     * assigns currency translation array to view
-     */
-    protected function assignCurrencyTranslationData(): void
+    private function assignCurrencyTranslationData(): void
     {
         $this->restoreSession();
 
@@ -297,7 +288,7 @@ class EventController extends ActionController
         $this->view->assign('currencyTranslationData', $currencyTranslationData);
     }
 
-    protected function addCacheTags(iterable $events): void
+    private function addCacheTags(iterable $events): void
     {
         $cacheTags = [];
 
@@ -333,7 +324,7 @@ class EventController extends ActionController
         return $forwardResponse->withArguments(['event' => $this->request->getArgument('event')]);
     }
 
-    protected function restoreSession(): void
+    private function restoreSession(): void
     {
         $cart = $this->sessionHandler->restoreCart($this->cartConfiguration['settings']['cart']['pid']);
 

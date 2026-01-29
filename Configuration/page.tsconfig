@@ -1,0 +1,3 @@
+
+    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:cart_events/Configuration/TSconfig/ContentElementWizard.tsconfig">
+

@@ -11,6 +11,7 @@ namespace Extcode\CartEvents\EventListener;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
@@ -52,15 +53,17 @@ class CheckProductAvailability
             return;
         }
 
-        if (!$this->eventDate->isHandleSeatsInPriceCategory()) {
+        if ($this->eventDate->isHandleSeatsInPriceCategory() === false) {
             $this->hasEventDateEnoughSeats($cartProduct, $cart, $mode, (int)$quantity, $listenerEvent);
             return;
         }
 
         foreach ($this->eventDate->getPriceCategories() as $priceCategory) {
             $beVariantId = PriceCategory::class . '-' . $priceCategory->getUid();
-            $quantity = (int)$quantity[$beVariantId];
-            $this->hasPriceCategoryEnoughSeats($cartProduct, $cart, $mode, $beVariantId, $quantity, $priceCategory, $listenerEvent);
+            if (array_key_exists($beVariantId, $cartProduct->getBeVariants()) === false) {
+                continue;
+            }
+            $this->hasPriceCategoryEnoughSeats($cartProduct, $cart, $mode, $beVariantId, (int)$quantity, $priceCategory, $listenerEvent);
         }
     }
 
@@ -70,7 +73,11 @@ class CheckProductAvailability
         $querySettings->setRespectStoragePage(false);
         $this->eventDateRepository->setDefaultQuerySettings($querySettings);
 
-        $this->eventDate = $this->eventDateRepository->findByIdentifier($cartProduct->getProductId());
+        $eventDate = $this->eventDateRepository->findByIdentifier($cartProduct->getProductId());
+        if (($eventDate instanceof EventDate) === false) {
+            throw new Exception('Can not find EventDate with uid ' . $cartProduct->getProductId() . '.', 1769634921);
+        }
+        $this->eventDate = $eventDate;
     }
 
     protected function getQuantitiesFromRequest(Request $request, Product $cartProduct): mixed

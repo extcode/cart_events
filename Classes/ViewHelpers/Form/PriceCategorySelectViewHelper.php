@@ -113,7 +113,9 @@ class PriceCategorySelectViewHelper extends AbstractViewHelper
             }
 
             $disabled = '';
-            if (!$priceCategory->isAvailable() && $priceCategory->getEventDate() && $priceCategory->getEventDate()->isHandleSeatsInPriceCategory()) {
+            if (!$priceCategory->isAvailable()
+                && $priceCategory->getEventDate()->isHandleSeatsInPriceCategory()
+            ) {
                 $disabled = 'disabled';
             }
 

@@ -20,8 +20,8 @@ class EventDateTest extends AbstractSpecialPrice
     protected function setUp(): void
     {
         $this->price = 17.49;
-
         $this->subject = new EventDate();
-        $this->subject->setPrice($this->price);
+
+        parent::setUp();
     }
 }

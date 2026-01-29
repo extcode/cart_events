@@ -12,6 +12,7 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
  */
 
 use Extcode\CartEvents\Domain\Model\Category;
+use Extcode\CartEvents\Tests\ObjectAccess;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -23,12 +24,9 @@ class CategoryTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->category = new Category();
-    }
+        parent::setUp();
 
-    protected function tearDown(): void
-    {
-        unset($this->category);
+        $this->category = new Category();
     }
 
     #[Test]
@@ -40,16 +38,34 @@ class CategoryTest extends UnitTestCase
     #[Test]
     public function getCartEventListPidReturnsInitialValueNull(): void
     {
+        $category = new Category();
+
         self::assertNull(
-            $this->category->getCartEventListPid()
+            $category->getCartEventListPid()
+        );
+
+        ObjectAccess::setProperty($category, 'cartEventListPid', 31);
+
+        self::assertSame(
+            31,
+            $category->getCartEventListPid()
         );
     }
 
     #[Test]
     public function getCartEventShowPidReturnsInitialValueNull(): void
     {
+        $category = new Category();
+
         self::assertNull(
-            $this->category->getCartEventShowPid()
+            $category->getCartEventShowPid()
+        );
+
+        ObjectAccess::setProperty($category, 'cartEventShowPid', 31);
+
+        self::assertSame(
+            31,
+            $category->getCartEventShowPid()
         );
     }
 }

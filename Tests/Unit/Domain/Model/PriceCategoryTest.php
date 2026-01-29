@@ -12,6 +12,7 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
  */
 
 use Extcode\CartEvents\Domain\Model\PriceCategory;
+use Extcode\CartEvents\Tests\ObjectAccess;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -23,113 +24,113 @@ class PriceCategoryTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->priceCategory = new PriceCategory();
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->priceCategory);
-    }
-
     #[Test]
-    public function getSkuReturnsInitialValueForSku(): void
+    public function getSkuReturnsValueForSku(): void
     {
+        $priceCategory = new PriceCategory();
+
         self::assertSame(
             '',
-            $this->priceCategory->getSku()
+            $priceCategory->getSku()
         );
-    }
 
-    #[Test]
-    public function setSkuSetsSku(): void
-    {
-        $this->priceCategory->setSku('sku');
+        ObjectAccess::setProperty($priceCategory, 'sku', 'sku');
 
         self::assertSame(
             'sku',
-            $this->priceCategory->getSku()
+            $priceCategory->getSku()
         );
     }
 
     #[Test]
-    public function getTitleReturnsInitialValueForTitle(): void
+    public function getTitleReturnsTitle(): void
     {
+        $priceCategory = new PriceCategory();
+
         self::assertSame(
             '',
-            $this->priceCategory->getTitle()
+            $priceCategory->getTitle()
         );
-    }
 
-    #[Test]
-    public function setTitleSetsTitle(): void
-    {
-        $this->priceCategory->setTitle('Title');
+        ObjectAccess::setProperty($priceCategory, 'title', 'title');
 
         self::assertSame(
-            'Title',
-            $this->priceCategory->getTitle()
+            'title',
+            $priceCategory->getTitle()
         );
     }
 
     #[Test]
-    public function getPriceReturnsInitialValueForPrice(): void
+    public function getPriceReturnsPrice(): void
     {
+        $priceCategory = new PriceCategory();
+
         self::assertSame(
             0.0,
-            $this->priceCategory->getPrice()
+            $priceCategory->getPrice()
         );
-    }
 
-    #[Test]
-    public function setPriceSetsPrice(): void
-    {
-        $this->priceCategory->setPrice(19.99);
+        ObjectAccess::setProperty($priceCategory, 'price', 12.88);
 
         self::assertSame(
-            19.99,
-            $this->priceCategory->getPrice()
+            12.88,
+            $priceCategory->getPrice()
         );
     }
 
     // todo: specialPrice
 
     #[Test]
-    public function getSeatsNumberReturnsInitialValueForSeatsNumber(): void
+    public function getSeatsNumberReturnsSeatsNumber(): void
     {
+        $priceCategory = new PriceCategory();
+
         self::assertSame(
             0,
-            $this->priceCategory->getSeatsNumber()
+            $priceCategory->getSeatsNumber()
         );
-    }
 
-    #[Test]
-    public function setSeatsNumberSetsSeatsNumber(): void
-    {
-        $this->priceCategory->setSeatsNumber(42);
+        ObjectAccess::setProperty($priceCategory, 'seatsNumber', 42);
 
         self::assertSame(
             42,
-            $this->priceCategory->getSeatsNumber()
+            $priceCategory->getSeatsNumber()
         );
     }
 
     #[Test]
     public function getSeatsTakenReturnsInitialValueForSeatsTaken(): void
     {
+        $priceCategory = new PriceCategory();
+
         self::assertSame(
             0,
-            $this->priceCategory->getSeatsTaken()
+            $priceCategory->getSeatsTaken()
+        );
+
+        ObjectAccess::setProperty($priceCategory, 'seatsTaken', 42);
+
+        self::assertSame(
+            42,
+            $priceCategory->getSeatsTaken()
         );
     }
 
     #[Test]
     public function setSeatsTakenSetsSeatsTaken(): void
     {
-        $this->priceCategory->setSeatsTaken(42);
+        $priceCategory = new PriceCategory();
+
+        ObjectAccess::setProperty($priceCategory, 'seatsTaken', 15);
 
         self::assertSame(
-            42,
-            $this->priceCategory->getSeatsTaken()
+            15,
+            $priceCategory->getSeatsTaken()
         );
     }
 

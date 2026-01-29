@@ -53,10 +53,10 @@ class DatamapDataHandlerHook
                     'tt_content',
                     $id,
                     1,
-                    $pageId,
+                    null,
                     1,
                     'The record "%s" couldn\'t be saved due to disallowed value(s).',
-                    23,
+                    null,
                     [
                         $incomingFieldArray[$GLOBALS['TCA']['tt_content']['ctrl']['label']],
                     ]

@@ -13,6 +13,7 @@ namespace Extcode\CartEvents\Tests\Unit\Domain\Model;
 
 use DateTime;
 use Extcode\CartEvents\Domain\Model\AbstractEventDate;
+use Extcode\CartEvents\Tests\ObjectAccess;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -20,59 +21,51 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(AbstractEventDate::class)]
 class AbstractEventDateTest extends UnitTestCase
 {
-    protected $eventDate;
+    protected bool $resetSingletonInstances = true;
+
+    protected AbstractEventDate $eventDate;
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->eventDate = new class extends AbstractEventDate {};
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->eventDate);
-    }
-
     #[Test]
-    public function getBeginReturnsInitialValueNull(): void
+    public function getBeginReturnsBegin(): void
     {
         self::assertNull(
             $this->eventDate->getBegin()
         );
-    }
 
-    #[Test]
-    public function setBeginSetsBegin(): void
-    {
         $dateString = '2024-09-01 15:43:38';
         $format = 'Y-m-d H:i:s';
-        $dateTime = DateTime::createFromFormat($format, $dateString);
+        $begin = DateTime::createFromFormat($format, $dateString);
 
-        $this->eventDate->setBegin($dateTime);
+        ObjectAccess::setProperty($this->eventDate, 'begin', $begin);
 
         self::assertSame(
-            $dateTime,
+            $begin,
             $this->eventDate->getBegin()
         );
     }
 
     #[Test]
-    public function getEndReturnsInitialValueNull(): void
+    public function getEndReturnsEnd(): void
     {
         self::assertNull(
             $this->eventDate->getEnd()
         );
-    }
 
-    #[Test]
-    public function setEndSetsEnd(): void
-    {
         $dateString = '2024-09-01 20:01:01';
         $format = 'Y-m-d H:i:s';
-        $dateTime = DateTime::createFromFormat($format, $dateString);
-        $this->eventDate->setEnd($dateTime);
+        $end = DateTime::createFromFormat($format, $dateString);
+
+        ObjectAccess::setProperty($this->eventDate, 'end', $end);
 
         self::assertSame(
-            $dateTime,
+            $end,
             $this->eventDate->getEnd()
         );
     }
@@ -84,15 +77,11 @@ class AbstractEventDateTest extends UnitTestCase
             '',
             $this->eventDate->getNote()
         );
-    }
 
-    #[Test]
-    public function setNoteSetsNote(): void
-    {
-        $this->eventDate->setNote('Note');
+        ObjectAccess::setProperty($this->eventDate, 'note', 'note');
 
         self::assertSame(
-            'Note',
+            'note',
             $this->eventDate->getNote()
         );
     }
