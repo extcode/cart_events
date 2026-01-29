@@ -1,14 +1,12 @@
 {
   pkgs ? import <nixpkgs> { }
   ,php81 ? import <phps>
-  ,php85 ? import (fetchTarball "https://github.com/piotrkwiecinski/nixpkgs/archive/1c614d75004b9eb1ecda6ddeb959c4f544403de5.tar.gz") {}
   ,phpVersion ? "php81"
 }:
 
 let
   phpVersionPkgs =
-    if (phpVersion == "php85") then php85.${phpVersion}
-    else if (phpVersion == "php81") then php81.packages.x86_64-linux.${phpVersion}
+    if (phpVersion == "php81") then php81.packages.x86_64-linux.${phpVersion}
     else pkgs.${phpVersion};
   php = phpVersionPkgs.buildEnv {
     extensions = { enabled, all }: enabled ++ (with all; [
