@@ -34,7 +34,7 @@
 <f:section name="price">
     <f:if condition="{eventDate.bestPrice} < {eventDate.price}">
         <f:then>
-            <f:render partial="special-price" arguments="{price: eventDate.price, specialPrice: eventDate.bestSpecialPrice}"/>
+            <f:render section="special-price" arguments="{price: eventDate.price, specialPrice: eventDate.bestSpecialPrice}"/>
         </f:then>
         <f:else>
             <f:render section="regular-price" arguments="{price: eventDate.price}"/>
