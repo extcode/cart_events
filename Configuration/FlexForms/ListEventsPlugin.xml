@@ -24,25 +24,25 @@
                             <type>select</type>
                             <renderType>selectSingle</renderType>
                             <items>
-                                <numIndex index="0" type="array">
-                                    <numIndex index="0"></numIndex>
-                                    <numIndex index="1"></numIndex>
+                                <numIndex index="0">
+                                    <label></label>
+                                    <value></value>
                                 </numIndex>
                                 <numIndex index="1">
-                                    <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.tstamp</numIndex>
-                                    <numIndex index="1">tstamp</numIndex>
+                                    <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.tstamp</label>
+                                    <value>tstamp</value>
                                 </numIndex>
                                 <numIndex index="2">
-                                    <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.sorting</numIndex>
-                                    <numIndex index="1">sorting</numIndex>
+                                    <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.sorting</label>
+                                    <value>sorting</value>
                                 </numIndex>
                                 <numIndex index="3">
-                                    <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.crdate</numIndex>
-                                    <numIndex index="1">crdate</numIndex>
+                                    <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.crdate</label>
+                                    <value>crdate</value>
                                 </numIndex>
                                 <numIndex index="4">
-                                    <numIndex index="0">LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.title</numIndex>
-                                    <numIndex index="1">title</numIndex>
+                                    <label>LLL:EXT:cart_events/Resources/Private/Language/locallang_be.xlf:tx_cartevents.plugin.events.action.event.list.orderBy.title</label>
+                                    <value>title</value>
                                 </numIndex>
                             </items>
                         </config>
