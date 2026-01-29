@@ -47,7 +47,7 @@ class DatamapDataHandlerHook
 
             $page = BackendUtility::getRecord('pages', abs($pageId));
 
-            if (!$this->isAllowedTargetPage($incomingFieldArray['list_type'], $page['doktype'])) {
+            if (!$this->isAllowedTargetPage($incomingFieldArray['list_type'] ?? '', $page['doktype'])) {
                 unset($dataHandler->datamap['tt_content'][$id]);
                 $dataHandler->log(
                     'tt_content',
