@@ -14,9 +14,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
+use TYPO3\CMS\Core\Upgrades\ChattyInterface;
+use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Updates\ChattyInterface;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Generate slugs for empty path_segments
@@ -30,6 +30,7 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
      * @var OutputInterface
      */
     protected $output;
+    public function __construct(private readonly ConnectionPool $connectionPool) {}
 
     /**
      * Return the identifier for this wizard
@@ -55,7 +56,7 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
      */
     public function updateNecessary(): bool
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE_NAME);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE_NAME);
         $queryBuilder->getRestrictions()->removeAll();
         $elementCount = $queryBuilder->count('uid')
             ->from(self::TABLE_NAME)->where($queryBuilder->expr()->or($queryBuilder->expr()->eq('path_segment', $queryBuilder->createNamedParameter('', Connection::PARAM_STR)), $queryBuilder->expr()->isNull('path_segment')))->executeQuery()->fetchOne();
@@ -75,7 +76,7 @@ class SlugUpdater implements UpgradeWizardInterface, ChattyInterface
             $GLOBALS['TCA'][self::TABLE_NAME]['columns']['path_segment']['config']
         );
 
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(self::TABLE_NAME);
+        $connection = $this->connectionPool->getConnectionForTable(self::TABLE_NAME);
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
         $statement = $queryBuilder->select('uid', 'title')

@@ -10,13 +10,14 @@ namespace Extcode\CartEvents\Hooks;
  */
 
 use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Hook into tcemain which is used to show preview of news item
  */
 class DataHandler
 {
+    public function __construct() {}
+
     /**
      * Flushes the cache if a news record was edited.
      * This happens on two levels: by UID and by PID.
@@ -34,7 +35,7 @@ class DataHandler
                 $cacheTagsToFlush[] = 'tx_cartevents_event_' . $params['uid_page'];
             }
 
-            $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+            $cacheManager = $this->cacheManager;
             foreach ($cacheTagsToFlush as $cacheTag) {
                 $cacheManager->flushCachesInGroupByTag('pages', $cacheTag);
             }

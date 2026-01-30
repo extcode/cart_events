@@ -28,7 +28,7 @@ let
       composer
     ];
     text = ''
-      rm -rf .Build/ vendor/ composer.lock
+      rm -rf .build/ composer.lock
       composer update --prefer-dist --no-progress --working-dir="$PROJECT_ROOT"
     '';
   };
@@ -41,7 +41,7 @@ let
     ];
 
     text = ''
-      ./vendor/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff
+      .build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff
     '';
   };
 
@@ -53,7 +53,7 @@ let
     ];
 
     text = ''
-      ./vendor/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php
+      .build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php
     '';
   };
 
@@ -77,7 +77,7 @@ let
     ];
 
     text = ''
-      ./vendor/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
+      .build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
     '';
   };
 
@@ -89,7 +89,7 @@ let
     ];
     text = ''
       project-install
-      ./vendor/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors
+      .build/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors
     '';
   };
 
@@ -101,7 +101,7 @@ let
     ];
     text = ''
       project-install
-      ./vendor/bin/phpunit -c Build/phpunit.xml.dist --testsuite functional --display-warnings --display-deprecations --display-errors
+      .build/bin/phpunit -c Build/phpunit.xml.dist --testsuite functional --display-warnings --display-deprecations --display-errors
     '';
   };
 
@@ -113,7 +113,7 @@ let
     ];
     text = ''
       project-install
-      XDEBUG_MODE=coverage ./vendor/bin/phpunit -c Build/phpunit.xml.dist --coverage-html=coverage_result
+      XDEBUG_MODE=coverage .build/bin/phpunit -c Build/phpunit.xml.dist --coverage-html=coverage_result
     '';
   };
 
@@ -137,7 +137,7 @@ let
 
       export INSTANCE_PATH="$PROJECT_ROOT/.build/web/typo3temp/var/tests/acceptance"
 
-      ./vendor/bin/codecept run
+      .build/bin/codecept run
 
       pgrep -f "php -S" | xargs -r kill
       pgrep -f "geckodriver" | xargs -r kill

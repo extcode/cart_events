@@ -33,6 +33,8 @@
         }
     },
     "config": {
+        "bin-dir": ".build/bin",
+        "vendor-dir": ".build/vendor",
         "allow-plugins": {
             "typo3/cms-composer-installers": true,
             "typo3/class-alias-loader": true,
@@ -40,20 +42,28 @@
             "phpstan/extension-installer": true
         }
     },
+    "version": "7.0.0",
     "extra": {
         "typo3/cms": {
             "extension-key": "cart_events",
-            "web-dir": ".build/web"
+            "web-dir": ".build/public"
+        }
+    },
+    "minimum-stability": "dev",
+    "repositories": {
+        "extcode/cart": {
+            "type": "path",
+            "url": "../cart"
         }
     },
     "require": {
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
         "ext-json": "*",
         "ext-pdo": "*",
-        "extcode/cart": "^11.3",
-        "typo3/cms-core": "^13.4",
-        "typo3/cms-extbase": "^13.4",
-        "typo3/cms-fluid": "^13.4"
+        "extcode/cart": "^12.0",
+        "typo3/cms-core": "^14.1",
+        "typo3/cms-extbase": "^14.1",
+        "typo3/cms-fluid": "^14.1"
     },
     "require-dev": {
         "codappix/typo3-php-datasets": "^2.1",
@@ -66,12 +76,12 @@
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "saschaegerer/phpstan-typo3": "^2.1",
         "spaze/phpstan-disallowed-calls": "^4.7",
         "staabm/phpstan-todo-by": "^0.3",
-        "typo3/cms-fluid-styled-content": "^13.4",
-        "typo3/cms-install": "^13.4",
-        "typo3/testing-framework": "^8.0"
+        "typo3/cms-fluid-styled-content": "^14.1",
+        "typo3/cms-install": "^14.1",
+        "typo3/testing-framework": "^9.0",
+        "ssch/typo3-rector": "^3.11"
     },
     "scripts": {
         "test:cgl": [
@@ -115,6 +125,6 @@
         ]
     },
     "suggest": {
-        "typo3/cms-form": "^13.4"
+        "typo3/cms-form": "^14.1"
     }
 }

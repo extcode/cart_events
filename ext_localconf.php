@@ -22,8 +22,7 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => 'form',
-    ],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    ]
 );
 
 ExtensionUtility::configurePlugin(
@@ -34,8 +33,7 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => 'form',
-    ],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    ]
 );
 
 ExtensionUtility::configurePlugin(
@@ -46,8 +44,7 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => '',
-    ],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    ]
 );
 
 ExtensionUtility::configurePlugin(
@@ -58,8 +55,7 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventController::class => 'form',
-    ],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    ]
 );
 
 ExtensionUtility::configurePlugin(
@@ -70,8 +66,7 @@ ExtensionUtility::configurePlugin(
     ],
     [
         EventDateController::class => '',
-    ],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    ]
 );
 
 // Cart Hooks
