@@ -13,7 +13,7 @@ namespace Extcode\CartEvents\EventListener;
 
 use Exception;
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Model\PriceCategory;
@@ -67,7 +67,7 @@ class CheckProductAvailability
         }
     }
 
-    protected function retrieveEventDateFromDatabase(Product $cartProduct): void
+    protected function retrieveEventDateFromDatabase(ProductInterface $cartProduct): void
     {
         $querySettings = $this->eventDateRepository->createQuery()->getQuerySettings();
         $querySettings->setRespectStoragePage(false);
@@ -80,7 +80,7 @@ class CheckProductAvailability
         $this->eventDate = $eventDate;
     }
 
-    protected function getQuantitiesFromRequest(Request $request, Product $cartProduct): mixed
+    protected function getQuantitiesFromRequest(Request $request, ProductInterface $cartProduct): mixed
     {
         if ($request->hasArgument('quantities')) {
             $quantities = $request->getArgument('quantities');
@@ -102,7 +102,7 @@ class CheckProductAvailability
     }
 
     protected function hasEventDateEnoughSeats(
-        Product $cartProduct,
+        ProductInterface $cartProduct,
         Cart $cart,
         string $mode,
         int $quantity,
@@ -129,7 +129,7 @@ class CheckProductAvailability
     }
 
     protected function hasPriceCategoryEnoughSeats(
-        Product $cartProduct,
+        ProductInterface $cartProduct,
         Cart $cart,
         string $mode,
         string $beVariantId,

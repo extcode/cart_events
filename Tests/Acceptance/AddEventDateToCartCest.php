@@ -26,7 +26,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 2', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=18eb8b460c56ca88173743ab54524f53');
+        $I->seeLink('Event 2', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=450745d03483c4859d3a1b473248805a9c203398d65a61de0b354060c9f931e8');
         $I->click('Event 2');
         $I->see('19,99 €');
 
@@ -68,7 +68,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 2', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=18eb8b460c56ca88173743ab54524f53');
+        $I->seeLink('Event 2', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=450745d03483c4859d3a1b473248805a9c203398d65a61de0b354060c9f931e8');
         $I->click('Event 2');
         $I->see('19,99 €');
 
@@ -104,7 +104,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e3c7dc358f2d8bb5e208269ff77dc649401eb6a1112dd417284e1cd9eea79cf6');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -149,7 +149,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e3c7dc358f2d8bb5e208269ff77dc649401eb6a1112dd417284e1cd9eea79cf6');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -203,7 +203,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e3c7dc358f2d8bb5e208269ff77dc649401eb6a1112dd417284e1cd9eea79cf6');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -257,7 +257,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
+        $I->seeLink('Event 3', 'http://127.0.0.1:8080/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e3c7dc358f2d8bb5e208269ff77dc649401eb6a1112dd417284e1cd9eea79cf6');
         $I->click('Event 3');
 
         $I->dontSee('This event date can not be booked.');
@@ -341,7 +341,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=a29b848a49590cddc74a4254bf44ebd62d98aa86a0ca041d599aab508fcb7539');
         $I->click('Event 5');
 
         $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category C');
@@ -372,7 +372,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=a29b848a49590cddc74a4254bf44ebd62d98aa86a0ca041d599aab508fcb7539');
         $I->click('Event 5');
 
         $I->selectOption("select[name='tx_cart_cart[priceCategory]']", 'Category B');
@@ -413,7 +413,7 @@ class AddEventDateToCartCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=a29b848a49590cddc74a4254bf44ebd62d98aa86a0ca041d599aab508fcb7539');
         $I->click('Event 5');
 
         $I->wantTo('Add the price group "Category B" with quantity of 37 to cart.');

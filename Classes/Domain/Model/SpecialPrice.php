@@ -17,10 +17,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class SpecialPrice extends AbstractEntity
 {
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $title = '';
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected float $price = 0.0;
 
     protected ?FrontendUserGroup $frontendUserGroup = null;

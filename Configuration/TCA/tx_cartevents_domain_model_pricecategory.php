@@ -29,7 +29,6 @@ return [
             'endtime' => 'endtime',
             'fe_group' => 'frontend_user_group',
         ],
-        'searchFields' => 'price',
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_pricecategory.svg',
     ],
     'types' => [

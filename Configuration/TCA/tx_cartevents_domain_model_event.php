@@ -32,7 +32,6 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'sku,title,teaser,description,audience',
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_event.svg',
     ],
     'types' => [

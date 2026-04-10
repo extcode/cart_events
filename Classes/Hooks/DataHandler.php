@@ -11,12 +11,9 @@ namespace Extcode\CartEvents\Hooks;
 
 use TYPO3\CMS\Core\Cache\CacheManager;
 
-/**
- * Hook into tcemain which is used to show preview of news item
- */
 class DataHandler
 {
-    public function __construct() {}
+    public function __construct(private readonly CacheManager $cacheManager) {}
 
     /**
      * Flushes the cache if a news record was edited.

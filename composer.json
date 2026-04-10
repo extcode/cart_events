@@ -50,17 +50,12 @@
         }
     },
     "minimum-stability": "dev",
-    "repositories": {
-        "extcode/cart": {
-            "type": "path",
-            "url": "../cart"
-        }
-    },
+    "prefer-stable": true,
     "require": {
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
         "ext-json": "*",
         "ext-pdo": "*",
-        "extcode/cart": "^12.0",
+        "extcode/cart": "dev-12.x-dev as 12.0.0",
         "typo3/cms-core": "^14.1",
         "typo3/cms-extbase": "^14.1",
         "typo3/cms-fluid": "^14.1"

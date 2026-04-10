@@ -12,7 +12,7 @@ namespace Extcode\CartEvents\EventListener\Order\Stock;
  */
 
 use Exception;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Model\PriceCategory;
@@ -39,7 +39,7 @@ class HandleStock
         }
     }
 
-    protected function handleStockForEventDate(Product $cartProduct): void
+    protected function handleStockForEventDate(ProductInterface $cartProduct): void
     {
         $eventDate = $this->eventDateRepository->findByUid($cartProduct->getProductId());
 

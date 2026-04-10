@@ -23,7 +23,7 @@ final class ExtcodeCartEventsCTypeMigration extends AbstractListTypeToCTypeUpdat
     protected function getListTypeToCTypeMapping(): array
     {
         return [
-            'cartevents' => 'cartevents_listevents'
+            'cartevents' => 'cartevents_listevents',
         ];
     }
 }

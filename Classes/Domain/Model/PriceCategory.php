@@ -22,10 +22,10 @@ class PriceCategory extends AbstractEntity
 {
     protected EventDate $eventDate;
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $sku = '';
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $title = '';
 
     protected float $price = 0.0;
@@ -33,7 +33,7 @@ class PriceCategory extends AbstractEntity
     /**
      * @var ObjectStorage<SpecialPrice>
      */
-    #[Cascade(['value' => 'remove'])]
+    #[Cascade(value: 'remove')]
     protected ObjectStorage $specialPrices;
 
     protected int $seatsNumber = 0;
