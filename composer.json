@@ -52,13 +52,13 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
         "ext-json": "*",
         "ext-pdo": "*",
         "extcode/cart": "dev-12.x-dev as 12.0.0",
-        "typo3/cms-core": "^14.1",
-        "typo3/cms-extbase": "^14.1",
-        "typo3/cms-fluid": "^14.1"
+        "typo3/cms-core": "^14.2",
+        "typo3/cms-extbase": "^14.2",
+        "typo3/cms-fluid": "^14.2"
     },
     "require-dev": {
         "codappix/typo3-php-datasets": "^2.1",
@@ -73,9 +73,9 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "spaze/phpstan-disallowed-calls": "^4.7",
         "staabm/phpstan-todo-by": "^0.3",
-        "typo3/cms-fluid-styled-content": "^14.1",
-        "typo3/cms-install": "^14.1",
-        "typo3/testing-framework": "^9.0",
+        "typo3/cms-fluid-styled-content": "^14.2",
+        "typo3/cms-install": "^14.2",
+        "typo3/testing-framework": "^9.3",
         "ssch/typo3-rector": "^3.11"
     },
     "scripts": {
@@ -120,6 +120,6 @@
         ]
     },
     "suggest": {
-        "typo3/cms-form": "^14.1"
+        "typo3/cms-form": "^14.2"
     }
 }
