@@ -24,12 +24,12 @@ let
   projectInstall = pkgs.writeShellApplication {
     name = "project-install";
     runtimeInputs = [
-      php
       composer
+      php
     ];
     text = ''
-      rm -rf .build/ composer.lock
-      composer update --prefer-dist --no-progress --working-dir="$PROJECT_ROOT"
+      rm -rf .build/ composer.lock,
+      composer update --prefer-dist --no-progress
     '';
   };
 
@@ -37,11 +37,12 @@ let
     name = "project-cgl";
 
     runtimeInputs = [
+      composer
       php
     ];
 
     text = ''
-      .build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff
+      composer project:cgl
     '';
   };
 
@@ -49,23 +50,25 @@ let
     name = "project-cgl-fix";
 
     runtimeInputs = [
+      composer
       php
     ];
 
     text = ''
-      .build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php
+      composer project:cgl-fix
     '';
   };
 
-  projectLint = pkgs.writeShellApplication {
-    name = "project-lint";
+  projectLintPhp = pkgs.writeShellApplication {
+    name = "project-lint-php";
 
     runtimeInputs = [
+      composer
       php
     ];
 
     text = ''
-      find ./*.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+      composer project:lint:php
     '';
   };
 
@@ -73,35 +76,38 @@ let
     name = "project-phpstan";
 
     runtimeInputs = [
+      composer
       php
     ];
 
     text = ''
-      .build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
+      composer project:phpstan
     '';
   };
 
   projectTestUnit = pkgs.writeShellApplication {
     name = "project-test-unit";
     runtimeInputs = [
+      composer
       php
       projectInstall
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors
+      composer project:test:unit
     '';
   };
 
   projectTestFunctional = pkgs.writeShellApplication {
     name = "project-test-functional";
     runtimeInputs = [
+      composer
       php
       projectInstall
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/phpunit.xml.dist --testsuite functional --display-warnings --display-deprecations --display-errors
+      composer project:test:functional 
     '';
   };
 
@@ -120,12 +126,12 @@ let
   projectTestAcceptance = pkgs.writeShellApplication {
     name = "project-test-acceptance";
     runtimeInputs = [
-      projectInstall
       pkgs.sqlite
       pkgs.firefox
       pkgs.geckodriver
       pkgs.procps
       php
+      composer
     ];
     text = ''
       project-install
@@ -152,7 +158,7 @@ in pkgs.mkShellNoCC {
     projectInstall
     projectCgl
     projectCglFix
-    projectLint
+    projectLintPhp
     projectPhpstan
     projectTestUnit
     projectTestFunctional
