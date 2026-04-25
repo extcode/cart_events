@@ -20,12 +20,12 @@ use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
-class HandleStock
+final readonly class HandleStock
 {
     public function __construct(
-        private readonly PersistenceManager $persistenceManager,
-        private readonly EventDateRepository $eventDateRepository,
-        private readonly PriceCategoryRepository $priceCategoryRepository,
+        private PersistenceManager $persistenceManager,
+        private EventDateRepository $eventDateRepository,
+        private PriceCategoryRepository $priceCategoryRepository,
     ) {}
 
     public function __invoke(EventInterface $event): void
@@ -39,7 +39,7 @@ class HandleStock
         }
     }
 
-    protected function handleStockForEventDate(ProductInterface $cartProduct): void
+    private function handleStockForEventDate(ProductInterface $cartProduct): void
     {
         $eventDate = $this->eventDateRepository->findByUid($cartProduct->getProductId());
 
@@ -50,7 +50,7 @@ class HandleStock
         if ($eventDate->isHandleSeats()) {
             if ($eventDate->isHandleSeatsInPriceCategory()) {
                 foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
-                    $explodedId = explode('-', (string)$cartBeVariant->getId());
+                    $explodedId = explode('-', $cartBeVariant->getId());
                     $id = (int)end($explodedId);
                     $priceCategory = $this->priceCategoryRepository->findByUid($id);
                     if (($priceCategory instanceof PriceCategory) === false) {

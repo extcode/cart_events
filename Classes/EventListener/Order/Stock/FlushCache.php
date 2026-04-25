@@ -18,11 +18,11 @@ use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use TYPO3\CMS\Core\Cache\CacheManager;
 
-readonly class FlushCache
+final readonly class FlushCache
 {
     public function __construct(
         private EventDateRepository $eventDateRepository,
-        private readonly CacheManager $cacheManager
+        private CacheManager $cacheManager
     ) {}
 
     public function __invoke(EventInterface $event): void

@@ -38,7 +38,6 @@ call_user_func(function () {
                                 'label' => $_LLL_be . ':tcarecords-pages-contains.cart_events',
                                 'value' => 'cartevents',
                                 'icon' => 'apps-pagetree-folder-cartevents-events',
-                                'group' => 'default',
                             ],
                         ],
                     ],
