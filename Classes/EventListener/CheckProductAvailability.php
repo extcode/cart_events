@@ -13,7 +13,7 @@ namespace Extcode\CartEvents\EventListener;
 
 use Exception;
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\CartEvents\Domain\Model\EventDate;
 use Extcode\CartEvents\Domain\Model\PriceCategory;
@@ -21,19 +21,12 @@ use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class CheckProductAvailability
+final readonly class CheckProductAvailability
 {
-    protected Cart $cart;
-
-    protected EventDate $eventDate;
-
-    protected PriceCategory $priceCategory;
-
     public function __construct(
-        private readonly EventDateRepository $eventDateRepository,
+        private EventDateRepository $eventDateRepository,
     ) {}
 
     public function __invoke(CheckProductAvailabilityEvent $listenerEvent): void
@@ -47,18 +40,18 @@ class CheckProductAvailability
             return;
         }
 
-        $this->retrieveEventDateFromDatabase($cartProduct);
+        $eventDate = $this->retrieveEventDateFromDatabase($cartProduct);
 
-        if (!$this->eventDate->isHandleSeats()) {
+        if (!$eventDate->isHandleSeats()) {
             return;
         }
 
-        if ($this->eventDate->isHandleSeatsInPriceCategory() === false) {
-            $this->hasEventDateEnoughSeats($cartProduct, $cart, $mode, (int)$quantity, $listenerEvent);
+        if ($eventDate->isHandleSeatsInPriceCategory() === false) {
+            $this->hasEventDateEnoughSeats($eventDate, $cartProduct, $cart, $mode, (int)$quantity, $listenerEvent);
             return;
         }
 
-        foreach ($this->eventDate->getPriceCategories() as $priceCategory) {
+        foreach ($eventDate->getPriceCategories() as $priceCategory) {
             $beVariantId = PriceCategory::class . '-' . $priceCategory->getUid();
             if (array_key_exists($beVariantId, $cartProduct->getBeVariants()) === false) {
                 continue;
@@ -67,42 +60,24 @@ class CheckProductAvailability
         }
     }
 
-    protected function retrieveEventDateFromDatabase(Product $cartProduct): void
+    private function retrieveEventDateFromDatabase(ProductInterface $cartProduct): EventDate
     {
         $querySettings = $this->eventDateRepository->createQuery()->getQuerySettings();
         $querySettings->setRespectStoragePage(false);
         $this->eventDateRepository->setDefaultQuerySettings($querySettings);
 
         $eventDate = $this->eventDateRepository->findByIdentifier($cartProduct->getProductId());
+
         if (($eventDate instanceof EventDate) === false) {
             throw new Exception('Can not find EventDate with uid ' . $cartProduct->getProductId() . '.', 1769634921);
         }
-        $this->eventDate = $eventDate;
+
+        return $eventDate;
     }
 
-    protected function getQuantitiesFromRequest(Request $request, Product $cartProduct): mixed
-    {
-        if ($request->hasArgument('quantities')) {
-            $quantities = $request->getArgument('quantities');
-            $quantities = $quantities[$cartProduct->getId()];
-            return $quantities;
-        }
-
-        if ($request->hasArgument('quantity')) {
-            if ($request->hasArgument('priceCategory')) {
-                $quantities[PriceCategory::class . '-' . $request->getArgument('priceCategory')] = $request->getArgument('quantity');
-
-                return $quantities;
-            }
-
-            return $request->getArgument('quantity');
-        }
-
-        return 0;
-    }
-
-    protected function hasEventDateEnoughSeats(
-        Product $cartProduct,
+    private function hasEventDateEnoughSeats(
+        EventDate $eventDate,
+        ProductInterface $cartProduct,
         Cart $cart,
         string $mode,
         int $quantity,
@@ -112,7 +87,7 @@ class CheckProductAvailability
             $quantity += $cart->getProductById($cartProduct->getId())->getQuantity();
         }
 
-        if ($quantity > $this->eventDate->getSeatsAvailable()) {
+        if ($quantity > $eventDate->getSeatsAvailable()) {
             $listenerEvent->setAvailable(false);
             $listenerEvent->addMessage(
                 GeneralUtility::makeInstance(
@@ -128,8 +103,8 @@ class CheckProductAvailability
         }
     }
 
-    protected function hasPriceCategoryEnoughSeats(
-        Product $cartProduct,
+    private function hasPriceCategoryEnoughSeats(
+        ProductInterface $cartProduct,
         Cart $cart,
         string $mode,
         string $beVariantId,
@@ -139,7 +114,7 @@ class CheckProductAvailability
     ): void {
         if (($mode === 'add') && $cart->getProductById($cartProduct->getId())) {
             if ($cart->getProductById($cartProduct->getId())->getBeVariantById($beVariantId)) {
-                $quantity += (int)$cart->getProductById($cartProduct->getId())->getBeVariantById($beVariantId)->getQuantity();
+                $quantity += $cart->getProductById($cartProduct->getId())->getBeVariantById($beVariantId)->getQuantity();
             }
         }
         if ($quantity > $priceCategory->getSeatsAvailable()) {

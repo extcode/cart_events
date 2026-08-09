@@ -4,6 +4,7 @@ defined('TYPO3') or die();
 
 use Extcode\Cart\Hooks\FormDefinitions;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -59,10 +60,26 @@ if ($categoryRestrictionSetting) {
     };
 
     // prepend category restriction at the beginning of foreign_table_where
-    if (!empty($categoryRestriction)) {
-        $GLOBALS['TCA']['tx_cartevents_domain_model_event']['columns']['category']['config']['foreign_table_where'] = $categoryRestriction
-            . $GLOBALS['TCA']['tx_cartevents_domain_model_event']['columns']['category']['config']['foreign_table_where'];
-        $GLOBALS['TCA']['tx_cartevents_domain_model_event']['columns']['categories']['config']['foreign_table_where'] = $categoryRestriction
-            . $GLOBALS['TCA']['tx_cartevents_domain_model_event']['columns']['categories']['config']['foreign_table_where'];
+    if ($categoryRestriction !== '') {
+        $currentCategoryRestriction = $GLOBALS['TCA']['tx_cartevents_domain_model_event']['columns']['category']['config']['foreign_table_where'] ?? '';
+        $currentCategoriesRestriction = $GLOBALS['TCA']['tx_cartevents_domain_model_event']['columns']['categories']['config']['foreign_table_where'] ?? '';
+
+        ArrayUtility::mergeRecursiveWithOverrule(
+            $GLOBALS['TCA']['tx_cartevents_domain_model_event'],
+            [
+                'columns' => [
+                    'category' => [
+                        'config' => [
+                            'foreign_table_where' => $categoryRestriction . $currentCategoryRestriction,
+                        ],
+                    ],
+                    'categories' => [
+                        'config' => [
+                            'foreign_table_where' => $categoryRestriction . $currentCategoriesRestriction,
+                        ],
+                    ],
+                ],
+            ]
+        );
     }
 }

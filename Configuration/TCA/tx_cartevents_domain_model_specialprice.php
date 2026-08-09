@@ -29,12 +29,11 @@ return [
             'endtime' => 'endtime',
             'fe_group' => 'frontend_user_group',
         ],
-        'searchFields' => 'price',
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_specialprice.svg',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'frontend_user_group,title,price,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,--palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
+            'showitem' => 'frontend_user_group,title,price,--div--;core.form.tabs:access,--palette--;LLL:EXT:cart_events/Resources/Private/Language/locallang_tca.xlf:palettes.visibility;hiddenonly,--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
         ],
     ],
     'palettes' => [
@@ -45,7 +44,7 @@ return [
             'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_specialprice',
         ],
         'access' => [
-            'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
+            'showitem' => 'starttime;core.db.general:starttime, endtime;core.db.general:endtime',
         ],
     ],
     'columns' => [

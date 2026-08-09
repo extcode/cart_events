@@ -33,64 +33,71 @@
         }
     },
     "config": {
+        "bin-dir": ".build/bin",
+        "vendor-dir": ".build/vendor",
         "allow-plugins": {
             "typo3/cms-composer-installers": true,
             "typo3/class-alias-loader": true,
-            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "lock": false,
+        "sort-packages": true
     },
     "extra": {
         "typo3/cms": {
             "extension-key": "cart_events",
-            "web-dir": ".build/web"
+            "web-dir": ".build/public"
         }
     },
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
         "ext-json": "*",
         "ext-pdo": "*",
-        "extcode/cart": "^11.3",
-        "typo3/cms-core": "^13.4",
-        "typo3/cms-extbase": "^13.4",
-        "typo3/cms-fluid": "^13.4"
+        "extcode/cart": "^12.0",
+        "typo3/cms-core": "^14.3",
+        "typo3/cms-extbase": "^14.3",
+        "typo3/cms-fluid": "^14.3"
     },
     "require-dev": {
         "codappix/typo3-php-datasets": "^2.1",
         "codeception/codeception": "^5.0",
         "codeception/module-db": "^3.1",
         "codeception/module-webdriver": "^4.0",
+        "extcode/testing-framework": "^1.0",
         "friendsofphp/php-cs-fixer": "^3.16",
         "helmich/typo3-typoscript-lint": "^3.1",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "saschaegerer/phpstan-typo3": "^2.1",
         "spaze/phpstan-disallowed-calls": "^4.7",
         "staabm/phpstan-todo-by": "^0.3",
-        "typo3/cms-fluid-styled-content": "^13.4",
-        "typo3/cms-install": "^13.4",
-        "typo3/testing-framework": "^8.0"
+        "typo3/cms-fluid-styled-content": "^14.3",
+        "typo3/cms-install": "^14.3",
+        "ssch/typo3-rector": "^3.11"
     },
     "scripts": {
-        "test:cgl": [
-            "vendor/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
+        "project:reinstall": [
+            "rm -rf .build/ composer.lock",
+            "composer update --prefer-dist --no-progress --working-dir=\"$PROJECT_ROOT\""
         ],
-        "test:cgl:dry-run": [
-            "vendor/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
+        "project:cgl": [
+            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --using-cache=no --dry-run --diff"
         ],
-        "test:php:lint": [
+        "project:cgl-fix": [
+            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --using-cache=no"
+        ],
+        "project:lint:php": [
             "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
         ],
-        "test:php:unit": [
-            "vendor/bin/phpunit -c Build/UnitTests.xml"
+        "project:phpstan": [
+            ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
         ],
-        "test:php:functional": [
-            "typo3DatabaseDriver=\"pdo_sqlite\" vendor/bin/phpunit -c Build/FunctionalTests.xml"
+        "project:test:unit": [
+            ".build/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors"
         ],
-        "test:phpstan:analyse": [
-            "vendor/bin/phpstan analyse -c Build/phpstan.neon"
+        "project:test:functional": [
+            ".build/bin/phpunit -c Build/phpunit.xml.dist --testsuite functional --display-warnings --display-deprecations --display-errors"
         ],
         "test:rector:process": [
             "vendor/bin/rector process"
@@ -115,6 +122,6 @@
         ]
     },
     "suggest": {
-        "typo3/cms-form": "^13.4"
+        "typo3/cms-form": "^14.3"
     }
 }

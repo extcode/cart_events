@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Extcode\CartEvents\Updates;
 
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate;
 
 #[UpgradeWizard('extcodeCartEventsCTypeMigration')]
 final class ExtcodeCartEventsCTypeMigration extends AbstractListTypeToCTypeUpdate
@@ -20,22 +20,10 @@ final class ExtcodeCartEventsCTypeMigration extends AbstractListTypeToCTypeUpdat
         return 'The "Extcode CartEvents" plugins are now registered as content element. Update migrates existing records and backend user permissions.';
     }
 
-    /**
-     * This must return an array containing the "list_type" to "CType" mapping
-     *
-     *  Example:
-     *
-     *  [
-     *      'pi_plugin1' => 'pi_plugin1',
-     *      'pi_plugin2' => 'new_content_element',
-     *  ]
-     *
-     * @return array<string, string>
-     */
     protected function getListTypeToCTypeMapping(): array
     {
         return [
-            // TODO: Add this mapping yourself!
+            'cartevents' => 'cartevents_listevents',
         ];
     }
 }

@@ -11,7 +11,6 @@ namespace Extcode\CartEvents\ViewHelpers\Link;
 use Extcode\CartEvents\Domain\Model\Event;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -24,6 +23,13 @@ class EventViewHelper extends AbstractTagBasedViewHelper
      * @var string
      */
     protected $tagName = 'a';
+
+    public function __construct(
+        private readonly UriBuilder $uriBuilder,
+        private readonly ConnectionPool $connectionPool
+    ) {
+        parent::__construct();
+    }
 
     public function initializeArguments(): void
     {
@@ -115,7 +121,7 @@ class EventViewHelper extends AbstractTagBasedViewHelper
 
         $parameters = $this->arguments['arguments'];
 
-        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder = $this->uriBuilder;
         $uriBuilder
             ->reset()
             ->setRequest($request)
@@ -150,7 +156,7 @@ class EventViewHelper extends AbstractTagBasedViewHelper
      */
     protected function getEventPage(Event $event)
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         return $queryBuilder->select('*')
             ->from('pages')
             ->where(

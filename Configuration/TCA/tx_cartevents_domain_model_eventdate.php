@@ -32,7 +32,6 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'sku,title,',
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_eventdate.svg',
     ],
     'types' => [
@@ -60,7 +59,7 @@ return [
             'showitem' => 'hidden;' . $_LLL_db . ':tx_cartevents_domain_model_eventdate',
         ],
         'access' => [
-            'showitem' => 'starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel, endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
+            'showitem' => 'starttime;core.db.general:starttime, endtime;core.db.general:endtime',
         ],
     ],
     'columns' => [
