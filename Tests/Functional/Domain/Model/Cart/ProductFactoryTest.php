@@ -40,9 +40,12 @@ class ProductFactoryTest extends FunctionalTestCase
     #[Test]
     public function throwExceptionWithoutQuantityArgument(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionCode(1741700244);
-        $this->expectExceptionMessage('Quantity argument is missing');
+        $this->expectExceptionObject(
+            new InvalidArgumentException(
+                'Quantity argument is missing',
+                1741700244
+            )
+        );
 
         $productFactory = $this->getProductFactory();
         $productFactory->createProductFromRequestArguments(
@@ -55,9 +58,12 @@ class ProductFactoryTest extends FunctionalTestCase
     #[Test]
     public function throwExceptionWithQuantityArgumentLowerThanZero(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionCode(1741692900);
-        $this->expectExceptionMessage('Quantity argument is invalid');
+        $this->expectExceptionObject(
+            new InvalidArgumentException(
+                'Quantity argument is invalid',
+                1741692900
+            )
+        );
 
         $productFactory = $this->getProductFactory();
         $productFactory->createProductFromRequestArguments(
@@ -72,9 +78,12 @@ class ProductFactoryTest extends FunctionalTestCase
     #[Test]
     public function throwExceptionWithoutEventDate(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionCode(1741700304);
-        $this->expectExceptionMessage('Event date argument is missing');
+        $this->expectExceptionObject(
+            new InvalidArgumentException(
+                'Event date argument is missing',
+                1741700304
+            )
+        );
 
         $productFactory = $this->getProductFactory();
         $productFactory->createProductFromRequestArguments(
@@ -89,9 +98,12 @@ class ProductFactoryTest extends FunctionalTestCase
     #[Test]
     public function throwExceptionWithNonNumericEventDate(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionCode(1741692831);
-        $this->expectExceptionMessage('Event date argument is invalid');
+        $this->expectExceptionObject(
+            new InvalidArgumentException(
+                'Event date argument is invalid',
+                1741692831
+            )
+        );
 
         $productFactory = $this->getProductFactory();
         $productFactory->createProductFromRequestArguments(
@@ -107,9 +119,12 @@ class ProductFactoryTest extends FunctionalTestCase
     #[Test]
     public function throwExceptionWithNotExistingEventDate(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionCode(1741693220);
-        $this->expectExceptionMessage('Event date not found');
+        $this->expectExceptionObject(
+            new InvalidArgumentException(
+                'Event date not found',
+                1741693220
+            )
+        );
 
         $productFactory = $this->getProductFactory();
         $productFactory->createProductFromRequestArguments(
@@ -125,9 +140,12 @@ class ProductFactoryTest extends FunctionalTestCase
     #[Test]
     public function throwExceptionWithNotBookableExistingEventDate(): void
     {
-        $this->expectException(NotBookableException::class);
-        $this->expectExceptionCode(1741693273);
-        $this->expectExceptionMessage('Event date not bookable');
+        $this->expectExceptionObject(
+            new NotBookableException(
+                'Event date not bookable',
+                1741693273
+            )
+        );
 
         $productFactory = $this->getProductFactory();
         $productFactory->createProductFromRequestArguments(
