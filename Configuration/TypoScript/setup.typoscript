@@ -13,59 +13,69 @@ ajaxCartEventDatesForm {
     10 < tt_content.list.20.cartevents_singleevent
 }
 
-plugin.tx_cart {
-    settings {
-        jsonResponseForPageTypes {
-            ajaxCartEventDatesForm = {$plugin.tx_cartevents.settings.ajaxCartEventDatesForm}
-        }
-    }
+page {
+    includeCSS.tx_cartevents = EXT:cart_events/Resources/Public/Stylesheets/cart_events.css
+    includeJSFooter.tx_cartevents = EXT:cart_events/Resources/Public/JavaScripts/cart_events.js
 }
 
-page.includeCSS.tx_cartevents = EXT:cart_events/Resources/Public/Stylesheets/cart_events.css
-page.includeJSFooter.tx_cartevents = EXT:cart_events/Resources/Public/JavaScripts/cart_events.js
-
-plugin.tx_cartevents {
-    view {
-        templateRootPaths.0 = {$plugin.tx_cartevents.view.templateRootPath}
-        partialRootPaths.0 = {$plugin.tx_cartevents.view.partialRootPath}
-        layoutRootPaths.0 = {$plugin.tx_cartevents.view.layoutRootPath}
+plugin {
+    tx_cart {
+        settings {
+            jsonResponseForPageTypes {
+                ajaxCartEventDatesForm = {$plugin.tx_cartevents.settings.ajaxCartEventDatesForm}
+            }
+        }
     }
 
-    persistence {
-        storagePid = {$plugin.tx_cartevents.persistence.storagePid}
-        recursive = {$plugin.tx_cartevents.persistence.recursive}
-    }
+    tx_cartevents {
+        view {
+            templateRootPaths.0 = {$plugin.tx_cartevents.view.templateRootPath}
+            partialRootPaths.0 = {$plugin.tx_cartevents.view.partialRootPath}
+            layoutRootPaths.0 = {$plugin.tx_cartevents.view.layoutRootPath}
+        }
 
-    settings {
-        format.currency < plugin.tx_cart.settings.format.currency
+        persistence {
+            storagePid = {$plugin.tx_cartevents.persistence.storagePid}
+            recursive = {$plugin.tx_cartevents.persistence.recursive}
+        }
 
-        addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
-        ajaxCartEventDatesForm = {$plugin.tx_cartevents.settings.ajaxCartEventDatesForm}
+        settings {
+            format.currency < plugin.tx_cart.settings.format.currency
 
-        showAction {
-            media {
-                image {
-                    size {
-                        small.maxWidth = 100
-                        small.maxHeight =
-                        medium.maxWidth = 300
-                        medium.maxHeight =
-                        large.maxWidth = 600
-                        large.maxHeight =
+            addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
+            ajaxCartEventDatesForm = {$plugin.tx_cartevents.settings.ajaxCartEventDatesForm}
+
+            showAction {
+                media {
+                    image {
+                        size {
+                            small {
+                                maxWidth = 100
+                                maxHeight =
+                            }
+                            medium {
+                                maxWidth = 300
+                                maxHeight =
+                            }
+                            large {
+                                maxWidth = 600
+                                maxHeight =
+                            }
+                        }
                     }
                 }
             }
+            listAction < .showAction
         }
-        listAction < .showAction
+
+        features {
+            skipDefaultArguments = 1
+        }
     }
 
-    features {
-        skipDefaultArguments = 1
+    tx_form.settings.yamlConfigurations {
+        1548152082 = EXT:cart_events/Configuration/Yaml/FormSetup.yaml
     }
-}
-
-plugin.tx_form.settings.yamlConfigurations {
-    1548152082 = EXT:cart_events/Configuration/Yaml/FormSetup.yaml
 }
 
 module.tx_form.settings.yamlConfigurations {

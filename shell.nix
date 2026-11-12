@@ -59,8 +59,8 @@ let
     '';
   };
 
-  projectLint = pkgs.writeShellApplication {
-    name = "project-lint";
+  projectLintPhp = pkgs.writeShellApplication {
+    name = "project-lint-php";
 
     runtimeInputs = [
       composer
@@ -69,6 +69,60 @@ let
 
     text = ''
       "$PROJECT_ROOT/Build/Scripts/lint-php.sh"
+    '';
+  };
+
+  projectLintTypoScript = pkgs.writeShellApplication {
+    name = "project-lint-typoscript";
+
+    runtimeInputs = [
+      php
+    ];
+
+    text = ''
+      "$PROJECT_ROOT/Build/Scripts/lint-typoscript.sh"
+    '';
+  };
+
+  projectLintXml = pkgs.writeShellApplication {
+    name = "project-lint-xml";
+
+    runtimeInputs = [
+      pkgs.libxml2
+    ];
+
+    text = ''
+      "$PROJECT_ROOT/Build/Scripts/lint-xml.sh"
+    '';
+  };
+
+  projectLintYaml = pkgs.writeShellApplication {
+    name = "project-lint-yaml";
+
+    runtimeInputs = [
+      pkgs.yamllint
+    ];
+
+    text = ''
+      "$PROJECT_ROOT/Build/Scripts/lint-yaml.sh"
+    '';
+  };
+
+  projectLint = pkgs.writeShellApplication {
+    name = "project-lint";
+
+    runtimeInputs = [
+      projectLintPhp
+      projectLintTypoScript
+      projectLintXml
+      projectLintYaml
+    ];
+
+    text = ''
+      project-lint-php
+      project-lint-typoscript
+      project-lint-xml
+      project-lint-yaml
     '';
   };
 
@@ -146,12 +200,18 @@ in pkgs.mkShellNoCC {
     pkgs.firefox
     pkgs.geckodriver
     pkgs.procps
+    pkgs.libxml2
+    pkgs.yamllint
     php
     composer
     projectInstall
     projectCgl
     projectCglFix
     projectLint
+    projectLintPhp
+    projectLintTypoScript
+    projectLintXml
+    projectLintYaml
     projectPhpstan
     projectTestUnit
     projectTestFunctional
