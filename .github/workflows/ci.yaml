@@ -90,7 +90,7 @@ jobs:
           && composer install --no-progress --no-ansi --no-interaction
 
       - name: Build codeception tester
-        run: .build/bin/codecept build
+        run: .Build/bin/codecept build
 
       - name: Code Quality (by PHPStan)
         run: composer project:phpstan
