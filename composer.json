@@ -40,7 +40,8 @@
             "phpstan/extension-installer": true
         },
         "vendor-dir": ".Build/vendor",
-        "bin-dir": ".Build/bin"
+        "bin-dir": ".Build/bin",
+        "lock": false
     },
     "extra": {
         "typo3/cms": {
