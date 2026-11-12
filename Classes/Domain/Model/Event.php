@@ -29,10 +29,10 @@ class Event extends AbstractEntity
 
     protected ?string $formDefinition = null;
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $sku = '';
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $title = '';
 
     protected string $teaser = '';
@@ -54,7 +54,7 @@ class Event extends AbstractEntity
     /**
      * @var ObjectStorage<EventDate>
      */
-    #[Cascade(['value' => 'remove'])]
+    #[Cascade(value: 'remove')]
     protected ObjectStorage $eventDates;
 
     /**

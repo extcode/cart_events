@@ -10,7 +10,6 @@ namespace Extcode\CartEvents\Controller;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Exception;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Service\SessionHandler;
@@ -25,11 +24,13 @@ use Extcode\CartEvents\Domain\Repository\EventDateRepository;
 use Extcode\CartEvents\Domain\Repository\EventRepository;
 use Extcode\CartEvents\Domain\Repository\PriceCategoryRepository;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Cache\CacheTag;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 final class EventController extends ActionController
 {
@@ -56,7 +57,7 @@ final class EventController extends ActionController
             static $cacheTagsSet = false;
 
             if (!$cacheTagsSet) {
-                $GLOBALS['TSFE']->addCacheTags(['tx_cartevents']);
+                $this->request->getAttribute('frontend.cache.collector')->addCacheTags(new CacheTag('tx_cartevents', 3600));
                 $cacheTagsSet = true;
             }
         }
@@ -102,8 +103,8 @@ final class EventController extends ActionController
 
     public function showAction(?Event $event = null): ResponseInterface
     {
-        if ((int)$GLOBALS['TSFE']->page['doktype'] === 186) {
-            $eventUid = (int)$GLOBALS['TSFE']->page['cart_events_event'];
+        if ((int)$this->request->getAttribute('frontend.page.information')->getPageRecord()['doktype'] === 186) {
+            $eventUid = (int)$this->request->getAttribute('frontend.page.information')->getPageRecord()['cart_events_event'];
             $event = $this->eventRepository->findByUid($eventUid);
         }
 
@@ -120,8 +121,8 @@ final class EventController extends ActionController
     #[IgnoreValidation(['value' => 'priceCategory'])]
     public function formAction(?EventDate $eventDate = null, ?PriceCategory $priceCategory = null): ResponseInterface
     {
-        if (class_exists(\TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class) === false) {
-            throw new \BadFunctionCallException('This action requires the installation of typo3/cms-form.');
+        if (class_exists(FormPersistenceManagerInterface::class) === false) {
+            throw new \BadFunctionCallException('This action requires the installation of typo3/cms-form.', 2153916883);
         }
 
         if (!$eventDate) {
@@ -142,7 +143,7 @@ final class EventController extends ActionController
                         }
                         $formDefinition = $event->getFormDefinition();
                         $formPersistenceManager = GeneralUtility::makeInstance(
-                            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::class
+                            FormPersistenceManagerInterface::class
                         );
                         $form = $formPersistenceManager->load($formDefinition);
 

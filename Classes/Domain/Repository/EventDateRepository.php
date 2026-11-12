@@ -17,12 +17,19 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class EventDateRepository extends Repository
 {
+    /**
+     * Constructs a new Repository
+     */
+    public function __construct(private readonly ConnectionPool $connectionPool)
+    {
+        parent::__construct();
+    }
     public function findNext(int $limit, string $pidList): array
     {
         $table = 'tx_cartevents_domain_model_eventdate';
         $joinTableEvent = 'tx_cartevents_domain_model_event';
 
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+        $queryBuilder = $this->connectionPool
             ->getQueryBuilderForTable($table);
 
         $queryBuilder

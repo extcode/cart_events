@@ -8,10 +8,9 @@ parameters:
     - ../Classes
     - ../Configuration
     - ../Tests
-    - ../ext_emconf.php
     - ../ext_localconf.php
   excludePaths:
-    - '../Tests/Acceptance/Support/_generated/TesterActions.php'
+    - ../Tests/Acceptance/Support/_generated
 
   disallowedFunctionCalls:
     -

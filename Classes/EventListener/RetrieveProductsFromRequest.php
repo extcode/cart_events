@@ -18,11 +18,11 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class RetrieveProductsFromRequest
+final readonly class RetrieveProductsFromRequest
 {
     public function __construct(
-        private readonly ExtensionConfiguration $extensionConfiguration,
-        private readonly ProductFactoryInterface $productFactory,
+        private ExtensionConfiguration $extensionConfiguration,
+        private ProductFactoryInterface $productFactory,
     ) {}
 
     public function __invoke(RetrieveProductsFromRequestEvent $event): void

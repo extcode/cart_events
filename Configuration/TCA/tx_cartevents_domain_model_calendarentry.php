@@ -15,6 +15,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
 
+        'versioningWS' => true,
+
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -22,7 +24,6 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title',
         'iconfile' => 'EXT:cart_events/Resources/Public/Icons/tx_cartevents_domain_model_calendarentry.svg',
     ],
     'types' => [

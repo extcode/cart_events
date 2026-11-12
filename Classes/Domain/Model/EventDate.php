@@ -22,10 +22,10 @@ class EventDate extends AbstractEventDate
 {
     protected Event $event;
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $sku = '';
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $title = '';
 
     protected string $location = '';
@@ -49,7 +49,7 @@ class EventDate extends AbstractEventDate
     /**
      * @var ObjectStorage<SpecialPrice>
      */
-    #[Cascade(['value' => 'remove'])]
+    #[Cascade(value: 'remove')]
     protected ObjectStorage $specialPrices;
 
     protected bool $priceCategorized = false;
@@ -57,7 +57,7 @@ class EventDate extends AbstractEventDate
     /**
      * @var ObjectStorage<PriceCategory>
      */
-    #[Cascade(['value' => 'remove'])]
+    #[Cascade(value: 'remove')]
     protected ObjectStorage $priceCategories;
 
     protected bool $handleSeats = false;
@@ -71,7 +71,7 @@ class EventDate extends AbstractEventDate
     /**
      * @var ObjectStorage<CalendarEntry>
      */
-    #[Cascade(['value' => 'remove'])]
+    #[Cascade(value: 'remove')]
     protected ObjectStorage $calendarEntries;
 
     public function __construct()

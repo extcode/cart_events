@@ -42,9 +42,10 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 
 | Cart Events | TYPO3      | PHP       | Support/Development                  |
 |-------------|------------|-----------|--------------------------------------|
-| 6.x.x       | 13.4       | 8.2 - 8.4 | Features, Bugfixes, Security Updates |
-| 5.x.x       | 12.4       | 8.1 - 8.4 | Bugfixes, Security Updates           |
-| 4.x.x       | 10.4, 11.5 | 7.2+      | Security Updates                     |
+| 7.x.x       | 14.3       | 8.2 - 8.5 | Features, Bugfixes, Security Updates |
+| 6.x.x       | 13.4       | 8.2 - 8.4 | Bugfixes, Security Updates           |
+| 5.x.x       | 12.4       | 8.1 - 8.4 | Security Updates                     |
+| 4.x.x       | 10.4, 11.5 | 7.2+      |                                      |
 | 3.x.x       | 10.4       | 7.2 - 7.4 |                                      |
 | 2.x.x       | 9.5        | 7.2 - 7.4 |                                      |
 | 1.x.x       | 8.7        | 7.0 - 7.4 |                                      |
@@ -66,7 +67,6 @@ News uses **semantic versioning** which basically means for you, that
 ## 4. Sponsoring
 
 * Ask for an invoice.
-* [GitHub Sponsors](https://github.com/sponsors/extcode)
 * [PayPal.Me](https://paypal.me/extcart)
 
 [1]: https://docs.typo3.org/typo3cms/extensions/cart_events/

@@ -23,11 +23,11 @@ class EventListCest
     {
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 1', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=1&cHash=b94e793b120e29763527f801db80844c');
+        $I->seeLink('Event 1', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=1&cHash=11fefb67eb75bf4d0bb8bd49b29bef7c17a1c7ebd487deb6da11de8476328d5e');
         $I->see('Teaser 1');
-        $I->seeLink('Event 2', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=18eb8b460c56ca88173743ab54524f53');
+        $I->seeLink('Event 2', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=450745d03483c4859d3a1b473248805a9c203398d65a61de0b354060c9f931e8');
         $I->see('Teaser 2');
-        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
+        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e3c7dc358f2d8bb5e208269ff77dc649401eb6a1112dd417284e1cd9eea79cf6');
         $I->see('Teaser 3');
 
         $I->dontSee('Event 4');
@@ -38,7 +38,7 @@ class EventListCest
     {
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 1', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=1&cHash=b94e793b120e29763527f801db80844c');
+        $I->seeLink('Event 1', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=1&cHash=11fefb67eb75bf4d0bb8bd49b29bef7c17a1c7ebd487deb6da11de8476328d5e');
         $I->click('Event 1');
 
         $I->see('Event 1', 'h1');
@@ -51,7 +51,7 @@ class EventListCest
     {
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 2', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=18eb8b460c56ca88173743ab54524f53');
+        $I->seeLink('Event 2', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=2&cHash=450745d03483c4859d3a1b473248805a9c203398d65a61de0b354060c9f931e8');
         $I->click('Event 2');
 
         $I->see('Event 2', 'h1');
@@ -71,7 +71,7 @@ class EventListCest
     {
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e30dcda6967105cf51f3d0ed454f4ba1');
+        $I->seeLink('Event 3', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=3&cHash=e3c7dc358f2d8bb5e208269ff77dc649401eb6a1112dd417284e1cd9eea79cf6');
         $I->click('Event 3');
 
         $I->see('Event 3', 'h1');
@@ -101,7 +101,7 @@ class EventListCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=a29b848a49590cddc74a4254bf44ebd62d98aa86a0ca041d599aab508fcb7539');
         $I->click('Event 5');
 
         $I->see('Event 5', 'h1');
@@ -152,7 +152,7 @@ class EventListCest
 
         $I->amOnUrl('http://127.0.0.1:8080/events/');
 
-        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=18ff1dbf4acad08e4f2f23af33a5c222');
+        $I->seeLink('Event 5', '/events?tx_cartevents_listevents%5Baction%5D=show&tx_cartevents_listevents%5Bcontroller%5D=Event&tx_cartevents_listevents%5Bevent%5D=5&cHash=a29b848a49590cddc74a4254bf44ebd62d98aa86a0ca041d599aab508fcb7539');
         $I->click('Event 5');
 
         $I->see('15,00 €', '.event-event-date:nth-child(1) span.regular-price > span.price');
