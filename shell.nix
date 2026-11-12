@@ -72,6 +72,18 @@ let
     '';
   };
 
+  projectLintYaml = pkgs.writeShellApplication {
+    name = "project-lint-yaml";
+
+    runtimeInputs = [
+      pkgs.yamllint
+    ];
+
+    text = ''
+      "$PROJECT_ROOT/Build/Scripts/lint-yaml.sh"
+    '';
+  };
+
   projectPhpstan = pkgs.writeShellApplication {
     name = "project-phpstan";
 
@@ -146,12 +158,14 @@ in pkgs.mkShellNoCC {
     pkgs.firefox
     pkgs.geckodriver
     pkgs.procps
+    pkgs.yamllint
     php
     composer
     projectInstall
     projectCgl
     projectCglFix
     projectLintPhp
+    projectLintYaml
     projectPhpstan
     projectTestUnit
     projectTestFunctional
