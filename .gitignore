@@ -1,4 +1,4 @@
-.build
+.Build
 composer.lock
 
 .php-cs-fixer.cache
@@ -9,6 +9,5 @@ Build/.phpunit.cache
 .idea
 
 var/
-vendor/
 
 coverage_result/

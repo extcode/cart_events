@@ -28,7 +28,7 @@ let
       php
     ];
     text = ''
-      rm -rf .build/ composer.lock,
+      rm -rf .Build/ composer.lock,
       composer update --prefer-dist --no-progress
     '';
   };
@@ -119,7 +119,7 @@ let
     ];
     text = ''
       project-install
-      XDEBUG_MODE=coverage .build/bin/phpunit -c Build/phpunit.xml.dist --coverage-html=coverage_result
+      XDEBUG_MODE=coverage .Build/bin/phpunit -c Build/phpunit.xml.dist --coverage-html=coverage_result
     '';
   };
 
@@ -136,14 +136,14 @@ let
     text = ''
       project-install
 
-      mkdir -p "$PROJECT_ROOT/.build/public/typo3temp/var/tests/acceptance"
-      mkdir -p "$PROJECT_ROOT/.build/public/typo3temp/var/tests/acceptance-logs"
-      mkdir -p "$PROJECT_ROOT/.build/public/typo3temp/var/tests/acceptance-reports"
-      mkdir -p "$PROJECT_ROOT/.build/public/typo3temp/var/tests/acceptance-sqlite-dbs"
+      mkdir -p "$PROJECT_ROOT/.Build/public/typo3temp/var/tests/acceptance"
+      mkdir -p "$PROJECT_ROOT/.Build/public/typo3temp/var/tests/acceptance-logs"
+      mkdir -p "$PROJECT_ROOT/.Build/public/typo3temp/var/tests/acceptance-reports"
+      mkdir -p "$PROJECT_ROOT/.Build/public/typo3temp/var/tests/acceptance-sqlite-dbs"
 
-      export INSTANCE_PATH="$PROJECT_ROOT/.build/public/typo3temp/var/tests/acceptance"
+      export INSTANCE_PATH="$PROJECT_ROOT/.Build/public/typo3temp/var/tests/acceptance"
 
-      .build/bin/codecept run
+      .Build/bin/codecept run
 
       pgrep -f "php -S" | xargs -r kill
       pgrep -f "geckodriver" | xargs -r kill
