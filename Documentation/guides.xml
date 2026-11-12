@@ -8,7 +8,7 @@
                edit-on-github-branch="main"
                edit-on-github="extcode/cart_events"
                typo3-core-preferred="stable"
-               interlink-shortcode="extcode/cart_events"
+               interlink-shortcode="extcode/cart-events"
     />
     <project title="Cart Events"
              release="6.0.0"

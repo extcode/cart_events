@@ -60,7 +60,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Coding Guideline
-        run: vendor/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
+        run: .Build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
 
   code-quality:
     runs-on: ubuntu-latest
@@ -89,10 +89,10 @@ jobs:
           composer require --no-interaction --prefer-dist --no-progress "typo3/cms-core:${{ matrix.typo3-version }}" "typo3/cms-extbase:${{ matrix.typo3-version }}" "typo3/cms-frontend:${{ matrix.typo3-version }}"
 
       - name: Build codeception tester
-        run: vendor/bin/codecept build
+        run: .Build/bin/codecept build
 
       - name: Code Quality (by PHPStan)
-        run: vendor/bin/phpstan analyse -c Build/phpstan.neon
+        run: .Build/bin/phpstan analyse -c Build/phpstan.neon
 
   test-php:
     runs-on: ubuntu-latest
@@ -102,12 +102,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v17
+      - uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable:phps=https://github.com/fossar/nix-phps/archive/master.tar.gz
-          extra_nix_config: |
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= fossar.cachix.org-1:Zv6FuqIboeHPWQS7ysLCJ7UT7xExb4OE8c4LyGb5AsE=
-            substituters = https://cache.nixos.org/ https://fossar.cachix.org
+          nix_path: nixpkgs=channel:nixos-26.05
 
       - name: Run Unit Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-unit
@@ -134,12 +131,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v17
+      - uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable:phps=https://github.com/fossar/nix-phps/archive/master.tar.gz
-          extra_nix_config: |
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= fossar.cachix.org-1:Zv6FuqIboeHPWQS7ysLCJ7UT7xExb4OE8c4LyGb5AsE=
-            substituters = https://cache.nixos.org/ https://fossar.cachix.org
+          nix_path: nixpkgs=channel:nixos-26.05
 
       - name: Run Acceptance Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-acceptance
