@@ -39,14 +39,14 @@ class AddEventDateToCartCest
         $I->seeInField("input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('input[type="submit"]');
         $I->click('input[type="submit"]');
-        $I->see('Item was added to cart.', '#event-date-2 .form-message .form-success');
+        $I->waitForText('Item was added to cart.', 5, '#event-date-2 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-2 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-2 .form-message .form-error');
 
         $I->wantTo('Add the first event date with quantity of 2 to cart.');
         $I->fillField("input[name='tx_cart_cart[quantity]']", '2');
         $I->click('input[type="submit"]');
-        $I->see('2 Items were added to cart.', '#event-date-2 .form-message .form-success');
+        $I->waitForText('2 Items were added to cart.', 5, '#event-date-2 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-2 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-2 .form-message .form-error');
 
@@ -82,7 +82,7 @@ class AddEventDateToCartCest
         $I->fillField("input[name='tx_cart_cart[quantity]']", '1000');
         $I->seeElement('input[type="submit"]');
         $I->click('input[type="submit"]');
-        $I->see('1000 Items were added to cart.', '#event-date-2 .form-message .form-success');
+        $I->waitForText('1000 Items were added to cart.', 5, '#event-date-2 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-2 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-2 .form-message .form-error');
 
@@ -120,14 +120,14 @@ class AddEventDateToCartCest
         $I->seeInField("#event-date-3 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-3 input[type="submit"]');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('Item was added to cart.', '#event-date-3 .form-message .form-success');
+        $I->waitForText('Item was added to cart.', 5, '#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
         $I->wantTo('Add the first event date with quantity of 2 to cart.');
         $I->fillField("#event-date-3 input[name='tx_cart_cart[quantity]']", '2');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('2 Items were added to cart.', '#event-date-3 .form-message .form-success');
+        $I->waitForText('2 Items were added to cart.', 5, '#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
@@ -165,7 +165,7 @@ class AddEventDateToCartCest
         $I->seeInField("#event-date-3 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-3 input[type="submit"]');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('Item was added to cart.', '#event-date-3 .form-message .form-success');
+        $I->waitForText('Item was added to cart.', 5, '#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
@@ -175,7 +175,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-4 input[name='tx_cart_cart[quantity]']", '2');
         $I->seeElement('#event-date-4 input[type="submit"]');
         $I->click('#event-date-4 input[type="submit"]');
-        $I->see('2 Items were added to cart.', '#event-date-4 .form-message .form-success');
+        $I->waitForText('2 Items were added to cart.', 5, '#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-error');
 
@@ -218,7 +218,7 @@ class AddEventDateToCartCest
         $I->seeInField("#event-date-3 input[name='tx_cart_cart[quantity]']", '1');
         $I->fillField("#event-date-3 input[name='tx_cart_cart[quantity]']", '10');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-3 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-3 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
@@ -228,14 +228,14 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-3 input[name='tx_cart_cart[quantity]']", '9');
         $I->seeElement('#event-date-3 input[type="submit"]');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('9 Items were added to cart.', '#event-date-3 .form-message .form-success');
+        $I->waitForText('9 Items were added to cart.', 5, '#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
         $I->wantTo('Add the first event date with quantity of 1 to cart.');
         $I->seeInField("#event-date-3 input[name='tx_cart_cart[quantity]']", '1');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-3 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-3 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
@@ -274,14 +274,14 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-3 input[name='tx_cart_cart[quantity]']", '9');
         $I->seeElement('#event-date-3 input[type="submit"]');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('9 Items were added to cart.', '#event-date-3 .form-message .form-success');
+        $I->waitForText('9 Items were added to cart.', 5, '#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
         $I->wantTo('Add the first event date with quantity of 1 to cart.');
         $I->seeInField("#event-date-3 input[name='tx_cart_cart[quantity]']", '1');
         $I->click('#event-date-3 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-3 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-3 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-3 .form-message .form-error');
 
@@ -289,7 +289,7 @@ class AddEventDateToCartCest
         $I->seeInField("#event-date-4 input[name='tx_cart_cart[quantity]']", '1');
         $I->fillField("#event-date-4 input[name='tx_cart_cart[quantity]']", '9');
         $I->click('#event-date-4 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-4 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-4 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-error');
 
@@ -299,7 +299,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-4 input[name='tx_cart_cart[quantity]']", '7');
         $I->seeElement('#event-date-4 input[type="submit"]');
         $I->click('#event-date-4 input[type="submit"]');
-        $I->see('7 Items were added to cart.', '#event-date-4 .form-message .form-success');
+        $I->waitForText('7 Items were added to cart.', 5, '#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-error');
 
@@ -309,14 +309,14 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-4 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-4 input[type="submit"]');
         $I->click('#event-date-4 input[type="submit"]');
-        $I->see('Item was added to cart.', '#event-date-4 .form-message .form-success');
+        $I->waitForText('Item was added to cart.', 5, '#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-error');
 
         $I->wantTo('Add the second event date with quantity of 1 to cart.');
         $I->seeInField("#event-date-4 input[name='tx_cart_cart[quantity]']", '1');
         $I->click('#event-date-4 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-4 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-4 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-4 .form-message .form-error');
 
@@ -350,7 +350,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('Item was added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForText('Item was added to cart.', 5, '#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
 
@@ -360,7 +360,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '7');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('7 Items were added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForText('7 Items were added to cart.', 5, '#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
     }
@@ -381,7 +381,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '38');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-7 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-7 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
 
@@ -391,7 +391,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '37');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('37 Items were added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForText('37 Items were added to cart.', 5, '#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
 
@@ -401,7 +401,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-7 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-7 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
     }
@@ -423,7 +423,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '37');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('37 Items were added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForText('37 Items were added to cart.', 5, '#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
 
@@ -434,7 +434,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('Desired number of this item not available.', '#event-date-7 .form-message .form-error');
+        $I->waitForText('Desired number of this item not available.', 5, '#event-date-7 .form-message .form-error');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
 
@@ -445,7 +445,7 @@ class AddEventDateToCartCest
         $I->fillField("#event-date-7 input[name='tx_cart_cart[quantity]']", '1');
         $I->seeElement('#event-date-7 input[type="submit"]');
         $I->click('#event-date-7 input[type="submit"]');
-        $I->see('Item was added to cart.', '#event-date-7 .form-message .form-success');
+        $I->waitForText('Item was added to cart.', 5, '#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-success');
         $I->waitForElementNotVisible('#event-date-7 .form-message .form-error');
     }
