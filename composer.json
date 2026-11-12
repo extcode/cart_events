@@ -84,6 +84,7 @@
         "project:cgl": "Build/Scripts/cgl.sh",
         "project:cgl:fix": "Build/Scripts/cgl.sh --fix",
         "project:lint:php": "Build/Scripts/lint-php.sh",
+        "project:lint:typoscript": "Build/Scripts/lint-typoscript.sh",
         "project:lint:xml": "Build/Scripts/lint-xml.sh",
         "project:lint:yaml": "Build/Scripts/lint-yaml.sh",
         "project:phpstan": "Build/Scripts/phpstan.sh",
@@ -98,9 +99,6 @@
         ],
         "test:rector:process:dry-run": [
             ".Build/bin/rector process --dry-run"
-        ],
-        "test:typoscript:lint": [
-            ".Build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
         ]
     },
     "suggest": {
