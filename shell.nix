@@ -59,8 +59,8 @@ let
     '';
   };
 
-  projectLint = pkgs.writeShellApplication {
-    name = "project-lint";
+  projectLintPhp = pkgs.writeShellApplication {
+    name = "project-lint-php";
 
     runtimeInputs = [
       composer
@@ -189,7 +189,7 @@ in pkgs.mkShellNoCC {
     projectInstall
     projectCgl
     projectCglFix
-    projectLint
+    projectLintPhp
     projectLintTypoScript
     projectLintXml
     projectLintYaml
