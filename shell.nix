@@ -108,6 +108,24 @@ let
     '';
   };
 
+  projectLint = pkgs.writeShellApplication {
+    name = "project-lint";
+
+    runtimeInputs = [
+      projectLintPhp
+      projectLintTypoScript
+      projectLintXml
+      projectLintYaml
+    ];
+
+    text = ''
+      project-lint-php
+      project-lint-typoscript
+      project-lint-xml
+      project-lint-yaml
+    '';
+  };
+
   projectPhpstan = pkgs.writeShellApplication {
     name = "project-phpstan";
 
@@ -189,6 +207,7 @@ in pkgs.mkShellNoCC {
     projectInstall
     projectCgl
     projectCglFix
+    projectLint
     projectLintPhp
     projectLintTypoScript
     projectLintXml
