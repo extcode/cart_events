@@ -9,3 +9,13 @@
 .. contents::
    :local:
    :depth: 1
+
+Breaking
+--------
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Breaking-*
