@@ -144,10 +144,8 @@ let
     runtimeInputs = [
       composer
       php
-      projectInstall
     ];
     text = ''
-      project-install
       "$PROJECT_ROOT/Build/Scripts/phpunit.sh" unit
     '';
   };
@@ -157,10 +155,8 @@ let
     runtimeInputs = [
       composer
       php
-      projectInstall
     ];
     text = ''
-      project-install
       "$PROJECT_ROOT/Build/Scripts/phpunit.sh" functional
     '';
   };
@@ -169,10 +165,8 @@ let
     name = "project-test-with-coverage";
     runtimeInputs = [
       php
-      projectInstall
     ];
     text = ''
-      project-install
       XDEBUG_MODE=coverage .Build/bin/phpunit -c Build/phpunit.xml.dist --coverage-html=coverage_result
     '';
   };
@@ -180,7 +174,6 @@ let
   projectTestAcceptance = pkgs.writeShellApplication {
     name = "project-test-acceptance";
     runtimeInputs = [
-      projectInstall
       pkgs.sqlite
       pkgs.firefox
       pkgs.geckodriver
@@ -188,7 +181,6 @@ let
       php
     ];
     text = ''
-      project-install
       "$PROJECT_ROOT/Build/Scripts/acceptance.sh" "$@"
     '';
   };
