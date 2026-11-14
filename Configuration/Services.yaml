@@ -32,5 +32,11 @@ services:
         identifier: 'cart-events--check-product-availability'
         event: Extcode\Cart\Event\CheckProductAvailabilityEvent
 
+  Extcode\CartEvents\EventListener\Form\AddToCartFinisher:
+    tags:
+      - name: event.listener
+        identifier: 'cart-events--form--add-to-cart-finisher'
+        event: Extcode\Cart\Event\Form\AddToCartFinisherEvent
+
   Extcode\CartEvents\Updates\SlugUpdater:
     public: true

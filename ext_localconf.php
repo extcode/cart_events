@@ -2,7 +2,6 @@
 
 use Extcode\CartEvents\Controller\EventController;
 use Extcode\CartEvents\Controller\EventDateController;
-use Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher;
 use Extcode\CartEvents\Hooks\DataHandler;
 use Extcode\CartEvents\Hooks\DatamapDataHandlerHook;
 use Extcode\CartEvents\Updates\SlugUpdater;
@@ -73,11 +72,6 @@ ExtensionUtility::configurePlugin(
     ],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
-
-// Cart Hooks
-
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['CartEvents']['Form']['AddToCartFinisher']
-    = AddToCartFinisher::class;
 
 // processDatamapClass Hook
 
