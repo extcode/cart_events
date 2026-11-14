@@ -2,7 +2,6 @@
 
 use Extcode\CartEvents\Controller\EventController;
 use Extcode\CartEvents\Controller\EventDateController;
-use Extcode\CartEvents\Domain\Finisher\Form\AddToCartFinisher;
 use Extcode\CartEvents\Hooks\DataHandler;
 use Extcode\CartEvents\Hooks\DatamapDataHandlerHook;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
@@ -37,15 +36,6 @@ defined('TYPO3') or die();
                         ],
                         'single_event' => [
                             'default' => [$_LLL_be . 'flexforms_template.templateLayout.single_event.default', 'default'],
-                        ],
-                    ],
-                ],
-            ],
-            'EXTCONF' => [
-                'cart' => [
-                    'CartEvents' => [
-                        'Form' => [
-                            'AddToCartFinisher' => AddToCartFinisher::class,
                         ],
                     ],
                 ],
