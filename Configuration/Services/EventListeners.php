@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use Extcode\Cart\Event\Form\AddToCartFinisherEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent as CartRetrieveProductsFromRequestEvent;
 use Extcode\CartEvents\EventListener\CheckProductAvailability;
+use Extcode\CartEvents\EventListener\Form\AddToCartFinisher;
 use Extcode\CartEvents\EventListener\Order\Stock\FlushCache;
 use Extcode\CartEvents\EventListener\Order\Stock\HandleStock;
 use Extcode\CartEvents\EventListener\RetrieveProductsFromRequest;
@@ -59,6 +61,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             [
                 'event' => CheckProductAvailabilityEvent::class,
                 'identifier' => 'cart-events--check-product-availability',
+            ]
+        )
+    ;
+
+    $services
+        ->set(AddToCartFinisher::class)
+        ->tag(
+            'event.listener',
+            [
+                'event' => AddToCartFinisherEvent::class,
+                'identifier' => 'cart-events--form--add-to-cart-finisher',
             ]
         )
     ;
