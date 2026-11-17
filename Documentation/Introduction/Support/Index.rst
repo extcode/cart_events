@@ -6,7 +6,7 @@ Support
 
 Slack
 -----
-There is an own channel at the TYPO3 Slack. Please use this cannel to contact us.
+There is an own channel at the TYPO3 Slack. Please use this channel to contact us.
 
 The URL is: https://typo3.slack.com/messages/ext-cart/
 

@@ -1,0 +1,16 @@
+[files]
+extend-exclude = [
+    # Vendored schemas, kept as published.
+    "Build/xliff-core-1.2-strict.xsd",
+    "Build/xml.xsd",
+]
+
+[default]
+extend-ignore-re = [
+    # Translation key, renaming it would drop existing translations.
+    "tx_cartevents_domain_model_eventdate\\.div\\.informations",
+]
+
+[default.extend-identifiers]
+# TYPO3 core API.
+substNEWwithIDs = "substNEWwithIDs"

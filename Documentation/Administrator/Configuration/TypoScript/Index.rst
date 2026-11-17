@@ -25,7 +25,7 @@ EXT:cart.
    Data type
       array
    Description
-      Configures how prices should be formated in frontend. The \Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper use
+      Configures how prices should be formatted in frontend. The \Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper use
       this global setting.
    Default
       The TypoScript template copy the setting from settings of the cart extension.
