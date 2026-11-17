@@ -20,7 +20,7 @@
                 <source>Relations</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.div.informations">
-                <source>Informations</source>
+                <source>Information</source>
             </trans-unit>
             <trans-unit id="tx_cartevents_domain_model_eventdate.div.dates">
                 <source>Dates</source>
