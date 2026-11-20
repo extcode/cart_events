@@ -15,6 +15,7 @@ use Exception;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Extcode\CartEvents\Domain\Model\Cart\ProductFactoryInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -42,15 +43,17 @@ final readonly class RetrieveProductsFromRequest
 
             $event->addProduct($product);
         } catch (Exception $exception) {
-            $event->setErrors(
-                [
-                    'messageBody' => LocalizationUtility::translate(
-                        $exception->getCode(),
+            $event->setErrors([
+                new FlashMessage(
+                    LocalizationUtility::translate(
+                        (string)$exception->getCode(),
                         'CartEvents'
                     ) ?? $exception->getMessage(),
-                    'severity' => ContextualFeedbackSeverity::ERROR,
-                ]
-            );
+                    '',
+                    ContextualFeedbackSeverity::ERROR,
+                    false
+                ),
+            ]);
             return;
         }
     }
