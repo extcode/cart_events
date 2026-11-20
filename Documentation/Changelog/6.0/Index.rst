@@ -9,6 +9,20 @@
    :local:
    :depth: 1
 
+6.0.3
+-----
+
+Bugfixes
+~~~~~~~~
+
+*  Pass errors as FlashMessages in RetrieveProductsFromRequest (`#145 <https://github.com/extcode/cart_events/pull/145>`__)
+
+Tasks
+~~~~~
+
+*  Check spelling with typos (`#143 <https://github.com/extcode/cart_events/pull/143>`__)
+*  List the changes of each release in the changelog
+
 6.0.2
 -----
 
